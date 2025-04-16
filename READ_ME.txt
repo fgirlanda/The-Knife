@@ -4,3 +4,5 @@ Progetto di laboratorio per Università degli studi dell'Insubria, corso di Info
 
 Il progetto è ancora in fase di progettazione, è disponibile il documento relativo, in lavorazione, scritto in Latex (formato tex)
 
+Link per visualizzare e modificare il documento di progettazione: https://it.overleaf.com/6875229844vtytrbxfcyzc#8e5919
+
