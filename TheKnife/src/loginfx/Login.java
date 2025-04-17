@@ -11,7 +11,7 @@ public class Login extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("La mia App JavaFX");
+        stage.setTitle("TheKnife - Login");
         stage.show();
     }
 
