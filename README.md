@@ -43,6 +43,14 @@ Se ci sono dei conflitti (indicati dal terminale)ç
 
 nota: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in modo da ridurre il rischio di conflitti
 
+Per lavorare su un branch specifico già esistente:
+
+1) git fetch origin (aggiorna i riferimenti)
+2) git branch -r (restituisce una lista dei branch attualmente aperti)
+3) git checkout nome_branch ("sposta" l'utente sul branch desiderato)
+
+nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch di default (origin/HEAD) è impostato sul branch main (origin/main)
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 GRAFICA:
