@@ -45,10 +45,21 @@ nota: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+GRAFICA:
+
+Font/font-size:
+
+- label -> System 18px
+- button -> System 14px
+- testo mini -> System 12px
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 LOG MODIFICHE:
 
-18-04-2025: - riorganizzazione readme + esempio.json (fgirlanda)
-            - modifica struttura src
+18-04-2025: fgirlanda -> - riorganizzazione readme + esempio.json 
+                         - modifica struttura src
+                         - creazione profilo_cliente.fxml nel branch grafica/profilo_cliente
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
