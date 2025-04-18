@@ -47,7 +47,8 @@ nota: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in 
 
 LOG MODIFICHE:
 
-18-04-2025: riorganizzazione readme + esempio.json (fgirlanda)
+18-04-2025: - riorganizzazione readme + esempio.json (fgirlanda)
+            - modifica struttura src
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
