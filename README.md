@@ -73,6 +73,10 @@ LOG MODIFICHE:
                          - modifica struttura src
                          - creazione profilo_cliente.fxml nel branch grafica/profilo_cliente
 
+19-04-2025: fgirlanda -> - modifica a file LoginController, Login, Registrazione
+                         - collegamento bottone registrati -> apertura finestra registrazione
+                         - creazione file TheKnife (principale)
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
 
