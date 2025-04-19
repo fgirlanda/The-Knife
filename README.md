@@ -23,7 +23,7 @@ nota: c'è un file "esempio.json" nella cartella principale del progetto, assicu
 
 4) Per avviare il programma bisogna andare nella finestra Run & Debug (toolbar a sinistra in visual studio code) e selezionare "Launch JavaFX App" (vedi immagine: istruzioni avvio)
 
-![Screenshot](Documentazione/img/istruzioni.png)
+![Screenshot](Documentazione/img/istruzioni_avvio.png)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
