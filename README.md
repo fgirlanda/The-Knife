@@ -77,6 +77,10 @@ LOG MODIFICHE:
                          - collegamento bottone registrati -> apertura finestra registrazione
                          - creazione file TheKnife (principale)
 
+19-04-2025: matlmbe   -> - creazione RegistazioneController
+                         - assegnazione id radiobutton
+                         - toggle-goup radiobutton
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
 
