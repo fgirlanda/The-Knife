@@ -1,9 +1,9 @@
 import fileJava.Login;
-import javafx.stage.Stage;
+import javafx.application.Application;
 
 public class TheKnife {
     public static void main(String[] args) throws Exception {
-        Login login = new Login();
-        login.start(new Stage());
+        Application.launch(Login.class, args);
+        // Application.launch(Registrazione.class, args);
     }
 }

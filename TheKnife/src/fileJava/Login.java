@@ -1,5 +1,6 @@
 package fileJava;
 
+import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,14 +10,16 @@ import javafx.stage.Stage;
 public class Login extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../GUI/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/login.fxml"));
+        Parent root = loader.load();;
+
+        LoginController controller = loader.getController();
+        controller.setStage(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("TheKnife - Login");
+        stage.setTitle("The Knife - Login");
+        // LoginController controller = new LoginController();
+        // controller.setStage(stage); 
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
