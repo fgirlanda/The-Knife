@@ -15,12 +15,13 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
             "type": "java",
             "name": "Launch JavaFX App",
             "request": "launch",
-            "mainClass": "loginfx.Login",
+            "mainClass": "loginfx.Login", (*)
             "vmArgs": "--module-path <javaFX_path> --add-modules javafx.controls,javafx.fxml"
         }
     - Modificare/creare il file settings.json nella stessa cartella (.vscode)
 
-nota: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella principale del progetto, assicurarsi che i file launch.json e settings.json seguano gli esempi
+nota 1: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella principale del progetto, assicurarsi che i file launch.json e settings.json seguano gli esempi
+*nota 2: modificando la voce mainClass è possibile indicare a visual studio quale file avviare, utile per testare le singole pagine
 
 4) Per avviare il programma bisogna andare nella finestra Run & Debug (toolbar a sinistra in visual studio code) e selezionare "Launch JavaFX App" (vedi immagine sotto)
 
@@ -30,13 +31,14 @@ nota: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella prin
 
 PASSAGGI PER CONTRIBUIRE:
 
-1) git status (verificare di essere sul branch main)
-2) git pull 
+1) git status (verificare di essere sul branch main e se ci sono eventuali modifiche da pullare)
+2) git pull (se necessario)
 3) git checkout -b nome_branch (crea un nuovo branch, esempio: grafica/principale)
 4) git add -A (a fine modifiche)
 5) git commit -m "messaggio" (esempio: "aggiunta schermata principale")
+6) git push origin nome_branch (aggiunge il branch creato a github)
 6) git checkout main
-7) git merge nome_branch
+7) git merge nome_branch (se il branch è terminato)
 
 Se ci sono dei conflitti (indicati dal terminale)ç
 
@@ -46,7 +48,12 @@ Se ci sono dei conflitti (indicati dal terminale)ç
 
 11) git branch -d nome_branch (se è stato eseguito il merge correttamente, il branch viene eliminato)
 
-nota: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in modo da ridurre il rischio di conflitti
+nota 1: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in modo da ridurre il rischio di conflitti
+
+nota 2: se si vuole testare il merge prima di effettuarlo seguire i seguenti passaggi: - creare un nuovo branch test-merge (questo "copia" il main attuale su un branch separato)
+                                                                                       - eseguire il merge del branch desiderato sul test-merge
+                                                                                       - risolvere eventuali conflitti
+                                                                                       - infine eseguire il merge tra main e test-merge
 
 Per lavorare su un branch specifico già esistente:
 
@@ -81,6 +88,9 @@ LOG MODIFICHE:
 19-04-2025: matlmbe   -> - creazione RegistazioneController
                          - assegnazione id radiobutton
                          - toggle-goup radiobutton
+
+23-04-2025 fgirlanda -> - creazione controller per profili e pagina ristorante
+                        - creazione file java per profili e pagina ristorante
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
