@@ -6,7 +6,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 
-public class registrazioneController {
+public class RegistrazioneController {
 
     private Stage stage;
 

@@ -1,6 +1,6 @@
 package fileJava;
 
-import controller.registrazioneController;
+import controller.RegistrazioneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +13,7 @@ public class Registrazione extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/registrazione.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        registrazioneController controller = loader.getController();
+        RegistrazioneController controller = loader.getController();
         controller.setStage(stage);
         stage.setScene(scene);
         stage.setTitle("TheKnife - Registrazione");
