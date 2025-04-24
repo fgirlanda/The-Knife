@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controller.ProfiloClienteController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfiloRistoratoreController">
   <tabs>
     <Tab text="Dati personali">
          <content>
@@ -114,31 +114,14 @@
             </AnchorPane>
          </content>
     </Tab>
-    <Tab text="Preferiti">
+    <Tab text="I miei ristoranti">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ScrollPane layoutX="105.0" layoutY="103.0" prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane />
-                    </content>
-                  </ScrollPane>
+                  <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </content>
     </Tab>
-      <Tab text="Le mie recensioni">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ScrollPane layoutX="153.0" layoutY="173.0" prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane />
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
   </tabs>
 </TabPane>
