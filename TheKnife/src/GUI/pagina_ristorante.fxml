@@ -22,7 +22,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/esempio_ristorante.png" />
+                              <Image url="@/resources/esempio_ristorante.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -38,7 +38,7 @@
                            <graphic>
                               <ImageView fitHeight="17.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../resources/stella.png" />
+                                    <Image url="@/resources/stella.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -59,7 +59,7 @@
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/cuore_vuoto.png" />
+                        <Image url="@/resources/cuore_vuoto.png" />
                      </image>
                   </ImageView>
                </graphic>
