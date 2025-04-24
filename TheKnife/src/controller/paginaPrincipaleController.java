@@ -2,7 +2,7 @@ package controller;
 
 import javafx.stage.Stage;
 
-public class profiloRistoratoreController {
+public class paginaPrincipaleController {
 
     private Stage stage;
 
