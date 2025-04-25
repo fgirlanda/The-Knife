@@ -92,6 +92,9 @@ LOG MODIFICHE:
 23-04-2025 fgirlanda -> - creazione controller per profili e pagina ristorante
                         - creazione file java per profili e pagina ristorante
 
+25-04-2025 fgirlanda -> - creazione script di test
+                        - spostati file fxml 
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
 
