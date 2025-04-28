@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class cardRistorante extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/card_ristorante.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/card_ristorante.fxml"));
         Parent root = loader.load();;
 
         cardRistoranteController controller = loader.getController();

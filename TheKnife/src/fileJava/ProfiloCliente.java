@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class profiloCliente extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/profilo_cliente.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/profilo_cliente.fxml"));
         Parent root = loader.load();;
 
         profiloClienteController controller = loader.getController();
