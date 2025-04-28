@@ -75,6 +75,21 @@ Font/font-size:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+TO DO:
+
+- aggiungere test a gitignore
+- modificare test
+- creare classi: - Ristorante
+                 - Utente
+                 - listaRistoranti(?)
+                 - listaUtenti(?)
+                 - eventuali
+- capire come gestire i file csv
+- creare dialog: - aggiungere un ristorante
+                 - modificare dati personali
+- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 LOG MODIFICHE:
 
 18-04-2025: fgirlanda -> - riorganizzazione readme + esempio.json 
