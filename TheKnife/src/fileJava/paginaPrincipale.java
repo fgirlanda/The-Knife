@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class PaginaPrincipale extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/pagina_principale.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/pagina_principale.fxml"));
         Parent root = loader.load();;
 
         PaginaPrincipaleController controller = loader.getController();

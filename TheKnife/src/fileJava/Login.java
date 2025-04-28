@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class Login extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/login.fxml"));
         Parent root = loader.load();;
 
         LoginController controller = loader.getController();
