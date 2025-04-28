@@ -3,7 +3,7 @@ import subprocess
 import time
 import os
 
-javafx_path = "C:\\Users\\Frank\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib" 
+javafx_path = "C:\\Users\\Frank\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib" ##modificare il percorso in base alla posizione della tua installazione di JavaFX 
 
 main_classes = []
 main_classes_path = os.path.join(os.path.dirname(__file__), "fileJava")
