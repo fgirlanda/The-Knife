@@ -2,7 +2,7 @@ package controller;
 
 import javafx.stage.Stage;
 
-public class CardRistoranteController {
+public class cardRistoranteController {
 
     private Stage stage;
 

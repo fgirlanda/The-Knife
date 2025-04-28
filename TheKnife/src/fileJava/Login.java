@@ -13,7 +13,7 @@ public class Login extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/login.fxml"));
         Parent root = loader.load();;
 
-        LoginController controller = loader.getController();
+        loginController controller = loader.getController();
         controller.setStage(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -1,19 +1,19 @@
 package fileJava;
 
-import controller.CardRistoranteController;
+import controller.cardRistoranteController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CardRistorante extends Application {
+public class cardRistorante extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../bin/GUI/card_ristorante.fxml"));
         Parent root = loader.load();;
 
-        CardRistoranteController controller = loader.getController();
+        cardRistoranteController controller = loader.getController();
         controller.setStage(stage);
         Scene scene = new Scene(root);
         stage.setScene(scene);
