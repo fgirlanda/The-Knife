@@ -16,7 +16,7 @@ controller_classes_path = os.path.join(os.path.dirname(__file__), "controller")
 for file in os.listdir(controller_classes_path):
     if file.endswith(".java"):
         controller_classes.append(file)
-DELAY_SECONDS = 1
+DELAY_SECONDS = 2
 
 
 
@@ -29,6 +29,7 @@ def esegui_app_javafx(main_class):
         "java",
         "--module-path", javafx_path,
         "--add-modules", "javafx.controls,javafx.fxml",
+        "--enable-native-access=javafx.graphics",
         "-cp", classpath,  
         full_class_name
     ])
