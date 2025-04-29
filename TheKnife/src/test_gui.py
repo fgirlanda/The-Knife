@@ -1,8 +1,7 @@
 import subprocess
 import time
 import os
-
-javafx_path = "C:\\Users\\Frank\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib" ##modificare il percorso in base alla posizione della tua installazione di JavaFX 
+import TheKnife.src.private_keys as private_keys
 
 main_classes = []
 main_classes_path = os.path.join(os.path.dirname(__file__), "fileJava")
@@ -24,7 +23,7 @@ def compila_java(file):
 
     subprocess.run([
         "javac",
-        "--module-path", javafx_path,
+        "--module-path", private_keys.javafx_path,
         "--add-modules", "javafx.controls,javafx.fxml",
         "-sourcepath", "src",
         "-d", "bin",
@@ -36,7 +35,7 @@ def esegui_app_javafx(main_class):
     full_class_name = f"fileJava.{main_class}"
     return subprocess.Popen([
         "java",
-        "--module-path", javafx_path,
+        "--module-path", private_keys,
         "--add-modules", "javafx.controls,javafx.fxml",
         "-cp", "bin",  
         full_class_name

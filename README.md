@@ -65,6 +65,14 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+SCRIPT TEST:
+
+c'è un file test_gui.py che permette di testare tutte le finestre contenute in src/fileJava, per farlo funzionare è necessario creare un file private_keys.py e inserire la variabile javafx_path contenente il proprio percorso alla cartella lib di javafx
+
+nota: seguire il file di esempio "private_keys_ex.py"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 GRAFICA:
 
 Font/font-size:
@@ -113,6 +121,9 @@ LOG MODIFICHE:
 
 25-04-2025 fgirlanda -> - creazione test_gui.py
                         - riorganizzazione file fxml
+
+29-04-2025 fgirlanda -> - modifica test_gui.py
+                        - creazione private_keys.py
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------

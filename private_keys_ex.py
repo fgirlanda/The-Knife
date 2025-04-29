@@ -1,0 +1,1 @@
+javafx_path = "C:\\Users\\Pippo\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib"
