@@ -1,3 +1,4 @@
+import shutil
 import subprocess
 import time
 import os
@@ -8,6 +9,7 @@ main_classes = []
 main_classes_path = os.path.join(os.path.dirname(__file__), "fileJava")
 for file in os.listdir(main_classes_path):
     main_classes.append(file.split(".")[0])
+
     
 controller_classes = []
 controller_classes_path = os.path.join(os.path.dirname(__file__), "controller")
@@ -16,49 +18,52 @@ for file in os.listdir(controller_classes_path):
         controller_classes.append(file)
 DELAY_SECONDS = 1
 
-def compila_java(file):    
-    if 'Controller' in file:
-        path_file = os.path.join(controller_classes_path, file)
-    else:
-        path_file = os.path.join(main_classes_path, file)
 
-    subprocess.run([
-        "javac",
-        "--module-path", javafx_path,
-        "--add-modules", "javafx.controls,javafx.fxml",
-        "-sourcepath", "src",
-        "-d", "bin",
-        path_file
-    ])
 
 
 def esegui_app_javafx(main_class):
     full_class_name = f"fileJava.{main_class}"
+    sep = ";" if os.name == "nt" else ":"
+    classpath = "bin" + sep + "src"
     return subprocess.Popen([
         "java",
         "--module-path", javafx_path,
         "--add-modules", "javafx.controls,javafx.fxml",
-        "-cp", "bin",  
+        "-cp", classpath,  
         full_class_name
     ])
 
 
-def main():   
+def main():
+    all_java_files = []
+
     for controller_class in controller_classes:
-        compila_java(controller_class)
-        print(f"✅ Compilazione {controller_class} completata.")
+        all_java_files.append(os.path.join(controller_classes_path, controller_class))
+
+    for main_class in main_classes:
+        java_file = f"{main_class}.java"
+        all_java_files.append(os.path.join(main_classes_path, java_file))
+    
+    if os.path.exists("bin"):
+        shutil.rmtree("bin")
+        os.mkdir("bin")
+        
+    subprocess.run([
+        "javac",
+        "--module-path", javafx_path,
+        "--add-modules", "javafx.controls,javafx.fxml",
+        "-d", "bin"
+    ] + all_java_files)
+    print("✅ Tutti i file java compilati.\n")
     
     for main_class in main_classes:
-        full_file = f"{main_class}.java"
-        compila_java(full_file)
-        print(f"✅ Compilato: {main_class}")
-        print(f"\n▶️ Avvio {main_class}...")
+        print(f"▶️ Avvio {main_class}...")
 
         processo = esegui_app_javafx(main_class)
         time.sleep(DELAY_SECONDS)
 
         processo.terminate()
-        print(f"✅ Testata: {main_class}")
+        print(f"✅ Testata: {main_class}\n")
 
     print("\n✅ Tutti i test completati.")
 
