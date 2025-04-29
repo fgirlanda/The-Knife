@@ -14,14 +14,14 @@
    <children>
       <ImageView fitHeight="195.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../src/resources/esempio_ristorante.png" />
+            <Image url="@/resources/esempio_ristorante.png" />
          </image>
       </ImageView>
       <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../src/resources/cuore_vuoto.png" />
+                  <Image url="@/resources/cuore_vuoto.png" />
                </image>
             </ImageView>
          </graphic>

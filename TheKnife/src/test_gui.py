@@ -1,8 +1,9 @@
 import subprocess
 import time
 import os
-import TheKnife.src.private_keys as private_keys
+import private_keys
 
+javafx_path = private_keys.javafx_path
 main_classes = []
 main_classes_path = os.path.join(os.path.dirname(__file__), "fileJava")
 for file in os.listdir(main_classes_path):
@@ -23,7 +24,7 @@ def compila_java(file):
 
     subprocess.run([
         "javac",
-        "--module-path", private_keys.javafx_path,
+        "--module-path", javafx_path,
         "--add-modules", "javafx.controls,javafx.fxml",
         "-sourcepath", "src",
         "-d", "bin",
@@ -35,7 +36,7 @@ def esegui_app_javafx(main_class):
     full_class_name = f"fileJava.{main_class}"
     return subprocess.Popen([
         "java",
-        "--module-path", private_keys,
+        "--module-path", javafx_path,
         "--add-modules", "javafx.controls,javafx.fxml",
         "-cp", "bin",  
         full_class_name
