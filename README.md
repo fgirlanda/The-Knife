@@ -85,8 +85,8 @@ Font/font-size:
 
 TO DO:
 
-- aggiungere test a gitignore
-- modificare test
+- aggiungere test a gitignore (FATTO)
+- modificare test (FATTO)
 - creare classi: - Ristorante
                  - Utente
                  - listaRistoranti(?)
