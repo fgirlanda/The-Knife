@@ -128,6 +128,8 @@ LOG MODIFICHE:
 29-04-2025 matlmbe   -> - creazione prime classi
                         - adattamento struttura con camelCase
 
+30-04-2025 fgirlanda -> - inizio bottoni cambio_pagina (da finire)
+
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------

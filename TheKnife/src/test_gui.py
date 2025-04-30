@@ -19,8 +19,6 @@ for file in os.listdir(controller_classes_path):
 DELAY_SECONDS = 2
 
 
-
-
 def esegui_app_javafx(main_class):
     full_class_name = f"fileJava.{main_class}"
     sep = ";" if os.name == "nt" else ":"
