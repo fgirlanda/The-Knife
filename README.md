@@ -125,6 +125,10 @@ LOG MODIFICHE:
 29-04-2025 fgirlanda -> - modifica test_gui.py
                         - creazione private_keys.py
 
+29-04-2025 matlmbe   -> - creazione prime classi
+                        - adattamento struttura con camelCase
+
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
