@@ -20,14 +20,17 @@ public class loginController {
     private void apriRegistrazione() {
         try {
             // Carica la nuova scena per la registrazione
-            Parent root = FXMLLoader.load(getClass().getResource("/GUI/registrazione.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../GUI/registrazione.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
-
+            
+            
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
             stage.setTitle("The Knife - Registrazione");
-
-            // Puoi aggiungere animazioni qui se vuoi (es. fade)
+            
+            registrazioneController controller = loader.getController();
+            controller.setStage(stage);
 
         } catch (Exception e) {
             e.printStackTrace();

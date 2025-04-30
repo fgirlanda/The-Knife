@@ -96,7 +96,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button mnemonicParsing="false" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#apriLogin">
                <font>
                   <Font size="14.0" />
                </font>

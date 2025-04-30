@@ -18,7 +18,7 @@
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </MenuButton>
-      <Button layoutX="484.0" layoutY="14.0" mnemonicParsing="false" text="registrati / login" />
+      <Button fx:id="bottoneRegistratiProfilo" layoutX="484.0" layoutY="14.0" mnemonicParsing="false" text="Registrati" onAction="#gestisciBottoneUtente" />
       <ScrollPane layoutX="14.0" layoutY="52.0" prefHeight="341.0" prefWidth="578.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="341.0" prefWidth="576.0" />
