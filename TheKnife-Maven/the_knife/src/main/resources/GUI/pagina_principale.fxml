@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.paginaPrincipaleController">
+   <children>
+      <TextField layoutX="63.0" layoutY="14.0" prefHeight="25.0" prefWidth="297.0" promptText="cerca" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="cerca" />
+      <MenuButton layoutX="366.0" layoutY="14.0" mnemonicParsing="false" text="filtri">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <Button fx:id="bottoneRegistratiProfilo" layoutX="484.0" layoutY="14.0" mnemonicParsing="false" text="Registrati" onAction="#gestisciBottoneUtente" />
+      <ScrollPane layoutX="14.0" layoutY="52.0" prefHeight="341.0" prefWidth="578.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="341.0" prefWidth="576.0" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
