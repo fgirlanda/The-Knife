@@ -104,11 +104,12 @@ La cartella TheKnife-Maven contiene un clone del progetto, ma strutturato con ma
 
 1) scaricare il file .zip (sotto la cartella Link) qui: https://maven.apache.org/download.cgi
 2) estrarre la cartella contenuta nel file zip
-3) modificare/verificare variabili di sistema: - aggiungere alla variabile Path il percorso alla cartella bin, contenuta nella cartella estratta al passo 2 (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin)
-                                               - creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
-                                               - verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
+3) modificare/verificare variabili di sistema: 
+- aggiungere alla variabile Path il percorso alla cartella bin, contenuta nella cartella estratta al passo 2 (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin)
+- creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
+- verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
 
-                                               
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 LOG MODIFICHE:
