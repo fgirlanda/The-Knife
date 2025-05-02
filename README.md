@@ -19,10 +19,9 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
             "vmArgs": "--module-path <javaFX_path> --add-modules javafx.controls,javafx.fxml"
         }
 
-nota 1: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella principale del progetto, assicurarsi che i file launch.json e settings.json seguano gli esempi
-*nota 2: modificando la voce mainClass è possibile indicare a visual studio quale file avviare, utile per testare le singole pagine
+nota 1: vedere il file di esempio "launch_ex.json" nella cartella principale del progetto come riferimento
 
-4) Per avviare il programma bisogna andare nella finestra Run & Debug (toolbar a sinistra in visual studio code) e selezionare "Launch JavaFX App" (vedi immagine sotto)
+4) Per avviare il programma o un'interfaccia bisogna aprire il relativo file java nell'editor, andare nella finestra Run & Debug (toolbar a sinistra in visual studio code) e selezionare "File corrente" (vedi immagine sotto)
 
 ![Screenshot](Documentazione/img/istruzioni_avvio.png)
 
@@ -30,12 +29,17 @@ nota 1: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella pr
 
 PASSAGGI PER CONTRIBUIRE:
 
-1) git status (verificare di essere sul branch main e se ci sono eventuali modifiche da pullare)
+1) git fetch -> git status (verificare il branch attuale e se ci sono modifiche da pullare)
 2) git pull (se necessario)
 3) git checkout -b nome_branch (crea un nuovo branch, esempio: grafica/principale)
+...
+modifiche
+...
 4) git add -A (a fine modifiche)
-5) git commit -m "messaggio" (esempio: "aggiunta schermata principale")
+5) git commit -m "messaggio" (ex: "aggiunta schermata principale")
 6) git push origin nome_branch (aggiunge il branch creato a github)
+
+Merge:
 6) git checkout main
 7) git merge nome_branch (se il branch è terminato)
 
@@ -45,7 +49,8 @@ Se ci sono dei conflitti (indicati dal terminale)ç
 9) git add .
 10) git commit -m "merge main-nome_branch"
 
-11) git branch -d nome_branch (se è stato eseguito il merge correttamente, il branch viene eliminato)
+11) git branch -d nome_branch (se è stato eseguito il merge correttamente, il branch viene eliminato localmente)
+12) git push origin --delete nome_branch (elimina il branch anche da github)
 
 nota 1: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in modo da ridurre il rischio di conflitti
 
@@ -57,7 +62,7 @@ nota 2: se si vuole testare il merge prima di effettuarlo seguire i seguenti pas
 Per lavorare su un branch specifico già esistente:
 
 1) git fetch origin (aggiorna i riferimenti)
-2) git branch -r (restituisce una lista dei branch attualmente aperti)
+2) git branch -r (restituisce una lista dei branch attualmente presenti SU GITHUB, per vedere quelli in locale basta togliere "-r")
 3) git checkout nome_branch ("sposta" l'utente sul branch desiderato)
 
 nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch di default (origin/HEAD) è impostato sul branch main (origin/main)
