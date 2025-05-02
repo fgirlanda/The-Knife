@@ -13,12 +13,11 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
         ,{
             "type": "java",
-            "name": "Launch JavaFX App",
+            "name": "File corrente",
             "request": "launch",
-            "mainClass": "loginfx.Login", (*)
+            "mainClass": "${file}", //questo fa in modo di avviare il file attualmente aperto nell'editor di vscode
             "vmArgs": "--module-path <javaFX_path> --add-modules javafx.controls,javafx.fxml"
         }
-    - Modificare/creare il file settings.json nella stessa cartella (.vscode)
 
 nota 1: ci sono due file "settings_ex.json" e "launch_ex.json" nella cartella principale del progetto, assicurarsi che i file launch.json e settings.json seguano gli esempi
 *nota 2: modificando la voce mainClass è possibile indicare a visual studio quale file avviare, utile per testare le singole pagine
@@ -108,6 +107,21 @@ La cartella TheKnife-Maven contiene un clone del progetto, ma strutturato con ma
 - aggiungere alla variabile Path il percorso alla cartella bin, contenuta nella cartella estratta al passo 2 (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin)
 - creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
 - verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
+
+Avvio applicazione/interfacce:
+
+1) Tramite launch.json:
+
+- Aprire la cartella TheKnife-Maven
+- Andare su "Run" -> Add configuration
+- Modificare il file launch.json seguendo l'esempio launch_ex.json
+- Aprire nell'editor il file desiderato, andare su "Run & Debug" e selezionare "File corrente"
+
+2) Tramite comando da terminale:
+
+- Configurare nel file pom il file da eseguire (ex: com.gruppo10.fileJava.Login) 
+- Assicurarsi di essere nella cartella the_knife all'interno del terminale
+- lanciare il comando "mvn javafx:run -f pom.xml"
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------

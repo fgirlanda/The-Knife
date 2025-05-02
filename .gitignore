@@ -2,3 +2,5 @@ TheKnife/.vscode/launch.json
 TheKnife/.vscode/settings.json
 TheKnife/src/private_keys.py
 TheKnife/src/__pycache__/*
+TheKnife-Maven/.vscode/launch.json
+TheKnife-Maven/.vscode/settings.json

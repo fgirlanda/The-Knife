@@ -22,4 +22,7 @@ public class paginaPrincipale extends Application {
         // controller.setStage(stage); 
         stage.show();
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
