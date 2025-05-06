@@ -1,0 +1,37 @@
+package com.gruppo10.classi;
+
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class UtenteWriterTest {
+
+    @Test
+    public void testScriviUtente() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+        // Prepara un oggetto utente di test
+        
+        Utente utente = new Utente();
+        Ruolo ruolo = Ruolo.CLIENTE; // Assicurati che Ruolo sia un enum definito correttamente
+        utente.setNome("Mario");
+        utente.setCognome("Rossi");
+        utente.setUsername("mrossi");
+        utente.setPassword("password123");
+        utente.setDataDiNascita("01-01-1990"); // Assicurati che il formato della data sia corretto
+        utente.setIndirizzo("Via Roma 1");
+        utente.setRuolo("cliente"); // Assicurati che Ruolo sia un enum definito correttamente
+
+        // Scrive l'utente nel file
+        utenteWriter writer = new utenteWriter();
+        writer.scriviUtente(utente);
+
+        // Verifica che il file sia stato creato
+        File file = new File("/fileCSV/utenti.csv");
+        assertTrue(file.exists(), "Il file utenti.csv dovrebbe essere stato creato");
+    }
+}

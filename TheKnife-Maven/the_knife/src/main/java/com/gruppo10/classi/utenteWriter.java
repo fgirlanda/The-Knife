@@ -1,23 +1,37 @@
 package com.gruppo10.classi;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
-
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.CSVWriter;
+// ...existing imports...
 
 public class utenteWriter {
-    
-    public void scriviUtente(Utente utente) throws IOException {
-        Writer writer = new FileWriter("/fileCSV/utenti.csv", true);
-        StatefulBeanToCsv<Utente> statefulBeanToCsv = new StatefulBeanToCsvBuilder<Utente>(writer).build();
-        // try (CSVWriter csvWriter = new CSVWriter(writer)) {
-        //     String[] record = {utente.getNome(), utente.getCognome(), utente.getUsername(), utente.getPassword(), utente.getDataDiNascita().toString(), utente.getIndirizzo(), utente.getRuolo().name()};
-        //     csvWriter.writeNext(record);
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+
+    public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+        File fileUtente = new File("/fileCSV/utenti.csv");
+        boolean fileEsiste = fileUtente.exists();
+
+        try (Writer writer = new FileWriter(fileUtente, true)) {
+            // Se il file non esiste, scrivi l'header
+            if (!fileEsiste) {
+                CSVWriter csvWriter = new CSVWriter(writer);
+                String[] header = { "Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo" }; // Sostituisci con i nomi dei campi della classe Utente
+                csvWriter.writeNext(header);
+                csvWriter.flush();
+            }
+
+            // Scrivi i dati dell'utente
+            StatefulBeanToCsv<Utente> statefulBeanToCsv = new StatefulBeanToCsvBuilder<Utente>(writer).build();
+            statefulBeanToCsv.write(utente);
+            writer.close();
+        }
     }
 }
+
+

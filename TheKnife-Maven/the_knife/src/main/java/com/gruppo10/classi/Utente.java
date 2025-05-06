@@ -2,11 +2,19 @@ package com.gruppo10.classi;
 
 import java.time.LocalDate;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
+import lombok.Getter;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class Utente {
     @CsvBindByName
     private String nome;
@@ -16,12 +24,13 @@ public class Utente {
     private String username;
     @CsvBindByName
     private String password;
-    @CsvBindByName
+    @CsvCustomBindByName(converter = localDateConverter.class)
     private LocalDate dataDiNascita;
     @CsvBindByName
     private String indirizzo;
-    @CsvBindByName
+    @CsvCustomBindByName(converter = ruoloConverter.class)
     private Ruolo ruolo;
+
 
     // Enum per il ruolo
     public enum Ruolo {
@@ -30,74 +39,26 @@ public class Utente {
         NON_REGISTRATO
     }
 
-    // Costruttore
-    public Utente(String nome, String cognome, String username, String password, LocalDate dataDiNascita, String indirizzo, Ruolo ruolo) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.username = username;
-        this.password = password;
-        this.dataDiNascita = dataDiNascita;
-        this.indirizzo = indirizzo;
-        this.ruolo = ruolo;
+
+    public void setDataDiNascita(String dataDiNascita) {
+        String[] parts = dataDiNascita.split("-");
+        int giorno = Integer.parseInt(parts[0]);
+        int mese = Integer.parseInt(parts[1]);
+        int anno = Integer.parseInt(parts[2]);
+        this.dataDiNascita = LocalDate.of(anno, mese, giorno);
     }
 
-    // Getter e Setter
-    public String getNome() {
-        return nome;
+    public void setRuolo(String ruolo) {
+        try {
+            this.ruolo = Ruolo.valueOf(ruolo.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            this.ruolo = Ruolo.NON_REGISTRATO; // Valore di default se non riconosciuto
+        }
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
-    public String getCognome() {
-        return cognome;
-    }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public LocalDate getDataDiNascita() {
-        return dataDiNascita;
-    }
-
-    public void setDataDiNascita(LocalDate dataDiNascita) {
-        this.dataDiNascita = dataDiNascita;
-    }
-
-    public String getIndirizzo() {
-        return indirizzo;
-    }
-
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
-    }
-
-    public Ruolo getRuolo() {
-        return ruolo;
-    }
-
-    public void setRuolo(Ruolo ruolo) {
-        this.ruolo = ruolo;
-    }
-
+ 
     // Metodo toString per rappresentazione testuale
     @Override
     public String toString() {
