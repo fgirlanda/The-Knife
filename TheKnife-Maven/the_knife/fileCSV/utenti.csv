@@ -1,0 +1,5 @@
+"Nome","Cognome","Username","Password","Data di nascita","Indirizzo","Ruolo"
+"COGNOME","DATADINASCITA","INDIRIZZO","NOME","PASSWORD","RUOLO","USERNAME"
+"Rossi","1990-01-01","Via Roma 1","Mario","password123","CLIENTE","mrossi"
+"COGNOME","DATADINASCITA","INDIRIZZO","NOME","PASSWORD","RUOLO","USERNAME"
+"Rossi","1990-01-01","Via Roma 1","Mario","password123","CLIENTE","mrossi"

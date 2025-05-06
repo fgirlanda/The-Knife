@@ -16,7 +16,7 @@
     </properties>
 
     <dependencies>
-        <!-- JavaFX modules -->
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -28,19 +28,22 @@
             <version>24.0.1</version>
         </dependency>
 
+        <!-- opencsv  -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.9</version>
         </dependency>
 
+        <!-- lombok  -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version> <!-- Usa sempre l'ultima versione stabile -->
+            <version>1.18.38</version> 
             <scope>provided</scope>
         </dependency>
 
+        <!-- junit  -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -61,6 +64,21 @@
                 <configuration>
                     <mainClass>com.gruppo10.fileJava.Registrazione</mainClass> <!-- cambia con il tuo fully qualified main -->
                 </configuration>
+            </plugin>
+
+            <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-compiler-plugin</artifactId>
+                  <version>3.14.0</version>
+                  <configuration>
+                    <annotationProcessorPaths>
+                      <path>
+                        <groupId>org.projectlombok</groupId>     
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.38</version>
+                      </path>
+                    </annotationProcessorPaths>
+                  </configuration>
             </plugin>
         </plugins>
     </build>

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,7 +16,6 @@ public class UtenteWriterTest {
         // Prepara un oggetto utente di test
         
         Utente utente = new Utente();
-        Ruolo ruolo = Ruolo.CLIENTE; // Assicurati che Ruolo sia un enum definito correttamente
         utente.setNome("Mario");
         utente.setCognome("Rossi");
         utente.setUsername("mrossi");
@@ -31,7 +29,7 @@ public class UtenteWriterTest {
         writer.scriviUtente(utente);
 
         // Verifica che il file sia stato creato
-        File file = new File("/fileCSV/utenti.csv");
+        File file = new File("fileCSV/utenti.csv");
         assertTrue(file.exists(), "Il file utenti.csv dovrebbe essere stato creato");
     }
 }
