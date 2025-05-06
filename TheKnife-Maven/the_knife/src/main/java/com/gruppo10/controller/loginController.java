@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class loginController {
+public class LoginController {
 
     private Stage stage;
 
@@ -29,7 +29,7 @@ public class loginController {
             stage.setScene(scene);
             stage.setTitle("The Knife - Registrazione");
             
-            registrazioneController controller = loader.getController();
+            RegistrazioneController controller = loader.getController();
             controller.setStage(stage);
 
         } catch (Exception e) {

@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class paginaPrincipaleController {
+public class PaginaPrincipaleController {
 
     private Stage stage;
     @FXML
@@ -39,7 +39,7 @@ public class paginaPrincipaleController {
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
             stage.setTitle("The Knife - Registrazione");
-            registrazioneController controller = loader.getController();
+            RegistrazioneController controller = loader.getController();
             controller.setStage(stage);
 
             // Puoi aggiungere animazioni qui se vuoi (es. fade)
@@ -59,7 +59,7 @@ public class paginaPrincipaleController {
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
             stage.setTitle("The Knife - Profilo");
-            profiloClienteController controller = loader.getController();
+            ProfiloClienteController controller = loader.getController();
             controller.setStage(stage);
 
             // Puoi aggiungere animazioni qui se vuoi (es. fade)

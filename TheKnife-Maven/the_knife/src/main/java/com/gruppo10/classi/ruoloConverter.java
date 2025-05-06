@@ -2,7 +2,7 @@ package com.gruppo10.classi;
 
 import com.opencsv.bean.AbstractBeanField;
 
-public class ruoloConverter extends AbstractBeanField<Utente.Ruolo, String> {
+public class RuoloConverter extends AbstractBeanField<Utente.Ruolo, String> {
 
     @Override
     protected Object convert(String value) {

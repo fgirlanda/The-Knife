@@ -2,10 +2,6 @@ package com.gruppo10.classi;
 
 import java.time.LocalDate;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
@@ -21,11 +17,11 @@ public class Utente {
     private String username;
     @CsvBindByName
     private String password;
-    @CsvCustomBindByName(converter = localDateConverter.class)
+    @CsvCustomBindByName(converter = LocalDateConverter.class)
     private LocalDate dataDiNascita;
     @CsvBindByName
     private String indirizzo;
-    @CsvCustomBindByName(converter = ruoloConverter.class)
+    @CsvCustomBindByName(converter = RuoloConverter.class)
     private Ruolo ruolo;
 
 

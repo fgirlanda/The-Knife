@@ -4,7 +4,7 @@ import com.opencsv.bean.AbstractBeanField;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class localDateConverter extends AbstractBeanField<LocalDate, String> {
+public class LocalDateConverter extends AbstractBeanField<LocalDate, String> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Override

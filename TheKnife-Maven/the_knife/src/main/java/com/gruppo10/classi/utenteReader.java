@@ -1,5 +1,5 @@
 package com.gruppo10.classi;
 
-public class utenteReader {
+public class UtenteReader {
     
 }

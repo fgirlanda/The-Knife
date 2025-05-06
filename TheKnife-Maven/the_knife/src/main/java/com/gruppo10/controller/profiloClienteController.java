@@ -2,7 +2,7 @@ package com.gruppo10.controller;
 
 import javafx.stage.Stage;
 
-public class profiloClienteController {
+public class ProfiloClienteController {
 
     private Stage stage;
 

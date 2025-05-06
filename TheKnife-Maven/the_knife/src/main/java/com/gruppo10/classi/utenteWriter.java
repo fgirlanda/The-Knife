@@ -11,7 +11,7 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.CSVWriter;
 // ...existing imports...
 
-public class utenteWriter {
+public class UtenteWriter {
 
     public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         File dir = new File("fileCSV");
@@ -28,6 +28,7 @@ public class utenteWriter {
                 String[] header = { "Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo" }; // Sostituisci con i nomi dei campi della classe Utente
                 csvWriter.writeNext(header);
                 csvWriter.flush();
+                csvWriter.close();
             }
 
             // Scrivi i dati dell'utente

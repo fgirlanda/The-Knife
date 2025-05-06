@@ -9,7 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 
-public class registrazioneController {
+public class RegistrazioneController {
 
     private Stage stage;
 
@@ -44,7 +44,7 @@ public class registrazioneController {
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
             stage.setTitle("The Knife - Login");
-            loginController controller = loader.getController();
+            LoginController controller = loader.getController();
             controller.setStage(stage);
 
             // Puoi aggiungere animazioni qui se vuoi (es. fade)

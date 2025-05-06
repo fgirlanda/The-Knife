@@ -25,7 +25,7 @@ public class UtenteWriterTest {
         utente.setRuolo("cliente"); // Assicurati che Ruolo sia un enum definito correttamente
 
         // Scrive l'utente nel file
-        utenteWriter writer = new utenteWriter();
+        UtenteWriter writer = new UtenteWriter();
         writer.scriviUtente(utente);
 
         // Verifica che il file sia stato creato
