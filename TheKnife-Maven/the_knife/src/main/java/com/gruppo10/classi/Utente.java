@@ -1,14 +1,26 @@
 package com.gruppo10.classi;
 
 import java.time.LocalDate;
+import lombok.Data;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvCustomBindByName;
+
+@Data
 public class Utente {
+    @CsvBindByName
     private String nome;
+    @CsvBindByName
     private String cognome;
+    @CsvBindByName
     private String username;
+    @CsvBindByName
     private String password;
+    @CsvBindByName
     private LocalDate dataDiNascita;
+    @CsvBindByName
     private String indirizzo;
+    @CsvBindByName
     private Ruolo ruolo;
 
     // Enum per il ruolo
@@ -98,4 +110,5 @@ public class Utente {
                 ", ruolo=" + ruolo +
                 '}';
     }
+
 }
