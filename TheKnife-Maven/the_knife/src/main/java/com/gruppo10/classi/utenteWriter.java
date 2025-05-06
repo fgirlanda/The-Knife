@@ -14,7 +14,11 @@ import com.opencsv.CSVWriter;
 public class utenteWriter {
 
     public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-        File fileUtente = new File("/fileCSV/utenti.csv");
+        File dir = new File("fileCSV");
+        if (!dir.exists()) dir.mkdirs();
+
+        File fileUtente = new File(dir, "utenti.csv");
+
         boolean fileEsiste = fileUtente.exists();
 
         try (Writer writer = new FileWriter(fileUtente, true)) {

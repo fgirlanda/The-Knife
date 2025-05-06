@@ -11,10 +11,7 @@ import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
+
 public class Utente {
     @CsvBindByName
     private String nome;
