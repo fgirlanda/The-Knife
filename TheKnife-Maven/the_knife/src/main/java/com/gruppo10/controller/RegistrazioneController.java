@@ -2,6 +2,9 @@ package com.gruppo10.controller;
 
 import java.time.format.DateTimeFormatter;
 
+import com.gruppo10.classi.Utente;
+import com.gruppo10.classi.UtenteWriter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -113,36 +116,53 @@ public class RegistrazioneController {
         String ruolo = selectedRadioButton.getText();
 
         // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
-        String nome = nomeTextField.getText();
-        String cognome = cognomeTextField.getText();
-        String username = usernameTextField.getText();
+        String nome = nomeTextField.getText().toUpperCase();
+        String cognome = cognomeTextField.getText().toUpperCase();
+        String username = usernameTextField.getText().toUpperCase();
         String password = passwordField.getText();
-        String indirizzo = indirizzoTextField.getText();
+        String indirizzo = indirizzoTextField.getText().toUpperCase();
 
          // Formatta la data di nascita
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
 
-        
+        // Crea un oggetto Utente e imposta i valori
+        Utente utente = new Utente();
+        utente.setNome(nome);
+        utente.setCognome(cognome);
+        utente.setUsername(username);
+        utente.setPassword(password);
+        utente.setDataDiNascita(dataNascita);
+        utente.setIndirizzo(indirizzo);
+        utente.setRuolo(ruolo);
 
-        // Stampa il ruolo selezionato (per debug)
-        System.out.println("Ruolo selezionato: " + ruolo + "\nNome: " + nome + "\nCognome: " + cognome + "\nUsername: " + username + "\nPassword: " + password + "\nData di Nascita: " + dataNascita + "\nIndirizzo: " + indirizzo);
-
-        // // Apri la finestra di registrazione in base al ruolo selezionato
-        // try {
-        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/registrazione" + ruolo + ".fxml"));
-        //     Parent root = loader.load();
-        //     Scene scene = new Scene(root);
-
-        //     // Cambia scena nella stessa finestra (Stage)
-        //     stage.setScene(scene);
-        //     stage.setTitle("The Knife - Registrazione " + ruolo);
-        //     RegistrazioneRistoratoreController controller = loader.getController();
-        //     controller.setStage(stage);
-
-        //     // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
-        // } catch (Exception e) {
-        //     e.printStackTrace();
+        UtenteWriter writer = new UtenteWriter();
+        try {
+            writer.scriviUtente(utente);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+        
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Cambia scena nella stessa finestra (Stage)
+            stage.setScene(scene);
+            stage.setTitle("The Knife - Login");
+            LoginController controller = loader.getController();
+            controller.setStage(stage);
+
+            // Puoi aggiungere animazioni qui se vuoi (es. fade)
+
+        } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
+            
+    }
 }
