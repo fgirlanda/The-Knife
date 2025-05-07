@@ -1,5 +1,13 @@
 The Knife
 
+Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
+
+Il progetto è ancora in fase di progettazione, è disponibile il documento relativo, in lavorazione, scritto in Latex (formato tex)
+
+Link per visualizzare e modificare il documento di progettazione: https://it.overleaf.com/6875229844vtytrbxfcyzc#8e5919
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 CONFIGURAZIONE INIZIALE:
 
 Per utilizzare il programma è necessario configurare javaFX. Passaggi:
@@ -50,9 +58,6 @@ Avvio applicazione/interfacce:
 - Configurare nel file pom il file da eseguire (ex: com.gruppo10.fileJava.Login) 
 - Assicurarsi di essere nella cartella the_knife all'interno del terminale
 - lanciare il comando "mvn javafx:run -f pom.xml"
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -120,57 +125,16 @@ TO DO:
 
 - aggiungere test a gitignore (FATTO)
 - modificare test (FATTO)
-- creare classi: - Ristorante
-                 - Utente
+- creare classi: - Ristorante (FATTO)
+                 - Utente (FATTO)
                  - listaRistoranti(?)
                  - listaUtenti(?)
-                 - eventuali
-- capire come gestire i file csv
+                 - UtenteWriter (FATTO - da modificare)
+                 - utentReader
+
+- creare correttamente file csv
+- creare oggetto utente
+
 - creare dialog: - aggiungere un ristorante
                  - modificare dati personali
-- 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-LOG MODIFICHE:
-
-18-04-2025: fgirlanda -> - riorganizzazione readme + esempio.json 
-                         - modifica struttura src
-                         - creazione profilo_cliente.fxml nel branch grafica/profilo_cliente
-
-19-04-2025: fgirlanda -> - modifica a file LoginController, Login, Registrazione
-                         - collegamento bottone registrati -> apertura finestra registrazione
-                         - creazione file TheKnife (principale)
-
-19-04-2025: matlmbe  -> - creazione RegistazioneController
-                        - assegnazione id radiobutton
-                        - toggle-goup radiobutton
-
-23-04-2025 fgirlanda -> - creazione controller per profili e pagina ristorante
-                        - creazione file java per profili e pagina ristorante
-
-
-24-04-2025 matlmbe   -> - creazione ultime pagine
-                        - creazione ultimi controller
-
-25-04-2025 fgirlanda -> - creazione test_gui.py
-                        - riorganizzazione file fxml
-
-29-04-2025 fgirlanda -> - modifica test_gui.py
-                        - creazione private_keys.py
-
-29-04-2025 matlmbe   -> - creazione prime classi
-                        - adattamento struttura con camelCase
-
-30-04-2025 fgirlanda -> - inizio bottoni cambio_pagina (da finire)
-
-01-05-2025 fgirlanda -> - inizio passaggio a maven (creazione struttura e setup iniziale pom)
-                        - aggiornamento readme con sezione maven
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
-
-Il progetto è ancora in fase di progettazione, è disponibile il documento relativo, in lavorazione, scritto in Latex (formato tex)
-
-Link per visualizzare e modificare il documento di progettazione: https://it.overleaf.com/6875229844vtytrbxfcyzc#8e5919
 
