@@ -54,4 +54,32 @@ public class RegistrazioneController {
         }
     }
     // Altri metodi e logica del controller
+
+
+    @FXML
+    public void registrati() {
+        // Ottieni il ruolo selezionato
+        RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
+        String ruolo = selectedRadioButton.getText();
+
+        // Stampa il ruolo selezionato (per debug)
+        System.out.println("Ruolo selezionato: " + ruolo);
+
+        // // Apri la finestra di registrazione in base al ruolo selezionato
+        // try {
+        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/registrazione" + ruolo + ".fxml"));
+        //     Parent root = loader.load();
+        //     Scene scene = new Scene(root);
+
+        //     // Cambia scena nella stessa finestra (Stage)
+        //     stage.setScene(scene);
+        //     stage.setTitle("The Knife - Registrazione " + ruolo);
+        //     RegistrazioneRistoratoreController controller = loader.getController();
+        //     controller.setStage(stage);
+
+        //     // Puoi aggiungere animazioni qui se vuoi (es. fade)
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        }
 }
