@@ -1,9 +1,12 @@
 package com.gruppo10.controller;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -45,6 +48,9 @@ public class RegistrazioneController {
     @FXML
     private TextField indirizzoTextField;
 
+    @FXML
+    private Button registratiButton;
+
     private ToggleGroup ruoloGroup;
 
     @FXML
@@ -53,6 +59,29 @@ public class RegistrazioneController {
         ruoloGroup = new ToggleGroup();
         clienteRadioButton.setToggleGroup(ruoloGroup);
         ristoratoreRadioButton.setToggleGroup(ruoloGroup);
+
+        // Aggiungi listener per abilitare/disabilitare il pulsante
+        nomeTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        cognomeTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        usernameTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        indirizzoTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        dataNascitaPicker.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        ruoloGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> checkFields());
+    }
+
+    private void checkFields() {
+        // Controlla se tutti i campi sono riempiti
+        boolean allFieldsFilled = !nomeTextField.getText().isEmpty() &&
+                                  !cognomeTextField.getText().isEmpty() &&
+                                  !usernameTextField.getText().isEmpty() &&
+                                  !passwordField.getText().isEmpty() &&
+                                  !indirizzoTextField.getText().isEmpty() &&
+                                  dataNascitaPicker.getValue() != null &&
+                                  ruoloGroup.getSelectedToggle() != null;
+
+        // Abilita o disabilita il pulsante in base ai campi
+        registratiButton.setDisable(!allFieldsFilled);
     }
 
     @FXML
@@ -88,9 +117,11 @@ public class RegistrazioneController {
         String cognome = cognomeTextField.getText();
         String username = usernameTextField.getText();
         String password = passwordField.getText();
-        String dataNascita = dataNascitaPicker.getValue().toString();
         String indirizzo = indirizzoTextField.getText();
 
+         // Formatta la data di nascita
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String dataNascita = dataNascitaPicker.getValue().format(formatter);
 
         
 

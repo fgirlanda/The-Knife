@@ -90,7 +90,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Registrati" textAlignment="CENTER" GridPane.halignment="CENTER" onAction="#registrati">
+            <Button fx:id="registratiButton" mnemonicParsing="false" text="Registrati" textAlignment="CENTER" GridPane.halignment="CENTER" onAction="#registrati" disable="true">
                <font>
                   <Font size="14.0" />
                </font>
