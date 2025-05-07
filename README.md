@@ -130,7 +130,7 @@ TO DO:
                  - listaRistoranti(?)
                  - listaUtenti(?)
                  - UtenteWriter (FATTO - da modificare)
-                 - utentReader
+                 - UtenteReader
 
 - creare correttamente file csv
 - creare oggetto utente
