@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
@@ -23,6 +26,24 @@ public class RegistrazioneController {
 
     @FXML
     private RadioButton ristoratoreRadioButton;
+
+    @FXML
+    private TextField nomeTextField;
+
+    @FXML
+    private TextField cognomeTextField;
+
+    @FXML
+    private TextField usernameTextField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private DatePicker dataNascitaPicker;
+
+    @FXML
+    private TextField indirizzoTextField;
 
     private ToggleGroup ruoloGroup;
 
@@ -62,8 +83,19 @@ public class RegistrazioneController {
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
 
+        // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
+        String nome = nomeTextField.getText();
+        String cognome = cognomeTextField.getText();
+        String username = usernameTextField.getText();
+        String password = passwordField.getText();
+        String dataNascita = dataNascitaPicker.getValue().toString();
+        String indirizzo = indirizzoTextField.getText();
+
+
+        
+
         // Stampa il ruolo selezionato (per debug)
-        System.out.println("Ruolo selezionato: " + ruolo);
+        System.out.println("Ruolo selezionato: " + ruolo + "\nNome: " + nome + "\nCognome: " + cognome + "\nUsername: " + username + "\nPassword: " + password + "\nData di Nascita: " + dataNascita + "\nIndirizzo: " + indirizzo);
 
         // // Apri la finestra di registrazione in base al ruolo selezionato
         // try {
