@@ -30,7 +30,7 @@ public class PaginaPrincipaleController {
     }
 
     @FXML
-    public void apriRegistrati(){
+    private void apriRegistrati(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/registrazione.fxml"));
             Parent root = loader.load();
@@ -50,7 +50,7 @@ public class PaginaPrincipaleController {
     }
 
     @FXML
-    public void apriProfilo(){
+    private void apriProfilo(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/profilo_cliente.fxml")); //gestire ruolo cliente o ristoratore
             Parent root = loader.load();

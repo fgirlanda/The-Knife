@@ -1,7 +1,20 @@
 package com.gruppo10.controller;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
 
@@ -17,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+import org.controlsfx.control.textfield.TextFields;
 
 public class RegistrazioneController {
 
@@ -71,6 +85,15 @@ public class RegistrazioneController {
         indirizzoTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         dataNascitaPicker.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
         ruoloGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> checkFields());
+
+        // Autocompletamento con Nominatim
+        TextFields.<String>bindAutoCompletion(indirizzoTextField, request -> {
+            try {
+                return getSuggestions(request.getUserText());
+            } catch (Exception e) {
+                return Collections.emptyList();
+            }
+        });
     }
 
     private void checkFields() {
@@ -164,5 +187,27 @@ public class RegistrazioneController {
             }
         
             
+    }
+
+    private List<String> getSuggestions(String query) throws IOException, InterruptedException {
+        String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
+                     + "&format=json&addressdetails=1&limit=5";
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
+            .GET()
+            .build();
+
+        HttpResponse<String> response = HttpClient.newHttpClient()
+            .send(request, HttpResponse.BodyHandlers.ofString());
+
+        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
+        List<String> suggestions = new ArrayList<>();
+
+        for (JsonElement result : results) {
+            suggestions.add(result.getAsJsonObject().get("display_name").getAsString());
+        }
+        return suggestions;
     }
 }
