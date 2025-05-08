@@ -19,4 +19,9 @@ public class Registrazione extends Application {
         stage.setTitle("TheKnife - Registrazione");
         stage.show();
     }
+
+    // test main
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

@@ -22,4 +22,9 @@ public class ProfiloCliente extends Application {
         // controller.setStage(stage); 
         stage.show();
     }
+
+    // test main
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
