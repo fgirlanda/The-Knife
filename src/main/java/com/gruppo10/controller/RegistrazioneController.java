@@ -168,6 +168,7 @@ public class RegistrazioneController {
 
 
         
+        // Apri pagina principale
         
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
@@ -177,7 +178,7 @@ public class RegistrazioneController {
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
             stage.setTitle("The Knife - Login");
-            LoginController controller = loader.getController();
+            PaginaPrincipaleController controller = loader.getController();
             controller.setStage(stage);
 
             // Puoi aggiungere animazioni qui se vuoi (es. fade)
@@ -185,8 +186,6 @@ public class RegistrazioneController {
         } catch (Exception e) {
                 e.printStackTrace();
             }
-        
-            
     }
 
     private List<String> getSuggestions(String query) throws IOException, InterruptedException {
