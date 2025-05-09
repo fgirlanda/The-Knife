@@ -6,6 +6,8 @@ Il progetto è ancora in fase di progettazione, è disponibile il documento rela
 
 Link per visualizzare e modificare il documento di progettazione: https://it.overleaf.com/6875229844vtytrbxfcyzc#8e5919
 
+Link per visualizzare e modificare il manuale tecnico: https://it.overleaf.com/6394637564zmtgkwntyvtd#5ab025
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CONFIGURAZIONE INIZIALE:
@@ -14,24 +16,10 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
 1) Scaricare javaFX
 2) Unzippare la cartella e copiare il percorso della cartella lib
-3) Per visual studio code:
-    - Aprire la cartella TheKnife del progetto
-    - Andare su Run -> Add Configuration...
-    - Viene creato un file launch.json nella cartella .vscode, modificarlo inserendo questo codice (sostituire <javaFX_path> con il percorso copiato al passaggio 2):
-
-        ,{
-            "type": "java",
-            "name": "File corrente",
-            "request": "launch",
-            "mainClass": "${file}", //questo fa in modo di avviare il file attualmente aperto nell'editor di vscode
-            "vmArgs": "--module-path <javaFX_path> --add-modules javafx.controls,javafx.fxml"
-        }
-
-nota 1: vedere il file di esempio "launch_ex.json" nella cartella principale del progetto come riferimento
-
-4) Per avviare il programma o un'interfaccia bisogna aprire il relativo file java nell'editor, andare nella finestra Run & Debug (toolbar a sinistra in visual studio code) e selezionare "File corrente" (vedi immagine sotto)
 
 ![Screenshot](Documentazione/img/istruzioni_avvio.png)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 MAVEN (WORK IN PROGRESS):
 
@@ -48,16 +36,23 @@ Avvio applicazione/interfacce:
 
 1) Tramite launch.json:
 
-- Aprire la cartella TheKnife-Maven
 - Andare su "Run" -> Add configuration
-- Modificare il file launch.json seguendo l'esempio launch_ex.json
-- Aprire nell'editor il file desiderato, andare su "Run & Debug" e selezionare "File corrente"
+- Modificare il file launch.json seguendo l'esempio launch_ex.json (sostituire il path a javafx con quello copiato al passaggio 2 della configurazione di javafx)
+- "File corrente" avvia il file attualmente aperto nell'editor, "The Knife" avvia il file TheKnife.java
 
 2) Tramite comando da terminale:
 
 - Configurare nel file pom il file da eseguire (ex: com.gruppo10.fileJava.Login) 
 - Assicurarsi di essere nella cartella the_knife all'interno del terminale
 - lanciare il comando "mvn javafx:run -f pom.xml"
+
+3) Test tramite comandi di vscode:
+
+- Andare in basso a sinistra nella sezione MAVEN (sotto JAVA PROJECTS)
+- The Knife
+- LifeCycle
+- clean
+- test
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -127,14 +122,19 @@ TO DO:
 - modificare test (FATTO)
 - creare classi: - Ristorante (FATTO)
                  - Utente (FATTO)
-                 - listaRistoranti(?)
-                 - listaUtenti(?)
+                 - listaRistoranti
+                 - listaUtenti
                  - UtenteWriter (FATTO - da modificare)
                  - UtenteReader
+                 
 
-- creare correttamente file csv
-- creare oggetto utente
+- creare correttamente file csv (FATTO)
+- criptare password
+- leggere file csv
+- aggiungere lista preferiti a utente
+- ristoranti vicini
 
+- gestire recensioni
 - creare dialog: - aggiungere un ristorante
                  - modificare dati personali
 
