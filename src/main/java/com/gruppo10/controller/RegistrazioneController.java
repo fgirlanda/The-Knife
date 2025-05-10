@@ -14,7 +14,9 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
 
@@ -133,7 +135,7 @@ public class RegistrazioneController {
 
 
     @FXML
-    public void registrati() {
+    public void registrati() throws Exception {
         // Ottieni il ruolo selezionato
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
@@ -158,6 +160,11 @@ public class RegistrazioneController {
         utente.setDataDiNascita(dataNascita);
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
+
+        // Ottieni coordinate
+        Coordinate cords = geocode(indirizzo);
+        System.out.println(cords);
+        utente.setCords(cords);
 
         UtenteWriter writer = new UtenteWriter();
         try {
@@ -194,7 +201,7 @@ public class RegistrazioneController {
 
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))
-            .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
+            .header("User-Agent", "TheKnife/1.0 (fgirlanda@studenti.uninsubria.it)")
             .GET()
             .build();
 
@@ -208,5 +215,31 @@ public class RegistrazioneController {
             suggestions.add(result.getAsJsonObject().get("display_name").getAsString());
         }
         return suggestions;
+    }
+
+    public Coordinate geocode(String address) throws Exception {
+        String encodedAddress = address.replace(" ", "+");
+        String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
+            .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
+        if (results.size() == 0) return null;
+
+        JsonObject obj = results.get(0).getAsJsonObject();
+        double lat = obj.get("lat").getAsDouble();
+        double lon = obj.get("lon").getAsDouble();
+
+        Coordinate cords = new Coordinate();
+        cords.setLat(lat);
+        cords.setLon(lon);
+
+        return cords;
     }
 }

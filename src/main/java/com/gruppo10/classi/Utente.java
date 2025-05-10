@@ -24,6 +24,8 @@ public class Utente {
     @CsvCustomBindByName(converter = RuoloConverter.class)
     private Ruolo ruolo;
 
+    private Coordinate cords;
+
 
     // Enum per il ruolo
     public enum Ruolo {
@@ -49,10 +51,6 @@ public class Utente {
         }
     }
 
-
-
- 
-    // Metodo toString per rappresentazione testuale
     @Override
     public String toString() {
         return "Utente{" +
