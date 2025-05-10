@@ -163,7 +163,7 @@ public class RegistrazioneController {
 
         // Ottieni coordinate
         Coordinate cords = geocode(indirizzo);
-        System.out.println(cords);
+        // System.out.println(cords); // Debug
         utente.setCords(cords);
 
         UtenteWriter writer = new UtenteWriter();
