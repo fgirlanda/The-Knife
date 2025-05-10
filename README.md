@@ -118,23 +118,25 @@ Font/font-size:
 
 TO DO:
 
-- aggiungere test a gitignore (FATTO)
-- modificare test (FATTO)
-- creare classi: - Ristorante (FATTO)
-                 - Utente (FATTO)
-                 - listaRistoranti
-                 - listaUtenti
-                 - UtenteWriter (FATTO - da modificare)
-                 - UtenteReader
-                 
+GESTIRE LOG IN - Gabriele:
 
-- creare correttamente file csv (FATTO)
 - criptare password
 - leggere file csv
-- aggiungere lista preferiti a utente
-- ristoranti vicini
+- aggiungere id al cliente (?)
+- implementare nell'interfaccia (dati errati, utente inesistente, login effettuato)
 
-- gestire recensioni
-- creare dialog: - aggiungere un ristorante
-                 - modificare dati personali
+GESTIRE RISTORANTI:
+
+- file csv ristoranti
+- dialog per aggiungere/modificare ristoranti
+- inserire card ristorante nella pagina principale
+
+LOCATION e RICERCA - Zuba:
+
+- gestire posizione utente/ristorante
+- trova ristoranti vicini
+- gestire ricerca e filtri
+
+
+Deadline: 26/05/2025
 
