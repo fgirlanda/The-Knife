@@ -3,6 +3,9 @@ package com.gruppo10.controller;
 
 
 import javafx.scene.control.Label;
+
+import com.gruppo10.classi.Cryptatore;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,13 +58,31 @@ public class LoginController {
     @FXML
     public void provaLogin(ActionEvent event) {
         try {
+            //prova controllo login
+            String nome = "CICCIA";
+            String passw = "121299f724378a9f0e487e9c124665c53cbbdf12f9c3e144e53808a2dc371f16";
+            
             String username = usernameField.getText();
             String password = passwordField.getText();
+            Cryptatore cryptatore = new Cryptatore();
+            String hashedPassword = cryptatore.crypta(password);
             System.out.println("Username: " + username);
-            System.out.println("Password: " + password);
+            System.out.println("Password: " + hashedPassword);
             
-            //Prova per settare nuovo valore del login status
-            loginStatus.setText("Login status: PASSWORD SBAGLIATA");
+            if (username.toUpperCase().equals(nome) && hashedPassword.equals(passw)) {
+                // Login riuscito
+                System.out.println("Login riuscito");
+                //Prova per settare nuovo valore del login status
+                loginStatus.setText("Login status: LOGIN RIUSCITO");
+            } else {
+                // Login fallito
+                System.out.println("Login fallito");
+                //Prova per settare nuovo valore del login status
+                loginStatus.setText("Login status: LOGIN FALLITO");
+            }
+
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

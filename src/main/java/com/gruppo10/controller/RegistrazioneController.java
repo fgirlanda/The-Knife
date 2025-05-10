@@ -15,6 +15,7 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.gruppo10.classi.Cryptatore;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
 
@@ -148,6 +149,14 @@ public class RegistrazioneController {
          // Formatta la data di nascita
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
+
+        // Cripta la password
+        Cryptatore cryptatore = new Cryptatore();
+        try {
+            password = cryptatore.crypta(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();
