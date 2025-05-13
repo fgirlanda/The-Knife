@@ -1,6 +1,8 @@
 package com.gruppo10.classi;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import lombok.Data;
 
 import com.opencsv.bean.CsvBindByName;
@@ -25,9 +27,8 @@ public class Utente {
     private Ruolo ruolo;
 
     private Coordinate cords;
-
-
-
+    private ArrayList<Ristorante> ristorantiPreferiti;
+    private ArrayList<Ristorante> ristorantiOwned;
 
 
     public void setDataDiNascita(String dataDiNascita) {
@@ -57,5 +58,4 @@ public class Utente {
                 ", ruolo=" + ruolo +
                 '}';
     }
-
 }
