@@ -25,6 +25,10 @@ public class Ristorante {
     private boolean prenotazioneOnline;
     @CsvCustomBindByName(converter = TipoCucinaConverter.class)
     private TipoCucina tipoCucina;
+    @CsvBindByName
+    private String prezzo;
+    @CsvBindByName
+    private String descrizione;
 
     
 

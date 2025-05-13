@@ -73,6 +73,18 @@ public class AggiungiRistoranteController {
     private RadioButton radioPrenotazioneNo;
 
     @FXML
+    private RadioButton radioPrezzo1;
+
+    @FXML
+    private RadioButton radioPrezzo2;
+
+    @FXML
+    private RadioButton radioPrezzo3;
+
+    @FXML
+    private RadioButton radioPrezzo4;
+
+    @FXML
     private ComboBox<TipoCucina> comboCucina;
 
     @FXML
@@ -83,6 +95,7 @@ public class AggiungiRistoranteController {
 
     private ToggleGroup deliveryGroup;
     private ToggleGroup prenotazioneGroup;
+    private ToggleGroup prezzoGroup;
 
     @FXML
     private void initialize() {
@@ -91,11 +104,16 @@ public class AggiungiRistoranteController {
         
         deliveryGroup = new ToggleGroup();
         prenotazioneGroup = new ToggleGroup();
+        prezzoGroup = new ToggleGroup();
 
         radioDeliverySi.setToggleGroup(deliveryGroup);
         radioDeliveryNo.setToggleGroup(deliveryGroup);
         radioPrenotazioneSi.setToggleGroup(prenotazioneGroup);
         radioPrenotazioneNo.setToggleGroup(prenotazioneGroup);
+        radioPrezzo1.setToggleGroup(prezzoGroup);
+        radioPrezzo2.setToggleGroup(prezzoGroup);
+        radioPrezzo3.setToggleGroup(prezzoGroup);
+        radioPrezzo4.setToggleGroup(prezzoGroup);
         comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
 
         //Aggiungi listener per abilitare/disabilitare il pulsante
@@ -138,6 +156,7 @@ public class AggiungiRistoranteController {
         // Recupera i dati dai campi
         RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
         RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
+        RadioButton selectedPrezzo = (RadioButton) prezzoGroup.getSelectedToggle();
         String tempDelivery = selectedDelivery.getText();
         String tempPrenotazione = selectedPrenotazione.getText();
 
