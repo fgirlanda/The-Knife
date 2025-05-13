@@ -20,6 +20,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Cryptatore;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.RistoranteWriter;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
@@ -32,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Modality;
@@ -86,6 +89,9 @@ public class AggiungiRistoranteController {
 
     @FXML
     private ComboBox<TipoCucina> comboCucina;
+
+    @FXML
+    private TextArea txtDescrizione;
 
     @FXML
     private Button btnAnnulla;
@@ -152,7 +158,7 @@ public class AggiungiRistoranteController {
     }
 
     @FXML
-    private void aggiungiRistorante() {
+    private void aggiungiRistorante() throws Exception {
         // Recupera i dati dai campi
         RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
         RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
@@ -175,13 +181,38 @@ public class AggiungiRistoranteController {
             return;
         }
 
+        // Crea un oggetto Ristorante
+        Ristorante ristorante = new Ristorante();
+        ristorante.setNomeRistorante(nomeRistorante);
+        ristorante.setIndirizzo(indirizzo);
+        ristorante.setDelivery(delivery);
+        ristorante.setPrenotazioneOnline(prenotazioneOnline);
+        ristorante.setPrezzo(selectedPrezzo.getText());
+        ristorante.setTipoCucina(comboCucina.getValue());
+        ristorante.setDescrizione(txtDescrizione.getText());
+
+        Coordinate cords = geocode(indirizzo);
+        // System.out.println(cords); // Debug
+        ristorante.setCords(cords);
+
+        ristorante.setLatitudine(cords.getLat());
+        ristorante.setLongitudine(cords.getLon());
+
+        RistoranteWriter writer = new RistoranteWriter();
+        try {
+            writer.scriviRistorante(ristorante);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         // Logica per aggiungere il ristorante (esempio: stampa dei dati)
-        System.out.println("Ristorante aggiunto:");
-        System.out.println("Nome: " + nomeRistorante);
-        System.out.println("Indirizzo: " + indirizzo);
-        System.out.println("Delivery: " + delivery);
-        System.out.println("Prenotazione Online: " + prenotazioneOnline);
-        System.out.println("Tipo Cucina: " + tipoCucina);
+        // System.out.println("Ristorante aggiunto:");
+        // System.out.println("Nome: " + nomeRistorante);
+        // System.out.println("Indirizzo: " + indirizzo);
+        // System.out.println("Delivery: " + delivery);
+        // System.out.println("Prenotazione Online: " + prenotazioneOnline);
+        // System.out.println("Tipo Cucina: " + tipoCucina);
 
         // Chiudi la finestra o esegui altre azioni
         if (stage != null) {
@@ -215,7 +246,33 @@ public class AggiungiRistoranteController {
     
     @FXML
     private void annulla() {
-    stage.close(); // chiude la finestra modale
-}
+    stage.close(); // chiude la finestra modale 
+    }
+
+    public Coordinate geocode(String address) throws Exception {
+        String encodedAddress = address.replace(" ", "+");
+        String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
+            .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
+        if (results.size() == 0) return null;
+
+        JsonObject obj = results.get(0).getAsJsonObject();
+        double lat = obj.get("lat").getAsDouble();
+        double lon = obj.get("lon").getAsDouble();
+
+        Coordinate cords = new Coordinate();
+        cords.setLat(lat);
+        cords.setLon(lon);
+
+        return cords;
+    }
 
 }

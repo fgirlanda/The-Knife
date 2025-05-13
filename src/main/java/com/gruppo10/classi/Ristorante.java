@@ -29,6 +29,10 @@ public class Ristorante {
     private String prezzo;
     @CsvBindByName
     private String descrizione;
+    @CsvBindByName
+    private double latitudine;
+    @CsvBindByName
+    private double longitudine;
 
     
 

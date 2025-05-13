@@ -10,6 +10,5 @@ public enum TipoCucina {
         VEGETARIANA,
         VEGANA,
         FAST_FOOD,
-        INTERNAZIONALE,
-        ZUBAGAY
+        INTERNAZIONALE
     }
