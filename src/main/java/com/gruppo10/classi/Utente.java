@@ -27,12 +27,7 @@ public class Utente {
     private Coordinate cords;
 
 
-    // Enum per il ruolo
-    public enum Ruolo {
-        CLIENTE,
-        RISTORATORE,
-        NON_REGISTRATO
-    }
+
 
 
     public void setDataDiNascita(String dataDiNascita) {

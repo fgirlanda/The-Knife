@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
    <children>
       <TextField layoutX="63.0" layoutY="14.0" prefHeight="25.0" prefWidth="297.0" promptText="cerca" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="cerca" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="cerca" onAction="#apri_aggiungi_ristorante" />
       <MenuButton layoutX="366.0" layoutY="14.0" mnemonicParsing="false" text="filtri">
         <items>
           <MenuItem mnemonicParsing="false" text="Action 1" />

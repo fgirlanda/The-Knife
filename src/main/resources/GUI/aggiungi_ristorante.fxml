@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.AggiungiRistoranteController">
+   <children>
+      <Label layoutX="100.0" layoutY="14.0" text="CREAZIONE RISTORANTE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="53.0" layoutY="67.0" prefHeight="236.0" prefWidth="497.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="172.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="112.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Nome Ristorante:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Indirizzo:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Delivery:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Prenotazione Online:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Tipo Cucina:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtNomeRistorante" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <TextField fx:id="txtIndirizzo" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <RadioButton fx:id="radioDeliverySi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" selected="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioDeliveryNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioPrenotazioneSi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" selected="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="radioPrenotazioneNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <ComboBox fx:id="comboCucina" prefHeight="25.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button fx:id="btnAnnulla" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Annulla" onAction="#annulla" />
+      <Button fx:id="btnAggiungiRistorante" layoutX="194.0" layoutY="322.0" mnemonicParsing="false" text="AGGIUNGI RISTORANTE" onAction="#aggiungiRistorante">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
