@@ -35,8 +35,8 @@ public class PaginaPrincipaleController {
 
     @FXML
     public void initialize() {
+        //caricamento schede ristorante
         List<Ristorante> ristoranti = caricaCSV("C:\\Users\\matlmbe\\OneDrive\\Documenti\\Univerità\\Lab-A\\The-Knife\\fileCSV\\ristoranti_nuovi.csv");
-
         for (Ristorante r : ristoranti) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
@@ -51,7 +51,7 @@ public class PaginaPrincipaleController {
             }
     }
 }
-
+    // Carica i dati da un file CSV e restituisce una lista di oggetti Ristorante
     @FXML
     private List<Ristorante> caricaCSV(String nomeFile) {
         List<Ristorante> lista = new ArrayList<>();
@@ -59,9 +59,8 @@ public class PaginaPrincipaleController {
         String[] dati;
         reader.readNext(); // salta intestazione
         while ((dati = reader.readNext()) != null) {
-            // ora puoi accedere con indici sicuri
-            String nome = dati[0];
-            String prezzo = dati[5]; // esempio
+            String nome = dati[0]; //nome ristorante
+            String prezzo = dati[5]; //prezzo
             Ristorante r = new Ristorante();
             r.setNomeRistorante(nome);
             r.setPrezzo(prezzo);
