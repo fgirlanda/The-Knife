@@ -4,12 +4,11 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
-import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvCustomBindByName;
 
 @Data
 public class Ristorante {
     
+    private Utente proprietario;
     private Coordinate cords;
     private String nomeRistorante;
     private String indirizzo;

@@ -25,7 +25,7 @@ public class RistoranteWriter {
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {
-                String[] header = { "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine" }; // Sostituisci con i nomi dei campi della classe Utente
+                String[] header = { "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario"}; // Sostituisci con i nomi dei campi della classe Utente
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
@@ -38,7 +38,7 @@ public class RistoranteWriter {
     }
 
     private String[] estraiDati(Ristorante ristorante) {
-        String[] dati = new String[9];
+        String[] dati = new String[10];
         dati[0] = ristorante.getNomeRistorante();
         dati[1] = ristorante.getIndirizzo();
         dati[2] = String.valueOf(ristorante.isDelivery());
@@ -50,6 +50,7 @@ public class RistoranteWriter {
         Double lon = ristorante.getCords().getLon();
         dati[7] = lat.toString();
         dati[8] = lon.toString();
+        // dati[9] = utenteLoggato.getUsername();
         return dati;
     }  
 }

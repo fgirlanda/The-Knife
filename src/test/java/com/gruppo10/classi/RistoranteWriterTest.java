@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 public class RistoranteWriterTest {
     @Test
     void testScriviRistorante() throws Exception {
+        Utente proprietario = new Utente();
+        proprietario.setUsername("mrossi");
+
         Ristorante ristorante = new Ristorante();
+        ristorante.setProprietario(proprietario);
         ristorante.setNomeRistorante("Test Ristorante");
         ristorante.setIndirizzo("Via santa maria 8, villadosia");
         ristorante.setDelivery(true);

@@ -5,6 +5,7 @@ package com.gruppo10.controller;
 import javafx.scene.control.Label;
 
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.Utente;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

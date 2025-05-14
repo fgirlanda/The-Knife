@@ -5,11 +5,7 @@ import java.util.ArrayList;
 
 import lombok.Data;
 
-import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvCustomBindByName;
-
 @Data
-
 public class Utente {
     private String nome;
     private String cognome;
