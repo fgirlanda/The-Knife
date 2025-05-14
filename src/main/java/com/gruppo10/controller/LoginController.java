@@ -64,8 +64,7 @@ public class LoginController {
             
             String username = usernameField.getText();
             String password = passwordField.getText();
-            Criptatore criptatore = new Criptatore();
-            String hashedPassword = criptatore.cripta(password);
+            String hashedPassword = Criptatore.cripta(password);
             System.out.println("Username: " + username);
             System.out.println("Password: " + hashedPassword);
             

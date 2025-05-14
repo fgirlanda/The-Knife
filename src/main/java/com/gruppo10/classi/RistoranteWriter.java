@@ -49,7 +49,7 @@ public class RistoranteWriter {
         Double lat = ristorante.getCords().getLat();
         Double lon = ristorante.getCords().getLon();
         dati[7] = lat.toString();
-        dati[8] = lon.toString();;
+        dati[8] = lon.toString();
         return dati;
     }  
 }

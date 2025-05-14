@@ -11,20 +11,12 @@ import com.opencsv.bean.CsvCustomBindByName;
 public class Ristorante {
     
     private Coordinate cords;
-
-    @CsvBindByName
     private String nomeRistorante;
-    @CsvBindByName
     private String indirizzo;
-    @CsvBindByName
     private boolean delivery;
-    @CsvBindByName
     private boolean prenotazioneOnline;
-    @CsvCustomBindByName(converter = TipoCucinaConverter.class)
     private TipoCucina tipoCucina;
-    @CsvBindByName
     private String prezzo;
-    @CsvBindByName
     private String descrizione;
 
     private ArrayList<Recensione> recensioni;

@@ -1,19 +1,15 @@
 package com.gruppo10.classi;
 
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UtenteWriterTest {
 
     @Test
-    public void testScriviUtente() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
+    public void testScriviUtente() throws Exception {
         // Prepara un oggetto utente di test
         
         Utente utente = new Utente();
@@ -24,6 +20,8 @@ public class UtenteWriterTest {
         utente.setDataDiNascita("01-01-1990"); // Assicurati che il formato della data sia corretto
         utente.setIndirizzo("Via Roma 1");
         utente.setRuolo("cliente"); // Assicurati che Ruolo sia un enum definito correttamente
+        Coordinate coordinate = new Coordinate(utente.getIndirizzo());
+        utente.setCords(coordinate);
 
         // Scrive l'utente nel file
         UtenteWriter writer = new UtenteWriter();

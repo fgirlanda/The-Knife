@@ -27,13 +27,12 @@ public class UtenteWriter {
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {
-                String[] header = { "Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo" }; // Sostituisci con i nomi dei campi della classe Utente
+                String[] header = { "Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo", "Latitudine", "Longitudine" }; // Sostituisci con i nomi dei campi della classe Utente
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
             
             // Scrivi i dati dell'utente
-            // csvWriter.writeAll(listaDati);
             csvWriter.writeNext(dati);
             csvWriter.close();
             writer.close();
@@ -41,7 +40,7 @@ public class UtenteWriter {
     }
 
     private String[] estraiDati(Utente utente) throws NoSuchAlgorithmException {
-        String[] dati = new String[7];
+        String[] dati = new String[9];
         dati[0] = utente.getNome();
         dati[1] = utente.getCognome();
         dati[2] = utente.getUsername();
@@ -51,6 +50,10 @@ public class UtenteWriter {
         dati[4] = utente.getDataDiNascita().format(formatter).toString();
         dati[5] = utente.getIndirizzo();
         dati[6] = utente.getRuolo().toString();
+        Double lat = utente.getCords().getLat();
+        Double lon = utente.getCords().getLon();
+        dati[7] = lat.toString();
+        dati[8] = lon.toString();
         return dati;
     }
 }

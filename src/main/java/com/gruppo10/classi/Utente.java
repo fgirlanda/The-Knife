@@ -11,19 +11,12 @@ import com.opencsv.bean.CsvCustomBindByName;
 @Data
 
 public class Utente {
-    @CsvBindByName
     private String nome;
-    @CsvBindByName
     private String cognome;
-    @CsvBindByName
     private String username;
-    @CsvBindByName
     private String password;
-    @CsvCustomBindByName(converter = LocalDateConverter.class)
     private LocalDate dataDiNascita;
-    @CsvBindByName
     private String indirizzo;
-    @CsvCustomBindByName(converter = RuoloConverter.class)
     private Ruolo ruolo;
 
     private Coordinate cords;

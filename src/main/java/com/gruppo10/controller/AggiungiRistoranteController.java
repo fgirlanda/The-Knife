@@ -15,7 +15,6 @@ import org.controlsfx.control.textfield.TextFields;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Ristorante;
@@ -175,7 +174,7 @@ public class AggiungiRistoranteController {
         ristorante.setTipoCucina(comboCucina.getValue());
         ristorante.setDescrizione(txtDescrizione.getText());
 
-        Coordinate cords = geocode(indirizzo);
+        Coordinate cords = new Coordinate(indirizzo);
         // System.out.println(cords); // Debug
         ristorante.setCords(cords);
 
@@ -185,15 +184,6 @@ public class AggiungiRistoranteController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        // Logica per aggiungere il ristorante (esempio: stampa dei dati)
-        // System.out.println("Ristorante aggiunto:");
-        // System.out.println("Nome: " + nomeRistorante);
-        // System.out.println("Indirizzo: " + indirizzo);
-        // System.out.println("Delivery: " + delivery);
-        // System.out.println("Prenotazione Online: " + prenotazioneOnline);
-        // System.out.println("Tipo Cucina: " + tipoCucina);
 
         // Chiudi la finestra o esegui altre azioni
         if (stage != null) {
@@ -229,31 +219,4 @@ public class AggiungiRistoranteController {
     private void annulla() {
     stage.close(); // chiude la finestra modale 
     }
-
-    public Coordinate geocode(String address) throws Exception {
-        String encodedAddress = address.replace(" ", "+");
-        String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";
-
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(url))
-            .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
-            .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
-        if (results.size() == 0) return null;
-
-        JsonObject obj = results.get(0).getAsJsonObject();
-        double lat = obj.get("lat").getAsDouble();
-        double lon = obj.get("lon").getAsDouble();
-
-        Coordinate cords = new Coordinate();
-        cords.setLat(lat);
-        cords.setLon(lon);
-
-        return cords;
-    }
-
 }

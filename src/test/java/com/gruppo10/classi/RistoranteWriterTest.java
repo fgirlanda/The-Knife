@@ -4,18 +4,16 @@ import org.junit.jupiter.api.Test;
 
 public class RistoranteWriterTest {
     @Test
-    void testScriviRistorante() {
+    void testScriviRistorante() throws Exception {
         Ristorante ristorante = new Ristorante();
         ristorante.setNomeRistorante("Test Ristorante");
-        ristorante.setIndirizzo("Test Indirizzo");
+        ristorante.setIndirizzo("Via santa maria 8, villadosia");
         ristorante.setDelivery(true);
         ristorante.setPrenotazioneOnline(false);
         ristorante.setCucina("Italiana");
         ristorante.setPrezzo("€€");
         ristorante.setDescrizione("Test Descrizione lungaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        Coordinate coordinate = new Coordinate();
-        coordinate.setLat(45.0);
-        coordinate.setLon(9.0);
+        Coordinate coordinate = new Coordinate(ristorante.getIndirizzo());
         ristorante.setCords(coordinate);
 
         RistoranteWriter writer = new RistoranteWriter();
