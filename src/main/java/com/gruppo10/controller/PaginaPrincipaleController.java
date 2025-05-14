@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Ristorante;
+import com.opencsv.CSVReader;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,24 +55,19 @@ public class PaginaPrincipaleController {
     @FXML
     private List<Ristorante> caricaCSV(String nomeFile) {
         List<Ristorante> lista = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
-            br.readLine(); // salta intestazione
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] dati = line.split(",");
-                if (dati.length >= 2) { // Salta righe non valide
-                    // Parsing sicuro dei campi
-                    String nome = dati[0];
-                    String prezzo = dati[4];
-
-                    Ristorante r = new Ristorante();
-                    r.setNomeRistorante(nome);
-                    r.setPrezzo(prezzo);
-
-                    lista.add(r);
-                }
-            }
-        } catch (IOException e) {
+        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        String[] dati;
+        reader.readNext(); // salta intestazione
+        while ((dati = reader.readNext()) != null) {
+            // ora puoi accedere con indici sicuri
+            String nome = dati[0];
+            String prezzo = dati[5]; // esempio
+            Ristorante r = new Ristorante();
+            r.setNomeRistorante(nome);
+            r.setPrezzo(prezzo);
+            lista.add(r);
+        }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return lista;
