@@ -7,7 +7,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,33 +18,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
-import com.gruppo10.classi.Cryptatore;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteWriter;
 import com.gruppo10.classi.TipoCucina;
-import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteWriter;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class AggiungiRistoranteController {
 
@@ -194,9 +178,6 @@ public class AggiungiRistoranteController {
         Coordinate cords = geocode(indirizzo);
         // System.out.println(cords); // Debug
         ristorante.setCords(cords);
-
-        ristorante.setLatitudine(cords.getLat());
-        ristorante.setLongitudine(cords.getLon());
 
         RistoranteWriter writer = new RistoranteWriter();
         try {

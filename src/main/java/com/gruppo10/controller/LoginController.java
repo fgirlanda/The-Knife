@@ -4,7 +4,7 @@ package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
 
-import com.gruppo10.classi.Cryptatore;
+import com.gruppo10.classi.Criptatore;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,8 +64,8 @@ public class LoginController {
             
             String username = usernameField.getText();
             String password = passwordField.getText();
-            Cryptatore cryptatore = new Cryptatore();
-            String hashedPassword = cryptatore.crypta(password);
+            Criptatore criptatore = new Criptatore();
+            String hashedPassword = criptatore.cripta(password);
             System.out.println("Username: " + username);
             System.out.println("Password: " + hashedPassword);
             
@@ -80,9 +80,7 @@ public class LoginController {
                 //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: LOGIN FALLITO");
             }
-
-
-            
+  
         } catch (Exception e) {
             e.printStackTrace();
         }

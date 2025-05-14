@@ -4,17 +4,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.security.NoSuchAlgorithmException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.CSVWriter;
 
 public class UtenteWriter {
 
-    public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
@@ -22,8 +20,6 @@ public class UtenteWriter {
 
         //crea lista dati
         String[] dati = estraiDati(utente);
-        List<String[]> listaDati = new ArrayList<>();
-        listaDati.add(dati);
 
         boolean fileEsiste = fileUtente.exists();
 
@@ -37,18 +33,20 @@ public class UtenteWriter {
             }
             
             // Scrivi i dati dell'utente
-            csvWriter.writeAll(listaDati);
+            // csvWriter.writeAll(listaDati);
+            csvWriter.writeNext(dati);
             csvWriter.close();
             writer.close();
         }
     }
 
-    private String[] estraiDati(Utente utente) {
+    private String[] estraiDati(Utente utente) throws NoSuchAlgorithmException {
         String[] dati = new String[7];
         dati[0] = utente.getNome();
         dati[1] = utente.getCognome();
         dati[2] = utente.getUsername();
-        dati[3] = utente.getPassword();
+        String criptata = Criptatore.cripta(utente.getPassword());
+        dati[3] = criptata;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         dati[4] = utente.getDataDiNascita().format(formatter).toString();
         dati[5] = utente.getIndirizzo();

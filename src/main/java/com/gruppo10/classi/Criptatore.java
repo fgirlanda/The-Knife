@@ -3,9 +3,9 @@ package com.gruppo10.classi;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Cryptatore {
+public class Criptatore {
 
-    public String crypta(String input) throws NoSuchAlgorithmException {
+    public static String cripta(String input) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA3-256");
         byte[] hashBytes = digest.digest(input.getBytes());
 

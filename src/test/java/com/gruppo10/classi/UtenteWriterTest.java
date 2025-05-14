@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UtenteWriterTest {
 
     @Test
-    public void testScriviUtente() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    public void testScriviUtente() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
         // Prepara un oggetto utente di test
         
         Utente utente = new Utente();

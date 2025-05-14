@@ -2,17 +2,14 @@ package com.gruppo10.classi;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
 @Data
 public class Ristorante {
-    // private String nomeRistorante;
-    // private String indirizzo;
-    // private boolean delivery;
-    // private boolean prenotazioneOnline;
-    // private String tipoCucina;
-
+    
     private Coordinate cords;
 
     @CsvBindByName
@@ -29,20 +26,14 @@ public class Ristorante {
     private String prezzo;
     @CsvBindByName
     private String descrizione;
-    @CsvBindByName
-    private double latitudine;
-    @CsvBindByName
-    private double longitudine;
 
-    
+    private ArrayList<Recensione> recensioni;
 
     public void setCucina(String value) {
         try {
-            this.tipoCucina.valueOf(value.toUpperCase()); // Conversione sicura
+            this.tipoCucina = TipoCucina.valueOf(value.toUpperCase()); // Conversione sicura
         } catch (IllegalArgumentException e) {
             this.tipoCucina = TipoCucina.INTERNAZIONALE; // Valore di default se non riconosciuto
         }
-    }
-    
-    
+    }  
 }

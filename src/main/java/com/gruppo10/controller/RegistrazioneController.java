@@ -17,7 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
-import com.gruppo10.classi.Cryptatore;
+import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
 
@@ -153,9 +153,9 @@ public class RegistrazioneController {
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
 
         // Cripta la password
-        Cryptatore cryptatore = new Cryptatore();
+        Criptatore cryptatore = new Criptatore();
         try {
-            password = cryptatore.crypta(password);
+            password = cryptatore.cripta(password);
         } catch (Exception e) {
             e.printStackTrace();
         }

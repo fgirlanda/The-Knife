@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
@@ -17,12 +14,10 @@ public class RistoranteWriter {
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
-        File fileRisotrante = new File(dir, "ristoranti.csv");
+        File fileRisotrante = new File(dir, "ristoranti_nuovi.csv");
 
         //crea lista dati
         String[] dati = estraiDati(ristorante);
-        List<String[]> listaDati = new ArrayList<>();
-        listaDati.add(dati);
 
         boolean fileEsiste = fileRisotrante.exists();
 
@@ -36,7 +31,7 @@ public class RistoranteWriter {
             }
             
             // Scrivi i dati del ristorante
-            csvWriter.writeAll(listaDati);
+            csvWriter.writeNext(dati);
             csvWriter.close();
             writer.close();
         }
@@ -51,10 +46,10 @@ public class RistoranteWriter {
         dati[4] = ristorante.getTipoCucina().toString();
         dati[5] = ristorante.getPrezzo();
         dati[6] = ristorante.getDescrizione();
-        dati[7] = String.valueOf(ristorante.getLatitudine());
-        dati[8] = String.valueOf(ristorante.getLongitudine());
-        
+        Double lat = ristorante.getCords().getLat();
+        Double lon = ristorante.getCords().getLon();
+        dati[7] = lat.toString();
+        dati[8] = lon.toString();;
         return dati;
-    }
-    
+    }  
 }
