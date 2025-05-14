@@ -1,12 +1,21 @@
 package com.gruppo10.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Ristorante;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,9 +25,57 @@ public class PaginaPrincipaleController {
     @FXML
     private Button bottoneRegistratiProfilo;
 
+    @FXML private VBox contenitoreTessere;
+
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @FXML
+    public void initialize() {
+        List<Ristorante> ristoranti = caricaCSV("C:\\Users\\matlmbe\\OneDrive\\Documenti\\Univerità\\Lab-A\\The-Knife\\fileCSV\\ristoranti_nuovi.csv");
+
+        for (Ristorante r : ristoranti) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                HBox card = loader.load();
+
+                CardRistoranteController controller = loader.getController();
+                controller.setDati(r);
+
+                contenitoreTessere.getChildren().add(card);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+}
+
+    @FXML
+    private List<Ristorante> caricaCSV(String nomeFile) {
+        List<Ristorante> lista = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
+            br.readLine(); // salta intestazione
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] dati = line.split(",");
+                if (dati.length >= 2) { // Salta righe non valide
+                    // Parsing sicuro dei campi
+                    String nome = dati[0];
+                    String prezzo = dati[4];
+
+                    Ristorante r = new Ristorante();
+                    r.setNomeRistorante(nome);
+                    r.setPrezzo(prezzo);
+
+                    lista.add(r);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    
     }
 
     @FXML

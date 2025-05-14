@@ -12,14 +12,14 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="560.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.CardRistoranteController">
    <children>
-      <ImageView fitHeight="195.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRistorante" fitHeight="195.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/esempio_ristorante.png" />
          </image>
       </ImageView>
-      <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
+      <Button fx:id="btnPreferito" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
          <graphic>
-            <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgCuore" fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/images/cuore_vuoto.png" />
                </image>
@@ -28,17 +28,17 @@
       </Button>
       <VBox spacing="20.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome ristorante" wrappingWidth="195.0">
+            <Text fx:id="txtNomeRistorante" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome ristorante" wrappingWidth="195.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Media recensioni / #REC">
+            <Text fx:id="txtRecensioni" strokeType="OUTSIDE" strokeWidth="0.0" text="Media recensioni / #REC">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="€€€">
+            <Text fx:id="txtPrezzo" strokeType="OUTSIDE" strokeWidth="0.0" text="€€€">
                <font>
                   <Font size="18.0" />
                </font>
