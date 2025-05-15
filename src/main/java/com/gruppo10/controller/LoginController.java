@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.classi.UtenteReader;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,17 +60,26 @@ public class LoginController {
     @FXML
     public void provaLogin(ActionEvent event) {
         try {
-            //prova controllo login
-            String nome = "CICCIA";
-            String passw = "121299f724378a9f0e487e9c124665c53cbbdf12f9c3e144e53808a2dc371f16";
-            
-            String username = usernameField.getText();
+            //Carico gli utenti registrati
+            UtenteReader ur = new UtenteReader();
+            ur.caricaUtenti();
+
+            String username = usernameField.getText().toUpperCase();
             String password = passwordField.getText();
             String hashedPassword = Criptatore.cripta(password);
-            System.out.println("Username: " + username);
-            System.out.println("Password: " + hashedPassword);
-            
-            if (username.toUpperCase().equals(nome) && hashedPassword.equals(passw)) {
+           
+            // Verifica se l'utente esiste nel file CSV
+
+            Utente utente = ur.cercaUtente(username);
+            if (utente == null) {
+                // Utente non trovato
+                System.out.println("Utente non trovato");
+                //Prova per settare nuovo valore del login status
+                loginStatus.setText("Login status: UTENTE NON REGISTRATO");
+                return;
+            }
+            System.out.println("password inserita: " + hashedPassword + " password salvata: " + utente.getPassword());
+            if (hashedPassword.equals(utente.getPassword())) {
                 // Login riuscito
                 System.out.println("Login riuscito");
                 //Prova per settare nuovo valore del login status
@@ -78,7 +88,7 @@ public class LoginController {
                 // Login fallito
                 System.out.println("Login fallito");
                 //Prova per settare nuovo valore del login status
-                loginStatus.setText("Login status: LOGIN FALLITO");
+                loginStatus.setText("Login status: PASSWORD ERRATA");
             }
   
         } catch (Exception e) {

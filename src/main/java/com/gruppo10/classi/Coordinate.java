@@ -37,4 +37,9 @@ public class Coordinate {
         this.lat = lat;
         this.lon = lon;
     }
+
+    public Coordinate(double lat, double lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
 }
