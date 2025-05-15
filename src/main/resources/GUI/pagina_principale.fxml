@@ -20,7 +20,7 @@
             <VBox fx:id="contenitoreTessere" prefHeight="585.0" prefWidth="714.0" />
          </content>
       </ScrollPane>
-      <ComboBox fx:id="comboDelivery" layoutX="450.0" layoutY="47.0" prefHeight="25.0" prefWidth="95.0" promptText="delivery" />
-      <ComboBox fx:id="comboPrenotazione" layoutX="562.0" layoutY="47.0" prefHeight="25.0" prefWidth="150.0" promptText="prenotazione online" />
+      <ComboBox fx:id="comboFiltroDelivery" layoutX="450.0" layoutY="47.0" prefHeight="25.0" prefWidth="95.0" promptText="delivery" />
+      <ComboBox fx:id="comboFiltroPrenotazione" layoutX="562.0" layoutY="47.0" prefHeight="25.0" prefWidth="150.0" promptText="prenotazione online" />
    </children>
 </AnchorPane>

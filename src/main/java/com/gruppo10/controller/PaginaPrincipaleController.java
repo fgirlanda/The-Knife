@@ -108,7 +108,9 @@ public class PaginaPrincipaleController {
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
         caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
-                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina))).toList()); // filtro cucina
+                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) &&
+                                                              (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  
+                                                              (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && ristorante.isPrenotazioneOnline()) || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE") && !ristorante.isPrenotazioneOnline()))).toList()); // filtro cucina
 
 
     }
@@ -126,10 +128,14 @@ public class PaginaPrincipaleController {
             String nome = dati[0]; //nome ristorante
             String prezzo = dati[5]; //prezzo
             String cucina = dati[4]; //cucina
+            Boolean delivery = Boolean.parseBoolean(dati[2]); //delivery
+            Boolean prenotazione = Boolean.parseBoolean(dati[3]); //prenotazione
             Ristorante r = new Ristorante();
             r.setNomeRistorante(nome);
             r.setPrezzo(prezzo);
             r.setCucina(cucina);
+            r.setDelivery(delivery);
+            r.setPrenotazioneOnline(prenotazione);
             lista.add(r);
         }
         } catch (Exception e) {
