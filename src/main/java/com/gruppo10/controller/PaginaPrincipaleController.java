@@ -3,6 +3,8 @@ package com.gruppo10.controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,6 +32,13 @@ public class PaginaPrincipaleController {
 
     @FXML private VBox contenitoreTessere;
 
+    @FXML private TextField txtRicerca;
+
+    @FXML private Button btnCerca;
+
+
+    static List<Ristorante> ristoranti; 
+
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -36,8 +47,16 @@ public class PaginaPrincipaleController {
     @FXML
     public void initialize() {
         //caricamento schede ristorante
-        List<Ristorante> ristoranti = caricaCSV("C:\\Users\\matlmbe\\OneDrive\\Documenti\\Univerità\\Lab-A\\The-Knife\\fileCSV\\ristoranti_nuovi.csv");
-        for (Ristorante r : ristoranti) {
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
+        ristoranti = caricaCSV(path.toString());
+        caricaTessere(ristoranti);
+    }
+
+
+    @FXML
+    public void caricaTessere(List<Ristorante> listaRistoranti) {
+        //caricamento schede ristorante
+        for (Ristorante r : listaRistoranti) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
                 HBox card = loader.load();
@@ -50,7 +69,19 @@ public class PaginaPrincipaleController {
                 e.printStackTrace();
             }
     }
-}
+    }
+
+    @FXML
+    public void ricercaRisorante() {
+        String ricerca = txtRicerca.getText().toLowerCase();
+        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+        caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca)).toList());
+
+
+    }
+
+
+    
     // Carica i dati da un file CSV e restituisce una lista di oggetti Ristorante
     @FXML
     private List<Ristorante> caricaCSV(String nomeFile) {
