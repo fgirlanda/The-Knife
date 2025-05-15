@@ -1,12 +1,33 @@
 package com.gruppo10.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.FiltroPrezzo;
+import com.gruppo10.classi.FiltroTipoCucina;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.classi.FiltroPrezzo;
+import com.gruppo10.classi.FiltroTipoCucina;
+import com.gruppo10.classi.FiltroMediaRecensioni;
+import com.opencsv.CSVReader;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,9 +37,96 @@ public class PaginaPrincipaleController {
     @FXML
     private Button bottoneRegistratiProfilo;
 
+    @FXML private VBox contenitoreTessere;
+
+    @FXML private TextField txtRicerca;
+
+    @FXML private Button btnCerca;
+
+    @FXML private ComboBox<FiltroTipoCucina> comboFiltroCucina;
+    
+    @FXML private ComboBox<FiltroPrezzo> comboFiltroPrezzo;
+
+    @FXML private ComboBox<FiltroMediaRecensioni> comboFiltroRecensioni;
+
+
+
+
+    static List<Ristorante> ristoranti; 
+
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @FXML
+    public void initialize() {
+        comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
+        comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
+        comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
+        //caricamento schede ristorante
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
+        ristoranti = caricaCSV(path.toString());
+        caricaTessere(ristoranti);
+    }
+
+
+    @FXML
+    public void caricaTessere(List<Ristorante> listaRistoranti) {
+        //caricamento schede ristorante
+        for (Ristorante r : listaRistoranti) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                HBox card = loader.load();
+
+                CardRistoranteController controller = loader.getController();
+                controller.setDati(r);
+
+                contenitoreTessere.getChildren().add(card);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+    }
+
+    @FXML
+    public void ricercaRisorante() {
+        String ricerca = txtRicerca.getText().toLowerCase();
+        String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
+        String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
+        String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
+        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+        caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
+                                                              (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
+                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) ).toList()); // filtro cucina
+
+
+    }
+
+
+    
+    // Carica i dati da un file CSV e restituisce una lista di oggetti Ristorante
+    @FXML
+    private List<Ristorante> caricaCSV(String nomeFile) {
+        List<Ristorante> lista = new ArrayList<>();
+        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        String[] dati;
+        reader.readNext(); // salta intestazione
+        while ((dati = reader.readNext()) != null) {
+            String nome = dati[0]; //nome ristorante
+            String prezzo = dati[5]; //prezzo
+            String cucina = dati[4]; //cucina
+            Ristorante r = new Ristorante();
+            r.setNomeRistorante(nome);
+            r.setPrezzo(prezzo);
+            r.setCucina(cucina);
+            lista.add(r);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    
     }
 
     @FXML
