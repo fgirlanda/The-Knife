@@ -15,6 +15,8 @@ import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
+import com.gruppo10.classi.FiltroDelivey;
+import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
 import com.opencsv.CSVReader;
 
@@ -49,6 +51,10 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroMediaRecensioni> comboFiltroRecensioni;
 
+    @FXML private ComboBox<FiltroDelivey> comboFiltroDelivery;
+
+    @FXML private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
+
 
 
 
@@ -64,6 +70,8 @@ public class PaginaPrincipaleController {
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
+        comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
+        comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
         //caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
         ristoranti = caricaCSV(path.toString());
@@ -95,10 +103,12 @@ public class PaginaPrincipaleController {
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
+        String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
+        String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
         caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
-                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) ).toList()); // filtro cucina
+                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina))).toList()); // filtro cucina
 
 
     }
