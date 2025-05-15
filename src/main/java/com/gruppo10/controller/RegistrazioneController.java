@@ -15,6 +15,7 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteWriter;
@@ -134,7 +135,7 @@ public class RegistrazioneController {
 
 
     @FXML
-    public void registrati() {
+    public void registrati() throws Exception {
         // Ottieni il ruolo selezionato
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
@@ -166,6 +167,8 @@ public class RegistrazioneController {
         utente.setDataDiNascita(dataNascita);
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
+        Coordinate coordinate = new Coordinate(indirizzo);
+        utente.setCords(coordinate);
 
         UtenteWriter writer = new UtenteWriter();
         try {
