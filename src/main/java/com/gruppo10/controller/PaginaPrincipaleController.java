@@ -13,6 +13,7 @@ import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.FiltroDelivey;
@@ -34,6 +35,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PaginaPrincipaleController {
+
+    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
     @FXML
@@ -70,8 +73,8 @@ public class PaginaPrincipaleController {
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
-        comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
-        comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
+        // comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
+        // comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
         //caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
         ristoranti = caricaCSV(path.toString());
@@ -133,7 +136,8 @@ public class PaginaPrincipaleController {
             lista.add(r);
         }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.err.println("Il file csv non esiste ancora.");
         }
         return lista;
     

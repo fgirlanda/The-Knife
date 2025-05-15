@@ -120,23 +120,44 @@ TO DO:
 
 GESTIRE LOG IN - Gabriele:
 
-- criptare password
-- leggere file csv
-- aggiungere id al cliente (?)
-- implementare nell'interfaccia (dati errati, utente inesistente, login effettuato)
+- criptare password (FATTO)
+- leggere file csv (FATTO)
+- aggiungere id al cliente (FATTO)
+- implementare nell'interfaccia (dati errati, utente inesistente, login effettuato) (FATTO)
+- collegare tasto login a pagina principale
+- utente loggato
+- username univoco
 
-GESTIRE RISTORANTI:
+GESTIRE RISTORANTI - Mattia:
 
-- file csv ristoranti
-- dialog per aggiungere/modificare ristoranti
-- inserire card ristorante nella pagina principale
+- file csv ristoranti (FATTO)
+- dialog per aggiungere (FATTO)
+- inserire card ristorante nella pagina principale (FATTO)
+- gestire ricerca e filtri (FATTO)
+- ristoranti preferiti
 
 LOCATION e RICERCA - Zuba:
 
-- gestire posizione utente/ristorante
 - trova ristoranti vicini
-- gestire ricerca e filtri
+- gestire posizione utente/ristorante (FATTO)
+- calcola distanza
+- recensioni (file csv, classi)
 
 
 Deadline: 26/05/2025
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+GESTIONE PREFERITI e RECENSIONI
+
+- file csv con coppie id utente-ristorante_preferito/recensioni
+- id a ristoranti e recensioni
+
+csv recensioni 
+
+- id recensione(?)
+- id cliente
+- id ristorante
+- voto
+- testo
+- risposta

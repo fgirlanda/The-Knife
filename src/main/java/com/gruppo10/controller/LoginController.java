@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 public class LoginController {
 
+    public static Utente utenteLoggato = null;
+
     private Stage stage;
 
     @FXML
@@ -84,6 +86,8 @@ public class LoginController {
                 System.out.println("Login riuscito");
                 //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: LOGIN RIUSCITO");
+
+                utenteLoggato = utente;
             } else {
                 // Login fallito
                 System.out.println("Login fallito");
