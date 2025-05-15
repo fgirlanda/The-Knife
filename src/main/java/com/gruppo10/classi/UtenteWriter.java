@@ -61,9 +61,8 @@ public class UtenteWriter {
         dati[0] = String.valueOf(++contaID);
         dati[1] = utente.getNome();
         dati[2] = utente.getCognome();
-        dati[3] = utente.getUsername();
-        String criptata = Criptatore.cripta(utente.getPassword());
-        dati[4] = criptata;
+        dati[3] = utente.getUsername();        
+        dati[4] = utente.getPassword();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         dati[5] = utente.getDataDiNascita().format(formatter).toString();
         dati[6] = utente.getIndirizzo();

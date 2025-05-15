@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Utente {
+    private int id;
     private String nome;
     private String cognome;
     private String username;
@@ -19,6 +20,10 @@ public class Utente {
     private ArrayList<Ristorante> ristorantiPreferiti;
     private ArrayList<Ristorante> ristorantiOwned;
 
+
+    public void setCords(double lat, double lon) {
+        this.cords = new Coordinate(lat, lon);
+    }
 
     public void setDataDiNascita(String dataDiNascita) {
         String[] parts = dataDiNascita.split("-");
