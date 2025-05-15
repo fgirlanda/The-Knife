@@ -2,6 +2,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Ristorante;
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -17,12 +18,14 @@ public class CardRistoranteController {
     @FXML private Text txtNomeRistorante;
     @FXML private Text txtRecensioni;
     @FXML private Text txtPrezzo;
+    @FXML private Text txtTipoCucina;
 
     public void setDati(Ristorante ristorante){
 
         txtNomeRistorante.setText(ristorante.getNomeRistorante());
         //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
         txtPrezzo.setText(ristorante.getPrezzo());
+        txtTipoCucina.setText(ristorante.getTipoCucina().toString());
     }
 
 
