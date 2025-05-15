@@ -3,12 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloRistoratoreController">
@@ -118,7 +122,21 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Separator prefHeight="0.0" prefWidth="11.0" />
+                              <TextField prefHeight="25.0" prefWidth="283.0" />
+                              <Separator prefHeight="2.0" prefWidth="10.0" />
+                              <Button mnemonicParsing="false" text="Cerca" />
+                              <Separator prefHeight="2.0" prefWidth="499.0" />
+                              <Button fx:id="aggiungiRistorante" mnemonicParsing="false" prefWidth="139.0" text="Aggiungi Ristorante" onAction="#apri_aggiungi_ristorante" />
+                           </children>
+                        </HBox>
+                        <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0" />
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </content>
