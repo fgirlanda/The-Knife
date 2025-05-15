@@ -71,31 +71,4 @@ public class PaginaPrincipaleController {
             e.printStackTrace();
         }
     }   
-
-    @FXML
-    private void apri_aggiungi_ristorante() {
-    try {
-        // Carica il file FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/aggiungi_ristorante.fxml"));
-        Parent root = loader.load();
-
-        // Crea un nuovo stage per il dialog
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Aggiungi Ristorante");
-        dialogStage.initModality(Modality.APPLICATION_MODAL); // blocca l'interazione con altre finestre
-        dialogStage.initOwner(stage); // stage principale, da passare se disponibile
-        dialogStage.setScene(new Scene(root));
-
-        // Se il controller ha bisogno dello stage, puoi passarlo:
-        AggiungiRistoranteController controller = loader.getController();
-        controller.setStage(dialogStage); // opzionale, se hai un metodo per settarlo
-
-        dialogStage.showAndWait(); // mostra e attende la chiusura
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    
-    
-}
 }
