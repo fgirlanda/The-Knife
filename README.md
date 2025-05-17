@@ -159,5 +159,6 @@ csv recensioni
 - id cliente
 - id ristorante
 - voto
+- titolo
 - testo
 - risposta
