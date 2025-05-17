@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class Coordinate {
 
-    final int R = 6371; // raggio della Terra in km
+    final static int R = 6371; // raggio della Terra in km
 
     private double lat, lon;
 
@@ -46,7 +46,7 @@ public class Coordinate {
         this.lon = lon;
     }
 
-    public double calcolaDistanza(Coordinate c1, Coordinate c2){
+    public static double calcolaDistanza(Coordinate c1, Coordinate c2){
         double deltaLat = Math.toRadians(c2.getLat() - c1.getLat());
         double deltaLon = Math.toRadians(c2.getLon() - c1.getLon());
 
