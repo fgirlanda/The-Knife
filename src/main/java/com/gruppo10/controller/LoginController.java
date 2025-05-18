@@ -88,6 +88,25 @@ public class LoginController {
                 loginStatus.setText("Login status: LOGIN RIUSCITO");
 
                 utenteLoggato = utente;
+
+                // Carica la nuova scena per la pagina principale
+
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+
+                    // Cambia scena nella stessa finestra (Stage)
+                    stage.setScene(scene);
+                    stage.setTitle("The Knife - Pagina Principale");
+                    PaginaPrincipaleController controller = loader.getController();
+                    controller.setStage(stage);
+
+                    // Puoi aggiungere animazioni qui se vuoi (es. fade)
+
+                } catch (Exception e) {
+                    e.printStackTrace();}
+
             } else {
                 // Login fallito
                 //System.out.println("Login fallito");

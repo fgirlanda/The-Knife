@@ -188,7 +188,7 @@ public class RegistrazioneController {
 
             // Cambia scena nella stessa finestra (Stage)
             stage.setScene(scene);
-            stage.setTitle("The Knife - Login");
+            stage.setTitle("The Knife - Pagina Principale");
             PaginaPrincipaleController controller = loader.getController();
             controller.setStage(stage);
 
