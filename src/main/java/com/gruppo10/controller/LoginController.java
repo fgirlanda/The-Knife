@@ -80,7 +80,7 @@ public class LoginController {
                 loginStatus.setText("Login status: UTENTE NON REGISTRATO");
                 return;
             }
-            System.out.println("password inserita: " + hashedPassword + " password salvata: " + utente.getPassword());
+                
             if (hashedPassword.equals(utente.getPassword())) {
                 // Login riuscito
                 //System.out.println("Login riuscito");
