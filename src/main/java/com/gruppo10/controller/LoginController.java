@@ -75,7 +75,7 @@ public class LoginController {
             Utente utente = ur.cercaUtente(username);
             if (utente == null) {
                 // Utente non trovato
-                System.out.println("Utente non trovato");
+                //System.out.println("Utente non trovato");
                 //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: UTENTE NON REGISTRATO");
                 return;
@@ -83,14 +83,14 @@ public class LoginController {
             System.out.println("password inserita: " + hashedPassword + " password salvata: " + utente.getPassword());
             if (hashedPassword.equals(utente.getPassword())) {
                 // Login riuscito
-                System.out.println("Login riuscito");
+                //System.out.println("Login riuscito");
                 //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: LOGIN RIUSCITO");
 
                 utenteLoggato = utente;
             } else {
                 // Login fallito
-                System.out.println("Login fallito");
+                //System.out.println("Login fallito");
                 //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: PASSWORD ERRATA");
             }
