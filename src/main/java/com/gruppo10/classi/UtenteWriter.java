@@ -16,9 +16,6 @@ public class UtenteWriter {
 
     private static int contaID = 0;
 
-    private static  void aggiornaID(int id){
-        contaID = id;
-    }
 
     public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
         File dir = new File("fileCSV");
@@ -34,7 +31,6 @@ public class UtenteWriter {
                 while (br.readLine() != null) {
                     contaID++;
                 }
-                aggiornaID(contaID);
             } 
         }
         //crea lista dati
