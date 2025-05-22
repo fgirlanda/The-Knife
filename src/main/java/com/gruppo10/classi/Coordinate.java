@@ -46,12 +46,12 @@ public class Coordinate {
         this.lon = lon;
     }
 
-    public static double calcolaDistanza(Coordinate c1, Coordinate c2){
-        double deltaLat = Math.toRadians(c2.getLat() - c1.getLat());
-        double deltaLon = Math.toRadians(c2.getLon() - c1.getLon());
+    public double calcolaDistanza(Coordinate c2){
+        double deltaLat = Math.toRadians(c2.getLat() - this.getLat());
+        double deltaLon = Math.toRadians(c2.getLon() - this.getLon());
 
         double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-                Math.cos(Math.toRadians(c1.getLat())) * Math.cos(Math.toRadians(c2.getLat())) *
+                Math.cos(Math.toRadians(this.getLat())) * Math.cos(Math.toRadians(c2.getLat())) *
                 Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));

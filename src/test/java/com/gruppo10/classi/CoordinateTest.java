@@ -11,7 +11,7 @@ public class CoordinateTest {
             Coordinate c2 = new Coordinate("Via Santi Pietro e Paolo, 4, 21040 Cascine Maggio VA");
             System.out.println("Coordinate c1: " + c1.getLat() + ", " + c1.getLon());
             System.out.println("Coordinate c2: " + c2.getLat() + ", " + c2.getLon());
-            System.out.println("Distanza: " + Coordinate.calcolaDistanza(c1, c2) + " km");
+            System.out.println("Distanza: " + c1.calcolaDistanza(c2) + " km");
         } catch (Exception e) {
             e.printStackTrace();
         }

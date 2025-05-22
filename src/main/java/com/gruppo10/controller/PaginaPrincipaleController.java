@@ -79,7 +79,7 @@ public class PaginaPrincipaleController {
         // comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
         // comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
         //caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
@@ -89,7 +89,7 @@ public class PaginaPrincipaleController {
     public void caricaTessere(List<Ristorante> listaRistoranti) {
         //caricamento schede ristorante
         for (Ristorante r : listaRistoranti) {
-            Double dist = Coordinate.calcolaDistanza(utenteLoggato.getCords(), r.getCords());
+            Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
             if (dist <= 10){
                 try {
@@ -134,12 +134,23 @@ public class PaginaPrincipaleController {
             reader.readNext(); // salta intestazione
             while ((dati = reader.readNext()) != null) {
                 String nome = dati[0]; //nome ristorante
-                String prezzo = dati[5]; //prezzo
+                String indirizzo = dati[1]; //indirizzo
+                Boolean delivery = Boolean.parseBoolean(dati[2]); //delivery
+                Boolean prenotazione = Boolean.parseBoolean(dati[3]); //prenotazione
                 String cucina = dati[4]; //cucina
+                String prezzo = dati[5]; //prezzo
+                String descrizione = dati[6]; //descrizione
+                double lat = Double.parseDouble(dati[7]); //latitudine
+                double lon = Double.parseDouble(dati[8]); //longitudine
                 Ristorante r = new Ristorante();
                 r.setNomeRistorante(nome);
-                r.setPrezzo(prezzo);
+                r.setIndirizzo(indirizzo);
+                r.setDelivery(delivery);
+                r.setPrenotazioneOnline(prenotazione);
                 r.setCucina(cucina);
+                r.setPrezzo(prezzo);
+                r.setDescrizione(descrizione);
+                r.setCords(new Coordinate(lat, lon));
                 lista.add(r);
             }
         } catch (Exception e) {
