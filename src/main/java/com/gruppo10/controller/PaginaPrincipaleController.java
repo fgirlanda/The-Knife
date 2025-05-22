@@ -17,7 +17,7 @@ import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
-import com.gruppo10.classi.FiltroDelivey;
+import com.gruppo10.classi.FiltroDelivery;
 import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
 import com.opencsv.CSVReader;
@@ -55,7 +55,7 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroMediaRecensioni> comboFiltroRecensioni;
 
-    @FXML private ComboBox<FiltroDelivey> comboFiltroDelivery;
+    @FXML private ComboBox<FiltroDelivery> comboFiltroDelivery;
 
     @FXML private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
 
@@ -73,13 +73,20 @@ public class PaginaPrincipaleController {
 
     @FXML
     public void initialize() {
+        // Tasto registrati-profilo
+        if (utenteLoggato == null) {
+            bottoneRegistratiProfilo.setText("Registrati");
+        } else {
+            bottoneRegistratiProfilo.setText("Profilo");
+        }
+        // Filtri
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
-        // comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
-        // comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
-        //caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+        comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
+        comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
+        // Caricamento schede ristorante
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
         ristoranti = caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
