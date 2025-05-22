@@ -1,2 +1,3 @@
 "ID","Nome","Cognome","Username","Password","Data di nascita","Indirizzo","Ruolo","Latitudine","Longitudine"
 "1","Mario","Rossi","mrossi","password123","01-01-1990","Via Roma 1","CLIENTE","36.8698934","14.7618873"
+"2","TEST","TEST","TEST","9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08","07-05-2025","VIA SANTI PIETRO E PAOLO, CASCINE MAGGIO, CASTRONNO, VARESE, LOMBARDIA, 21040, ITALIA","CLIENTE","45.7570198","8.8113211"

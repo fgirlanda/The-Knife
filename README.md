@@ -124,9 +124,9 @@ GESTIRE LOG IN - Gabriele:
 - leggere file csv (FATTO)
 - aggiungere id al cliente (FATTO)
 - implementare nell'interfaccia (dati errati, utente inesistente, login effettuato) (FATTO)
-- collegare tasto login a pagina principale
-- utente loggato
-- username univoco
+- collegare tasto login a pagina principale (FATTO)
+- utente loggato (FATTO)
+- username univoco 
 
 GESTIRE RISTORANTI - Mattia:
 
@@ -138,9 +138,9 @@ GESTIRE RISTORANTI - Mattia:
 
 LOCATION e RICERCA - Zuba:
 
-- trova ristoranti vicini
+- trova ristoranti vicini (FATTO)
 - gestire posizione utente/ristorante (FATTO)
-- calcola distanza
+- calcola distanza (FATTO)
 - recensioni (file csv, classi)
 
 
