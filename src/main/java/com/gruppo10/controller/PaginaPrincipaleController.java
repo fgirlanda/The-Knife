@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.gruppo10.classi.Coordinate;
@@ -61,7 +62,9 @@ public class PaginaPrincipaleController {
 
 
 
-    static List<Ristorante> ristoranti; 
+    public static List<Ristorante> ristoranti; 
+
+    private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
@@ -86,18 +89,22 @@ public class PaginaPrincipaleController {
     public void caricaTessere(List<Ristorante> listaRistoranti) {
         //caricamento schede ristorante
         for (Ristorante r : listaRistoranti) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
-                HBox card = loader.load();
+            Double dist = Coordinate.calcolaDistanza(utenteLoggato.getCords(), r.getCords());
+            mappaDistanze.put(r.getNomeRistorante(), dist);
+            if (dist <= 10){
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                    HBox card = loader.load();
 
-                CardRistoranteController controller = loader.getController();
-                controller.setDati(r);
+                    CardRistoranteController controller = loader.getController();
+                    controller.setDati(r);
 
-                contenitoreTessere.getChildren().add(card);
-            } catch (IOException e) {
-                e.printStackTrace();
+                    contenitoreTessere.getChildren().add(card);
+                } catch (IOException e) {
+                    System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+                }
             }
-    }
+        }
     }
 
     @FXML
@@ -108,12 +115,12 @@ public class PaginaPrincipaleController {
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
+        
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+
         caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
                                                               (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina))).toList()); // filtro cucina
-
-
     }
 
 
@@ -123,24 +130,22 @@ public class PaginaPrincipaleController {
     private List<Ristorante> caricaCSV(String nomeFile) {
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
-        String[] dati;
-        reader.readNext(); // salta intestazione
-        while ((dati = reader.readNext()) != null) {
-            String nome = dati[0]; //nome ristorante
-            String prezzo = dati[5]; //prezzo
-            String cucina = dati[4]; //cucina
-            Ristorante r = new Ristorante();
-            r.setNomeRistorante(nome);
-            r.setPrezzo(prezzo);
-            r.setCucina(cucina);
-            lista.add(r);
-        }
+            String[] dati;
+            reader.readNext(); // salta intestazione
+            while ((dati = reader.readNext()) != null) {
+                String nome = dati[0]; //nome ristorante
+                String prezzo = dati[5]; //prezzo
+                String cucina = dati[4]; //cucina
+                Ristorante r = new Ristorante();
+                r.setNomeRistorante(nome);
+                r.setPrezzo(prezzo);
+                r.setCucina(cucina);
+                lista.add(r);
+            }
         } catch (Exception e) {
-            // e.printStackTrace();
-            System.err.println("Il file csv non esiste ancora.");
+            System.out.println("Il file csv non esiste ancora.");
         }
         return lista;
-    
     }
 
     @FXML

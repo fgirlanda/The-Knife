@@ -12,6 +12,9 @@ import lombok.Data;
 
 @Data
 public class Coordinate {
+
+    final static int R = 6371; // raggio della Terra in km
+
     private double lat, lon;
 
     public Coordinate(String address) throws Exception {
@@ -41,5 +44,19 @@ public class Coordinate {
     public Coordinate(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public static double calcolaDistanza(Coordinate c1, Coordinate c2){
+        double deltaLat = Math.toRadians(c2.getLat() - c1.getLat());
+        double deltaLon = Math.toRadians(c2.getLon() - c1.getLon());
+
+        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                Math.cos(Math.toRadians(c1.getLat())) * Math.cos(Math.toRadians(c2.getLat())) *
+                Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+
+        return R * c; // distanza in km
     }
 }
