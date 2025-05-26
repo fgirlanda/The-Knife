@@ -13,6 +13,7 @@ import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroPrezzo;
@@ -177,7 +178,10 @@ public class PaginaPrincipaleController {
         if (testo.equals("registrati")) {
             apriRegistrati();
         } else if (testo.equals("profilo")) {
-            apriProfilo();
+            if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE))
+                apriProfilo();
+            else
+                apriProfiloRistoratore();
         }
     }
 
@@ -219,5 +223,25 @@ public class PaginaPrincipaleController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }   
+    } 
+    @FXML
+    private void apriProfiloRistoratore(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/profilo_ristoratore.fxml")); //gestire ruolo cliente o ristoratore
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Cambia scena nella stessa finestra (Stage)
+            stage.setScene(scene);
+            stage.setTitle("The Knife - Profilo");
+            ProfiloRistoratoreController controller = loader.getController();
+            controller.setStage(stage);
+
+            // Puoi aggiungere animazioni qui se vuoi (es. fade)
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } 
+    
 }
