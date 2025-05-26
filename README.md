@@ -126,7 +126,8 @@ GESTIRE LOG IN - Gabriele:
 - implementare nell'interfaccia (dati errati, utente inesistente, login effettuato) (FATTO)
 - collegare tasto login a pagina principale (FATTO)
 - utente loggato (FATTO)
-- username univoco 
+- username univoco (FATTO)
+- visualizzazione del profilo
 
 GESTIRE RISTORANTI - Mattia:
 
