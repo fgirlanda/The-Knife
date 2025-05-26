@@ -2,6 +2,8 @@ package com.gruppo10.controller;
 
 import java.io.IOException;
 
+import com.gruppo10.classi.Utente;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,8 @@ import javafx.stage.Stage;
 public class ProfiloRistoratoreController {
 
     private Stage stage;
+
+    private Utente utenteloggato = LoginController.utenteLoggato;
 
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
