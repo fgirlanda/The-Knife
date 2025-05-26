@@ -1,6 +1,7 @@
 package com.gruppo10.controller;
 
 import java.io.IOException;
+import javafx.scene.control.Label;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -18,6 +19,7 @@ import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.classi.UtenteReader;
 import com.gruppo10.classi.UtenteWriter;
 
 import javafx.fxml.FXML;
@@ -69,6 +71,9 @@ public class RegistrazioneController {
 
     @FXML
     private Button registratiButton;
+
+    @FXML
+    private Label statusRegistrazione;
 
     private ToggleGroup ruoloGroup;
 
@@ -148,6 +153,12 @@ public class RegistrazioneController {
         String indirizzo = indirizzoTextField.getText().toUpperCase();
 
         // Verifica che l'username sia disponibile
+        UtenteReader reader = new UtenteReader();
+        if(reader.cercaUtente(username) != null) {
+            // Mostra un messaggio di errore se l'username è già in uso
+            statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
+            return;
+        }
 
          // Formatta la data di nascita
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
