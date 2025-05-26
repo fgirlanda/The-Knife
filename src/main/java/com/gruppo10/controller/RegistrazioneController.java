@@ -182,7 +182,7 @@ public class RegistrazioneController {
         utente.setRuolo(ruolo);
         Coordinate coordinate = new Coordinate(indirizzo);
         utente.setCords(coordinate);
-
+        reader.aggiungiUtente(utente.getUsername(),utente);
         UtenteWriter writer = new UtenteWriter();
         try {
             writer.scriviUtente(utente);
