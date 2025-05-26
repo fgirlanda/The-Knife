@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.gruppo10.classi.Coordinate;
@@ -16,7 +17,7 @@ import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
-import com.gruppo10.classi.FiltroDelivey;
+import com.gruppo10.classi.FiltroDelivery;
 import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
 import com.opencsv.CSVReader;
@@ -54,14 +55,16 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroMediaRecensioni> comboFiltroRecensioni;
 
-    @FXML private ComboBox<FiltroDelivey> comboFiltroDelivery;
+    @FXML private ComboBox<FiltroDelivery> comboFiltroDelivery;
 
     @FXML private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
 
 
 
 
-    static List<Ristorante> ristoranti; 
+    public static List<Ristorante> ristoranti; 
+
+    private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
@@ -70,13 +73,20 @@ public class PaginaPrincipaleController {
 
     @FXML
     public void initialize() {
+        // Tasto registrati-profilo
+        if (utenteLoggato == null) {
+            bottoneRegistratiProfilo.setText("Registrati");
+        } else {
+            bottoneRegistratiProfilo.setText("Profilo");
+        }
+        // Filtri
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
-        // comboFiltroDelivery.getItems().setAll(FiltroDelivey.values());
-        // comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
-        //caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
+        comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
+        comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
+        // Caricamento schede ristorante
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
@@ -86,18 +96,22 @@ public class PaginaPrincipaleController {
     public void caricaTessere(List<Ristorante> listaRistoranti) {
         //caricamento schede ristorante
         for (Ristorante r : listaRistoranti) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
-                HBox card = loader.load();
+            Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
+            mappaDistanze.put(r.getNomeRistorante(), dist);
+            if (dist <= 10){
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                    HBox card = loader.load();
 
-                CardRistoranteController controller = loader.getController();
-                controller.setDati(r);
+                    CardRistoranteController controller = loader.getController();
+                    controller.setDati(r);
 
-                contenitoreTessere.getChildren().add(card);
-            } catch (IOException e) {
-                e.printStackTrace();
+                    contenitoreTessere.getChildren().add(card);
+                } catch (IOException e) {
+                    System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+                }
             }
-    }
+        }
     }
 
     @FXML
@@ -108,10 +122,14 @@ public class PaginaPrincipaleController {
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
+        
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+
         caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
-                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina))).toList()); // filtro cucina
+                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) &&
+                                                              (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  
+                                                              (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && ristorante.isPrenotazioneOnline()) || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE") && !ristorante.isPrenotazioneOnline()))).toList()); // filtro cucina
 
 
     }
@@ -123,24 +141,33 @@ public class PaginaPrincipaleController {
     private List<Ristorante> caricaCSV(String nomeFile) {
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
-        String[] dati;
-        reader.readNext(); // salta intestazione
-        while ((dati = reader.readNext()) != null) {
-            String nome = dati[0]; //nome ristorante
-            String prezzo = dati[5]; //prezzo
-            String cucina = dati[4]; //cucina
-            Ristorante r = new Ristorante();
-            r.setNomeRistorante(nome);
-            r.setPrezzo(prezzo);
-            r.setCucina(cucina);
-            lista.add(r);
-        }
+            String[] dati;
+            reader.readNext(); // salta intestazione
+            while ((dati = reader.readNext()) != null) {
+                String nome = dati[0]; //nome ristorante
+                String indirizzo = dati[1]; //indirizzo
+                Boolean delivery = Boolean.parseBoolean(dati[2]); //delivery
+                Boolean prenotazione = Boolean.parseBoolean(dati[3]); //prenotazione
+                String cucina = dati[4]; //cucina
+                String prezzo = dati[5]; //prezzo
+                String descrizione = dati[6]; //descrizione
+                double lat = Double.parseDouble(dati[7]); //latitudine
+                double lon = Double.parseDouble(dati[8]); //longitudine
+                Ristorante r = new Ristorante();
+                r.setNomeRistorante(nome);
+                r.setIndirizzo(indirizzo);
+                r.setDelivery(delivery);
+                r.setPrenotazioneOnline(prenotazione);
+                r.setCucina(cucina);
+                r.setPrezzo(prezzo);
+                r.setDescrizione(descrizione);
+                r.setCords(new Coordinate(lat, lon));
+                lista.add(r);
+            }
         } catch (Exception e) {
-            // e.printStackTrace();
-            System.err.println("Il file csv non esiste ancora.");
+            System.out.println("Il file csv non esiste ancora.");
         }
         return lista;
-    
     }
 
     @FXML

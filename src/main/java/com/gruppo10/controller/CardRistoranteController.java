@@ -13,6 +13,7 @@ public class CardRistoranteController {
 
     private Stage stage;
 
+
     @FXML private ImageView imgRistorante;
     @FXML private Button btnPreferito;
     @FXML private Text txtNomeRistorante;
@@ -26,6 +27,7 @@ public class CardRistoranteController {
         //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
         txtPrezzo.setText(ristorante.getPrezzo());
         txtTipoCucina.setText(ristorante.getTipoCucina().toString());
+
     }
 
 
