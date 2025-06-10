@@ -217,6 +217,6 @@ public class AggiungiRistoranteController {
     
     @FXML
     private void annulla() {
-    stage.close(); // chiude la finestra modale 
+        stage.close(); // chiude la finestra modale 
     }
 }

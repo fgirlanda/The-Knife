@@ -86,7 +86,7 @@ public class PaginaPrincipaleController {
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
         // Caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "nuovi_ristoranti.csv");
         ristoranti = caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
@@ -98,7 +98,7 @@ public class PaginaPrincipaleController {
         for (Ristorante r : listaRistoranti) {
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
-            if (dist <= 10){
+            if (dist <= 20){
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
                     HBox card = loader.load();
@@ -144,16 +144,18 @@ public class PaginaPrincipaleController {
             String[] dati;
             reader.readNext(); // salta intestazione
             while ((dati = reader.readNext()) != null) {
-                String nome = dati[0]; //nome ristorante
-                String indirizzo = dati[1]; //indirizzo
-                Boolean delivery = Boolean.parseBoolean(dati[2]); //delivery
-                Boolean prenotazione = Boolean.parseBoolean(dati[3]); //prenotazione
-                String cucina = dati[4]; //cucina
-                String prezzo = dati[5]; //prezzo
-                String descrizione = dati[6]; //descrizione
-                double lat = Double.parseDouble(dati[7]); //latitudine
-                double lon = Double.parseDouble(dati[8]); //longitudine
+                int id = Integer.parseInt(dati[0]);
+                String nome = dati[1]; //nome ristorante
+                String indirizzo = dati[2]; //indirizzo
+                Boolean delivery = Boolean.parseBoolean(dati[3]); //delivery
+                Boolean prenotazione = Boolean.parseBoolean(dati[4]); //prenotazione
+                String cucina = dati[5]; //cucina
+                String prezzo = dati[6]; //prezzo
+                String descrizione = dati[7]; //descrizione
+                double lat = Double.parseDouble(dati[8]); //latitudine
+                double lon = Double.parseDouble(dati[9]); //longitudine
                 Ristorante r = new Ristorante();
+                r.setId(id);
                 r.setNomeRistorante(nome);
                 r.setIndirizzo(indirizzo);
                 r.setDelivery(delivery);
@@ -165,7 +167,8 @@ public class PaginaPrincipaleController {
                 lista.add(r);
             }
         } catch (Exception e) {
-            System.out.println("Il file csv non esiste ancora.");
+            // System.out.println("Il file csv non esiste ancora.");
+            System.err.println("Errore caricamento file csv: " + e.getMessage());
         }
         return lista;
     }

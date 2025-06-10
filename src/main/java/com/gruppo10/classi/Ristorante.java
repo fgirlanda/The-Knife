@@ -8,6 +8,7 @@ import java.util.ArrayList;
 @Data
 public class Ristorante {
     
+    private int id;
     private Utente proprietario;
     private Coordinate cords;
     private String nomeRistorante;
