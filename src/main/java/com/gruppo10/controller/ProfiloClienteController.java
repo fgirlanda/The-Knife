@@ -14,4 +14,7 @@ public class ProfiloClienteController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    public void modificaDati(){
+    }
 }
