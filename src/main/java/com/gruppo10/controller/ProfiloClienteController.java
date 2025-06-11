@@ -1,7 +1,6 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Utente;
-
 import javafx.stage.Stage;
 
 public class ProfiloClienteController {
@@ -10,7 +9,7 @@ public class ProfiloClienteController {
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
-    // Imposta il riferimento alla finestra principale (Stage)
+    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }

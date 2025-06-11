@@ -32,64 +32,66 @@ import javafx.scene.control.ComboBox;
 
 public class AggiungiRistoranteController {
 
-
-
     private Stage stage;
+    
+    @FXML
+    private TextField txtNomeRistorante;
+    
+    @FXML
+    private TextField txtIndirizzo;
+    
+    @FXML
+    private RadioButton radioDeliverySi;
+    
+    @FXML
+    private RadioButton radioDeliveryNo;
+    
+    @FXML
+    private RadioButton radioPrenotazioneSi;
+    
+    @FXML
+    private RadioButton radioPrenotazioneNo;
+    
+    @FXML
+    private RadioButton radioPrezzo1;
+    
+    @FXML
+    private RadioButton radioPrezzo2;
+    
+    @FXML
+    private RadioButton radioPrezzo3;
+    
+    @FXML
+    private RadioButton radioPrezzo4;
+    
+    @FXML
+    private ComboBox<TipoCucina> comboCucina;
+    
+    @FXML
+    private TextArea txtDescrizione;
+    
+    @FXML
+    private Button btnAnnulla;
+    
+    @FXML
+    private Button btnAggiungiRistorante;
+    
+    // Radio buttons groups
+    private ToggleGroup deliveryGroup;
+    private ToggleGroup prenotazioneGroup;
+    private ToggleGroup prezzoGroup;
+    
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     @FXML
-    private TextField txtNomeRistorante;
-
-    @FXML
-    private TextField txtIndirizzo;
-
-    @FXML
-    private RadioButton radioDeliverySi;
-
-    @FXML
-    private RadioButton radioDeliveryNo;
-
-    @FXML
-    private RadioButton radioPrenotazioneSi;
-
-    @FXML
-    private RadioButton radioPrenotazioneNo;
-
-    @FXML
-    private RadioButton radioPrezzo1;
-
-    @FXML
-    private RadioButton radioPrezzo2;
-
-    @FXML
-    private RadioButton radioPrezzo3;
-
-    @FXML
-    private RadioButton radioPrezzo4;
-
-    @FXML
-    private ComboBox<TipoCucina> comboCucina;
-
-    @FXML
-    private TextArea txtDescrizione;
-
-    @FXML
-    private Button btnAnnulla;
-
-    @FXML
-    private Button btnAggiungiRistorante;
-
-    private ToggleGroup deliveryGroup;
-    private ToggleGroup prenotazioneGroup;
-    private ToggleGroup prezzoGroup;
-
-    @FXML
     private void initialize() {
+
         // Inizializza il ComboBox con i valori dell'enum TipoCucina
         comboCucina.getItems().setAll(TipoCucina.values());
+        comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
         
         deliveryGroup = new ToggleGroup();
         prenotazioneGroup = new ToggleGroup();
@@ -103,9 +105,8 @@ public class AggiungiRistoranteController {
         radioPrezzo2.setToggleGroup(prezzoGroup);
         radioPrezzo3.setToggleGroup(prezzoGroup);
         radioPrezzo4.setToggleGroup(prezzoGroup);
-        comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
 
-        //Aggiungi listener per abilitare/disabilitare il pulsante
+        // Aggiungi listener per abilitare/disabilitare il pulsante
         txtNomeRistorante.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         txtIndirizzo.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         comboCucina.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
@@ -129,6 +130,7 @@ public class AggiungiRistoranteController {
     }
 
     private void checkFields() {
+
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtNomeRistorante.getText().isEmpty() &&
                                   !txtIndirizzo.getText().isEmpty() &&
@@ -142,6 +144,7 @@ public class AggiungiRistoranteController {
 
     @FXML
     private void aggiungiRistorante() throws Exception {
+
         // Recupera i dati dai campi
         RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
         RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
@@ -175,7 +178,6 @@ public class AggiungiRistoranteController {
         ristorante.setDescrizione(txtDescrizione.getText());
 
         Coordinate cords = new Coordinate(indirizzo);
-        // System.out.println(cords); // Debug
         ristorante.setCords(cords);
 
         RistoranteWriter writer = new RistoranteWriter();
@@ -192,6 +194,7 @@ public class AggiungiRistoranteController {
     }
 
 
+    // Autocompletamento con Nominatim
     private List<String> getSuggestions(String query) throws IOException, InterruptedException {
         String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
                      + "&format=json&addressdetails=1&limit=5";
@@ -217,6 +220,6 @@ public class AggiungiRistoranteController {
     
     @FXML
     private void annulla() {
-        stage.close(); // chiude la finestra modale 
+        stage.close(); // Chiude la finestra
     }
 }

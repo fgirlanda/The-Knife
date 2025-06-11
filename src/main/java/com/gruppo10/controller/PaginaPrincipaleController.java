@@ -1,6 +1,5 @@
 package com.gruppo10.controller;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,10 +13,7 @@ import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
-import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.FiltroPrezzo;
-import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.FiltroDelivery;
 import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
@@ -32,8 +28,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class PaginaPrincipaleController {
@@ -60,32 +54,32 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
 
-
-
-
     public static List<Ristorante> ristoranti; 
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
-    // Imposta il riferimento alla finestra principale (Stage)
+    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     @FXML
     public void initialize() {
+
         // Tasto registrati-profilo
         if (utenteLoggato == null) {
             bottoneRegistratiProfilo.setText("Registrati");
         } else {
             bottoneRegistratiProfilo.setText("Profilo");
         }
+
         // Filtri
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
+
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "nuovi_ristoranti.csv");
         ristoranti = caricaCSV(path.toString());
@@ -93,9 +87,9 @@ public class PaginaPrincipaleController {
     }
 
 
+    // Caricamento schede ristorante
     @FXML
     public void caricaTessere(List<Ristorante> listaRistoranti) {
-        //caricamento schede ristorante
         for (Ristorante r : listaRistoranti) {
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
@@ -143,18 +137,18 @@ public class PaginaPrincipaleController {
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
-            reader.readNext(); // salta intestazione
+            reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {
                 int id = Integer.parseInt(dati[0]);
-                String nome = dati[1]; //nome ristorante
-                String indirizzo = dati[2]; //indirizzo
-                Boolean delivery = Boolean.parseBoolean(dati[3]); //delivery
-                Boolean prenotazione = Boolean.parseBoolean(dati[4]); //prenotazione
-                String cucina = dati[5]; //cucina
-                String prezzo = dati[6]; //prezzo
-                String descrizione = dati[7]; //descrizione
-                double lat = Double.parseDouble(dati[8]); //latitudine
-                double lon = Double.parseDouble(dati[9]); //longitudine
+                String nome = dati[1]; 
+                String indirizzo = dati[2]; 
+                Boolean delivery = Boolean.parseBoolean(dati[3]); 
+                Boolean prenotazione = Boolean.parseBoolean(dati[4]); 
+                String cucina = dati[5]; 
+                String prezzo = dati[6]; 
+                String descrizione = dati[7]; 
+                double lat = Double.parseDouble(dati[8]); 
+                double lon = Double.parseDouble(dati[9]); 
                 Ristorante r = new Ristorante();
                 r.setId(id);
                 r.setNomeRistorante(nome);
@@ -168,7 +162,6 @@ public class PaginaPrincipaleController {
                 lista.add(r);
             }
         } catch (Exception e) {
-            // System.out.println("Il file csv non esiste ancora.");
             System.err.println("Errore caricamento file csv: " + e.getMessage());
         }
         return lista;
@@ -195,14 +188,11 @@ public class PaginaPrincipaleController {
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Cambia scena nella stessa finestra (Stage)
+            // Cambia scena nella stessa finestra
             stage.setScene(scene);
             stage.setTitle("The Knife - Registrazione");
             RegistrazioneController controller = loader.getController();
             controller.setStage(stage);
-
-            // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,14 +205,11 @@ public class PaginaPrincipaleController {
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // Cambia scena nella stessa finestra (Stage)
+            // Cambia scena nella stessa finestra
             stage.setScene(scene);
             stage.setTitle("The Knife - Profilo");
             ProfiloClienteController controller = loader.getController();
             controller.setStage(stage);
-
-            // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -239,9 +226,6 @@ public class PaginaPrincipaleController {
             stage.setTitle("The Knife - Profilo");
             ProfiloRistoratoreController controller = loader.getController();
             controller.setStage(stage);
-
-            // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
         } catch (Exception e) {
             e.printStackTrace();
         }

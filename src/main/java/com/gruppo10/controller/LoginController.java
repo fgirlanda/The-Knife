@@ -31,7 +31,7 @@ public class LoginController {
     @FXML
     Label loginStatus;
 
-    // Imposta il riferimento alla finestra principale (Stage)
+    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -45,7 +45,7 @@ public class LoginController {
             Scene scene = new Scene(root);
             
             
-            // Cambia scena nella stessa finestra (Stage)
+            // Cambia scena nella stessa finestra
             stage.setScene(scene);
             stage.setTitle("The Knife - Registrazione");
             
@@ -58,7 +58,6 @@ public class LoginController {
     }
 
     // Metodo per gestire il login
-    // Questo metodo viene chiamato quando l'utente fa clic sul pulsante di login
     @FXML
     public void provaLogin(ActionEvent event) {
         try {
@@ -70,26 +69,20 @@ public class LoginController {
             String hashedPassword = Criptatore.cripta(password);
            
             // Verifica se l'utente esiste nel file CSV
-
             Utente utente = ur.cercaUtente(username);
             if (utente == null) {
                 // Utente non trovato
-                //System.out.println("Utente non trovato");
-                //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: UTENTE NON REGISTRATO");
                 return;
             }
                 
             if (hashedPassword.equals(utente.getPassword())) {
                 // Login riuscito
-                //System.out.println("Login riuscito");
-                //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: LOGIN RIUSCITO");
 
                 utenteLoggato = utente;
 
                 // Carica la nuova scena per la pagina principale
-
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
                     Parent root = loader.load();
@@ -100,16 +93,12 @@ public class LoginController {
                     stage.setTitle("The Knife - Pagina Principale");
                     PaginaPrincipaleController controller = loader.getController();
                     controller.setStage(stage);
-
-                    // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
                 } catch (Exception e) {
-                    e.printStackTrace();}
+                    e.printStackTrace();
+                }
 
             } else {
                 // Login fallito
-                //System.out.println("Login fallito");
-                //Prova per settare nuovo valore del login status
                 loginStatus.setText("Login status: PASSWORD ERRATA");
             }
   

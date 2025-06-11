@@ -8,24 +8,24 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+// Aggiungere id, shiftare tutti i dati
 public class RistoranteWriter {
 
     public void scriviRistorante(Ristorante ristorante) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
-        File fileRisotrante = new File(dir, "ristoranti_nuovi.csv");
+        File fileRistorante = new File(dir, "ristoranti_nuovi.csv");
 
-        //crea lista dati
+        // Crea lista dati
         String[] dati = estraiDati(ristorante);
 
-        boolean fileEsiste = fileRisotrante.exists();
+        try (Writer writer = new FileWriter(fileRistorante, true)) {
 
-        try (Writer writer = new FileWriter(fileRisotrante, true)) {
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
-            if (!fileEsiste) {
-                String[] header = { "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario"}; // Sostituisci con i nomi dei campi della classe Utente
+            if (!fileRistorante.exists()) {
+                String[] header = { "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario"};
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }

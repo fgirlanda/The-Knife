@@ -32,15 +32,14 @@ public class ProfiloRistoratoreController {
             // Crea un nuovo stage per il dialog
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Aggiungi Ristorante");
-            dialogStage.initModality(Modality.APPLICATION_MODAL); // blocca l'interazione con altre finestre
-            dialogStage.initOwner(stage); // stage principale, da passare se disponibile
+            dialogStage.initModality(Modality.APPLICATION_MODAL); // Blocca l'interazione con altre finestre
+            dialogStage.initOwner(stage);
             dialogStage.setScene(new Scene(root));
 
-            // Se il controller ha bisogno dello stage, puoi passarlo:
             AggiungiRistoranteController controller = loader.getController();
-            controller.setStage(dialogStage); // opzionale, se hai un metodo per settarlo
+            controller.setStage(dialogStage);
 
-            dialogStage.showAndWait(); // mostra e attende la chiusura
+            dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public class CardRistoranteController {
 
 
 
-    // Imposta il riferimento alla finestra principale (Stage)
+    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }

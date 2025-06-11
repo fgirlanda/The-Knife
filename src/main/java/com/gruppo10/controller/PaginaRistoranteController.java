@@ -6,7 +6,7 @@ public class PaginaRistoranteController {
 
     private Stage stage;
 
-    // Imposta il riferimento alla finestra principale (Stage)
+    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }

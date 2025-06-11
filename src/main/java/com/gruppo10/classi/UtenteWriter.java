@@ -16,7 +16,6 @@ public class UtenteWriter {
 
     private static int contaID = 0;
 
-
     public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
@@ -33,10 +32,12 @@ public class UtenteWriter {
                 }
             } 
         }
-        //crea lista dati
+
+        // Crea lista dati
         String[] dati = estraiDati(utente);
 
         try (Writer writer = new FileWriter(fileUtente, true)) {
+            
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {

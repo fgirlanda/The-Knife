@@ -25,7 +25,7 @@ public enum FiltroMediaRecensioni {
     int stellePiene = (int) valore;
     boolean mezzo = (valore - stellePiene) >= 0.5;
 
-    // stelle piene
+    // Stelle piene
     for (int i = 0; i < stellePiene; i++) {
         stelle.append("★");
     }
@@ -46,7 +46,8 @@ public enum FiltroMediaRecensioni {
     // }
 
     return stelle.toString();
-}
+    
+    }
 
     @Override
     public String toString() {
