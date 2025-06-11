@@ -1,4 +1,4 @@
-The Knife
+# The Knife
 
 Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
 
@@ -8,9 +8,8 @@ Link per visualizzare e modificare il documento di progettazione: https://it.ove
 
 Link per visualizzare e modificare il manuale tecnico: https://it.overleaf.com/6394637564zmtgkwntyvtd#5ab025
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CONFIGURAZIONE INIZIALE:
+## CONFIGURAZIONE INIZIALE
 
 Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
@@ -19,11 +18,9 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
 ![Screenshot](Documentazione/img/istruzioni_avvio.png)
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## MAVEN
 
-MAVEN (WORK IN PROGRESS):
-
-È necessario installare e configurare maven, seguendo questi passaggi:
+### Installazione
 
 1) scaricare il file .zip (sotto la cartella Link) qui: https://maven.apache.org/download.cgi
 2) estrarre la cartella contenuta nel file zip
@@ -32,7 +29,7 @@ MAVEN (WORK IN PROGRESS):
 - creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
 - verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
 
-Avvio applicazione/interfacce:
+### Avvio applicazione/interfacce
 
 1) Tramite launch.json:
 
@@ -54,9 +51,7 @@ Avvio applicazione/interfacce:
 - clean
 - test
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-PASSAGGI PER CONTRIBUIRE:
+## PASSAGGI PER CONTRIBUIRE:
 
 1) git fetch -> git status (verificare il branch attuale e se ci sono modifiche da pullare)
 2) git pull (se necessario)
@@ -72,7 +67,7 @@ Merge:
 6) git checkout main
 7) git merge nome_branch (se il branch è terminato)
 
-Se ci sono dei conflitti (indicati dal terminale)ç
+Se ci sono dei conflitti (indicati dal terminale):
 
 8) Risolvere i conflitti (modificare i file in conflitto)
 9) git add .
@@ -96,29 +91,9 @@ Per lavorare su un branch specifico già esistente:
 
 nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch di default (origin/HEAD) è impostato sul branch main (origin/main)
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## TO DO:
 
-SCRIPT TEST:
-
-c'è un file test_gui.py che permette di testare tutte le finestre contenute in src/fileJava, per farlo funzionare è necessario creare un file private_keys.py e inserire la variabile javafx_path contenente il proprio percorso alla cartella lib di javafx
-
-nota: seguire il file di esempio "private_keys_ex.py"
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-GRAFICA:
-
-Font/font-size:
-
-- label -> System 18px
-- button -> System 14px
-- testo mini -> System 12px
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-TO DO:
-
-GESTIRE LOG IN - Gabriele:
+### ilTocco:
 
 - criptare password (FATTO)
 - leggere file csv (FATTO)
@@ -129,7 +104,7 @@ GESTIRE LOG IN - Gabriele:
 - username univoco (FATTO)
 - visualizzazione del profilo
 
-GESTIRE RISTORANTI - Mattia:
+### matlmbe:
 
 - file csv ristoranti (FATTO)
 - dialog per aggiungere (FATTO)
@@ -137,19 +112,16 @@ GESTIRE RISTORANTI - Mattia:
 - gestire ricerca e filtri (FATTO)
 - ristoranti preferiti
 
-LOCATION e RICERCA - Zuba:
+### fgirlanda:
 
 - trova ristoranti vicini (FATTO)
 - gestire posizione utente/ristorante (FATTO)
 - calcola distanza (FATTO)
 - recensioni (file csv, classi)
 
+### Generale
 
-Deadline: 26/05/2025
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-GESTIONE PREFERITI e RECENSIONI
+Preferiti e recensioni:
 
 - file csv con coppie id utente-ristorante_preferito/recensioni
 - id a ristoranti e recensioni
