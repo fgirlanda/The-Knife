@@ -64,7 +64,7 @@ public class LoginController {
             //Carico gli utenti registrati
             UtenteReader ur = new UtenteReader();
 
-            String username = usernameField.getText().toUpperCase();
+            String username = usernameField.getText();
             String password = passwordField.getText();
             String hashedPassword = Criptatore.cripta(password);
            

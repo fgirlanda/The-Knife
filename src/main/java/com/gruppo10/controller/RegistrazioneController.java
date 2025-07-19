@@ -146,11 +146,11 @@ public class RegistrazioneController {
         String ruolo = selectedRadioButton.getText();
 
         // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
-        String nome = nomeTextField.getText().toUpperCase();
-        String cognome = cognomeTextField.getText().toUpperCase();
-        String username = usernameTextField.getText().toUpperCase();
+        String nome = nomeTextField.getText();
+        String cognome = cognomeTextField.getText();
+        String username = usernameTextField.getText();
         String password = passwordField.getText();
-        String indirizzo = indirizzoTextField.getText().toUpperCase();
+        String indirizzo = indirizzoTextField.getText();
 
         // Verifica che l'username sia disponibile
         UtenteReader reader = new UtenteReader();
