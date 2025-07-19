@@ -32,10 +32,10 @@ public class ProfiloClienteController {
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
-        aggiornaDatiUtente();
+        caricaDatiUtente();
     }
 
-    private void aggiornaDatiUtente() {
+    private void caricaDatiUtente() {
         labelNome.setText(utenteloggato.getNome());
         labelCognome.setText(utenteloggato.getCognome());
         labelUsername.setText(utenteloggato.getUsername());

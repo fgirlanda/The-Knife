@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,9 +18,36 @@ public class ProfiloRistoratoreController {
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
+    @FXML
+    private Label labelNome;
+    @FXML
+    private Label labelCognome;
+    @FXML
+    private Label labelUsername;
+    @FXML
+    private Label labelIndirizzo;
+    @FXML
+    private Label labelData;
+    @FXML
+    private Label labelRuolo;
+    @FXML
+    private Label labelPassword;
+    String labelPasswordText = "********"; 
+
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
+        caricaDatiUtente();
+    }
+
+    private void caricaDatiUtente() {
+        labelNome.setText(utenteloggato.getNome());
+        labelCognome.setText(utenteloggato.getCognome());
+        labelUsername.setText(utenteloggato.getUsername());
+        labelIndirizzo.setText(utenteloggato.getIndirizzo());
+        labelData.setText(utenteloggato.getDataDiNascita().toString());
+        labelRuolo.setText(utenteloggato.getRuolo().toString());
+        labelPassword.setText(labelPasswordText);
     }
 
     @FXML
@@ -44,5 +72,7 @@ public class ProfiloRistoratoreController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+        public void modificaDati(){
     }
 }
