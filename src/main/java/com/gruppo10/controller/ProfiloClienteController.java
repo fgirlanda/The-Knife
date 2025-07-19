@@ -1,8 +1,13 @@
 package com.gruppo10.controller;
 
+import java.io.IOException;
+
 import com.gruppo10.classi.Utente;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import com.gruppo10.controller.LoginController;
 import javafx.scene.control.TextField;
@@ -46,5 +51,21 @@ public class ProfiloClienteController {
     }
 
     public void modificaDati(){
+    }
+
+    public void tornaIndietro(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Cambia scena nella stessa finestra (Stage)
+            stage.setScene(scene);
+            stage.setTitle("The Knife - Pagina Principale");
+            PaginaPrincipaleController controller = loader.getController();
+            controller.setStage(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -110,6 +110,11 @@
                         </Button>
                      </children>
                   </GridPane>
+                  <Button fx:id="bottoneIndietro" layoutX="445.0" layoutY="571.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="39.0" prefWidth="110.0" text="Indietro">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </content>

@@ -75,4 +75,19 @@ public class ProfiloRistoratoreController {
     }
         public void modificaDati(){
     }
+    public void tornaIndietro(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Cambia scena nella stessa finestra (Stage)
+            stage.setScene(scene);
+            stage.setTitle("The Knife - Pagina Principale");
+            PaginaPrincipaleController controller = loader.getController();
+            controller.setStage(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

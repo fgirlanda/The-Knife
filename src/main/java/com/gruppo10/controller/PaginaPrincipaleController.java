@@ -170,7 +170,7 @@ public class PaginaPrincipaleController {
     @FXML
     private void gestisciBottoneUtente(){
         String testo = bottoneRegistratiProfilo.getText().toLowerCase();
-        System.out.println(testo);
+        //System.out.println(testo);
         if (testo.equals("registrati")) {
             apriRegistrati();
         } else if (testo.equals("profilo")) {
