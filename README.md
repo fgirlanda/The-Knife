@@ -102,7 +102,8 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - collegare tasto login a pagina principale (FATTO)
 - utente loggato (FATTO)
 - username univoco (FATTO)
-- visualizzazione del profilo
+- visualizzazione del profilo (FATTO)
+- login senza registrazione
 
 ### matlmbe:
 
@@ -110,7 +111,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - dialog per aggiungere (FATTO)
 - inserire card ristorante nella pagina principale (FATTO)
 - gestire ricerca e filtri (FATTO)
-- ristoranti preferiti
+- ristoranti preferiti 
 
 ### fgirlanda:
 
