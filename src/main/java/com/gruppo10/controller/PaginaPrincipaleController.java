@@ -81,7 +81,7 @@ public class PaginaPrincipaleController {
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
 
         // Caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "nuovi_ristoranti2.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
