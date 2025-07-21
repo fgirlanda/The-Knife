@@ -93,7 +93,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 
 ## TO DO:
 
-### ilTocco:
+### ilTacco:
 
 - criptare password (FATTO)
 - leggere file csv (FATTO)
