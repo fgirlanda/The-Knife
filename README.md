@@ -104,6 +104,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - username univoco (FATTO)
 - visualizzazione del profilo (FATTO)
 - login senza registrazione
+- visualizza miei ristoranti
 
 ### matlmbe:
 
@@ -114,6 +115,8 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - ristoranti preferiti 
 - sistemare card ristorante
 - tasto filtro distanza
+- tasto indietro pagina ristorante
+- card apribile
 
 ### fgirlanda:
 
@@ -122,7 +125,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - calcola distanza (FATTO)
 - recensioni (file csv, classi)
 - sistemare tipo cucina csv
-- sfoltire ristoranti (50 - nomi corti)
+- sfoltire ristoranti (50 - nomi corti - proprietario - id da 1)
 - funzione filtro distanza
 
 ### Generale
