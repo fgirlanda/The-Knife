@@ -112,6 +112,8 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - inserire card ristorante nella pagina principale (FATTO)
 - gestire ricerca e filtri (FATTO)
 - ristoranti preferiti 
+- sistemare card ristorante
+- tasto filtro distanza
 
 ### fgirlanda:
 
@@ -119,6 +121,9 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - gestire posizione utente/ristorante (FATTO)
 - calcola distanza (FATTO)
 - recensioni (file csv, classi)
+- sistemare tipo cucina csv
+- sfoltire ristoranti (50 - nomi corti)
+- funzione filtro distanza
 
 ### Generale
 
