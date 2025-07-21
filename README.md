@@ -103,8 +103,9 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - utente loggato (FATTO)
 - username univoco (FATTO)
 - visualizzazione del profilo (FATTO)
-- login senza registrazione
+- login senza registrazione (+disabilita tasto preferiti)
 - visualizza miei ristoranti
+- ottimizzazione
 
 ### matlmbe:
 
@@ -113,10 +114,12 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - inserire card ristorante nella pagina principale (FATTO)
 - gestire ricerca e filtri (FATTO)
 - ristoranti preferiti 
-- sistemare card ristorante
+- sistemare card ristorante (FATTO)
 - tasto filtro distanza
 - tasto indietro pagina ristorante
+- tasto-pagina aggiungi recensione
 - card apribile
+- card recensione
 
 ### fgirlanda:
 
@@ -137,9 +140,15 @@ Preferiti e recensioni:
 
 csv recensioni 
 
-- id recensione(?)
+- id recensione
 - id cliente
 - id ristorante
 - voto
 - testo
 - risposta
+
+gestione ristorante aperto
+
+Extra:
+
+- whitelist caratteri
