@@ -17,11 +17,10 @@
          <content>
             <AnchorPane>
                <children>
-                  <GridPane hgap="20.0" layoutX="266.0" layoutY="136.0" prefHeight="357.0" prefWidth="1000.0" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="136.0">
+                  <GridPane hgap="20.0" layoutX="327.0" layoutY="138.0" prefHeight="358.0" prefWidth="420.0" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="327.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="138.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.6666259765625" minWidth="10.0" prefWidth="172.6666259765625" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="295.3333740234375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="295.3333740234375" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="129.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="271.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -33,37 +32,37 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Nome" textAlignment="RIGHT" GridPane.halignment="RIGHT">
+                        <Label text="Nome:" textAlignment="RIGHT" GridPane.halignment="RIGHT">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Cognome" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                        <Label text="Cognome:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Username" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label text="Username:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Password" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                        <Label text="Password:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Data di nascita" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <Label text="Data di nascita:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Indirizzo" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <Label text="Indirizzo:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Ruolo" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <Label text="Ruolo:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -103,11 +102,6 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="bottoneModifica" mnemonicParsing="false" onAction="#modificaDati" prefHeight="39.0" prefWidth="110.0" text="Modifica" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
                      </children>
                   </GridPane>
                   <Button fx:id="bottoneIndietro" layoutX="445.0" layoutY="571.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="39.0" prefWidth="110.0" text="Indietro">
