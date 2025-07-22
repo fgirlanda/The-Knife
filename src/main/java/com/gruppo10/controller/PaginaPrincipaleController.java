@@ -15,6 +15,7 @@ import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroDelivery;
+import com.gruppo10.classi.FiltroDistanza;
 import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
 import com.opencsv.CSVReader;
@@ -54,6 +55,9 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
 
+    @FXML private ComboBox<FiltroDistanza> comboFiltroDistanza;
+
+
     public static List<Ristorante> ristoranti; 
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
@@ -77,7 +81,11 @@ public class PaginaPrincipaleController {
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
+        comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
+        for(FiltroDistanza v: FiltroDistanza.values()){
+            System.out.println(v);
+        }
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
 
         // Caricamento schede ristorante
@@ -115,6 +123,8 @@ public class PaginaPrincipaleController {
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
+        String filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroRecensioni.getValue().toString() : "";
+
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
         

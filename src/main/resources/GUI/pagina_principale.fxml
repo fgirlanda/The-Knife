@@ -42,7 +42,7 @@
             <ComboBox fx:id="comboFiltroPrezzo" prefHeight="25.0" prefWidth="126.0" promptText="fascia di prezzo" />
             <ComboBox fx:id="comboFiltroDelivery" prefHeight="25.0" prefWidth="95.0" promptText="delivery" />
             <ComboBox fx:id="comboFiltroPrenotazione" prefHeight="25.0" prefWidth="150.0" promptText="prenotazione online" />
-            <ComboBox prefHeight="25.0" prefWidth="90.0" promptText="distanza" />
+            <ComboBox fx:id="comboFiltroDistanza" prefHeight="25.0" prefWidth="90.0" promptText="distanza" />
             <Button mnemonicParsing="false" text="Applica Filtri" />
          </children>
          <VBox.margin>
