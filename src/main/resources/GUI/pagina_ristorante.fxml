@@ -15,7 +15,7 @@
    <children>
       <HBox>
          <children>
-            <VBox alignment="CENTER" spacing="10.0">
+            <VBox alignment="TOP_CENTER" prefWidth="220.0" spacing="10.0">
                <children>
                   <HBox alignment="TOP_RIGHT" spacing="5.0">
                      <children>
@@ -89,6 +89,11 @@
                   </Label>
                </children>
             </VBox>
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" text="INDIETRO">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
          </children>
       </HBox>
       <Label contentDisplay="CENTER" text="Recensioni">
@@ -96,6 +101,18 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ScrollPane prefHeight="321.0" prefWidth="650.0" />
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <ScrollPane prefHeight="321.0" prefWidth="650.0">
+               <content>
+                  <Button mnemonicParsing="false" text="aggiungi recensione" textAlignment="RIGHT">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
    </children>
 </VBox>
