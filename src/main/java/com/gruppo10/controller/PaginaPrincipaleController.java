@@ -67,7 +67,7 @@ public class PaginaPrincipaleController {
     public void initialize() {
 
         // Tasto registrati-profilo
-        if (utenteLoggato == null) {
+        if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             bottoneRegistratiProfilo.setText("Registrati");
         } else {
             bottoneRegistratiProfilo.setText("Profilo");

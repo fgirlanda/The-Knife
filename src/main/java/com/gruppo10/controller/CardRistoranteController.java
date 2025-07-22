@@ -1,7 +1,8 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Ristorante;
-
+import com.gruppo10.classi.Utente;
+import com.gruppo10.classi.Ruolo;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ public class CardRistoranteController {
 
     private Stage stage;
 
+    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     @FXML private ImageView imgRistorante;
     @FXML private Button btnPreferito;
@@ -22,7 +24,9 @@ public class CardRistoranteController {
     @FXML private Text txtTipoCucina;
 
     public void setDati(Ristorante ristorante){
-
+        if(utenteLoggato.getRuolo()!= Ruolo.CLIENTE) {
+            btnPreferito.setVisible(false);
+        } 
         txtNomeRistorante.setText(ristorante.getNomeRistorante());
         //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
         txtPrezzo.setText(ristorante.getPrezzo());

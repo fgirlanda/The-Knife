@@ -103,7 +103,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - utente loggato (FATTO)
 - username univoco (FATTO)
 - visualizzazione del profilo (FATTO)
-- login senza registrazione (+disabilita tasto preferiti)
+- login senza registrazione (+disabilita tasto preferiti) (FATTO)
 - visualizza miei ristoranti
 - ottimizzazione
 
