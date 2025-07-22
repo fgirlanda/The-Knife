@@ -123,8 +123,12 @@ public class PaginaPrincipaleController {
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
-        String filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroRecensioni.getValue().toString() : "";
 
+        //DA SISTEMARE
+        String filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("test")? comboFiltroDistanza.getValue().toString() : "";
+        System.out.println(filtroDistanza);
+        //
+        
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
         
