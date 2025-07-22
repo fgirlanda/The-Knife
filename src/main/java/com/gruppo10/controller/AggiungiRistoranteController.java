@@ -169,6 +169,7 @@ public class AggiungiRistoranteController {
 
         // Crea un oggetto Ristorante
         Ristorante ristorante = new Ristorante();
+        //proprietario?
         ristorante.setNomeRistorante(nomeRistorante);
         ristorante.setIndirizzo(indirizzo);
         ristorante.setDelivery(delivery);
