@@ -194,7 +194,7 @@ public class RegistrazioneController {
         apriLogin();
     }
 
-    private List<String> getSuggestions(String query) throws IOException, InterruptedException {
+    static List<String> getSuggestions(String query) throws IOException, InterruptedException {
         String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
                      + "&format=json&addressdetails=1&limit=5";
 

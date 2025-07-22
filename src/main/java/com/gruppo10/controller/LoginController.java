@@ -4,7 +4,13 @@ package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
 
+import java.util.Collections;
+
+import org.controlsfx.control.textfield.TextFields;
+
+import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteReader;
 
@@ -23,13 +29,16 @@ public class LoginController {
     private Stage stage;
 
     @FXML
-    TextField usernameField;
+    private TextField textIndirizzo;
 
     @FXML
-    TextField passwordField;
+    private TextField usernameField;
 
     @FXML
-    Label loginStatus;
+    private TextField passwordField;
+
+    @FXML
+    private Label loginStatus;
 
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
@@ -83,19 +92,17 @@ public class LoginController {
                 utenteLoggato = utente;
 
                 // Carica la nuova scena per la pagina principale
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
+            
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
 
-                    // Cambia scena nella stessa finestra (Stage)
-                    stage.setScene(scene);
-                    stage.setTitle("The Knife - Pagina Principale");
-                    PaginaPrincipaleController controller = loader.getController();
-                    controller.setStage(stage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // Cambia scena nella stessa finestra (Stage)
+                stage.setScene(scene);
+                stage.setTitle("The Knife - Pagina Principale");
+                PaginaPrincipaleController controller = loader.getController();
+                controller.setStage(stage);
+            
 
             } else {
                 // Login fallito
@@ -108,10 +115,42 @@ public class LoginController {
         
     }
 
+    public void initialize(){
+             // Autocompletamento con Nominatim
+        TextFields.<String>bindAutoCompletion(textIndirizzo, request -> {
+            try {
+                return RegistrazioneController.getSuggestions(request.getUserText());
+            } catch (Exception e) {
+                return Collections.emptyList();
+            }
+        });
+    }
+
+
     @FXML
     public void continuaSenzaRegistrarti(ActionEvent event) {
         try {
-            
+            String indirizzo = textIndirizzo.getText();
+            if (indirizzo.isEmpty()) {
+                loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
+                return;
+            }
+            utenteLoggato = new Utente();
+            utenteLoggato.setRuolo("NON_REGISTRATO");
+            utenteLoggato.setIndirizzo(indirizzo);
+            Coordinate coordinate = new Coordinate(indirizzo);
+            utenteLoggato.setCords(coordinate);
+            // Carica la nuova scena per la pagina principale
+        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Cambia scena nella stessa finestra (Stage)
+            stage.setScene(scene);
+            stage.setTitle("The Knife - Pagina Principale");
+            PaginaPrincipaleController controller = loader.getController();
+            controller.setStage(stage);
 
         } catch (Exception e) {
             e.printStackTrace();
