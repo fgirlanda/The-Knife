@@ -13,7 +13,6 @@ public enum FiltroDistanza {
 
     FiltroDistanza(double km){
         this.km = km;
-        System.out.println(this.km);
     }
 
     @Override
@@ -33,6 +32,10 @@ public enum FiltroDistanza {
         }
 
         return chilometri;
+    }
+
+    public Double getKM(){
+        return this.km;
     }
 
 }

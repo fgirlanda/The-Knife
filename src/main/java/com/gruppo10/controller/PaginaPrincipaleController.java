@@ -57,7 +57,6 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroDistanza> comboFiltroDistanza;
 
-
     public static List<Ristorante> ristoranti; 
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
@@ -118,33 +117,30 @@ public class PaginaPrincipaleController {
     }
 
     @FXML
-    public void ricercaRisorante() {
+    public void ricercaRistorante() {
         String ricerca = txtRicerca.getText().toLowerCase();
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
         String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
-
-        //DA SISTEMARE
-        String filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("test")? comboFiltroDistanza.getValue().toString() : "";
-        System.out.println(filtroDistanza);
-        //
-        
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
         
+        Double filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroDistanza.getValue().getKM() : Double.MAX_VALUE;
+
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
 
-        caricaTessere(ristoranti.stream().filter(ristorante-> ristorante.getNomeRistorante().toLowerCase().contains(ricerca) && // filtro nome
+        caricaTessere(ristoranti.stream().filter(ristorante-> (!ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
-                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) &&
-                                                              (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  
-                                                              (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && ristorante.isPrenotazioneOnline()) || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE") && !ristorante.isPrenotazioneOnline()))).toList()); // filtro cucina
-
+                                                              (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro cucina
+                                                              (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && // filtro delivery disponibile
+                                                              ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  // filtro delivery non disponibile
+                                                              (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && //filtro prenotazione disponibile
+                                                              ristorante.isPrenotazioneOnline()) || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE") && !ristorante.isPrenotazioneOnline())) && // filtro prenotazione non disponibile
+                                                              (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza)).toList()); // filtro distanza
 
     }
 
 
-    
     // Carica i dati da un file CSV e restituisce una lista di oggetti Ristorante
     @FXML
     private List<Ristorante> caricaCSV(String nomeFile) {

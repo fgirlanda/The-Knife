@@ -16,7 +16,7 @@
       <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="999.0" spacing="10.0">
          <children>
             <TextField fx:id="txtRicerca" prefHeight="25.0" prefWidth="358.0" promptText="cerca" />
-            <Button fx:id="btnRicerca" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#ricercaRisorante" text="cerca">
+            <Button fx:id="btnRicerca" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#ricercaRistorante" text="cerca">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,7 +43,7 @@
             <ComboBox fx:id="comboFiltroDelivery" prefHeight="25.0" prefWidth="95.0" promptText="delivery" />
             <ComboBox fx:id="comboFiltroPrenotazione" prefHeight="25.0" prefWidth="150.0" promptText="prenotazione online" />
             <ComboBox fx:id="comboFiltroDistanza" prefHeight="25.0" prefWidth="90.0" promptText="distanza" />
-            <Button mnemonicParsing="false" text="Applica Filtri" />
+            <Button fx:id="bottoneApplicaFiltri" mnemonicParsing="false" onAction="#ricercaRistorante" text="Applica Filtri" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
