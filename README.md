@@ -115,9 +115,9 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - gestire ricerca e filtri (FATTO)
 - ristoranti preferiti 
 - sistemare card ristorante (FATTO)
-- tasto filtro distanza
-- tasto indietro pagina ristorante
-- tasto-pagina aggiungi recensione
+- tasto filtro distanza (FATTO)
+- tasto indietro pagina ristorante (FATTO)
+- tasto-pagina aggiungi recensione (FATTO)
 - card apribile
 - card recensione
 
@@ -129,7 +129,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - recensioni (file csv, classi)
 - sistemare tipo cucina csv (FATTO)
 - sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
-- funzione filtro distanza
+- funzione filtro distanza (FATTO)
 
 ### Generale
 
