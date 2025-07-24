@@ -1,4 +1,4 @@
 "ID","Nome","Cognome","Username","Password","Data di nascita","Indirizzo","Ruolo","Latitudine","Longitudine"
-"1","test","test","test","9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08","02-07-2025","test, دهستان دودهک, بخش مرکزی, شهرستان دلیجان, استان مرکزی, ایران","CLIENTE","34.0218976","50.6951851"
-"2","a","a","a","ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb","01-07-2025","Línea A, Rosario, Caballito, Buenos Aires, Comuna 6, Ciudad Autónoma de Buenos Aires, C1424CED, Argentina","CLIENTE","-34.6178965","-58.435447"
-"3","b","b","b","3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d","09-07-2025","województwo podlaskie, Polska","RISTORATORE","53.2668455","22.8525787"
+"1","Mario","Rossi","mario","59195c6c541c8307f1da2d1e768d6f2280c984df217ad5f4c64c3542b04111a4","09-05-1991","DE, Via Natale Palli, Cascina Case Nuove, Case Nuove, Somma Lombardo, Varese, Lombardia, 21019, Italia","RISTORATORE","45.6333506","8.7223898"
+"2","Paolo","Bianchi","paolo","254835d73cc88095a30fc74133beabe9d8463b2954493227b205ea326c8a9c86","21-09-1984","Via, Via Sant'Agata, Perticato, Mariano Comense, Como, Lombardia, 22066, Italia","RISTORATORE","45.6825825","9.1750586"
+"3","Bruno","Barbieri","bruno","ccc68482d9e0eee0789e64c7674421076738f8836857ea89bcd0afb832bf3fc3","12-06-1986","Via, Selinunte, Municipio 7, Milano, Lombardia, 20147, Italia","RISTORATORE","45.4677316","9.1339559"

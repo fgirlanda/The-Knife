@@ -55,7 +55,7 @@ public class ProfiloRistoratoreController {
     @FXML
     private void initialize() {
         // Caricamento schede ristorante
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
@@ -114,7 +114,6 @@ public class ProfiloRistoratoreController {
     @FXML
     public void caricaTessere(List<Ristorante> listaRistoranti) {
         for (Ristorante r : listaRistoranti) {
-            System.out.println("Ristorante ID: " + r.getIdproprietario() + " Utente Loggato ID: " + utenteloggato.getId());
             if (r.getIdproprietario() == utenteloggato.getId()) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));

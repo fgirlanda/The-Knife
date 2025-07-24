@@ -63,7 +63,7 @@ public class RistoranteWriter {
     }  
 
     private static int trovaUltimoId() {
-        File fileRistorante = new File("fileCSV/ristoranti_nuovi.csv");
+        File fileRistorante = new File("fileCSV/ristoranti.csv");
         if (!fileRistorante.exists()) {
             return 1; // Se il file non esiste, ritorna 0
         }
