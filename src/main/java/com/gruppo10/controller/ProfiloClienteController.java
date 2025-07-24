@@ -1,11 +1,9 @@
 package com.gruppo10.controller;
 
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 public class ProfiloClienteController {
@@ -50,18 +48,7 @@ public class ProfiloClienteController {
     }
 
     public void tornaIndietro(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Cambia scena nella stessa finestra (Stage)
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Pagina Principale");
-            PaginaPrincipaleController controller = loader.getController();
-            controller.setStage(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
+            (PaginaPrincipaleController controller) -> controller.setStage(stage));
     }
 }

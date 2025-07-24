@@ -1,8 +1,5 @@
 package com.gruppo10.classi;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class CoordinateTest {
 
     public static void main(String[] args) {

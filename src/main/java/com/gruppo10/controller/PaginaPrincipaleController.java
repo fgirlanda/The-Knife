@@ -11,6 +11,7 @@ import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.FiltroDelivery;
 import com.gruppo10.classi.FiltroDistanza;
@@ -19,8 +20,6 @@ import com.gruppo10.classi.FiltroMediaRecensioni;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -58,14 +57,8 @@ public class PaginaPrincipaleController {
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
-    // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
-    @FXML
     public void initialize() {
-
         // Tasto registrati-profilo
         if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             bottoneRegistratiProfilo.setText("Registrati");
@@ -79,9 +72,6 @@ public class PaginaPrincipaleController {
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
         comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
-        for(FiltroDistanza v: FiltroDistanza.values()){
-            System.out.println(v);
-        }
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
 
         // Caricamento schede ristorante
@@ -91,8 +81,13 @@ public class PaginaPrincipaleController {
     }
 
 
+    // Imposta il riferimento alla finestra principale
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+
     // Caricamento schede ristorante
-    @FXML
     public void caricaTessere(List<Ristorante> listaRistoranti) {
         for (Ristorante r : listaRistoranti) {
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
@@ -113,12 +108,13 @@ public class PaginaPrincipaleController {
         }
     }
 
+
     @FXML
     public void ricercaRistorante() {
         String ricerca = txtRicerca.getText().toLowerCase();
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
-        String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
+        // String filtroRecensioni = comboFiltroRecensioni.getValue() != null && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")? comboFiltroRecensioni.getValue().toString() : "";
         String filtroDelivery = comboFiltroDelivery.getValue() != null && !comboFiltroDelivery.getValue().toString().equals("TUTTO")? comboFiltroDelivery.getValue().toString() : "";
         String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")? comboFiltroPrenotazione.getValue().toString() : "";
         
@@ -138,9 +134,6 @@ public class PaginaPrincipaleController {
     }
 
 
-    
-    
-
     @FXML
     private void gestisciBottoneUtente(){
         String testo = bottoneRegistratiProfilo.getText().toLowerCase();
@@ -154,54 +147,21 @@ public class PaginaPrincipaleController {
         }
     }
 
-    @FXML
-    private void apriRegistrati(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/registrazione.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
 
-            // Cambia scena nella stessa finestra
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Registrazione");
-            RegistrazioneController controller = loader.getController();
-            controller.setStage(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void apriRegistrati(){
+        SceneManager.cambioScena(stage, "/GUI/registrazione.fxml", "The Knife - Registrazione", 
+            (RegistrazioneController controller) -> controller.setStage(stage));
     }
 
-    @FXML
+
     private void apriProfilo(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/profilo_cliente.fxml")); //gestire ruolo cliente o ristoratore
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
+        SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo", 
+            (ProfiloClienteController controller) -> controller.setStage(stage));
+    }
 
-            // Cambia scena nella stessa finestra
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Profilo");
-            ProfiloClienteController controller = loader.getController();
-            controller.setStage(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    } 
-    @FXML
+
     private void apriProfiloRistoratore(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/profilo_ristoratore.fxml")); //gestire ruolo cliente o ristoratore
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Cambia scena nella stessa finestra (Stage)
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Profilo");
-            ProfiloRistoratoreController controller = loader.getController();
-            controller.setStage(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Registrazione", 
+        (ProfiloRistoratoreController controller) -> controller.setStage(stage));
     } 
-    
 }

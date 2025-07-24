@@ -9,6 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+/*
+WORK IN PROGRESS
+*/
+
 public class AggiungiRecensioneController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
@@ -28,19 +32,21 @@ public class AggiungiRecensioneController {
     private Button btnAggiungiRecensione;
     
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     @FXML
     private void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtTesto.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        txtTesto.textProperty().addListener((_, _, _) -> checkFields());
         // voto.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
 
         checkFields();
     }
+
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
 
     private void checkFields() {
 
@@ -50,6 +56,7 @@ public class AggiungiRecensioneController {
         // Abilita o disabilita il pulsante in base ai campi
         btnAggiungiRecensione.setDisable(!allFieldsFilled);
     }
+
 
     @FXML
     private void aggiungiRecensione() throws Exception {
@@ -83,6 +90,7 @@ public class AggiungiRecensioneController {
             stage.close();
         }
     }
+    
     
     @FXML
     private void annulla() {

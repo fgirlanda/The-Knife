@@ -18,14 +18,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteReader;
 import com.gruppo10.classi.UtenteWriter;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
@@ -40,44 +38,39 @@ public class RegistrazioneController {
 
     private Stage stage;
 
-    // Imposta il riferimento alla finestra principale (Stage)
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     @FXML
     private RadioButton clienteRadioButton;
-
+    
     @FXML
     private RadioButton ristoratoreRadioButton;
 
     @FXML
     private TextField nomeTextField;
-
+    
     @FXML
     private TextField cognomeTextField;
-
+    
     @FXML
     private TextField usernameTextField;
-
+    
     @FXML
     private PasswordField passwordField;
-
+    
     @FXML
     private DatePicker dataNascitaPicker;
-
+    
     @FXML
     private TextField indirizzoTextField;
-
+    
     @FXML
     private Button registratiButton;
-
+    
     @FXML
     private Label statusRegistrazione;
-
+    
     private ToggleGroup ruoloGroup;
+    
 
-    @FXML
     public void initialize() {
         // Inizializza il ToggleGroup e associa i RadioButton
         ruoloGroup = new ToggleGroup();
@@ -85,13 +78,13 @@ public class RegistrazioneController {
         ristoratoreRadioButton.setToggleGroup(ruoloGroup);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        cognomeTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        usernameTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        passwordField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        indirizzoTextField.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        dataNascitaPicker.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        ruoloGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        nomeTextField.textProperty().addListener((_, _, _) -> checkFields()); // (_, _, _) = (observable, oldValue, newValue)
+        cognomeTextField.textProperty().addListener((_, _, _) -> checkFields());
+        usernameTextField.textProperty().addListener((_, _, _) -> checkFields());
+        passwordField.textProperty().addListener((_, _, _) -> checkFields());
+        indirizzoTextField.textProperty().addListener((_, _, _) -> checkFields());
+        dataNascitaPicker.valueProperty().addListener((_, _, _) -> checkFields());
+        ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> checkFields());
 
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(indirizzoTextField, request -> {
@@ -102,6 +95,13 @@ public class RegistrazioneController {
             }
         });
     }
+
+
+    // Imposta il riferimento alla finestra principale (Stage)
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
 
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
@@ -117,41 +117,21 @@ public class RegistrazioneController {
         registratiButton.setDisable(!allFieldsFilled);
     }
 
-    @FXML
-    public void apriLogin(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/login.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Cambia scena nella stessa finestra (Stage)
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Login");
-            LoginController controller = loader.getController();
-            controller.setStage(stage);
-
-            // Puoi aggiungere animazioni qui se vuoi (es. fade)
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    // Altri metodi e logica del controller
-
-
+    
+    
     @FXML
     public void registrati() throws Exception {
         // Ottieni il ruolo selezionato
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
-
+        
         // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
         String nome = nomeTextField.getText();
         String cognome = cognomeTextField.getText();
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         String indirizzo = indirizzoTextField.getText();
-
+        
         // Verifica che l'username sia disponibile
         UtenteReader reader = new UtenteReader();
         if(reader.cercaUtente(username) != null) {
@@ -159,18 +139,18 @@ public class RegistrazioneController {
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
-
-         // Formatta la data di nascita
+        
+        // Formatta la data di nascita
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
-
+        
         // Cripta la password
         try {
             password = Criptatore.cripta(password);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();
         utente.setNome(nome);
@@ -189,30 +169,38 @@ public class RegistrazioneController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         // Apri pagina di login
         apriLogin();
     }
+    
 
     static List<String> getSuggestions(String query) throws IOException, InterruptedException {
         String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
-                     + "&format=json&addressdetails=1&limit=5";
-
+        + "&format=json&addressdetails=1&limit=5";
+        
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(url))
-            .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
-            .GET()
-            .build();
-
+        .uri(URI.create(url))
+        .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
+        .GET()
+        .build();
+        
         HttpResponse<String> response = HttpClient.newHttpClient()
-            .send(request, HttpResponse.BodyHandlers.ofString());
-
+        .send(request, HttpResponse.BodyHandlers.ofString());
+        
         JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
         List<String> suggestions = new ArrayList<>();
-
+        
         for (JsonElement result : results) {
             suggestions.add(result.getAsJsonObject().get("display_name").getAsString());
         }
         return suggestions;
+    }
+
+
+    @FXML
+    public void apriLogin(){
+        SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
+            (LoginController controller) -> controller.setStage(stage));
     }
 }

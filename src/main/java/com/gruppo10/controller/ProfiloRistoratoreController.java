@@ -1,15 +1,10 @@
 package com.gruppo10.controller;
 
-import java.io.IOException;
-
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ProfiloRistoratoreController {
@@ -34,11 +29,13 @@ public class ProfiloRistoratoreController {
     private Label labelPassword;
     String labelPasswordText = "********"; 
 
+
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
     }
+
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteloggato.getNome());
@@ -50,44 +47,21 @@ public class ProfiloRistoratoreController {
         labelPassword.setText(labelPasswordText);
     }
 
+
     @FXML
-    private void apri_aggiungi_ristorante() {
-        try {
-            // Carica il file FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/aggiungi_ristorante.fxml"));
-            Parent root = loader.load();
-
-            // Crea un nuovo stage per il dialog
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Aggiungi Ristorante");
-            dialogStage.initModality(Modality.APPLICATION_MODAL); // Blocca l'interazione con altre finestre
-            dialogStage.initOwner(stage);
-            dialogStage.setScene(new Scene(root));
-
-            AggiungiRistoranteController controller = loader.getController();
-            controller.setStage(dialogStage);
-
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void apriAggiungiRistorante() {
+        SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
+            (AggiungiRistoranteController controller) -> controller.setStage(stage));
     }
-        public void modificaDati(){
-    }
+
+    
+    @FXML
     public void tornaIndietro(){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
+        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
+        (PaginaPrincipaleController controller) -> controller.setStage(stage));
+    }
 
-            // Cambia scena nella stessa finestra (Stage)
-            stage.setScene(scene);
-            stage.setTitle("The Knife - Pagina Principale");
-            PaginaPrincipaleController controller = loader.getController();
-            controller.setStage(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    /*RIMUOVERE?*/
+    public void modificaDati(){
     }
 }

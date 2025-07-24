@@ -86,9 +86,8 @@ public class AggiungiRistoranteController {
         this.stage = stage;
     }
 
-    @FXML
-    private void initialize() {
 
+    public void initialize() {
         // Inizializza il ComboBox con i valori dell'enum TipoCucina
         comboCucina.getItems().setAll(TipoCucina.values());
         comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
@@ -107,9 +106,9 @@ public class AggiungiRistoranteController {
         radioPrezzo4.setToggleGroup(prezzoGroup);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtNomeRistorante.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        txtIndirizzo.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
-        comboCucina.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        txtNomeRistorante.textProperty().addListener((_, _, _) -> checkFields());
+        txtIndirizzo.textProperty().addListener((_, _, _) -> checkFields());
+        comboCucina.valueProperty().addListener((_, _, _) -> checkFields());
 
         // Imposta una lunghezza massima per il popup della ComboBox e abilita lo scroll
         comboCucina.setVisibleRowCount(4); // Limita il numero di voci visibili nel dropdown
@@ -129,8 +128,8 @@ public class AggiungiRistoranteController {
    
     }
 
-    private void checkFields() {
 
+    private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtNomeRistorante.getText().isEmpty() &&
                                   !txtIndirizzo.getText().isEmpty() &&
@@ -142,6 +141,7 @@ public class AggiungiRistoranteController {
         btnAggiungiRistorante.setDisable(!allFieldsFilled);
     }
 
+    
     @FXML
     private void aggiungiRistorante() throws Exception {
 

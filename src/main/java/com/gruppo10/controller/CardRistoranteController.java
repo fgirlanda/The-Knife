@@ -8,11 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+// import javafx.stage.Stage;
 
 public class CardRistoranteController {
 
-    private Stage stage;
+    // private Stage stage;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -23,6 +23,7 @@ public class CardRistoranteController {
     @FXML private Text txtPrezzo;
     @FXML private Text txtTipoCucina;
 
+    
     public void setDati(Ristorante ristorante){
         if(utenteLoggato.getRuolo()!= Ruolo.CLIENTE) {
             btnPreferito.setVisible(false);
@@ -31,13 +32,12 @@ public class CardRistoranteController {
         //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
         txtPrezzo.setText(ristorante.getPrezzo());
         txtTipoCucina.setText(ristorante.getTipoCucina().toString());
-
     }
 
 
 
     // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+    // public void setStage(Stage stage) {
+    //     this.stage = stage;
+    // }
 }
