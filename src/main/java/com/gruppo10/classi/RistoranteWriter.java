@@ -74,7 +74,7 @@ public class RistoranteWriter {
                 return 1; // Solo l'header, ritorna 0
             }
             String[] lastRow = allRows.get(allRows.size() - 1);
-            return Integer.parseInt(lastRow[0]+1); // Assumendo che l'ID sia nella prima colonna
+            return Integer.parseInt(lastRow[0])+1; // Assumendo che l'ID sia nella prima colonna
         } catch (Exception e) {
             e.printStackTrace();
             return -1; // In caso di errore, ritorna 0
