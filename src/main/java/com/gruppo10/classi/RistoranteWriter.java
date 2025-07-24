@@ -23,7 +23,7 @@ public class RistoranteWriter {
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
-        File fileRistorante = new File(dir, "ristoranti_nuovi.csv");
+        File fileRistorante = new File(dir, "ristoranti.csv");
 
         // Crea lista dati
         String[] dati = estraiDati(ristorante);
