@@ -79,9 +79,6 @@ public class PaginaPrincipaleController {
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
         comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
-        for(FiltroDistanza v: FiltroDistanza.values()){
-            System.out.println(v);
-        }
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
 
         // Caricamento schede ristorante
