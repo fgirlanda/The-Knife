@@ -19,38 +19,33 @@ public enum FiltroMediaRecensioni {
         this.valore = valore;
     }
 
-    public String toStelle() {
-    StringBuilder stelle = new StringBuilder();
-
-    int stellePiene = (int) valore;
-    boolean mezzo = (valore - stellePiene) >= 0.5;
-
-    // Stelle piene
-    for (int i = 0; i < stellePiene; i++) {
-        stelle.append("★");
-    }
-
-    if(valore == 0.0) {
-        return "TUTTO";
-    }
-
-    // // mezzastella
-    // if (mezzo) {
-    //     stelle.append("⯨");  // simbolo mezzastella
-    // }
-
-    // // stelle vuote
-    // int totale = stellePiene + (mezzo ? 1 : 0);
-    // for (int i = totale; i < 5; i++) {
-    //     stelle.append("☆");
-    // }
-
-    return stelle.toString();
-    
-    }
-
     @Override
     public String toString() {
-        return toStelle();
+        StringBuilder stelle = new StringBuilder();
+
+        int stellePiene = (int) valore;
+        // boolean mezzo = (valore - stellePiene) >= 0.5;
+
+        // Stelle piene
+        for (int i = 0; i < stellePiene; i++) {
+            stelle.append("★");
+        }
+
+        if(valore == 0.0) {
+            return "TUTTO";
+        }
+
+        // // mezzastella
+        // if (mezzo) {
+        //     stelle.append("⯨");  // simbolo mezzastella
+        // }
+
+        // // stelle vuote
+        // int totale = stellePiene + (mezzo ? 1 : 0);
+        // for (int i = totale; i < 5; i++) {
+        //     stelle.append("☆");
+        // }
+
+        return stelle.toString();
     }
  }
