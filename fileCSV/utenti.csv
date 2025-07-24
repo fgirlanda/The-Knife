@@ -1,2 +1,4 @@
 "ID","Nome","Cognome","Username","Password","Data di nascita","Indirizzo","Ruolo","Latitudine","Longitudine"
 "1","test","test","test","9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08","02-07-2025","test, دهستان دودهک, بخش مرکزی, شهرستان دلیجان, استان مرکزی, ایران","CLIENTE","34.0218976","50.6951851"
+"2","a","a","a","ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb","01-07-2025","Línea A, Rosario, Caballito, Buenos Aires, Comuna 6, Ciudad Autónoma de Buenos Aires, C1424CED, Argentina","CLIENTE","-34.6178965","-58.435447"
+"3","b","b","b","3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d","09-07-2025","województwo podlaskie, Polska","RISTORATORE","53.2668455","22.8525787"
