@@ -57,7 +57,6 @@ public class ProfiloRistoratoreController {
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_nuovi.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
-        System.out.println(ristoranti);
         caricaTessere(ristoranti);
     }
 
