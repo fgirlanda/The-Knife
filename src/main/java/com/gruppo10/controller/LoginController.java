@@ -10,7 +10,6 @@ import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
-import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteReader;
 

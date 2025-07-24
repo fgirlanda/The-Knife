@@ -1,14 +1,12 @@
 package com.gruppo10.controller;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
@@ -18,7 +16,6 @@ import com.gruppo10.classi.FiltroDelivery;
 import com.gruppo10.classi.FiltroDistanza;
 import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
-import com.opencsv.CSVReader;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,7 +86,7 @@ public class PaginaPrincipaleController {
 
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-        ristoranti = caricaCSV(path.toString());
+        ristoranti = RistoranteReader.caricaCSV(path.toString());
         caricaTessere(ristoranti);
     }
 
@@ -141,41 +138,8 @@ public class PaginaPrincipaleController {
     }
 
 
-    // Carica i dati da un file CSV e restituisce una lista di oggetti Ristorante
-    @FXML
-    private List<Ristorante> caricaCSV(String nomeFile) {
-        List<Ristorante> lista = new ArrayList<>();
-        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
-            String[] dati;
-            reader.readNext(); // Salta header
-            while ((dati = reader.readNext()) != null) {
-                int id = Integer.parseInt(dati[0]);
-                String nome = dati[1]; 
-                String indirizzo = dati[2]; 
-                Boolean delivery = Boolean.parseBoolean(dati[3]); 
-                Boolean prenotazione = Boolean.parseBoolean(dati[4]); 
-                String cucina = dati[5]; 
-                String prezzo = dati[6]; 
-                String descrizione = dati[7]; 
-                double lat = Double.parseDouble(dati[8]); 
-                double lon = Double.parseDouble(dati[9]); 
-                Ristorante r = new Ristorante();
-                r.setId(id);
-                r.setNomeRistorante(nome);
-                r.setIndirizzo(indirizzo);
-                r.setDelivery(delivery);
-                r.setPrenotazioneOnline(prenotazione);
-                r.setCucina(cucina);
-                r.setPrezzo(prezzo);
-                r.setDescrizione(descrizione);
-                r.setCords(new Coordinate(lat, lon));
-                lista.add(r);
-            }
-        } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getMessage());
-        }
-        return lista;
-    }
+    
+    
 
     @FXML
     private void gestisciBottoneUtente(){
