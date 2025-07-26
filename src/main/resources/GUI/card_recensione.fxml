@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="195.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="134.0" prefWidth="580.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome cliente" wrappingWidth="240.33740234375">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="stelle" wrappingWidth="160.40185546875">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" top="8.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="testo recensione" wrappingWidth="549.341796875">
+               <VBox.margin>
+                  <Insets left="30.0" top="15.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="risposta">
+               <VBox.margin>
+                  <Insets left="30.0" top="10.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets left="30.0" />
+         </opaqueInsets>
+      </VBox>
+      <Button layoutX="580.0" layoutY="159.0" mnemonicParsing="false" text="rispondi" textAlignment="CENTER" />
+   </children>
+   <opaqueInsets>
+      <Insets left="30.0" />
+   </opaqueInsets>
+</AnchorPane>
