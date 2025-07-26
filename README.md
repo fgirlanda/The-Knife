@@ -104,7 +104,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - username univoco (FATTO)
 - visualizzazione del profilo (FATTO)
 - login senza registrazione (+disabilita tasto preferiti) (FATTO)
-- visualizza miei ristoranti
+- visualizza miei ristoranti (FATTO)
 - ottimizzazione
 
 ### matlmbe:
@@ -119,7 +119,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - tasto indietro pagina ristorante (FATTO)
 - tasto-pagina aggiungi recensione (FATTO)
 - card apribile
-- card recensione
+- card recensione (FATTO)
 
 ### fgirlanda:
 
@@ -152,3 +152,4 @@ gestione ristorante aperto
 Extra:
 
 - whitelist caratteri
+- soluzione per ripetizione metodo caricaTessere
