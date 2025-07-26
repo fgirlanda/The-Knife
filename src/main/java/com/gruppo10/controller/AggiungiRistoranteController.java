@@ -20,6 +20,8 @@ import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteWriter;
 import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.classi.Utente;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -33,6 +35,8 @@ import javafx.scene.control.ComboBox;
 public class AggiungiRistoranteController {
 
     private Stage stage;
+
+    private Utente utenteLoggato = LoginController.utenteLoggato;
     
     @FXML
     private TextField txtNomeRistorante;
@@ -168,8 +172,9 @@ public class AggiungiRistoranteController {
         }
 
         // Crea un oggetto Ristorante
+        int idProprietario = utenteLoggato.getId();
         Ristorante ristorante = new Ristorante();
-        //proprietario?
+        ristorante.setIdproprietario(idProprietario);
         ristorante.setNomeRistorante(nomeRistorante);
         ristorante.setIndirizzo(indirizzo);
         ristorante.setDelivery(delivery);

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-import com.gruppo10.controller.LoginController;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -15,8 +14,6 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 // Aggiungere id, shiftare tutti i dati
 public class RistoranteWriter {
-
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     public void scriviRistorante(Ristorante ristorante) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         File dir = new File("fileCSV");
@@ -57,7 +54,7 @@ public class RistoranteWriter {
         Double lon = ristorante.getCords().getLon();
         dati[8] = lat.toString();
         dati[9] = lon.toString();
-        dati[10] = String.valueOf(utenteLoggato.getId());
+        dati[10] = String.valueOf(ristorante.getIdproprietario());
         return dati;
     }  
 
