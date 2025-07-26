@@ -1,10 +1,20 @@
 package com.gruppo10.controller;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ProfiloRistoratoreController {
@@ -13,6 +23,10 @@ public class ProfiloRistoratoreController {
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
+    static List<Ristorante> ristoranti;
+
+    @FXML
+    private VBox contenitoreTessere;
     @FXML
     private Label labelNome;
     @FXML
@@ -34,6 +48,15 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
+
+    }
+
+    @FXML
+    private void initialize() {
+        // Caricamento schede ristorante
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+        ristoranti = RistoranteReader.caricaCSV(path.toString());
+        caricaTessere(ristoranti);
     }
 
 
@@ -63,5 +86,24 @@ public class ProfiloRistoratoreController {
 
     /*RIMUOVERE?*/
     public void modificaDati(){
+    }
+
+    @FXML
+    public void caricaTessere(List<Ristorante> listaRistoranti) {
+        for (Ristorante r : listaRistoranti) {
+            if (r.getIdproprietario() == utenteloggato.getId()) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                    HBox card = loader.load();
+
+                    CardRistoranteController controller = loader.getController();
+                    controller.setDati(r);
+
+                    contenitoreTessere.getChildren().add(card);
+                } catch (IOException e) {
+                    System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+                }
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ public class RistoranteReader {
                 String descrizione = dati[7]; 
                 double lat = Double.parseDouble(dati[8]); 
                 double lon = Double.parseDouble(dati[9]); 
+                int idproprietario = Integer.parseInt(dati[10]); // Aggiunto per l'id del proprietario
                 Ristorante r = new Ristorante();
                 r.setId(id);
                 r.setNomeRistorante(nome);
@@ -33,6 +34,7 @@ public class RistoranteReader {
                 r.setPrezzo(prezzo);
                 r.setDescrizione(descrizione);
                 r.setCords(new Coordinate(lat, lon));
+                r.setIdproprietario(idproprietario); // Imposta l'id del proprietario
                 lista.add(r);
             }
         } catch (Exception e) {

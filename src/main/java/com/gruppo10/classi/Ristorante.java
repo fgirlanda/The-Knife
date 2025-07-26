@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Ristorante {
     
     private int id;
-    private Utente proprietario;
+    private int idproprietario;
     private Coordinate cords;
     private String nomeRistorante;
     private String indirizzo;
