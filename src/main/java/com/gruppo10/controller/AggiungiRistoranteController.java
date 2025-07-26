@@ -221,6 +221,8 @@ public class AggiungiRistoranteController {
     
     @FXML
     private void annulla() {
-        stage.close(); // Chiude la finestra
+        // stage.close(); // Chiude la finestra
+        Stage dialogue = (Stage) btnAnnulla.getScene().getWindow();
+        dialogue.close();
     }
 }
