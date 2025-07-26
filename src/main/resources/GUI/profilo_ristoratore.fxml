@@ -130,7 +130,7 @@
                               <Separator prefHeight="2.0" prefWidth="10.0" visible="false" />
                               <Button mnemonicParsing="false" text="Cerca" />
                               <Separator prefHeight="2.0" prefWidth="499.0" visible="false" />
-                              <Button fx:id="aggiungiRistorante" mnemonicParsing="false" onAction="#apri_aggiungi_ristorante" prefWidth="139.0" text="Aggiungi Ristorante" />
+                              <Button fx:id="aggiungiRistorante" mnemonicParsing="false" onAction="#apriAggiungiRistorante" prefWidth="139.0" text="Aggiungi Ristorante" />
                            </children>
                         </HBox>
                         <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0">
