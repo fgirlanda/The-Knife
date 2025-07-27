@@ -98,7 +98,8 @@ public class PaginaPrincipaleController {
                     HBox card = loader.load();
 
                     CardRistoranteController controller = loader.getController();
-                    controller.setDati(r);
+                    controller.setRistorante(r);
+                    controller.setDati();
 
                     contenitoreTessere.getChildren().add(card);
                 } catch (IOException e) {

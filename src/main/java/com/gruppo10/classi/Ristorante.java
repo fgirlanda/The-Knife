@@ -18,6 +18,7 @@ public class Ristorante {
     private TipoCucina tipoCucina;
     private String prezzo;
     private String descrizione;
+    private Double mediaRec;
 
     private ArrayList<Recensione> recensioni;
 

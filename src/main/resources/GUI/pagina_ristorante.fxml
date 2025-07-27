@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaRistoranteController">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaRistoranteController">
    <children>
       <HBox>
          <children>
@@ -26,7 +26,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label alignment="CENTER" text="Indirizzo">
+                  <Label fx:id="txtIndirizzo" alignment="CENTER" text="Indirizzo">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -45,10 +45,10 @@
                               <Font size="1.0" />
                            </font>
                         </Label>
-                        <Label text="(*media*)" />
+                        <Label fx:id="txtMediaRec" text="(*media*)" />
                      </children>
                   </HBox>
-                  <Label text="*fascia di prezzo*" />
+                  <Label fx:id="txtPrezzo" text="*fascia di prezzo*" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -56,7 +56,7 @@
             </VBox>
             <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
                <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnPreferiti" fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/cuore_vuoto.png" />
                      </image>
@@ -76,20 +76,20 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label text="La Forchetta d’Oro">
+                  <Label fx:id="txtNomeRistorante" text="La Forchetta d’Oro">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                   <Line endX="100.0" startX="-100.0" strokeWidth="2.0" />
-                  <Label text="È un ristorante toscano che unisce cucina tradizionale e creatività moderna. Offre piatti stagionali e vini locali in un’atmosfera calda e accogliente. Perfetto per cene romantiche o pranzi in famiglia." wrapText="true">
+                  <Label fx:id="txtDescrizione" text="È un ristorante toscano che unisce cucina tradizionale e creatività moderna. Offre piatti stagionali e vini locali in un’atmosfera calda e accogliente. Perfetto per cene romantiche o pranzi in famiglia." wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <Button alignment="TOP_LEFT" mnemonicParsing="false" text="INDIETRO">
+            <Button fx:id="btnIndietro" alignment="TOP_LEFT" mnemonicParsing="false" text="INDIETRO">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -105,7 +105,7 @@
          <children>
             <ScrollPane prefHeight="321.0" prefWidth="650.0">
                <content>
-                  <Button mnemonicParsing="false" text="aggiungi recensione" textAlignment="RIGHT">
+                  <Button fx:id="btnAggiungiRecensione" mnemonicParsing="false" text="aggiungi recensione" textAlignment="RIGHT">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
