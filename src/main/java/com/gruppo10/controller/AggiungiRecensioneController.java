@@ -46,10 +46,6 @@ public class AggiungiRecensioneController {
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtTesto.textProperty().addListener((_, _, _) -> checkFields());
 
-        stelleGroup = new ToggleGroup();
-
-        // radioStella1.setToggleGroup(stelleGroup);
-        // radioStella1.setToggleGroup(stelleGroup);
         checkFields();
     }
 
@@ -60,9 +56,9 @@ public class AggiungiRecensioneController {
 
 
     private void checkFields() {
-
         // Controlla se tutti i campi sono riempiti
-        boolean allFieldsFilled = !txtTesto.getText().isEmpty(); //&& controllo voto
+        boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
+                                  stelleGroup.getSelectedToggle() != null;
                                   
         // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);

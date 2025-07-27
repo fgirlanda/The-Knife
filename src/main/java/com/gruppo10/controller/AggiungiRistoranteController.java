@@ -96,10 +96,6 @@ public class AggiungiRistoranteController {
         comboCucina.getItems().setAll(TipoCucina.values());
         comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
         
-        deliveryGroup = new ToggleGroup();
-        prenotazioneGroup = new ToggleGroup();
-        prezzoGroup = new ToggleGroup();
-
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtNomeRistorante.textProperty().addListener((_, _, _) -> checkFields());
         txtIndirizzo.textProperty().addListener((_, _, _) -> checkFields());
