@@ -89,7 +89,7 @@
                   </Label>
                </children>
             </VBox>
-            <Button fx:id="btnIndietro" alignment="TOP_LEFT" mnemonicParsing="false" text="INDIETRO">
+            <Button fx:id="btnIndietro" alignment="TOP_LEFT" mnemonicParsing="false" text="INDIETRO" onAction="#tornaIndietro">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

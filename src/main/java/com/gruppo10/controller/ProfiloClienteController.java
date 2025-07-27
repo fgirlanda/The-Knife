@@ -48,7 +48,6 @@ public class ProfiloClienteController {
     }
 
     public void tornaIndietro(){
-        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
-            (PaginaPrincipaleController controller) -> controller.setStage(stage));
+        SceneManager.tornaPaginaPrincipale(stage);
     }
 }

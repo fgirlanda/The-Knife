@@ -50,8 +50,13 @@ public class PaginaRistoranteController {
     }
 
     @FXML
-    public void aggiungiRecensione(){
+    private void aggiungiRecensione(){
         SceneManager.finestraDialogo("/GUI/aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
             (AggiungiRecensioneController controller) -> controller.setStage(stage));
+    }
+
+    @FXML
+    private void tornaIndietro(){
+        SceneManager.tornaPaginaPrincipale(stage);
     }
 }

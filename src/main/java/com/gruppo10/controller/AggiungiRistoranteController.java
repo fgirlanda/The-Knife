@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteWriter;
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 
@@ -213,7 +214,6 @@ public class AggiungiRistoranteController {
     
     @FXML
     private void annulla() {
-        Stage dialogue = (Stage) btnAnnulla.getScene().getWindow();
-        dialogue.close();
+        SceneManager.annulla(btnAnnulla);
     }
 }

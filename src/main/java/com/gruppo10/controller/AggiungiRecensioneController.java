@@ -2,6 +2,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
@@ -101,6 +102,6 @@ public class AggiungiRecensioneController {
     
     @FXML
     private void annulla() {
-        stage.close(); // Chiude la finestra
+        SceneManager.annulla(btnAnnulla);
     }
 }

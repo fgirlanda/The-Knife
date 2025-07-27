@@ -44,15 +44,6 @@ public class ProfiloRistoratoreController {
         RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
     }
 
-    // @FXML
-    // private void initialize() {
-    //     // Caricamento schede ristorante
-    //     Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-    //     ristoranti = RistoranteReader.caricaCSV(path.toString());
-    //     List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
-    //     RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
-    // }
-
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteloggato.getNome());
@@ -65,6 +56,18 @@ public class ProfiloRistoratoreController {
     }
 
 
+    private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti){
+        List<Ristorante> nuovaLista = new ArrayList<>();
+
+        for (Ristorante r : listaRistoranti) {
+            if (r.getIdproprietario() == utenteloggato.getId()) {
+                nuovaLista.add(r);
+            }
+        }
+        return nuovaLista;
+    }
+
+
     @FXML
     private void apriAggiungiRistorante() {
         SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
@@ -74,18 +77,6 @@ public class ProfiloRistoratoreController {
     
     @FXML
     public void tornaIndietro(){
-        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
-        (PaginaPrincipaleController controller) -> controller.setStage(stage));
-    }
-
-    public List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti){
-        List<Ristorante> nuovaLista = new ArrayList<>();
-
-        for (Ristorante r : listaRistoranti) {
-            if (r.getIdproprietario() == utenteloggato.getId()) {
-                nuovaLista.add(r);
-            }
-        }
-        return nuovaLista;
+        SceneManager.tornaPaginaPrincipale(stage);
     }
 }
