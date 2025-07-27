@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class RistoranteReader {
     public static List<Ristorante> caricaCSV(String nomeFile) {
@@ -52,13 +53,14 @@ public class RistoranteReader {
 
 
     @FXML
-    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere){
+    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere, Stage stage){
         for (Ristorante r : listaRistoranti) {
             try {
                 FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_ristorante.fxml"));
                 HBox card = loader.load();
 
                 CardRistoranteController controller = loader.getController();
+                controller.setStage(stage);
                 controller.setRistorante(r);
                 controller.setDati();
                 

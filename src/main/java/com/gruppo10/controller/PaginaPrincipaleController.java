@@ -1,6 +1,5 @@
 package com.gruppo10.controller;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -19,11 +18,9 @@ import com.gruppo10.classi.FiltroPrenotazione;
 import com.gruppo10.classi.FiltroMediaRecensioni;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -32,8 +29,7 @@ public class PaginaPrincipaleController {
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
-    @FXML
-    private Button bottoneRegistratiProfilo;
+    @FXML private Button bottoneRegistratiProfilo;
 
     @FXML private VBox contenitoreTessere;
 
@@ -73,7 +69,6 @@ public class PaginaPrincipaleController {
         comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
-
     }
     
     
@@ -84,12 +79,12 @@ public class PaginaPrincipaleController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         mappaDistanze(ristoranti);
-        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere);
+        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere, stage);
     }
 
 
     // Calcola distanze per ogni ristorante
-    public void mappaDistanze(List<Ristorante> listaRistoranti){
+    private void mappaDistanze(List<Ristorante> listaRistoranti){
         for(Ristorante r: listaRistoranti){
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
@@ -101,8 +96,7 @@ public class PaginaPrincipaleController {
     public void ricercaRistorante() {
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
         List<Ristorante> listaFiltrata = filtra(ristoranti); 
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
-
+        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
     }
 
 

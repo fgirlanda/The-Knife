@@ -38,16 +38,20 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-    }
-
-    @FXML
-    private void initialize() {
-        // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
+        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
     }
+
+    // @FXML
+    // private void initialize() {
+    //     // Caricamento schede ristorante
+    //     Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+    //     ristoranti = RistoranteReader.caricaCSV(path.toString());
+    //     List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
+    //     RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
+    // }
 
 
     private void caricaDatiUtente() {
