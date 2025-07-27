@@ -47,6 +47,4 @@ public class PaginaRistoranteController {
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
     }
-
-
 }
