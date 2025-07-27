@@ -151,13 +151,13 @@ public class AggiungiRistoranteController {
         if(tempDelivery.equals("Sì")) {delivery = true;} else {delivery = false;}
         if (tempPrenotazione.equals("Sì")) {prenotazioneOnline = true;} else {prenotazioneOnline = false;}
     
-        String tipoCucina = comboCucina.getValue().toString();
+        // String tipoCucina = comboCucina.getValue().toString();
 
-        // Verifica che tutti i campi obbligatori siano compilati
-        if (nomeRistorante.isEmpty() || indirizzo.isEmpty() || tipoCucina == null) {
-            System.out.println("Compila tutti i campi obbligatori!");
-            return;
-        }
+        // // Verifica che tutti i campi obbligatori siano compilati
+        // if (nomeRistorante.isEmpty() || indirizzo.isEmpty() || tipoCucina == null) {
+        //     System.out.println("Compila tutti i campi obbligatori!");
+        //     return;
+        // }
 
         // Crea un oggetto Ristorante
         int idProprietario = utenteLoggato.getId();

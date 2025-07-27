@@ -71,13 +71,7 @@ public class AggiungiRecensioneController {
 
         // Recupera i dati dai campi
         String testo = txtTesto.getText();
-        //recupero voto
-
-        // Verifica che tutti i campi obbligatori siano compilati
-        if (testo.isEmpty()) { //|| voto
-            System.out.println("Compila tutti i campi obbligatori!");
-            return;
-        }
+        RadioButton selectedStella = (RadioButton) stelleGroup.getSelectedToggle();
 
         // Crea un oggetto recensione
         Recensione recensione = new Recensione();

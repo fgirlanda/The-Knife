@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 
 import com.gruppo10.controller.PaginaPrincipaleController;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -71,7 +70,7 @@ public class SceneManager {
         (PaginaPrincipaleController controller) -> controller.setStage(stage));
     }
 
-    
+
     public static void annulla(Button annulla) {
         Stage dialogue = (Stage) annulla.getScene().getWindow();
         dialogue.close();
