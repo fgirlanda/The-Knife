@@ -92,19 +92,15 @@ public class PaginaPrincipaleController {
         for (Ristorante r : listaRistoranti) {
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
-            if (dist <= 20000){
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
-                    HBox card = loader.load();
-
-                    CardRistoranteController controller = loader.getController();
-                    controller.setRistorante(r);
-                    controller.setDati();
-
-                    contenitoreTessere.getChildren().add(card);
-                } catch (IOException e) {
-                    System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
-                }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
+                HBox card = loader.load();
+                CardRistoranteController controller = loader.getController();
+                controller.setRistorante(r);
+                controller.setDati();
+                contenitoreTessere.getChildren().add(card);
+            } catch (IOException e) {
+                System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
             }
         }
     }
