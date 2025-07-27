@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 public class CardRistoranteController {
 
     private Stage stage;
-    private HBox card;
-
+    
     private Utente utenteLoggato = LoginController.utenteLoggato;
     public Ristorante ristorante;
-
+    
+    @FXML private HBox card;
     @FXML private ImageView imgRistorante;
     @FXML private Button btnPreferito;
     @FXML private Text txtNomeRistorante;

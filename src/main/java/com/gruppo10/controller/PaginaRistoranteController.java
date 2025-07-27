@@ -42,7 +42,7 @@ public class PaginaRistoranteController {
 
     public void setDati(){
         txtIndirizzo.setText(this.ristorante.getIndirizzo());
-        txtMediaRec.setText(this.ristorante.getMediaRec().toString());
+        // txtMediaRec.setText(this.ristorante.getMediaRec().toString());
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());

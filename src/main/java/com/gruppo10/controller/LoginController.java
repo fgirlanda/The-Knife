@@ -16,9 +16,6 @@ import com.gruppo10.classi.UtenteReader;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -85,17 +82,8 @@ public class LoginController {
                 utenteLoggato = utente;
                 
                 // Carica la nuova scena per la pagina principale
-                
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pagina_principale.fxml"));
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                
-                // Cambia scena nella stessa finestra (Stage)
-                stage.setScene(scene);
-                stage.setTitle("The Knife - Pagina Principale");
-                PaginaPrincipaleController controller = loader.getController();
-                controller.setStage(stage);
-                
+                SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
+                    (PaginaPrincipaleController controller) -> controller.setStage(stage));
                 
             } else {
                 // Login fallito

@@ -74,16 +74,16 @@ public class PaginaPrincipaleController {
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
 
+    }
+    
+    
+    // Imposta il riferimento alla finestra principale
+    public void setStage(Stage stage) {
+        this.stage = stage;
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         caricaTessere(ristoranti);
-    }
-
-
-    // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
 
@@ -98,6 +98,7 @@ public class PaginaPrincipaleController {
                 CardRistoranteController controller = loader.getController();
                 controller.setRistorante(r);
                 controller.setDati();
+                controller.setStage(stage);
                 contenitoreTessere.getChildren().add(card);
             } catch (IOException e) {
                 System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
