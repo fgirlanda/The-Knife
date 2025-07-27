@@ -81,9 +81,9 @@ public class AggiungiRistoranteController {
     private Button btnAggiungiRistorante;
     
     // Radio buttons groups
-    private ToggleGroup deliveryGroup;
-    private ToggleGroup prenotazioneGroup;
-    private ToggleGroup prezzoGroup;
+    @FXML private ToggleGroup deliveryGroup;
+    @FXML private ToggleGroup prenotazioneGroup;
+    @FXML private ToggleGroup prezzoGroup;
     
 
     public void setStage(Stage stage) {
@@ -99,15 +99,6 @@ public class AggiungiRistoranteController {
         deliveryGroup = new ToggleGroup();
         prenotazioneGroup = new ToggleGroup();
         prezzoGroup = new ToggleGroup();
-
-        radioDeliverySi.setToggleGroup(deliveryGroup);
-        radioDeliveryNo.setToggleGroup(deliveryGroup);
-        radioPrenotazioneSi.setToggleGroup(prenotazioneGroup);
-        radioPrenotazioneNo.setToggleGroup(prenotazioneGroup);
-        radioPrezzo1.setToggleGroup(prezzoGroup);
-        radioPrezzo2.setToggleGroup(prezzoGroup);
-        radioPrezzo3.setToggleGroup(prezzoGroup);
-        radioPrezzo4.setToggleGroup(prezzoGroup);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtNomeRistorante.textProperty().addListener((_, _, _) -> checkFields());

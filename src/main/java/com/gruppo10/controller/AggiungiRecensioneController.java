@@ -6,7 +6,9 @@ import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /*
@@ -18,18 +20,24 @@ public class AggiungiRecensioneController {
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
+    
+    @FXML private TextArea txtTesto;
+    
+    @FXML private Button btnAnnulla;
+    
+    @FXML private Button btnInvia;
 
-    // @FXML
-    // variabile per voto
+    @FXML private RadioButton radioStella1;
+
+    @FXML private RadioButton radioStella2;
     
-    @FXML
-    private TextArea txtTesto;
-    
-    @FXML
-    private Button btnAnnulla;
-    
-    @FXML
-    private Button btnAggiungiRecensione;
+    @FXML private RadioButton radioStella3;
+
+    @FXML private RadioButton radioStella4;
+
+    @FXML private RadioButton radioStella5;
+
+    @FXML private ToggleGroup stelleGroup;
     
 
     @FXML
@@ -37,8 +45,11 @@ public class AggiungiRecensioneController {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtTesto.textProperty().addListener((_, _, _) -> checkFields());
-        // voto.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
 
+        stelleGroup = new ToggleGroup();
+
+        // radioStella1.setToggleGroup(stelleGroup);
+        // radioStella1.setToggleGroup(stelleGroup);
         checkFields();
     }
 
@@ -54,7 +65,7 @@ public class AggiungiRecensioneController {
         boolean allFieldsFilled = !txtTesto.getText().isEmpty(); //&& controllo voto
                                   
         // Abilita o disabilita il pulsante in base ai campi
-        btnAggiungiRecensione.setDisable(!allFieldsFilled);
+        btnInvia.setDisable(!allFieldsFilled);
     }
 
 

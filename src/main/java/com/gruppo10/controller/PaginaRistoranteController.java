@@ -1,6 +1,7 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.SceneManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,5 +47,11 @@ public class PaginaRistoranteController {
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
+    }
+
+    @FXML
+    public void aggiungiRecensione(){
+        SceneManager.finestraDialogo("/GUI/aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
+            (AggiungiRecensioneController controller) -> controller.setStage(stage));
     }
 }

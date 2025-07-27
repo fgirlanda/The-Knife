@@ -93,25 +93,32 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <HBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <Label contentDisplay="CENTER" text="Recensioni">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <HBox alignment="CENTER_RIGHT" spacing="200.0">
+         <children>
+            <Label contentDisplay="CENTER" text="Recensioni">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnAggiungiRecensione" mnemonicParsing="false" onAction="#aggiungiRecensione" text="Aggiungi recensione" textAlignment="JUSTIFY">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets right="10.0" />
+         </VBox.margin>
+      </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <ScrollPane prefHeight="321.0" prefWidth="650.0">
-               <content>
-                  <Button fx:id="btnAggiungiRecensione" mnemonicParsing="false" text="aggiungi recensione" textAlignment="RIGHT">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Button>
-               </content>
-            </ScrollPane>
+            <ScrollPane prefHeight="321.0" prefWidth="650.0" />
          </children>
       </VBox>
    </children>
