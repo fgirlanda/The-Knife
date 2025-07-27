@@ -83,32 +83,30 @@ public class PaginaPrincipaleController {
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
-        caricaTessere(ristoranti);
+        mappaDistanze(ristoranti);
+        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere);
     }
 
 
-    // Caricamento schede ristorante
-    public void caricaTessere(List<Ristorante> listaRistoranti) {
-        for (Ristorante r : listaRistoranti) {
+    // Calcola distanze per ogni ristorante
+    public void mappaDistanze(List<Ristorante> listaRistoranti){
+        for(Ristorante r: listaRistoranti){
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
             mappaDistanze.put(r.getNomeRistorante(), dist);
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
-                HBox card = loader.load();
-                CardRistoranteController controller = loader.getController();
-                controller.setRistorante(r);
-                controller.setDati();
-                controller.setStage(stage);
-                contenitoreTessere.getChildren().add(card);
-            } catch (IOException e) {
-                System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
-            }
         }
     }
 
 
     @FXML
     public void ricercaRistorante() {
+        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+        List<Ristorante> listaFiltrata = filtra(ristoranti); 
+        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
+
+    }
+
+
+    private List<Ristorante> filtra(List<Ristorante> ristoranti){
         String ricerca = txtRicerca.getText().toLowerCase();
         String filtroCucina = comboFiltroCucina.getValue() != null && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString() : "";
         String filtroPrezzo = comboFiltroPrezzo.getValue() != null && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString() : "";
@@ -118,17 +116,14 @@ public class PaginaPrincipaleController {
         
         Double filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroDistanza.getValue().getKM() : Double.MAX_VALUE;
 
-        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
-
-        caricaTessere(ristoranti.stream().filter(ristorante-> (!ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
+        return ristoranti.stream().filter(ristorante-> (!ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
                                                               (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro cucina
                                                               (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && // filtro delivery disponibile
                                                               ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  // filtro delivery non disponibile
                                                               (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && //filtro prenotazione disponibile
                                                               ristorante.isPrenotazioneOnline()) || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE") && !ristorante.isPrenotazioneOnline())) && // filtro prenotazione non disponibile
-                                                              (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza)).toList()); // filtro distanza
-
+                                                              (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza)).toList(); // filtro distanza
     }
 
 

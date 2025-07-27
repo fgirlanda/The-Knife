@@ -1,8 +1,8 @@
 package com.gruppo10.controller;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.classi.Ristorante;
@@ -11,9 +11,7 @@ import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,22 +23,14 @@ public class ProfiloRistoratoreController {
 
     static List<Ristorante> ristoranti;
 
-    @FXML
-    private VBox contenitoreTessere;
-    @FXML
-    private Label labelNome;
-    @FXML
-    private Label labelCognome;
-    @FXML
-    private Label labelUsername;
-    @FXML
-    private Label labelIndirizzo;
-    @FXML
-    private Label labelData;
-    @FXML
-    private Label labelRuolo;
-    @FXML
-    private Label labelPassword;
+    @FXML private VBox contenitoreTessere;
+    @FXML private Label labelNome;
+    @FXML private Label labelCognome;
+    @FXML private Label labelUsername;
+    @FXML private Label labelIndirizzo;
+    @FXML private Label labelData;
+    @FXML private Label labelRuolo;
+    @FXML private Label labelPassword;
     String labelPasswordText = "********"; 
 
 
@@ -48,7 +38,6 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-
     }
 
     @FXML
@@ -56,7 +45,8 @@ public class ProfiloRistoratoreController {
         // Caricamento schede ristorante
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
-        caricaTessere(ristoranti);
+        List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
+        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere);
     }
 
 
@@ -84,27 +74,14 @@ public class ProfiloRistoratoreController {
         (PaginaPrincipaleController controller) -> controller.setStage(stage));
     }
 
-    /*RIMUOVERE?*/
-    public void modificaDati(){
-    }
+    public List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti){
+        List<Ristorante> nuovaLista = new ArrayList<>();
 
-    @FXML
-    public void caricaTessere(List<Ristorante> listaRistoranti) {
         for (Ristorante r : listaRistoranti) {
             if (r.getIdproprietario() == utenteloggato.getId()) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/card_ristorante.fxml"));
-                    HBox card = loader.load();
-
-                    CardRistoranteController controller = loader.getController();
-                    controller.setRistorante(r);
-                    controller.setDati();
-                    
-                    contenitoreTessere.getChildren().add(card);
-                } catch (IOException e) {
-                    System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
-                }
+                nuovaLista.add(r);
             }
         }
+        return nuovaLista;
     }
 }

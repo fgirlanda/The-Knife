@@ -1,10 +1,17 @@
 package com.gruppo10.classi;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gruppo10.controller.CardRistoranteController;
 import com.opencsv.CSVReader;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RistoranteReader {
     public static List<Ristorante> caricaCSV(String nomeFile) {
@@ -41,5 +48,24 @@ public class RistoranteReader {
             System.err.println("Errore caricamento file csv: " + e.getMessage());
         }
         return lista;
+    }
+
+
+    @FXML
+    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere){
+        for (Ristorante r : listaRistoranti) {
+            try {
+                FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_ristorante.fxml"));
+                HBox card = loader.load();
+
+                CardRistoranteController controller = loader.getController();
+                controller.setRistorante(r);
+                controller.setDati();
+                
+                contenitoreTessere.getChildren().add(card);
+            } catch (IOException e) {
+                System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+            }
+        }
     }
 }
