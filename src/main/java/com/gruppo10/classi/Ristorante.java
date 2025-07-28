@@ -30,4 +30,16 @@ public class Ristorante {
             this.tipoCucina = TipoCucina.INTERNAZIONALE; // Valore di default se non riconosciuto
         }
     }  
+
+    
+    public void aggiungiRecensione(Recensione recensione){
+        this.recensioni.add(recensione);
+        this.calcoloMedia(recensione.getStelle());
+    }
+
+
+    public void calcoloMedia(int stelle){
+        int tot = this.recensioni.size();
+        this.mediaRec = ((mediaRec*(tot-1))+stelle)/tot;
+    }
 }

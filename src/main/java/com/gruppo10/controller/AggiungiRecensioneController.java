@@ -92,7 +92,7 @@ public class AggiungiRecensioneController {
         recensione.setRisposta("");
 
         // Ricalcolo media recensioni ristorante
-
+        ristorante.aggiungiRecensione(recensione);
 
         // Aggiungere recensione a csv
         RecensioneWriter writer = new RecensioneWriter();
