@@ -110,7 +110,7 @@ public class PaginaPrincipaleController {
         
         Double filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroDistanza.getValue().getKM() : Double.MAX_VALUE;
 
-        return ristoranti.stream().filter(ristorante-> (!ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
+        return ristoranti.stream().filter(ristorante-> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
                                                               (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro cucina
                                                               (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && // filtro delivery disponibile
