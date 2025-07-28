@@ -8,8 +8,6 @@ import java.util.List;
 import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
-import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
@@ -52,8 +50,6 @@ public class PaginaPrincipaleController {
     @FXML private ComboBox<FiltroDistanza> comboFiltroDistanza;
 
     public static List<Ristorante> ristoranti; 
-
-    public static List<Recensione> recensioni = RecensioneReader.caricaCSV("fileCSV/recensioni.csv");
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
 

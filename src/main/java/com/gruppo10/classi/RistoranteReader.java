@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.controller.CardRistoranteController;
-import com.gruppo10.controller.PaginaPrincipaleController;
 import com.opencsv.CSVReader;
 
 import javafx.fxml.FXML;
@@ -17,7 +16,7 @@ import javafx.stage.Stage;
 
 public class RistoranteReader {
     public static List<Ristorante> caricaCSV(String nomeFile) {
-        List<Recensione> listaRecensioni = PaginaPrincipaleController.recensioni;
+        List<Recensione> listaRecensioni = RecensioneReader.caricaCSV("fileCSV/recensioni.csv");
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
