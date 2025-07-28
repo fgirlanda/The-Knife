@@ -54,9 +54,9 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
+            <Button fx:id="btnPreferiti" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button" onAction="#gestisciPreferiti">
                <graphic>
-                  <ImageView fx:id="btnPreferiti" fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagePreferiti" fitHeight="23.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" >
                      <image>
                         <Image url="@/images/cuore_vuoto.png" />
                      </image>

@@ -1,7 +1,11 @@
 package com.gruppo10.controller;
 
+import java.io.IOException;
+
+import com.gruppo10.classi.PreferitiWriter;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +19,8 @@ public class PaginaRistoranteController {
 
     private Ristorante ristorante;
 
+    private Utente utenteLoggato = LoginController.utenteLoggato;
+
     @FXML private Label txtIndirizzo;
 
     @FXML private Label txtMediaRec;
@@ -25,11 +31,15 @@ public class PaginaRistoranteController {
     
     @FXML private Label txtDescrizione;
 
-    @FXML private ImageView btnPreferiti;
+    @FXML private ImageView imagePreferiti;
 
     @FXML private Button btnIndietro;
 
     @FXML private Button btnAggiungiRecensione;
+
+    @FXML private Button btnPreferiti;
+
+
 
 
     // Imposta il riferimento alla finestra principale
@@ -59,4 +69,36 @@ public class PaginaRistoranteController {
     private void tornaIndietro(){
         SceneManager.tornaPaginaPrincipale(stage);
     }
+
+    @FXML
+    private void gestisciPreferiti() {
+        try {
+            if(imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
+                imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
+                aggiungiPreferito();
+            } else {
+                imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
+               // rimuoviPreferito();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void aggiungiPreferito() {
+        try {
+            PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), ristorante.getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+   }
+
+//    private void rimuoviPreferito() {
+//        try {
+//            PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), ristorante.getId());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
