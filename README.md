@@ -113,12 +113,12 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - dialog per aggiungere (FATTO)
 - inserire card ristorante nella pagina principale (FATTO)
 - gestire ricerca e filtri (FATTO)
-- ristoranti preferiti 
+- ristoranti preferiti (FATTO)
 - sistemare card ristorante (FATTO)
 - tasto filtro distanza (FATTO)
 - tasto indietro pagina ristorante (FATTO)
 - tasto-pagina aggiungi recensione (FATTO)
-- card apribile
+- card apribile (FATTO)
 - card recensione (FATTO)
 
 ### fgirlanda:
@@ -153,4 +153,4 @@ gestione ristorante aperto
 Extra:
 
 - whitelist caratteri
-- soluzione per ripetizione metodo caricaTessere
+- soluzione per ripetizione metodo caricaTessere (FATTO)

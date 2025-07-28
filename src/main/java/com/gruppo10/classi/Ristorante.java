@@ -2,8 +2,6 @@ package com.gruppo10.classi;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-
 
 @Data
 public class Ristorante {
@@ -20,7 +18,8 @@ public class Ristorante {
     private String descrizione;
     private Double mediaRec;
 
-    private ArrayList<Recensione> recensioni;
+    private int numRec;
+    private int stelle;
 
     public void setCucina(String value) {
         try {
