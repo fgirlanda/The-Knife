@@ -89,7 +89,7 @@ public class PaginaRistoranteController {
                 aggiungiPreferito();
             } else {
                 imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
-               // rimuoviPreferito();
+                rimuoviPreferito();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,18 +98,20 @@ public class PaginaRistoranteController {
 
     private void aggiungiPreferito() {
         try {
-            PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), ristorante.getId());
+            if(!PreferitiReader.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
+                PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), ristorante.getId());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
    }
 
-//    private void rimuoviPreferito() {
-//        try {
-//            PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), ristorante.getId());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+   private void rimuoviPreferito() {
+       try {
+           PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), ristorante.getId());
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
 }
