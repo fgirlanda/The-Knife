@@ -2,6 +2,7 @@ package com.gruppo10.controller;
 
 import java.io.IOException;
 
+import com.gruppo10.classi.PreferitiReader;
 import com.gruppo10.classi.PreferitiWriter;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
@@ -42,13 +43,23 @@ public class PaginaRistoranteController {
 
 
 
+ 
+    
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
+
     }
 
     public void setRistorante(Ristorante ristorante){
         this.ristorante = ristorante;
+
+        
+        if (PreferitiReader.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
+            imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
+        } else {
+            imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
+        }
     }
 
     public void setDati(){
