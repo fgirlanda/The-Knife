@@ -89,12 +89,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="registratiButton" disable="true" mnemonicParsing="false" onAction="#registrati" text="Registrati" textAlignment="CENTER" GridPane.halignment="CENTER">
+            <Button fx:id="btnRegistrati" disable="true" mnemonicParsing="false" onAction="#registrati" text="Registrati" textAlignment="CENTER" GridPane.halignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#apriLogin" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#annulla">
                <font>
                   <Font size="14.0" />
                </font>

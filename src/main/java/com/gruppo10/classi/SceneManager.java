@@ -3,6 +3,7 @@ package com.gruppo10.classi;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.ProfiloClienteController;
 import com.gruppo10.controller.ProfiloRistoratoreController;
@@ -87,5 +88,10 @@ public class SceneManager {
     public static void annulla(Button annulla) {
         Stage dialogue = (Stage) annulla.getScene().getWindow();
         dialogue.close();
+    }
+
+    public static void logOut(Stage stage){
+        SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
+            (LoginController controller) -> controller.setStage(stage));
     }
 }

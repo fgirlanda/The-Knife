@@ -137,7 +137,10 @@ public class PaginaPrincipaleController {
 
     private void apriRegistrati(){
         SceneManager.cambioScena(stage, "/GUI/registrazione.fxml", "The Knife - Registrazione", 
-            (RegistrazioneController controller) -> controller.setStage(stage));
+            (RegistrazioneController controller) -> {
+                controller.setStage(stage);
+                controller.setPrincipale(true);
+            });
     }
 
 

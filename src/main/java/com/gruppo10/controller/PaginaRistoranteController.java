@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.gruppo10.classi.PreferitiReader;
 import com.gruppo10.classi.PreferitiWriter;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
@@ -60,7 +61,7 @@ public class PaginaRistoranteController {
     public void setRistorante(Ristorante ristorante){
         this.ristorante = ristorante;
 
-        if(utenteLoggato.getRuolo().toString().equals("RISTORATORE")) {
+        if(utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             btnAggiungiRecensione.setVisible(false);
             btnPreferiti.setVisible(false);
         }

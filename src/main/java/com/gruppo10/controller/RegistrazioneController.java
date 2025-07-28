@@ -38,6 +38,8 @@ public class RegistrazioneController {
 
     private Stage stage;
 
+    private boolean paginaPrincipale;
+
     @FXML
     private RadioButton clienteRadioButton;
     
@@ -103,6 +105,11 @@ public class RegistrazioneController {
     }
     
 
+    public void setPrincipale(boolean paginaPrincipale){
+        this.paginaPrincipale = paginaPrincipale;
+    }
+
+    
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !nomeTextField.getText().isEmpty() &&
@@ -199,7 +206,17 @@ public class RegistrazioneController {
 
 
     @FXML
-    public void apriLogin(){
+    private void annulla(){
+        if(paginaPrincipale){
+            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", 
+                (PaginaPrincipaleController controller) -> controller.setStage(stage));
+        }else{
+            apriLogin();
+        }
+    }
+
+
+    private void apriLogin(){
         SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
             (LoginController controller) -> controller.setStage(stage));
     }

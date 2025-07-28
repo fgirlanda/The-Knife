@@ -79,4 +79,12 @@ public class ProfiloRistoratoreController {
     public void tornaIndietro(){
         SceneManager.tornaPaginaPrincipale(stage);
     }
+
+
+    @FXML
+    private void logOut(){
+        LoginController.utenteLoggato = null;
+        this.utenteloggato = null;
+        SceneManager.logOut(stage);
+    }
 }

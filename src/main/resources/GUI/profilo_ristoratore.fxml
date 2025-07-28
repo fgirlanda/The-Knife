@@ -150,8 +150,8 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="bottoneIndietro1" layoutX="925.0" layoutY="14.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="25.0" prefWidth="61.0" text="Loguot" />
-                  <Button fx:id="bottoneIndietro" layoutX="24.0" layoutY="426.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="25.0" prefWidth="77.0" text="Indietro">
+                  <Button fx:id="btnLogout" layoutX="925.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="61.0" text="Loguot" />
+                  <Button fx:id="btnIndietro" layoutX="24.0" layoutY="426.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="25.0" prefWidth="77.0" text="Indietro">
                      <font>
                         <Font size="14.0" />
                      </font>

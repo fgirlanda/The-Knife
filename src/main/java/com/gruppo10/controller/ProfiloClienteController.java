@@ -23,22 +23,17 @@ public class ProfiloClienteController {
 
     static List<Ristorante> ristoranti;
 
-    @FXML private VBox contenitoreTessere;
-    @FXML
-    private Label labelNome;
-    @FXML
-    private Label labelCognome;
-    @FXML
-    private Label labelUsername;
-    @FXML
-    private Label labelIndirizzo;
-    @FXML
-    private Label labelData;
-    @FXML
-    private Label labelRuolo;
-    @FXML
-    private Label labelPassword;
     String labelPasswordText = "********"; 
+    
+    @FXML private VBox contenitoreTessere;
+    @FXML private Label labelNome;
+    @FXML private Label labelCognome;
+    @FXML private Label labelUsername;
+    @FXML private Label labelIndirizzo;
+    @FXML private Label labelData;
+    @FXML private Label labelRuolo;
+    @FXML private Label labelPassword;
+    
 
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
@@ -49,8 +44,8 @@ public class ProfiloClienteController {
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         List<Ristorante> listaFiltrata = filtraPreferiti(ristoranti);
         RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, false);
-    
     }
+
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteloggato.getNome());
@@ -62,16 +57,10 @@ public class ProfiloClienteController {
         labelPassword.setText(labelPasswordText);
     }
 
-    public void modificaDati(){
-    }
-
-    public void tornaIndietro(){
-        SceneManager.tornaPaginaPrincipale(stage);
-    }
 
     private List<Ristorante> filtraPreferiti(List<Ristorante> listaRistoranti) {
         List<Ristorante> nuovaLista = new ArrayList<>();
-
+        
         for (Ristorante r : listaRistoranti) {
             if (PreferitiReader.controlloPreferito(utenteloggato.getId(), r.getId())) {
                 nuovaLista.add(r);
@@ -79,6 +68,18 @@ public class ProfiloClienteController {
         }
         return nuovaLista;
     }
+    
+
+    @FXML
+    private void tornaIndietro(){
+        SceneManager.tornaPaginaPrincipale(stage);
+    }
 
 
+    @FXML
+    private void logOut(){
+        LoginController.utenteLoggato = null;
+        this.utenteloggato = null;
+        SceneManager.logOut(stage);
+    }
 }
