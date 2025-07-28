@@ -117,7 +117,7 @@ public class PaginaPrincipaleController {
         return ristoranti.stream().filter(ristorante-> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
                                                               (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro cucina
-                                                              (filtroRecensioni.isEmpty() || ristorante.getMediaRec() >= filtroRecensioni.length()) &&
+                                                              (filtroRecensioni.isEmpty() || ristorante.getMediaRec() >= filtroRecensioni.length()) && // filtro recensioni
                                                               (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && // filtro delivery disponibile
                                                               ristorante.isDelivery()) || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery())) &&  // filtro delivery non disponibile
                                                               (filtroPrenotazione.isEmpty() || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && //filtro prenotazione disponibile
