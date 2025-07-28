@@ -54,7 +54,10 @@ public class PaginaRistoranteController {
     public void setRistorante(Ristorante ristorante){
         this.ristorante = ristorante;
 
-        
+        if(utenteLoggato.getRuolo().toString().equals("RISTORATORE")) {
+            btnAggiungiRecensione.setVisible(false);
+            btnPreferiti.setVisible(false);
+        }
         if (PreferitiReader.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
             imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
         } else {

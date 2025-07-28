@@ -9,28 +9,29 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloClienteController">
-  <tabs>
-    <Tab text="Dati personali">
+   <tabs>
+      <Tab text="Dati personali">
          <content>
             <AnchorPane>
                <children>
-                  <GridPane hgap="20.0" layoutX="327.0" layoutY="138.0" prefHeight="358.0" prefWidth="420.0" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="327.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="138.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="129.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="271.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <GridPane hgap="20.0" layoutX="259.0" layoutY="111.0" prefHeight="377.0" prefWidth="528.0" AnchorPane.bottomAnchor="183.0" AnchorPane.leftAnchor="259.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="111.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.6666259765625" minWidth="10.0" prefWidth="172.6666259765625" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="295.3333740234375" />
+                     </columnConstraints>
+                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
                         <Label text="Nome:" textAlignment="RIGHT" GridPane.halignment="RIGHT">
                            <font>
@@ -104,7 +105,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="bottoneIndietro" layoutX="445.0" layoutY="571.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="39.0" prefWidth="110.0" text="Indietro">
+                  <Button fx:id="bottoneIndietro" layoutX="468.0" layoutY="574.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="39.0" prefWidth="110.0" text="Indietro">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -112,32 +113,28 @@
                </children>
             </AnchorPane>
          </content>
-    </Tab>
-    <Tab text="Preferiti">
+      </Tab>
+      <Tab text="Risotranti preferiti">
          <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane>
                <children>
-                  <ScrollPane layoutX="105.0" layoutY="103.0" prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane />
-                    </content>
-                  </ScrollPane>
+                  <VBox prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0">
+                           <content>
+                              <VBox fx:id="contenitoreTessere" prefHeight="0.0" prefWidth="1000.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </content>
-    </Tab>
+      </Tab>
       <Tab text="Le mie recensioni">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ScrollPane layoutX="153.0" layoutY="173.0" prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane />
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
-  </tabs>
+   </tabs>
 </TabPane>

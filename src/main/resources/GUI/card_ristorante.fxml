@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -19,15 +19,11 @@
             <Image url="@/images/esempio_ristorante.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnPreferito" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button">
-         <graphic>
-            <ImageView fx:id="imgCuore" fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/images/cuore_vuoto.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <Separator maxHeight="137.0" minHeight="80.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="9.0">
+         <HBox.margin>
+            <Insets bottom="20.0" top="10.0" />
+         </HBox.margin>
+      </Separator>
       <VBox spacing="15.0">
          <children>
             <Text fx:id="txtNomeRistorante" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome ristorante" wrappingWidth="320.0">
@@ -47,8 +43,8 @@
             </Text>
             <GridPane prefHeight="16.0" prefWidth="200.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="57.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="143.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="36.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="261.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -59,7 +55,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text fx:id="txtTipoCucina" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo Cucina" GridPane.columnIndex="1">
+                  <Text fx:id="txtTipoCucina" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo Cucina" wrappingWidth="133.666015625" GridPane.columnIndex="1">
                      <font>
                         <Font size="15.0" />
                      </font>

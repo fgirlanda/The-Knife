@@ -21,7 +21,6 @@ public class CardRistoranteController {
     
     @FXML private HBox card;
     @FXML private ImageView imgRistorante;
-    @FXML private Button btnPreferito;
     @FXML private Text txtNomeRistorante;
     @FXML private Text txtRecensioni;
     @FXML private Text txtPrezzo;
@@ -46,9 +45,6 @@ public class CardRistoranteController {
     
 
     public void setDati(){
-        if(utenteLoggato.getRuolo()!= Ruolo.CLIENTE) {
-            btnPreferito.setVisible(false);
-        } 
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
         txtPrezzo.setText(this.ristorante.getPrezzo());
