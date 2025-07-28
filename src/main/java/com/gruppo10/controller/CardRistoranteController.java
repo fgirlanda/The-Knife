@@ -49,7 +49,7 @@ public class CardRistoranteController {
 
     public void setDati(){
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
-        //txtRecensioni.setText(ristorante.getRecensioni().size() + " Recensioni");
+        txtRecensioni.setText(this.ristorante.getMediaRec() + " ★");
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtTipoCucina.setText(this.ristorante.getTipoCucina().toString());
     }

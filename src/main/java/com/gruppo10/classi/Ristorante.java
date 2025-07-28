@@ -19,7 +19,7 @@ public class Ristorante {
     private TipoCucina tipoCucina;
     private String prezzo;
     private String descrizione;
-    private Double mediaRec;
+    private Double mediaRec = 0.0;
 
     private List<Recensione> recensioni = new ArrayList<>();
 
@@ -36,7 +36,6 @@ public class Ristorante {
         this.recensioni.add(recensione);
         this.calcoloMedia(recensione.getStelle());
     }
-
 
     public void calcoloMedia(int stelle){
         int tot = this.recensioni.size();

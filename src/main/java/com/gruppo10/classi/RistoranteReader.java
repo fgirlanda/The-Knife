@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.controller.CardRistoranteController;
+import com.gruppo10.controller.PaginaPrincipaleController;
 import com.opencsv.CSVReader;
 
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 public class RistoranteReader {
     public static List<Ristorante> caricaCSV(String nomeFile) {
+        List<Recensione> listaRecensioni = PaginaPrincipaleController.recensioni;
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
@@ -42,7 +44,12 @@ public class RistoranteReader {
                 r.setPrezzo(prezzo);
                 r.setDescrizione(descrizione);
                 r.setCords(new Coordinate(lat, lon));
-                r.setIdproprietario(idproprietario); // Imposta l'id del proprietario
+                r.setIdproprietario(idproprietario); 
+                for (Recensione rec : listaRecensioni) {
+                    if (rec.getIdRis() == id) {
+                        r.aggiungiRecensione(rec);
+                    }
+                }
                 lista.add(r);
             }
         } catch (Exception e) {
