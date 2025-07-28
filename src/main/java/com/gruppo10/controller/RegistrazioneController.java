@@ -65,7 +65,7 @@ public class RegistrazioneController {
     private TextField indirizzoTextField;
     
     @FXML
-    private Button registratiButton;
+    private Button btnRegistrati;
     
     @FXML
     private Label statusRegistrazione;
@@ -121,7 +121,7 @@ public class RegistrazioneController {
                                   ruoloGroup.getSelectedToggle() != null;
 
         // Abilita o disabilita il pulsante in base ai campi
-        registratiButton.setDisable(!allFieldsFilled);
+        btnRegistrati.setDisable(!allFieldsFilled);
     }
 
     

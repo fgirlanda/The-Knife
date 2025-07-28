@@ -2,6 +2,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
@@ -21,6 +22,8 @@ public class AggiungiRecensioneController {
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
+
+    private Ristorante ristorante;
     
     @FXML private TextArea txtTesto;
     
@@ -56,6 +59,11 @@ public class AggiungiRecensioneController {
     }
 
 
+    public void setRistorante(Ristorante ristorante){
+        this.ristorante = ristorante;
+    }
+
+
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
@@ -72,14 +80,21 @@ public class AggiungiRecensioneController {
         // Recupera i dati dai campi
         String testo = txtTesto.getText();
         RadioButton selectedStella = (RadioButton) stelleGroup.getSelectedToggle();
+        int stelle = selectedStella.getText().length();
 
         // Crea un oggetto recensione
         Recensione recensione = new Recensione();
         // recensione.setIdRec(0); mettere solo nel csv e quando si scrive controllare l'ultimo presente?
         recensione.setIdUtente(utenteLoggato.getId());
-        // recensione.setIdRis() id ristoranteAperto (simile a utenteLoggato?)
+        recensione.setIdRis(ristorante.getId());
+        recensione.setStelle(stelle);
         recensione.setTesto(testo);
+        recensione.setRisposta("");
 
+        // Ricalcolo media recensioni ristorante
+
+
+        // Aggiungere recensione a csv
         RecensioneWriter writer = new RecensioneWriter();
         try {
             writer.scriviRecensione(recensione);
@@ -89,7 +104,7 @@ public class AggiungiRecensioneController {
 
         // Chiudi la finestra o esegui altre azioni
         if (stage != null) {
-            stage.close();
+            annulla();
         }
     }
     

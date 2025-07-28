@@ -1,8 +1,7 @@
 package com.gruppo10.classi;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -14,7 +13,6 @@ import com.opencsv.CSVWriter;
 
 public class UtenteWriter {
 
-    private static int contaID = 0;
 
     public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
         File dir = new File("fileCSV");
@@ -23,18 +21,6 @@ public class UtenteWriter {
         File fileUtente = new File(dir, "utenti.csv");
         
         boolean fileEsiste = fileUtente.exists();
-
-        if(fileEsiste) {
-            try (BufferedReader br = new BufferedReader(new FileReader(fileUtente))) {
-                contaID = -1; // Inizializza contaID a -1 per non contare l'header
-                while (br.readLine() != null) {
-                    contaID++;
-                }
-            } 
-        }
-
-        // Crea lista dati
-        String[] dati = estraiDati(utente);
 
         try (Writer writer = new FileWriter(fileUtente, true)) {
             
@@ -46,6 +32,9 @@ public class UtenteWriter {
                 csvWriter.flush();
             }
             
+            // Crea lista dati
+            String[] dati = estraiDati(utente, fileUtente);
+
             // Scrivi i dati dell'utente
             csvWriter.writeNext(dati);
             csvWriter.close();
@@ -53,9 +42,9 @@ public class UtenteWriter {
         }
     }
 
-    private String[] estraiDati(Utente utente) throws NoSuchAlgorithmException {
+    private String[] estraiDati(Utente utente, File file) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
         String[] dati = new String[10];
-        dati[0] = String.valueOf(++contaID);
+        dati[0] = String.valueOf(RistoranteWriter.ultimoID(file));
         dati[1] = utente.getNome();
         dati[2] = utente.getCognome();
         dati[3] = utente.getUsername();        
