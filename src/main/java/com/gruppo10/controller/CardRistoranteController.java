@@ -1,12 +1,9 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -16,8 +13,9 @@ public class CardRistoranteController {
 
     private Stage stage;
     
-    private Utente utenteLoggato = LoginController.utenteLoggato;
     public Ristorante ristorante;
+
+    private boolean paginaPrincipale;
     
     @FXML private HBox card;
     @FXML private ImageView imgRistorante;
@@ -39,6 +37,11 @@ public class CardRistoranteController {
     }
 
 
+    public void setPrincipale(boolean paginaPrincipale){
+        this.paginaPrincipale = paginaPrincipale;
+    }
+
+
     public void setRistorante(Ristorante ristorante){
         this.ristorante = ristorante;
     }
@@ -57,8 +60,8 @@ public class CardRistoranteController {
                 (PaginaRistoranteController controller) -> {
                     controller.setStage(stage);
                     controller.setRistorante(this.ristorante);
+                    controller.setPrincipale(paginaPrincipale);
                     controller.setDati();
-                });
-        
+                });   
     }
 }

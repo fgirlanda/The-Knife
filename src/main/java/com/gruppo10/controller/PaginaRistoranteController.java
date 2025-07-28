@@ -22,6 +22,8 @@ public class PaginaRistoranteController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
+    private boolean paginaPrincipale; // true -> arrivo dalla pagina principale, false -> arrivo dal profilo
+
     @FXML private Label txtIndirizzo;
 
     @FXML private Label txtMediaRec;
@@ -49,6 +51,10 @@ public class PaginaRistoranteController {
     public void setStage(Stage stage) {
         this.stage = stage;
 
+    }
+
+    public void setPrincipale(boolean paginaPrincipale){
+        this.paginaPrincipale = paginaPrincipale;
     }
 
     public void setRistorante(Ristorante ristorante){
@@ -81,7 +87,11 @@ public class PaginaRistoranteController {
 
     @FXML
     private void tornaIndietro(){
-        SceneManager.tornaPaginaPrincipale(stage);
+        if(paginaPrincipale){ 
+            SceneManager.tornaPaginaPrincipale(stage);
+        }else{
+            SceneManager.tornaProfilo(stage, utenteLoggato);
+        }
     }
 
     @FXML

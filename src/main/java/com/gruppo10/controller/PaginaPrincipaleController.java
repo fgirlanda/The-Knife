@@ -79,7 +79,7 @@ public class PaginaPrincipaleController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         mappaDistanze(ristoranti);
-        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere, stage);
+        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere, stage, true);
     }
 
 
@@ -96,7 +96,7 @@ public class PaginaPrincipaleController {
     public void ricercaRistorante() {
         contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
         List<Ristorante> listaFiltrata = filtra(ristoranti); 
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
+        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, true);
     }
 
 

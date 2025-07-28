@@ -53,7 +53,7 @@ public class RistoranteReader {
 
 
     @FXML
-    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere, Stage stage){
+    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere, Stage stage, boolean paginaPrincipale){
         for (Ristorante r : listaRistoranti) {
             try {
                 FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_ristorante.fxml"));
@@ -63,6 +63,7 @@ public class RistoranteReader {
                 controller.setStage(stage);
                 controller.setRistorante(r);
                 controller.setDati();
+                controller.setPrincipale(paginaPrincipale);
                 
                 contenitoreTessere.getChildren().add(card);
             } catch (IOException e) {

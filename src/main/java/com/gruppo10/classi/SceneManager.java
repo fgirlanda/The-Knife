@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import com.gruppo10.controller.PaginaPrincipaleController;
+import com.gruppo10.controller.ProfiloClienteController;
+import com.gruppo10.controller.ProfiloRistoratoreController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,6 +70,17 @@ public class SceneManager {
     public static void tornaPaginaPrincipale(Stage stage){
         SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
         (PaginaPrincipaleController controller) -> controller.setStage(stage));
+    }
+
+
+    public static void tornaProfilo(Stage stage, Utente utente){
+        if(utente.getRuolo() == Ruolo.CLIENTE){
+            SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife", 
+            (ProfiloClienteController controller) -> controller.setStage(stage));
+        }else{
+            SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife", 
+            (ProfiloRistoratoreController controller) -> controller.setStage(stage));
+        }
     }
 
 
