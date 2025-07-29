@@ -40,14 +40,16 @@ public class RecensioneReader {
         return lista;
     }
 
-    public static void caricaTessere(List<Recensione> listaRecensioni, VBox contenitoreTessere, Stage stage){
+
+    public static void caricaTessere(List<Recensione> listaRecensioni, VBox contenitoreTessere, Stage stage, int idProprietario){
         for (Recensione r : listaRecensioni) {
             try {
                 FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_recensione.fxml"));
                 HBox card = loader.load();
-
+    
                 CardRecensioneController controller = loader.getController();
                 controller.setStage(stage);
+                controller.setIdProprietario(idProprietario);
                 controller.setRecensione(r);
                 controller.setDati();
                 

@@ -80,7 +80,7 @@ public class PaginaRistoranteController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         recensioni = RecensioneReader.caricaCSV(path.toString());
         List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
-        RecensioneReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
+        RecensioneReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, this.ristorante.getIdproprietario());
     }
 
     public void setDati(){
@@ -126,8 +126,8 @@ public class PaginaRistoranteController {
 
     private void aggiungiPreferito() {
         try {
-            if(!PreferitiReader.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
-                PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), ristorante.getId());
+            if(!PreferitiReader.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
+                PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,7 +137,7 @@ public class PaginaRistoranteController {
 
    private void rimuoviPreferito() {
        try {
-           PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), ristorante.getId());
+           PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
        } catch (IOException e) {
            e.printStackTrace();
        }
