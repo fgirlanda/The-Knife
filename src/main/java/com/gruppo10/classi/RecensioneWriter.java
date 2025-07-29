@@ -78,7 +78,7 @@ public class RecensioneWriter {
             }
 
             try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
-                writer.writeNext(new String[]{"ID Utente", "ID Ristorante"});
+                writer.writeNext(new String[]{"ID Recensione", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
                 for (String[] riga : listaTemp) {
                     writer.writeNext(riga);
                 }
