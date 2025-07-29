@@ -1,7 +1,10 @@
 package com.gruppo10.classi;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,13 @@ import javafx.stage.Stage;
 
 public class RistoranteReader {
     public static List<Ristorante> caricaCSV(String nomeFile) {
-        List<Recensione> listaRecensioni = RecensioneReader.caricaCSV("fileCSV/recensioni.csv");
+        List<Recensione> listaRecensioni = new ArrayList<>();
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
+        File fileRecensioni = new File(path.toString());
+        if(fileRecensioni.exists()){
+            listaRecensioni = RecensioneReader.caricaCSV("fileCSV/recensioni.csv");
+        }
+        
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
