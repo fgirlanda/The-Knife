@@ -72,8 +72,6 @@ public class PreferitiWriter {
 
         } catch (Exception e) {
             System.err.println("Errore caricamento file csv: " + e.getMessage());
-        }
-        
-        
+        }  
     }
 }

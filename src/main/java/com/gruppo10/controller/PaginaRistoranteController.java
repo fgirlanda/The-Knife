@@ -1,9 +1,14 @@
 package com.gruppo10.controller;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import com.gruppo10.classi.PreferitiReader;
 import com.gruppo10.classi.PreferitiWriter;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
@@ -13,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class PaginaRistoranteController {
@@ -24,6 +30,8 @@ public class PaginaRistoranteController {
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private boolean paginaPrincipale; // true -> arrivo dalla pagina principale, false -> arrivo dal profilo
+
+    private List<Recensione> recensioni;
 
     @FXML private Label txtIndirizzo;
 
@@ -43,15 +51,12 @@ public class PaginaRistoranteController {
 
     @FXML private Button btnPreferiti;
 
+    @FXML private VBox contenitoreTessere;
 
-
-
- 
     
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
-
     }
 
     public void setPrincipale(boolean paginaPrincipale){
@@ -70,6 +75,10 @@ public class PaginaRistoranteController {
         } else {
             imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
         }
+
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
+        recensioni = RecensioneReader.caricaCSV(path.toString());
+        RecensioneReader.caricaTessere(recensioni, contenitoreTessere, stage);
     }
 
     public void setDati(){

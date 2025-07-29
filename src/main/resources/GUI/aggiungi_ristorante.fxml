@@ -21,18 +21,6 @@
          </font>
       </Label>
 
-      <fx:define>
-        <ToggleGroup fx:id="prezzoGroup" />
-      </fx:define>
-
-      <fx:define>
-        <ToggleGroup fx:id="deliveryGroup" />
-      </fx:define>
-
-      <fx:define>
-        <ToggleGroup fx:id="prenotazioneGroup" />
-      </fx:define>
-
       <GridPane layoutX="53.0" layoutY="67.0" prefHeight="235.0" prefWidth="497.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="193.0" />

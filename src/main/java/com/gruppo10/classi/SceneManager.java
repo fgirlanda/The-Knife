@@ -94,4 +94,21 @@ public class SceneManager {
         SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
             (LoginController controller) -> controller.setStage(stage));
     }
+
+    // Generalizzazione carica tessere e configurazione controller con interfaccia ControllerConfigurator
+    // public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, boolean paginaPrincipale, String percorsoFXML, ControllerConfigurator<T> configuratore) {
+    //     for (T item : lista) {
+    //         try {
+    //             FXMLLoader loader = new FXMLLoader(YourLoaderClass.class.getResource(percorsoFXML));
+    //             HBox card = loader.load();
+
+    //             Object controller = loader.getController();
+    //             configuratore.configure(controller, item, stage, paginaPrincipale);
+
+    //             contenitoreTessere.getChildren().add(card);
+    //         } catch (IOException e) {
+    //             System.err.println("Errore nel caricamento della scheda: " + e.getMessage());
+    //         }
+    //     }
+    // }
 }

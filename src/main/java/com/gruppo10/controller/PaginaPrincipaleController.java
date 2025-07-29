@@ -29,6 +29,7 @@ public class PaginaPrincipaleController {
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
+    
     @FXML private Button bottoneRegistratiProfilo;
 
     @FXML private VBox contenitoreTessere;

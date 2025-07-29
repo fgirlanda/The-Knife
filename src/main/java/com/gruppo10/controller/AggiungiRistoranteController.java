@@ -39,47 +39,33 @@ public class AggiungiRistoranteController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
     
-    @FXML
-    private TextField txtNomeRistorante;
+    @FXML private TextField txtNomeRistorante;
     
-    @FXML
-    private TextField txtIndirizzo;
+    @FXML private TextField txtIndirizzo;
     
-    @FXML
-    private RadioButton radioDeliverySi;
+    @FXML private RadioButton radioDeliverySi;
     
-    @FXML
-    private RadioButton radioDeliveryNo;
+    @FXML private RadioButton radioDeliveryNo;
     
-    @FXML
-    private RadioButton radioPrenotazioneSi;
+    @FXML private RadioButton radioPrenotazioneSi;
     
-    @FXML
-    private RadioButton radioPrenotazioneNo;
+    @FXML private RadioButton radioPrenotazioneNo;
     
-    @FXML
-    private RadioButton radioPrezzo1;
+    @FXML private RadioButton radioPrezzo1;
     
-    @FXML
-    private RadioButton radioPrezzo2;
+    @FXML private RadioButton radioPrezzo2;
     
-    @FXML
-    private RadioButton radioPrezzo3;
+    @FXML private RadioButton radioPrezzo3;
     
-    @FXML
-    private RadioButton radioPrezzo4;
+    @FXML private RadioButton radioPrezzo4;
     
-    @FXML
-    private ComboBox<TipoCucina> comboCucina;
+    @FXML private ComboBox<TipoCucina> comboCucina;
     
-    @FXML
-    private TextArea txtDescrizione;
+    @FXML private TextArea txtDescrizione;
     
-    @FXML
-    private Button btnAnnulla;
+    @FXML private Button btnAnnulla;
     
-    @FXML
-    private Button btnAggiungiRistorante;
+    @FXML private Button btnAggiungiRistorante;
     
     // Radio buttons groups
     @FXML private ToggleGroup deliveryGroup;
