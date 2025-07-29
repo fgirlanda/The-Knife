@@ -126,7 +126,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - trova ristoranti vicini (FATTO)
 - gestire posizione utente/ristorante (FATTO)
 - calcola distanza (FATTO)
-- recensioni (file csv, classi)
+- recensioni (file csv, classi) (FATTO)
 - sistemare tipo cucina csv (FATTO)
 - sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
 - funzione filtro distanza (FATTO)
