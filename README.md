@@ -136,19 +136,24 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 
 Preferiti e recensioni:
 
-- file csv con coppie id utente-ristorante_preferito/recensioni
-- id a ristoranti e recensioni
+- file csv con coppie id utente-ristorante_preferito/recensioni (FATTO)
+- id a ristoranti e recensioni (FATTO)
 
-csv recensioni 
+- csv recensioni (FATTO)
 
-- id recensione
-- id cliente
-- id ristorante
-- voto
-- testo
-- risposta
+    - id recensione
+    - id cliente
+    - id ristorante
+    - voto
+    - testo
+    - risposta
 
-gestione ristorante aperto
+- gestione ristorante aperto (FATTO)
+
+- fixare grafica
+- rimozione ristorante
+- rimozione recensione
+- modifica recensione
 
 Extra:
 
