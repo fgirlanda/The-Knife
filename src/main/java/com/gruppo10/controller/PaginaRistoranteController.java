@@ -3,6 +3,7 @@ package com.gruppo10.controller;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.classi.PreferitiReader;
@@ -78,7 +79,8 @@ public class PaginaRistoranteController {
 
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         recensioni = RecensioneReader.caricaCSV(path.toString());
-        RecensioneReader.caricaTessere(recensioni, contenitoreTessere, stage);
+        List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
+        RecensioneReader.caricaTessere(listaFiltrata, contenitoreTessere, stage);
     }
 
     public void setDati(){
@@ -139,5 +141,16 @@ public class PaginaRistoranteController {
        } catch (IOException e) {
            e.printStackTrace();
        }
+   }
+
+   private List<Recensione> filtraRecensioni(List<Recensione> recensioni){
+        List<Recensione> listaTemp = new ArrayList<>();
+        for(Recensione r: recensioni){
+            if(r.getIdRis() == this.ristorante.getId()){
+                listaTemp.add(r);
+            }
+        }
+
+        return listaTemp;
    }
 }
