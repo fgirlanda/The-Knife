@@ -40,6 +40,8 @@ public class PaginaRistoranteController {
 
     @FXML private Label txtIndirizzo;
 
+    @FXML private Label txtPaese;
+
     @FXML private Label txtMediaRec;
 
     @FXML private Label txtPrezzo;
@@ -98,7 +100,9 @@ public class PaginaRistoranteController {
 
 
     public void setDati() {
-        txtIndirizzo.setText(this.ristorante.getIndirizzo());
+        String[] indirizzo = this.ristorante.getIndirizzo().split(",");
+        txtIndirizzo.setText(indirizzo[0]);
+        txtPaese.setText(indirizzo[1]);
         txtMediaRec.setText(this.ristorante.getMediaRec().toString());
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
