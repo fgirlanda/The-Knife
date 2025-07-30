@@ -85,6 +85,7 @@ public class AggiungiRecensioneController {
         // Crea un oggetto recensione
         Recensione recensione = new Recensione();
         // recensione.setIdRec(0); mettere solo nel csv e quando si scrive controllare l'ultimo presente?
+        recensione.setNomeUtente(utenteLoggato.getNome());
         recensione.setIdUtente(utenteLoggato.getId());
         recensione.setIdRis(ristorante.getId());
         recensione.setStelle(stelle);

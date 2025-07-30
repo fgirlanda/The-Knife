@@ -29,7 +29,7 @@ public class RecensioneWriter {
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {
-                String[] header = { "ID Recensione", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"};
+                String[] header = { "ID Recensione", "Nome cliente", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"};
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
@@ -45,14 +45,15 @@ public class RecensioneWriter {
     }
 
     private String[] estraiDati(Recensione recensione, File file) throws FileNotFoundException, IOException {
-        String[] dati = new String[6];
+        String[] dati = new String[7];
         
         dati[0] = Integer.toString(RistoranteWriter.ultimoID(file));
-        dati[1] = Integer.toString(recensione.getIdUtente());
-        dati[2] = Integer.toString(recensione.getIdRis());
-        dati[3] = Integer.toString(recensione.getStelle());
-        dati[4] = recensione.getTesto();
-        dati[5] = recensione.getRisposta();
+        dati[1] = recensione.getNomeUtente();
+        dati[2] = Integer.toString(recensione.getIdUtente());
+        dati[3] = Integer.toString(recensione.getIdRis());
+        dati[4] = Integer.toString(recensione.getStelle());
+        dati[5] = recensione.getTesto();
+        dati[6] = recensione.getRisposta();
 
         return dati;
     }    

@@ -22,11 +22,16 @@ public class CardRecensioneController {
     private int idProprietario;
 
     
-    
     @FXML private HBox card;
+
+    @FXML private Text txtCliente;
+
     @FXML private Text txtTesto;
+
     @FXML private Text txtStelle;
+
     @FXML private Text txtRisposta;
+
     @FXML private Button btnRispondi;
 
 
@@ -47,6 +52,7 @@ public class CardRecensioneController {
     
 
     public void setDati(){
+        txtCliente.setText(this.recensione.getNomeUtente());
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText(String.format("%d",this.recensione.getStelle()) + " ★");
         txtRisposta.setText(this.recensione.getRisposta());

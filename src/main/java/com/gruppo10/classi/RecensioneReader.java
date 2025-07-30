@@ -21,12 +21,14 @@ public class RecensioneReader {
             String[] dati;
             reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {
-                int idUtente = Integer.parseInt(dati[1]);
-                int idRis = Integer.parseInt(dati[2]);
-                int stelle = Integer.parseInt(dati[3]); 
-                String testo = dati[4]; 
-                String risposta = dati[5]; 
+                String nomeUtente = dati[1];
+                int idUtente = Integer.parseInt(dati[2]);
+                int idRis = Integer.parseInt(dati[3]);
+                int stelle = Integer.parseInt(dati[4]); 
+                String testo = dati[5]; 
+                String risposta = dati[6]; 
                 Recensione r = new Recensione();
+                r.setNomeUtente(nomeUtente);
                 r.setIdUtente(idUtente);
                 r.setIdRis(idRis);
                 r.setStelle(stelle);
