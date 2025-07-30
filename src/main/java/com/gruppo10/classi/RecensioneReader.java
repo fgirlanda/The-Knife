@@ -35,7 +35,7 @@ public class RecensioneReader {
                 lista.add(r);
             }
         } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getMessage());
+            System.err.println("Errore caricamento file csv: " + e.getStackTrace());
         }
         return lista;
     }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="680.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
+<VBox prefHeight="680.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="999.0" spacing="10.0">
          <children>
@@ -51,7 +51,7 @@
       </HBox>
       <ScrollPane fitToHeight="true" prefHeight="600.0" prefWidth="861.0">
          <content>
-            <VBox fx:id="contenitoreTessere" prefHeight="585.0" prefWidth="916.0" />
+            <VBox fx:id="contenitoreTessere" />
          </content>
       </ScrollPane>
    </children>

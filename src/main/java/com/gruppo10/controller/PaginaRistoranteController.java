@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PaginaRistoranteController {
@@ -37,35 +38,25 @@ public class PaginaRistoranteController {
 
     private boolean presente = false;
 
-    @FXML
-    private Label txtIndirizzo;
+    @FXML private Label txtIndirizzo;
 
-    @FXML
-    private Label txtMediaRec;
+    @FXML private Label txtMediaRec;
 
-    @FXML
-    private Label txtPrezzo;
+    @FXML private Label txtPrezzo;
 
-    @FXML
-    private Label txtNomeRistorante;
+    @FXML private Label txtNomeRistorante;
 
-    @FXML
-    private Label txtDescrizione;
+    @FXML private Text txtDescrizione;
 
-    @FXML
-    private ImageView imagePreferiti;
+    @FXML private ImageView imagePreferiti;
 
-    @FXML
-    private Button btnIndietro;
+    @FXML private Button btnIndietro;
 
-    @FXML
-    private Button btnAggiungiRecensione;
+    @FXML private Button btnAggiungiRecensione;
 
-    @FXML
-    private Button btnPreferiti;
+    @FXML private Button btnPreferiti;
 
-    @FXML
-    private VBox contenitoreTessere;
+    @FXML private VBox contenitoreTessere;
 
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
@@ -95,11 +86,16 @@ public class PaginaRistoranteController {
             this.ristorante.getIdproprietario());
         }
 
-        if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO || presente) {
+        if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             btnAggiungiRecensione.setVisible(false);
             btnPreferiti.setVisible(false);
         }
+
+        if(presente){
+            btnAggiungiRecensione.setVisible(false);
+        }
     }
+
 
     public void setDati() {
         txtIndirizzo.setText(this.ristorante.getIndirizzo());
@@ -108,6 +104,7 @@ public class PaginaRistoranteController {
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
     }
+
 
     @FXML
     private void aggiungiRecensione() {
@@ -118,6 +115,7 @@ public class PaginaRistoranteController {
                 });
     }
 
+
     @FXML
     private void tornaIndietro() {
         if (paginaPrincipale) {
@@ -126,6 +124,7 @@ public class PaginaRistoranteController {
             SceneManager.tornaProfilo(stage, utenteLoggato);
         }
     }
+
 
     @FXML
     private void gestisciPreferiti() {
@@ -142,6 +141,7 @@ public class PaginaRistoranteController {
         }
     }
 
+
     private void aggiungiPreferito() {
         try {
             if (!PreferitiReader.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
@@ -153,6 +153,7 @@ public class PaginaRistoranteController {
 
     }
 
+
     private void rimuoviPreferito() {
         try {
             PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
@@ -160,6 +161,7 @@ public class PaginaRistoranteController {
             e.printStackTrace();
         }
     }
+
 
     private List<Recensione> filtraRecensioni(List<Recensione> recensioni) {
         List<Recensione> listaTemp = new ArrayList<>();
@@ -171,6 +173,7 @@ public class PaginaRistoranteController {
 
         return listaTemp;
     }
+
 
     private boolean recensioneInserita(List<Recensione> recensioni) {
         for(Recensione rec: recensioni){

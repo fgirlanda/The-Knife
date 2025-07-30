@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaRistoranteController">
    <children>
@@ -26,7 +27,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label fx:id="txtIndirizzo" alignment="CENTER" text="Indirizzo">
+                  <Label fx:id="txtIndirizzo" alignment="CENTER" prefHeight="57.0" prefWidth="200.0" text="Indirizzo" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -82,11 +83,15 @@
                      </font>
                   </Label>
                   <Line endX="100.0" startX="-100.0" strokeWidth="2.0" />
-                  <Label fx:id="txtDescrizione" text="È un ristorante toscano che unisce cucina tradizionale e creatività moderna. Offre piatti stagionali e vini locali in un’atmosfera calda e accogliente. Perfetto per cene romantiche o pranzi in famiglia." wrapText="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER">
+                     <content>
+                        <Text fx:id="txtDescrizione" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situated away from the main road and the main shopping centre, the fabulous Le Calandre is run by the Alajmo family. The soft lighting (even during the day) perfectly complements the decor in the minimalist-style dining room designed by brothers Massimiliano and Raffaele (as is most of the tableware used in the restaurant). The cuisine is presented on three tasting menus (Classico, Max and Raf), with the option of reducing the number of courses and choosing dishes from different menus, almost à la carte style. With its combination of familiar flavours and imaginative twists, Max’s cuisine celebrates the restaurant’s signature dishes such as the “passi d’oro” 2.0 risotto and the famous cuttlefish cappuccino in black ink, as well as creative dishes inspired by the passing seasons. The restaurant also has its own delicatessen for anyone keen to purchase a gourmet souvenir." wrappingWidth="340.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
             <Button fx:id="btnIndietro" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#tornaIndietro" text="INDIETRO">
@@ -116,9 +121,9 @@
             <Insets right="10.0" />
          </VBox.margin>
       </HBox>
-      <ScrollPane prefHeight="321.0" prefWidth="650.0">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="321.0" prefWidth="650.0">
          <content>
-            <VBox fx:id="contenitoreTessere" prefHeight="320.0" prefWidth="722.0" />
+            <VBox fx:id="contenitoreTessere" />
          </content>
       </ScrollPane>
    </children>
