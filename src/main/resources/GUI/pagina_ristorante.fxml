@@ -136,7 +136,7 @@
             <Insets bottom="5.0" top="20.0" />
          </padding>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="323.0" style="-fx-background-color: transparent;">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="760.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="contenitoreTessere" />
          </content>
