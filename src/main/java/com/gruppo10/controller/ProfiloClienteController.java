@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.classi.PreferitiReader;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.SceneManager;
@@ -21,11 +23,16 @@ public class ProfiloClienteController {
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
-    static List<Ristorante> ristoranti;
+    private List<Ristorante> ristoranti;
+
+    private List<Recensione> recensioni;
+
+
 
     String labelPasswordText = "********"; 
     
-    @FXML private VBox contenitoreTessere;
+    @FXML private VBox contenitoreTessereRis;
+    @FXML private VBox contenitoreTessereRec;
     @FXML private Label labelNome;
     @FXML private Label labelCognome;
     @FXML private Label labelUsername;
@@ -40,10 +47,17 @@ public class ProfiloClienteController {
         this.stage = stage;
         caricaDatiUtente();
 
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-        ristoranti = RistoranteReader.caricaCSV(path.toString());
-        List<Ristorante> listaFiltrata = filtraPreferiti(ristoranti);
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, false);
+        // Carica ristoranti preferiti
+        Path pathRistoranti = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+        ristoranti = RistoranteReader.caricaCSV(pathRistoranti.toString());
+        List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
+        RistoranteReader.caricaTessere(listaRisFiltrata, contenitoreTessereRis, stage, false);
+
+        // Carica recensioni utente
+        Path pathRecensioni= Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
+        recensioni = RecensioneReader.caricaCSV(pathRecensioni.toString());
+        List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
+        RecensioneReader.caricaTessere(listaRecFiltrata, contenitoreTessereRec, stage, utenteloggato.getId());
     }
 
 
@@ -66,6 +80,18 @@ public class ProfiloClienteController {
                 nuovaLista.add(r);
             }
         }
+        return nuovaLista;
+    }
+
+    private List<Recensione> filtraRecensioni(List<Recensione> listaRecensioni){
+        List<Recensione> nuovaLista = new ArrayList<>();
+
+        for(Recensione r : listaRecensioni){
+            if(r.getIdUtente() == utenteloggato.getId()){
+                nuovaLista.add(r);
+            }
+        }
+
         return nuovaLista;
     }
     

@@ -166,7 +166,7 @@
                      <children>
                         <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0">
                            <content>
-                              <VBox fx:id="contenitoreTessere" prefHeight="0.0" prefWidth="1000.0" />
+                              <VBox fx:id="contenitoreTessereRis" prefHeight="0.0" prefWidth="1000.0" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -177,7 +177,19 @@
       </Tab>
       <Tab text="Le mie recensioni">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane>
+            <children>
+                    <VBox prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                       <children>
+                          <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0">
+                             <content>
+                                <VBox fx:id="contenitoreTessereRec" prefHeight="0.0" prefWidth="1000.0" />
+                             </content>
+                          </ScrollPane>
+                       </children>
+                    </VBox>
+                 </children>
+              </AnchorPane>
         </content>
       </Tab>
    </tabs>
