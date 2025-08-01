@@ -64,11 +64,43 @@ public class RecensioneWriter {
             List<String[]> listaTemp = new ArrayList<>();
             reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {
-                int idUt = Integer.parseInt(dati[1]);
-                int idRis = Integer.parseInt(dati[2]);
+                int idUt = Integer.parseInt(dati[2]);
+                int idRis = Integer.parseInt(dati[3]);
 
                 if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
-                    dati[5] = risposta;
+                    dati[6] = risposta;
+                }
+                listaTemp.add(dati);
+            }
+
+            File file = new File(nomeFile);
+            if (file.exists()) {
+                file.delete();
+            }
+
+            try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
+                writer.writeNext(new String[]{"ID Recensione", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+                for (String[] riga : listaTemp) {
+                    writer.writeNext(riga);
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("Errore caricamento file csv: " + e.getMessage());
+        }  
+    }
+
+    public static void modificaRecensione(Recensione recensione, String testoModificato){
+        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+            String[] dati;
+            List<String[]> listaTemp = new ArrayList<>();
+            reader.readNext(); // Salta header
+            while ((dati = reader.readNext()) != null) {
+                int idUt = Integer.parseInt(dati[2]);
+                int idRis = Integer.parseInt(dati[3]);
+
+                if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
+                    dati[5] = testoModificato;
                 }
                 listaTemp.add(dati);
             }

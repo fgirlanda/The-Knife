@@ -65,4 +65,11 @@ public class CardRecensioneController {
             controller.setRecensione(this.recensione);
         });
     }
+
+    // private void apriModifica(){
+    //     SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> {
+    //         controller.setStage(stage);
+    //         controller.setRecensione(this.recensione);
+    //     });
+    // }
 }
