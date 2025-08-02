@@ -151,9 +151,9 @@ Preferiti e recensioni:
 - gestione ristorante aperto (FATTO)
 
 - fixare grafica
-- rimozione ristorante
 - rimozione recensione
 - modifica recensione
+- numero di recensioni
 
 Extra:
 
