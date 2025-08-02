@@ -2,16 +2,16 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
-import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
-import com.gruppo10.classi.Utente;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 /*
 WORK IN PROGRESS
@@ -19,13 +19,11 @@ WORK IN PROGRESS
 
 public class ModificaRecensioneController {
 
-    private Utente utenteLoggato = LoginController.utenteLoggato;
+    private Recensione recensione;
 
-    private Stage stage;
-
-    private Ristorante ristorante;
+    @FXML private Text txtOriginale;
     
-    @FXML private TextArea txtTesto;
+    @FXML private TextArea txtTestoModificato;
     
     @FXML private Button btnAnnulla;
     
@@ -48,36 +46,44 @@ public class ModificaRecensioneController {
     private void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtTesto.textProperty().addListener((_, _, _) -> checkFields());
+        txtTestoModificato.textProperty().addListener((_, _, _) -> checkFields());
 
         checkFields();
     }
 
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+    public void setRecensione(Recensione recensione){
+        this.recensione = recensione;
+        txtOriginale.setText(recensione.getTesto());
 
+        int voto = recensione.getStelle();
+        ObservableList<Toggle> toggles = stelleGroup.getToggles();
+        Toggle toggle = toggles.get(voto);
+        stelleGroup.selectToggle(toggle);
 
-    public void setRistorante(Ristorante ristorante){
-        this.ristorante = ristorante;
     }
 
 
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
-        boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
+        boolean allFieldsFilled = !txtTestoModificato.getText().isEmpty() &&
                                   stelleGroup.getSelectedToggle() != null;
                                   
         // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);
     }
 
-    // @FXML
-    // private void modificaRecensione(){
-    //     RecensioneWriter.modificaRecensione(this.recensione, testoModificato);
-    // }
+
+    @FXML
+    private void modificaRecensione(){
+        String testoModificato = txtTestoModificato.getText();
+        if(testoModificato != null && !testoModificato.isBlank()){
+            RecensioneWriter.modificaRecensione(this.recensione, testoModificato);
+        }
+        annulla();
+    }
     
+
     @FXML
     private void annulla() {
         SceneManager.annulla(btnAnnulla);

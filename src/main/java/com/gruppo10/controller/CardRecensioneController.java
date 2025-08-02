@@ -59,17 +59,17 @@ public class CardRecensioneController {
     }
 
 
-    public void rispondi(){
+    @FXML
+    private void rispondi(){
         SceneManager.finestraDialogo("/GUI/rispondi_recensione.fxml", "Rispondi", stage, (RispostaRecensioneController controller) -> {
             controller.setStage(stage);
             controller.setRecensione(this.recensione);
         });
     }
 
-    // private void apriModifica(){
-    //     SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> {
-    //         controller.setStage(stage);
-    //         controller.setRecensione(this.recensione);
-    //     });
-    // }
+    
+    @FXML
+    private void apriModifica(){
+        SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> controller.setRecensione(this.recensione));
+    }
 }
