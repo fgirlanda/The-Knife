@@ -151,11 +151,12 @@ Preferiti e recensioni:
 - gestione ristorante aperto (FATTO)
 
 - fixare grafica
-- rimozione recensione
-- modifica recensione
-- numero di recensioni
+- rimozione recensione (FATTO)
+- modifica recensione (FATTO)
+- numero di recensioni (FATTO)
 
 Extra:
 
 - whitelist caratteri
 - soluzione per ripetizione metodo caricaTessere (FATTO)
+- pulizia grafica
