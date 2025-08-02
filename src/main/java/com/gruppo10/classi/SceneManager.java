@@ -111,4 +111,20 @@ public class SceneManager {
     //         }
     //     }
     // }
+
+    public static void reload(Stage stage) {
+        Scene currentScene = stage.getScene();
+        if (currentScene != null) {
+            Parent root = currentScene.getRoot();
+            if (root != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(root.getClass().getResource(currentScene.getRoot().getId() + ".fxml"));
+                    Parent newRoot = loader.load();
+                    currentScene.setRoot(newRoot);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

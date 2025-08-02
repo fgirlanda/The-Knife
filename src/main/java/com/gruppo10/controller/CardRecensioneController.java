@@ -1,6 +1,7 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.RecensioneWriter;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -34,6 +35,10 @@ public class CardRecensioneController {
 
     @FXML private Button btnRispondi;
 
+    @FXML private Button btnRimuovi;
+
+    @FXML private Button btnModifica;
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -47,6 +52,11 @@ public class CardRecensioneController {
         this.recensione = recensione;
         if(utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario){
             btnRispondi.setVisible(false);
+        }
+        if(utenteLoggato.getId() != this.recensione.getIdUtente())
+        {
+            btnRimuovi.setVisible(false);
+            btnModifica.setVisible(false);
         }
     }
     
@@ -72,4 +82,12 @@ public class CardRecensioneController {
     private void apriModifica(){
         SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> controller.setRecensione(this.recensione));
     }
+
+    
+    @FXML
+    private void rimuovi(){
+        RecensioneWriter.rimuoviRecensione(this.recensione);
+        
+    };
+    
 }

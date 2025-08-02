@@ -41,4 +41,8 @@ public class Ristorante {
         int tot = this.recensioni.size();
         this.mediaRec = ((mediaRec*(tot-1))+stelle)/tot;
     }
+
+    public int getNumeroRecensioni() {
+        return this.recensioni.size();
+    }
 }
