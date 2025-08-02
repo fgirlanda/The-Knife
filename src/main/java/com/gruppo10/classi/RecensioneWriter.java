@@ -79,7 +79,7 @@ public class RecensioneWriter {
             }
 
             try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
-                writer.writeNext(new String[]{"ID Recensione", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+                writer.writeNext(new String[]{"ID Recensione", "Nome cliente", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
                 for (String[] riga : listaTemp) {
                     writer.writeNext(riga);
                 }
@@ -90,7 +90,7 @@ public class RecensioneWriter {
         }  
     }
 
-    public static void modificaRecensione(Recensione recensione, String testoModificato){
+    public static void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto){
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
             List<String[]> listaTemp = new ArrayList<>();
@@ -101,6 +101,7 @@ public class RecensioneWriter {
 
                 if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
                     dati[5] = testoModificato;
+                    dati[4] = Integer.toString(nuovoVoto);
                 }
                 listaTemp.add(dati);
             }

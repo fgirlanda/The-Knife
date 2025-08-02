@@ -30,6 +30,8 @@ public class ModificaRecensioneController {
 
     private Ristorante ristorante;
 
+    private boolean paginaPrincipale;
+
     @FXML private Text txtOriginale;
     
     @FXML private TextArea txtTestoModificato;
@@ -68,6 +70,9 @@ public class ModificaRecensioneController {
         this.ristorante = ristorante;
     }
 
+    public void setPrincipale(boolean paginaPrincipale){
+        this.paginaPrincipale = paginaPrincipale;
+    }
 
     public void setRecensione(Recensione recensione, VBox contenitore){
         this.recensione = recensione;
@@ -75,7 +80,7 @@ public class ModificaRecensioneController {
 
         int voto = recensione.getStelle();
         ObservableList<Toggle> toggles = stelleGroup.getToggles();
-        Toggle toggle = toggles.get(voto);
+        Toggle toggle = toggles.get(voto-1);
         stelleGroup.selectToggle(toggle);
     }
 
@@ -93,13 +98,17 @@ public class ModificaRecensioneController {
     @FXML
     private void modificaRecensione(){
         String testoModificato = txtTestoModificato.getText();
-        if(testoModificato != null && !testoModificato.isBlank()){
-            RecensioneWriter.modificaRecensione(this.recensione, testoModificato);
-        }
-        annulla();
+        RadioButton selectedStella = (RadioButton) stelleGroup.getSelectedToggle();
+        int vecchioVoto = recensione.getStelle();
+        int nuovoVoto = selectedStella.getText().length();
 
-        // SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
-        SceneManager.apriPaginaRistorante(stage, ristorante, false);
+        if(testoModificato != null && !testoModificato.isBlank()){
+            RecensioneWriter.modificaRecensione(this.recensione, testoModificato, nuovoVoto);
+        }
+
+        ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
+        SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
+        annulla();
     }
     
 

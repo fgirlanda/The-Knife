@@ -82,7 +82,7 @@ public class CardRecensioneController implements CardController<Recensione>{
         if(utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario){
             btnRispondi.setVisible(false);
         }
-        if(utenteLoggato.getId() != this.recensione.getIdUtente())
+        if(utenteLoggato.getId() != this.recensione.getIdUtente() || !paginaPrincipale)
         {
             btnRimuovi.setVisible(false);
             btnModifica.setVisible(false);
@@ -112,8 +112,10 @@ public class CardRecensioneController implements CardController<Recensione>{
     @FXML
     private void apriModifica(){
         SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> {
-            controller.setRecensione(this.recensione, this.contenitore);
             controller.setStage(stage);
+            controller.setPrincipale(paginaPrincipale);
+            controller.setRecensione(this.recensione, this.contenitore);
+            controller.setRistorante(ristorante);
         });
     }
 
