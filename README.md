@@ -160,3 +160,4 @@ Extra:
 - whitelist caratteri
 - soluzione per ripetizione metodo caricaTessere (FATTO)
 - pulizia grafica
+- aggiungere controllo indirizzo

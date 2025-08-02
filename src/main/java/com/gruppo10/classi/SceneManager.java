@@ -49,12 +49,13 @@ public class SceneManager {
     }
 
 
-    public static <T> void finestraDialogo(String fxmlPath, String title, Stage owner, Consumer<T> controllerConsumer) {
+    public static <T> Stage finestraDialogo(String fxmlPath, String title, Stage owner, Consumer<T> controllerConsumer) {
+        Stage dialogStage = null;
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
             Parent root = loader.load();
 
-            Stage dialogStage = new Stage();
+            dialogStage = new Stage();
             dialogStage.setTitle(title);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.initOwner(owner);
@@ -70,6 +71,8 @@ public class SceneManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return dialogStage;
     }
 
 

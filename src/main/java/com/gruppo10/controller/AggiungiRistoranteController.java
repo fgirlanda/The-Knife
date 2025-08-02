@@ -29,6 +29,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.scene.control.ComboBox;
@@ -38,6 +39,14 @@ public class AggiungiRistoranteController {
     private Stage stage;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
+
+    private List<Ristorante> ristoranti;
+
+    private VBox contenitore;
+
+    private Runnable onCloseCallback;
+
+    private Ristorante nuovoRistorante = null;
     
     @FXML private TextField txtNomeRistorante;
     
@@ -75,6 +84,14 @@ public class AggiungiRistoranteController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setListaRistoranti(List<Ristorante> ristoranti){
+        this.ristoranti = ristoranti;
+    }
+
+    public void setContenitore(VBox contenitore){
+        this.contenitore = contenitore;
     }
 
 
@@ -157,6 +174,8 @@ public class AggiungiRistoranteController {
         ristorante.setTipoCucina(comboCucina.getValue());
         ristorante.setDescrizione(txtDescrizione.getText());
 
+        this.nuovoRistorante = ristorante;
+
         Coordinate cords = new Coordinate(indirizzo);
         ristorante.setCords(cords);
 
@@ -167,6 +186,9 @@ public class AggiungiRistoranteController {
             e.printStackTrace();
         }
 
+        if (onCloseCallback != null) {
+            onCloseCallback.run();
+        }
         // Chiudi la finestra o esegui altre azioni
         if (stage != null) {
             annulla();
@@ -201,5 +223,14 @@ public class AggiungiRistoranteController {
     @FXML
     private void annulla() {
         SceneManager.annulla(btnAnnulla);
+    }
+
+    public Ristorante getNuovoRistorante(){
+        return nuovoRistorante;
+    }
+
+    
+    public void setOnCloseCallback(Runnable callback) {
+        this.onCloseCallback = callback;
     }
 }

@@ -21,7 +21,9 @@ public class ProfiloRistoratoreController {
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
-    static List<Ristorante> ristoranti;
+    private List<Ristorante> ristoranti;
+
+    private List<Ristorante> listaFiltrata;
 
     @FXML private VBox contenitoreTessere;
     @FXML private Label labelNome;
@@ -38,19 +40,10 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_test.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
-        List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
-        // RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, false);
-        SceneManager.caricaTessere(
-            listaFiltrata,
-            contenitoreTessere,
-            stage,
-            "/GUI/card_ristorante.fxml",
-            (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(false);
-            }
-        );
+        listaFiltrata = filtraProprietario(ristoranti);
+        aggiornaContenitore(listaFiltrata);
     }
 
 
@@ -80,7 +73,20 @@ public class ProfiloRistoratoreController {
     @FXML
     private void apriAggiungiRistorante() {
         SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
-            (AggiungiRistoranteController controller) -> controller.setStage(stage));
+            (AggiungiRistoranteController controller) -> {
+                controller.setStage(stage);
+                controller.setListaRistoranti(listaFiltrata);
+                controller.setContenitore(contenitoreTessere);
+            
+                controller.setOnCloseCallback(() -> {
+                    // Qui aggiungi il nuovo ristorante nella lista e aggiorni il contenitore
+                    Ristorante r = controller.getNuovoRistorante();
+                    if (r != null) {
+                        listaFiltrata.add(r);
+                        aggiornaContenitore(listaFiltrata);
+                    }
+                });
+            });
     }
 
     
@@ -95,5 +101,17 @@ public class ProfiloRistoratoreController {
         LoginController.utenteLoggato = null;
         this.utenteloggato = null;
         SceneManager.logOut(stage);
+    }
+
+    private void aggiornaContenitore(List<Ristorante> lista){
+        SceneManager.caricaTessere(
+            lista,
+            contenitoreTessere,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(false);
+            }
+        );
     }
 }
