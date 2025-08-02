@@ -51,8 +51,8 @@ public class AggiungiRecensioneController {
         txtTesto.textProperty().addListener((_, _, _) -> checkFields());
 
         checkFields();
+        
     }
-
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -104,9 +104,8 @@ public class AggiungiRecensioneController {
         }
 
         // Chiudi la finestra o esegui altre azioni
-        if (stage != null) {
-            annulla();
-        }
+        annulla();
+        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
     }
     
     

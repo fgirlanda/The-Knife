@@ -21,7 +21,7 @@ public class ProfiloClienteController {
 
     private Stage stage;
 
-    private Utente utenteloggato = LoginController.utenteLoggato;
+    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private List<Ristorante> ristoranti;
 
@@ -51,23 +51,40 @@ public class ProfiloClienteController {
         Path pathRistoranti = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(pathRistoranti.toString());
         List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
-        RistoranteReader.caricaTessere(listaRisFiltrata, contenitoreTessereRis, stage, false);
+        SceneManager.caricaTessere(
+            listaRisFiltrata,
+            contenitoreTessereRis,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(true);
+            }
+        );
 
         // Carica recensioni utente
         Path pathRecensioni= Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         recensioni = RecensioneReader.caricaCSV(pathRecensioni.toString());
         List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
-        RecensioneReader.caricaTessere(listaRecFiltrata, contenitoreTessereRec, stage, utenteloggato.getId());
+        // RecensioneReader.caricaTessere(listaRecFiltrata, contenitoreTessereRec, stage, utenteLoggato.getId());
+        SceneManager.caricaTessere(
+            listaRecFiltrata,
+            contenitoreTessereRec,
+            stage,
+            "/GUI/card_recensione.fxml",
+            (controller, _) -> {
+                ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
+            }
+        );
     }
 
 
     private void caricaDatiUtente() {
-        labelNome.setText(utenteloggato.getNome());
-        labelCognome.setText(utenteloggato.getCognome());
-        labelUsername.setText(utenteloggato.getUsername());
-        labelIndirizzo.setText(utenteloggato.getIndirizzo());
-        labelData.setText(utenteloggato.getDataDiNascita().toString());
-        labelRuolo.setText(utenteloggato.getRuolo().toString());
+        labelNome.setText(utenteLoggato.getNome());
+        labelCognome.setText(utenteLoggato.getCognome());
+        labelUsername.setText(utenteLoggato.getUsername());
+        labelIndirizzo.setText(utenteLoggato.getIndirizzo());
+        labelData.setText(utenteLoggato.getDataDiNascita().toString());
+        labelRuolo.setText(utenteLoggato.getRuolo().toString());
         labelPassword.setText(labelPasswordText);
     }
 
@@ -76,7 +93,7 @@ public class ProfiloClienteController {
         List<Ristorante> nuovaLista = new ArrayList<>();
         
         for (Ristorante r : listaRistoranti) {
-            if (PreferitiReader.controlloPreferito(utenteloggato.getId(), r.getId())) {
+            if (PreferitiReader.controlloPreferito(utenteLoggato.getId(), r.getId())) {
                 nuovaLista.add(r);
             }
         }
@@ -87,7 +104,7 @@ public class ProfiloClienteController {
         List<Recensione> nuovaLista = new ArrayList<>();
 
         for(Recensione r : listaRecensioni){
-            if(r.getIdUtente() == utenteloggato.getId()){
+            if(r.getIdUtente() == utenteLoggato.getId()){
                 nuovaLista.add(r);
             }
         }
@@ -105,7 +122,7 @@ public class ProfiloClienteController {
     @FXML
     private void logOut(){
         LoginController.utenteLoggato = null;
-        this.utenteloggato = null;
+        this.utenteLoggato = null;
         SceneManager.logOut(stage);
     }
 }

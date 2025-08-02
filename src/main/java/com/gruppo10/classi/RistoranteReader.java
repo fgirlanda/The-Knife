@@ -67,23 +67,23 @@ public class RistoranteReader {
     }
 
 
-    @FXML
-    public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere, Stage stage, boolean paginaPrincipale){
-        for (Ristorante r : listaRistoranti) {
-            try {
-                FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_ristorante.fxml"));
-                HBox card = loader.load();
+    // @FXML
+    // public static void caricaTessere(List<Ristorante> listaRistoranti, VBox contenitoreTessere, Stage stage, boolean paginaPrincipale){
+    //     for (Ristorante r : listaRistoranti) {
+    //         try {
+    //             FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource("/GUI/card_ristorante.fxml"));
+    //             HBox card = loader.load();
 
-                CardRistoranteController controller = loader.getController();
-                controller.setStage(stage);
-                controller.setRistorante(r);
-                controller.setDati();
-                controller.setPrincipale(paginaPrincipale);
+    //             CardRistoranteController controller = loader.getController();
+    //             controller.setStage(stage);
+    //             controller.setRistorante(r);
+    //             controller.setDati();
+    //             controller.setPrincipale(paginaPrincipale);
                 
-                contenitoreTessere.getChildren().add(card);
-            } catch (IOException e) {
-                System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
-            }
-        }
-    }
+    //             contenitoreTessere.getChildren().add(card);
+    //         } catch (IOException e) {
+    //             System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+    //         }
+    //     }
+    // }
 }

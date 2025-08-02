@@ -1,5 +1,6 @@
 package com.gruppo10.controller;
 
+import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
 import com.gruppo10.classi.Ruolo;
@@ -12,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CardRecensioneController {
+public class CardRecensioneController implements CardController<Recensione>{
 
     private Stage stage;
     
@@ -39,7 +40,7 @@ public class CardRecensioneController {
 
     @FXML private Button btnModifica;
 
-
+    @Override
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -48,7 +49,8 @@ public class CardRecensioneController {
         this.idProprietario = idProprietario;
     }
 
-    public void setRecensione(Recensione recensione){
+    @Override
+    public void setItem(Recensione recensione){
         this.recensione = recensione;
         if(utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario){
             btnRispondi.setVisible(false);
@@ -60,7 +62,7 @@ public class CardRecensioneController {
         }
     }
     
-
+    @Override
     public void setDati(){
         txtCliente.setText(this.recensione.getNomeUtente());
         txtTesto.setText(this.recensione.getTesto());
@@ -80,14 +82,17 @@ public class CardRecensioneController {
     
     @FXML
     private void apriModifica(){
-        SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> controller.setRecensione(this.recensione));
+        SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> {
+            controller.setRecensione(this.recensione);
+            controller.setStage(stage);
+        });
     }
 
-    
+
     @FXML
     private void rimuovi(){
         RecensioneWriter.rimuoviRecensione(this.recensione);
-        
+        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
     };
     
 }

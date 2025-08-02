@@ -1,5 +1,6 @@
 package com.gruppo10.controller;
 
+import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
@@ -9,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CardRistoranteController {
+public class CardRistoranteController implements CardController<Ristorante>{
 
     private Stage stage;
     
@@ -31,7 +32,7 @@ public class CardRistoranteController {
         });
     }
 
-
+    @Override
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -41,12 +42,12 @@ public class CardRistoranteController {
         this.paginaPrincipale = paginaPrincipale;
     }
 
-
-    public void setRistorante(Ristorante ristorante){
+    @Override
+    public void setItem(Ristorante ristorante){
         this.ristorante = ristorante;
     }
     
-
+    @Override
     public void setDati(){
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtRecensioni.setText(String.format("%.1f",this.ristorante.getMediaRec()) + " ★" + " (" + this.ristorante.getNumeroRecensioni() + " recensioni)");

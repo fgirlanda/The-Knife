@@ -84,8 +84,15 @@ public class PaginaRistoranteController {
             recensioni = RecensioneReader.caricaCSV(path.toString());
             List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
             presente = recensioneInserita(listaFiltrata);
-            RecensioneReader.caricaTessere(listaFiltrata, contenitoreTessere, stage,
-            this.ristorante.getIdproprietario());
+            SceneManager.caricaTessere(
+                listaFiltrata,
+                contenitoreTessere,
+                stage,
+                "/GUI/card_recensione.fxml",
+                (controller, _) -> {
+                    ((CardRecensioneController) controller).setIdProprietario(this.ristorante.getIdproprietario());
+                }
+            );
         }
 
         if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {

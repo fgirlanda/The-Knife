@@ -80,7 +80,15 @@ public class PaginaPrincipaleController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         mappaDistanze(ristoranti);
-        RistoranteReader.caricaTessere(ristoranti, contenitoreTessere, stage, true);
+        SceneManager.caricaTessere(
+            ristoranti,
+            contenitoreTessere,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(true);
+            }
+        );
     }
 
 
@@ -95,9 +103,18 @@ public class PaginaPrincipaleController {
 
     @FXML
     public void ricercaRistorante() {
-        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
         List<Ristorante> listaFiltrata = filtra(ristoranti); 
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, true);
+        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
+        // RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, true);
+        SceneManager.caricaTessere(
+            listaFiltrata,
+            contenitoreTessere,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(true);
+            }
+        );
     }
 
 

@@ -41,7 +41,16 @@ public class ProfiloRistoratoreController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         List<Ristorante> listaFiltrata = filtraProprietario(ristoranti);
-        RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, false);
+        // RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, false);
+        SceneManager.caricaTessere(
+            listaFiltrata,
+            contenitoreTessere,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(true);
+            }
+        );
     }
 
 

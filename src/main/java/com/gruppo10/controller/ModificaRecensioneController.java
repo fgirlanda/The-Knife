@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /*
 WORK IN PROGRESS
@@ -20,6 +21,8 @@ WORK IN PROGRESS
 public class ModificaRecensioneController {
 
     private Recensione recensione;
+    
+    private Stage stage;
 
     @FXML private Text txtOriginale;
     
@@ -49,6 +52,10 @@ public class ModificaRecensioneController {
         txtTestoModificato.textProperty().addListener((_, _, _) -> checkFields());
 
         checkFields();
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 
 
@@ -81,6 +88,7 @@ public class ModificaRecensioneController {
             RecensioneWriter.modificaRecensione(this.recensione, testoModificato);
         }
         annulla();
+        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
     }
     
 
