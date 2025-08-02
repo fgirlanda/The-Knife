@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
 /*
 WORK IN PROGRESS
@@ -20,8 +19,6 @@ WORK IN PROGRESS
 public class AggiungiRecensioneController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
-
-    private Stage stage;
 
     private Ristorante ristorante;
     
@@ -54,9 +51,6 @@ public class AggiungiRecensioneController {
         
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
 
     public void setRistorante(Ristorante ristorante){
@@ -105,7 +99,6 @@ public class AggiungiRecensioneController {
 
         // Chiudi la finestra o esegui altre azioni
         annulla();
-        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
     }
     
     
