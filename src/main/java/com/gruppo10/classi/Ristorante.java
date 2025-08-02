@@ -34,12 +34,21 @@ public class Ristorante {
     
     public void aggiungiRecensione(Recensione recensione){
         this.recensioni.add(recensione);
-        this.calcoloMedia(recensione.getStelle());
-    }
-
-    public void calcoloMedia(int stelle){
+        int stelle = recensione.getStelle();
         int tot = this.recensioni.size();
         this.mediaRec = ((mediaRec*(tot-1))+stelle)/tot;
+    }
+
+
+    public void rimuoviRecensione(Recensione recensione){
+        this.recensioni.remove(recensione);
+        int tot = this.recensioni.size();
+        int stelle = recensione.getStelle();
+        if(tot == 0){
+            this.mediaRec = 0.0;
+        }else{
+            this.mediaRec = (mediaRec*(tot+1)-stelle)/tot;
+        }
     }
 
     public int getNumeroRecensioni() {

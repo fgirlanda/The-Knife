@@ -57,7 +57,7 @@ public class ProfiloClienteController {
             stage,
             "/GUI/card_ristorante.fxml",
             (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(true);
+                ((CardRistoranteController) controller).setPrincipale(false);
             }
         );
 
@@ -73,6 +73,8 @@ public class ProfiloClienteController {
             "/GUI/card_recensione.fxml",
             (controller, _) -> {
                 ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
+                ((CardRecensioneController) controller).setRistorante(null);
+                ((CardRecensioneController) controller).setPrincipale(false);
             }
         );
     }

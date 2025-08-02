@@ -2,6 +2,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,6 +25,10 @@ public class ModificaRecensioneController {
     private Recensione recensione;
     
     private Stage stage;
+
+    private VBox contenitore;
+
+    private Ristorante ristorante;
 
     @FXML private Text txtOriginale;
     
@@ -58,8 +64,12 @@ public class ModificaRecensioneController {
         this.stage = stage;
     }
 
+    public void setRistorante(Ristorante ristorante){
+        this.ristorante = ristorante;
+    }
 
-    public void setRecensione(Recensione recensione){
+
+    public void setRecensione(Recensione recensione, VBox contenitore){
         this.recensione = recensione;
         txtOriginale.setText(recensione.getTesto());
 
@@ -67,7 +77,6 @@ public class ModificaRecensioneController {
         ObservableList<Toggle> toggles = stelleGroup.getToggles();
         Toggle toggle = toggles.get(voto);
         stelleGroup.selectToggle(toggle);
-
     }
 
 
@@ -88,7 +97,9 @@ public class ModificaRecensioneController {
             RecensioneWriter.modificaRecensione(this.recensione, testoModificato);
         }
         annulla();
-        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
+
+        // SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
+        SceneManager.apriPaginaRistorante(stage, ristorante, false);
     }
     
 

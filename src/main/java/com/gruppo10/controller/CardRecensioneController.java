@@ -1,8 +1,12 @@
 package com.gruppo10.controller;
 
+import java.util.List;
+
 import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -10,6 +14,7 @@ import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -19,10 +24,17 @@ public class CardRecensioneController implements CardController<Recensione>{
     
     private Recensione recensione;
 
+    private Ristorante ristorante;
+
+    private List<Recensione> listaRecensioni;
+
+    private boolean paginaPrincipale;
+
     private Utente utenteLoggato = LoginController.utenteLoggato; 
 
     private int idProprietario;
 
+    private VBox contenitore;
     
     @FXML private HBox card;
 
@@ -40,17 +52,32 @@ public class CardRecensioneController implements CardController<Recensione>{
 
     @FXML private Button btnModifica;
 
+
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setRistorante(Ristorante ristorante){
+        this.ristorante = ristorante;
     }
 
     public void setIdProprietario(int idProprietario){
         this.idProprietario = idProprietario;
     }
 
+    public void setPrincipale(boolean paginaPrincipale){
+        this.paginaPrincipale = paginaPrincipale;
+    }
+
+
+    public void setListaRecensioni(List<Recensione> listaRecensioni){
+        this.listaRecensioni = listaRecensioni;
+    }
+
+
     @Override
-    public void setItem(Recensione recensione){
+    public void setItem(Recensione recensione, VBox contenitore){
         this.recensione = recensione;
         if(utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario){
             btnRispondi.setVisible(false);
@@ -60,6 +87,8 @@ public class CardRecensioneController implements CardController<Recensione>{
             btnRimuovi.setVisible(false);
             btnModifica.setVisible(false);
         }
+
+        this.contenitore = contenitore;
     }
     
     @Override
@@ -83,7 +112,7 @@ public class CardRecensioneController implements CardController<Recensione>{
     @FXML
     private void apriModifica(){
         SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage, (ModificaRecensioneController controller) -> {
-            controller.setRecensione(this.recensione);
+            controller.setRecensione(this.recensione, this.contenitore);
             controller.setStage(stage);
         });
     }
@@ -91,8 +120,8 @@ public class CardRecensioneController implements CardController<Recensione>{
 
     @FXML
     private void rimuovi(){
+        this.ristorante.rimuoviRecensione(this.recensione);
         RecensioneWriter.rimuoviRecensione(this.recensione);
-        SceneManager.reload(stage, "/GUI/pagina_ristorante.fxml");
-    };
-    
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+    }
 }

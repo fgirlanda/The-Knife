@@ -91,6 +91,9 @@ public class PaginaRistoranteController {
                 "/GUI/card_recensione.fxml",
                 (controller, _) -> {
                     ((CardRecensioneController) controller).setIdProprietario(this.ristorante.getIdproprietario());
+                    ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
+                    ((CardRecensioneController) controller).setRistorante(this.ristorante);
+                    ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
                 }
             );
         }
@@ -107,10 +110,11 @@ public class PaginaRistoranteController {
 
 
     public void setDati() {
+        int numRecensioni = this.ristorante.getNumeroRecensioni();
         String[] indirizzo = this.ristorante.getIndirizzo().split(",");
         txtIndirizzo.setText(indirizzo[0]);
         txtPaese.setText(indirizzo[1]);
-        txtMediaRec.setText(this.ristorante.getMediaRec().toString());
+        txtMediaRec.setText(this.ristorante.getMediaRec().toString() + " (" + numRecensioni + " Recensione/i)");
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
@@ -122,6 +126,8 @@ public class PaginaRistoranteController {
         SceneManager.finestraDialogo("/GUI/aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
                 (AggiungiRecensioneController controller) -> {
                     controller.setRistorante(this.ristorante);
+                    controller.setStage(stage);
+                    controller.setPrincipale(paginaPrincipale);
                 });
     }
 

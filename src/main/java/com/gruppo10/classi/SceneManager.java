@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
+import com.gruppo10.controller.PaginaRistoranteController;
 import com.gruppo10.controller.ProfiloClienteController;
 import com.gruppo10.controller.ProfiloRistoratoreController;
 
@@ -101,6 +102,7 @@ public class SceneManager {
 
 
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath, BiConsumer<CardController<T>, T> extraConfig){
+        contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
                 FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource(fxmlPath));
@@ -108,7 +110,7 @@ public class SceneManager {
 
                 CardController<T> controller = loader.getController();
                 controller.setStage(stage);
-                controller.setItem(r);
+                controller.setItem(r, contenitoreTessere);
                 controller.setDati();
 
                 if (extraConfig != null) {
@@ -122,20 +124,14 @@ public class SceneManager {
         }
     }
     
-
-    public static void reload(Stage stage, String path) {
-        Scene currentScene = stage.getScene();
-        if (currentScene != null) {
-            Parent root = currentScene.getRoot();
-            if (root != null) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(path));
-                    Parent newRoot = loader.load();
-                    currentScene.setRoot(newRoot);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public static void apriPaginaRistorante(Stage stage, Ristorante ristorante, boolean paginaPrincipale){
+        SceneManager.cambioScena(stage, "/GUI/pagina_ristorante.fxml", "The Knife", 
+                (PaginaRistoranteController controller) -> {
+                    controller.setStage(stage);
+                    controller.setPrincipale(paginaPrincipale);
+                    controller.setRistorante(ristorante);
+                    controller.setDati();
+                });  
     }
+
 }

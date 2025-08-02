@@ -48,7 +48,7 @@ public class ProfiloRistoratoreController {
             stage,
             "/GUI/card_ristorante.fxml",
             (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(true);
+                ((CardRistoranteController) controller).setPrincipale(false);
             }
         );
     }
