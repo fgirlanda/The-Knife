@@ -1,4 +1,3 @@
-// controller/LoginController.java
 package com.gruppo10.controller;
 
 
@@ -10,11 +9,11 @@ import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteReader;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,28 +24,27 @@ public class LoginController {
 
     private Stage stage;
 
-    @FXML
-    private TextField textIndirizzo;
+    @FXML private TextField textIndirizzo;
 
-    @FXML
-    private TextField usernameField;
+    @FXML private TextField usernameField;
     
-    @FXML
-    private TextField passwordField;
+    @FXML private TextField passwordField;
     
-    @FXML
-    private Label loginStatus;
+    @FXML private Label loginStatus;
 
+    // Aggiungere controllaCampi
 
     public void initialize(){
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(textIndirizzo, request -> {
             try {
-                return RegistrazioneController.getSuggestions(request.getUserText());
+                return Indirizzi.getSuggestions(request.getUserText()); // Gestione eccezioni in classe Indirizzi
             } catch (Exception e) {
                 return Collections.emptyList();
             }
         });
+
+        loginStatus.setVisible(false);
     }
 
 
@@ -58,72 +56,64 @@ public class LoginController {
     
     // Metodo per gestire il login
     @FXML
-    public void provaLogin(ActionEvent event) {
+    public void provaLogin() {
         try {
             //Carico gli utenti registrati
-            UtenteReader ur = new UtenteReader();
-            
             String username = usernameField.getText();
             String password = passwordField.getText();
-            String hashedPassword = Criptatore.cripta(password);
+            String hashedPassword = Criptatore.cripta(password); // Gestione NoSuchAlgorithmException in classe Criptatore
             
             // Verifica se l'utente esiste nel file CSV
-            Utente utente = ur.cercaUtente(username);
+            Utente utente = UtenteReader.cercaUtente(username);
             if (utente == null) {
-                // Utente non trovato
+                loginStatus.setVisible(true);
                 loginStatus.setText("Login status: UTENTE NON REGISTRATO");
                 return;
             }
-            
+          
             if (hashedPassword.equals(utente.getPassword())) {
-                // Login riuscito
-                loginStatus.setText("Login status: LOGIN RIUSCITO");
+                // loginStatus.setText("Login status: LOGIN RIUSCITO"); // Eventuale intermezzo durante precaricamento pagina principale
                 
+                // Precaricamento pagina principale (?)
                 utenteLoggato = utente;
-                
-                // Carica la nuova scena per la pagina principale
-                SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
-                    (PaginaPrincipaleController controller) -> controller.setStage(stage));
+
+                SceneManager.apriPaginaPrincipale(stage);
                 
             } else {
-                // Login fallito
+                loginStatus.setVisible(true);
                 loginStatus.setText("Login status: PASSWORD ERRATA");
             }
             
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
     
     
     @FXML
     private void apriRegistrazione() {
-        SceneManager.cambioScena(stage, "/GUI/registrazione.fxml", "The Knife - Registrazione", 
-            (RegistrazioneController controller) -> {
-                controller.setStage(stage);
-                controller.setPrincipale(false);
-            });
+        SceneManager.apriRegistrati(stage, false);
     }
 
 
     @FXML
-    public void continuaSenzaRegistrarti(ActionEvent event) {
+    public void continuaSenzaRegistrarti() {
         try {
             String indirizzo = textIndirizzo.getText();
             if (indirizzo.isEmpty()) {
+                loginStatus.setVisible(true);
                 loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
                 return;
             }
             utenteLoggato = new Utente();
             utenteLoggato.setRuolo("NON_REGISTRATO");
             utenteLoggato.setIndirizzo(indirizzo);
-            Coordinate coordinate = new Coordinate(indirizzo);
+            Coordinate coordinate = new Coordinate(indirizzo); // Gestione genera coordinate in classe Coordinate
             utenteLoggato.setCords(coordinate);
-            // Carica la nuova scena per la pagina principale
+
+            // Precaricamento pagina principale (?)
         
-            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
-                (PaginaPrincipaleController controller) -> controller.setStage(stage));
+            SceneManager.apriPaginaPrincipale(stage);
 
         } catch (Exception e) {
             e.printStackTrace();

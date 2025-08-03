@@ -12,6 +12,7 @@ import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,6 +26,7 @@ public class ProfiloRistoratoreController {
 
     private List<Ristorante> listaFiltrata;
 
+    @FXML private TabPane tabPane;
     @FXML private VBox contenitoreTessere;
     @FXML private Label labelNome;
     @FXML private Label labelCognome;
@@ -46,6 +48,9 @@ public class ProfiloRistoratoreController {
         aggiornaContenitore(listaFiltrata);
     }
 
+    public void setTab(int tab){
+        tabPane.getSelectionModel().select(tab);
+    }
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteloggato.getNome());
@@ -92,7 +97,7 @@ public class ProfiloRistoratoreController {
     
     @FXML
     public void tornaIndietro(){
-        SceneManager.tornaPaginaPrincipale(stage);
+        SceneManager.apriPaginaPrincipale(stage);
     }
 
 

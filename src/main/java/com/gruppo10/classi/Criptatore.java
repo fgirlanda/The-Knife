@@ -14,6 +14,5 @@ public class Criptatore {
             hexString.append(String.format("%02x", b));
         }
         return hexString.toString();
-    }
-    
+    } 
 }

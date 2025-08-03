@@ -11,7 +11,7 @@ public class UtenteReader {
     
         private static HashMap<String, Utente> utentiMap = new HashMap<>();
 
-        public void caricaUtenti() {
+        public static void caricaUtenti() {
             File dir = new File("fileCSV");
             File fileUtente = new File(dir, "utenti.csv");
 
@@ -34,18 +34,18 @@ public class UtenteReader {
                         utente.setCords(Double.parseDouble(dati[8]),Double.parseDouble(dati[9]));
                         aggiungiUtente(utente.getUsername(), utente);
                     }
-                } catch (Exception e) {
+                } catch (Exception e) { // Gestione eccezioni
                     System.err.println("Errore durante il caricamento degli utenti: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
         }
 
-        public void aggiungiUtente(String username, Utente utente) {
+        public static void aggiungiUtente(String username, Utente utente) {
             utentiMap.put(username, utente);
         }
 
-        public Utente cercaUtente(String username) {
+        public static Utente cercaUtente(String username) {
             return utentiMap.get(username);
         }
 }

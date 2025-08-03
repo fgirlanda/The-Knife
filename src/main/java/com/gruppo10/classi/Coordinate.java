@@ -18,7 +18,7 @@ public class Coordinate {
     private double lat, lon;
 
     // Algoritmo di geocode
-    public Coordinate(String address) throws Exception {
+    public Coordinate(String address) throws Exception { // Inserire try catch
 
         String encodedAddress = address.replace(" ", "+");
         String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";

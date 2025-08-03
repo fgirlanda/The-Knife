@@ -26,10 +26,14 @@ import javafx.stage.Stage;
 
 public class PaginaPrincipaleController {
 
+    public static List<Ristorante> ristoranti; 
+
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Stage stage;
     
+    private HashMap<String, Double> mappaDistanze = new HashMap<>();
+
     @FXML private Button bottoneRegistratiProfilo;
 
     @FXML private VBox contenitoreTessere;
@@ -50,20 +54,15 @@ public class PaginaPrincipaleController {
 
     @FXML private ComboBox<FiltroDistanza> comboFiltroDistanza;
 
-    public static List<Ristorante> ristoranti; 
-
-    private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
 
     public void initialize() {
-        // Tasto registrati-profilo
         if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             bottoneRegistratiProfilo.setText("Registrati");
         } else {
             bottoneRegistratiProfilo.setText("Profilo");
         }
 
-        // Filtri
         comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
         comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
@@ -76,19 +75,15 @@ public class PaginaPrincipaleController {
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
-        // Caricamento schede ristorante
+    }
+
+
+    // Lista ristoranti, calcolo distanze e caricamento card
+    public void setRistoranti(){
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         mappaDistanze(ristoranti);
-        SceneManager.caricaTessere(
-            ristoranti,
-            contenitoreTessere,
-            stage,
-            "/GUI/card_ristorante.fxml",
-            (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(true);
-            }
-        );
+        caricaTessere(ristoranti);
     }
 
 
@@ -102,19 +97,10 @@ public class PaginaPrincipaleController {
 
 
     @FXML
-    public void ricercaRistorante() {
+    public void applicaFiltri() {
         List<Ristorante> listaFiltrata = filtra(ristoranti); 
-        contenitoreTessere.getChildren().clear(); // Pulisce il contenitore prima di aggiungere i risultati
-        // RistoranteReader.caricaTessere(listaFiltrata, contenitoreTessere, stage, true);
-        SceneManager.caricaTessere(
-            listaFiltrata,
-            contenitoreTessere,
-            stage,
-            "/GUI/card_ristorante.fxml",
-            (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(true);
-            }
-        );
+        contenitoreTessere.getChildren().clear();
+        caricaTessere(listaFiltrata);
     }
 
 
@@ -128,6 +114,8 @@ public class PaginaPrincipaleController {
         
         Double filtroDistanza = comboFiltroDistanza.getValue() != null && !comboFiltroDistanza.getValue().toString().equals("50+ km")? comboFiltroDistanza.getValue().getKM() : Double.MAX_VALUE;
 
+        // Separare estrazione dati da controlli
+        
         return ristoranti.stream().filter(ristorante-> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro nome
                                                               (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
                                                               (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro cucina
@@ -142,35 +130,35 @@ public class PaginaPrincipaleController {
 
     @FXML
     private void gestisciBottoneUtente(){
-        String testo = bottoneRegistratiProfilo.getText().toLowerCase();
-        if (testo.equals("registrati")) {
-            apriRegistrati();
-        } else if (testo.equals("profilo")) {
-            if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE))
-                apriProfilo();
-            else
-                apriProfiloRistoratore();
+        // String testo = bottoneRegistratiProfilo.getText().toLowerCase();
+        // if (testo.equals("registrati")) {
+        //     SceneManager.apriRegistrati(stage);
+        // } else if (testo.equals("profilo")) {
+        //     if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE))
+        //         SceneManager.apriProfilo(stage);
+        //     else
+        //         SceneManager.apriProfiloRistoratore(stage);
+        // }
+        Ruolo ruolo = utenteLoggato.getRuolo();
+        if(ruolo.equals(Ruolo.CLIENTE)){
+            SceneManager.apriProfilo(stage, 0);
+        }else if(ruolo.equals(Ruolo.RISTORATORE)){
+            SceneManager.apriProfiloRistoratore(stage, 0);
+        }else{
+            SceneManager.apriRegistrati(stage, true);
         }
     }
 
 
-    private void apriRegistrati(){
-        SceneManager.cambioScena(stage, "/GUI/registrazione.fxml", "The Knife - Registrazione", 
-            (RegistrazioneController controller) -> {
-                controller.setStage(stage);
-                controller.setPrincipale(true);
-            });
+    private void caricaTessere(List<Ristorante> lista){
+        SceneManager.caricaTessere(
+            lista,
+            contenitoreTessere,
+            stage,
+            "/GUI/card_ristorante.fxml",
+            (controller, _) -> {
+                ((CardRistoranteController) controller).setPrincipale(true);
+            }
+        );
     }
-
-
-    private void apriProfilo(){
-        SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo", 
-            (ProfiloClienteController controller) -> controller.setStage(stage));
-    }
-
-
-    private void apriProfiloRistoratore(){
-        SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Registrazione", 
-        (ProfiloRistoratoreController controller) -> controller.setStage(stage));
-    } 
 }

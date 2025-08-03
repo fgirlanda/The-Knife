@@ -10,6 +10,7 @@ import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
 import com.gruppo10.controller.ProfiloClienteController;
 import com.gruppo10.controller.ProfiloRistoratoreController;
+import com.gruppo10.controller.RegistrazioneController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -76,46 +77,42 @@ public class SceneManager {
     }
 
 
-    public static void tornaPaginaPrincipale(Stage stage){
-        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
-        (PaginaPrincipaleController controller) -> controller.setStage(stage));
-    }
-
-
-    public static void tornaProfilo(Stage stage, Utente utente){
-        if(utente.getRuolo() == Ruolo.CLIENTE){
-            SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife", 
-            (ProfiloClienteController controller) -> controller.setStage(stage));
-        }else{
-            SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife", 
-            (ProfiloRistoratoreController controller) -> controller.setStage(stage));
-        }
-    }
-
-
+    
+    
+    // public static void tornaProfilo(Stage stage, Utente utente){
+    //     if(utente.getRuolo() == Ruolo.CLIENTE){
+    //         SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo", 
+    //         (ProfiloClienteController controller) -> controller.setStage(stage));
+    //     }else{
+    //         SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Profilo", 
+    //         (ProfiloRistoratoreController controller) -> controller.setStage(stage));
+    //     }
+    // }
+    
+    
     public static void annulla(Button annulla) {
         Stage dialogue = (Stage) annulla.getScene().getWindow();
         dialogue.close();
     }
-
+    
     public static void logOut(Stage stage){
         SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
-            (LoginController controller) -> controller.setStage(stage));
+        (LoginController controller) -> controller.setStage(stage));
     }
-
-
+    
+    
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath, BiConsumer<CardController<T>, T> extraConfig){
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
                 FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource(fxmlPath));
                 HBox card = loader.load();
-
+                
                 CardController<T> controller = loader.getController();
                 controller.setStage(stage);
                 controller.setItem(r, contenitoreTessere);
                 controller.setDati();
-
+                
                 if (extraConfig != null) {
                     extraConfig.accept(controller, r);
                 }
@@ -127,6 +124,16 @@ public class SceneManager {
         }
     }
     
+
+    public static void apriPaginaPrincipale(Stage stage){
+        SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife", 
+        (PaginaPrincipaleController controller) -> {
+            controller.setStage(stage);
+            controller.setRistoranti();
+        });
+    }
+
+
     public static void apriPaginaRistorante(Stage stage, Ristorante ristorante, boolean paginaPrincipale){
         SceneManager.cambioScena(stage, "/GUI/pagina_ristorante.fxml", "The Knife", 
                 (PaginaRistoranteController controller) -> {
@@ -137,4 +144,27 @@ public class SceneManager {
                 });  
     }
 
+    public static void apriRegistrati(Stage stage, boolean paginaPrincipale){
+        SceneManager.cambioScena(stage, "/GUI/registrazione.fxml", "The Knife - Registrazione", 
+            (RegistrazioneController controller) -> {
+                controller.setStage(stage);
+                controller.setPrincipale(paginaPrincipale);
+            });
+    }
+
+    public static void apriProfilo(Stage stage, int tab){
+        SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo", 
+            (ProfiloClienteController controller) -> {
+                controller.setStage(stage);
+                controller.setTab(tab);
+            });
+    }
+
+    public static void apriProfiloRistoratore(Stage stage, int tab){
+        SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Profilo", 
+        (ProfiloRistoratoreController controller) -> {
+            controller.setStage(stage);
+            controller.setTab(tab);
+        });
+    } 
 }

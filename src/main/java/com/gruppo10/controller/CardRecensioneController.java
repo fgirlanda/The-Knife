@@ -79,10 +79,11 @@ public class CardRecensioneController implements CardController<Recensione>{
     @Override
     public void setItem(Recensione recensione, VBox contenitore){
         this.recensione = recensione;
+        String titolo = stage.getTitle().toLowerCase();
         if(utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario){
             btnRispondi.setVisible(false);
         }
-        if(utenteLoggato.getId() != this.recensione.getIdUtente() || !paginaPrincipale)
+        if(utenteLoggato.getId() != this.recensione.getIdUtente() || titolo.equals("the knife - profilo"))
         {
             btnRimuovi.setVisible(false);
             btnModifica.setVisible(false);
@@ -91,6 +92,7 @@ public class CardRecensioneController implements CardController<Recensione>{
         this.contenitore = contenitore;
     }
     
+
     @Override
     public void setDati(){
         txtCliente.setText(this.recensione.getNomeUtente());

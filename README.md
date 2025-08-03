@@ -95,69 +95,85 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 
 ### ilTacco:
 
-- criptare password (FATTO)
-- leggere file csv (FATTO)
-- aggiungere id al cliente (FATTO)
-- implementare nell'interfaccia (dati errati, utente inesistente, login effettuato) (FATTO)
-- collegare tasto login a pagina principale (FATTO)
-- utente loggato (FATTO)
-- username univoco (FATTO)
-- visualizzazione del profilo (FATTO)
-- login senza registrazione (+disabilita tasto preferiti) (FATTO)
-- visualizza miei ristoranti (FATTO)
-- ottimizzazione
+- Criptare password (FATTO)
+- Leggere file csv (FATTO)
+- Aggiungere id al cliente (FATTO)
+- Implementare nell'interfaccia (dati errati, utente inesistente, login effettuato) (FATTO)
+- Collegare tasto login a pagina principale (FATTO)
+- Utente loggato (FATTO)
+- Username univoco (FATTO)
+- Visualizzazione del profilo (FATTO)
+- Login senza registrazione (+disabilita tasto preferiti) (FATTO)
+- Visualizza miei ristoranti (FATTO)
+- Ottimizzazione
 
 ### matlmbe:
 
-- file csv ristoranti (FATTO)
-- dialog per aggiungere (FATTO)
-- inserire card ristorante nella pagina principale (FATTO)
-- gestire ricerca e filtri (FATTO)
-- ristoranti preferiti (FATTO)
-- sistemare card ristorante (FATTO)
-- tasto filtro distanza (FATTO)
-- tasto indietro pagina ristorante (FATTO)
-- tasto-pagina aggiungi recensione (FATTO)
-- card apribile (FATTO)
-- card recensione (FATTO)
+- File csv ristoranti (FATTO)
+- Dialog per aggiungere (FATTO)
+- Inserire card ristorante nella pagina principale (FATTO)
+- Gestire ricerca e filtri (FATTO)
+- Ristoranti preferiti (FATTO)
+- Sistemare card ristorante (FATTO)
+- Tasto filtro distanza (FATTO)
+- Tasto indietro pagina ristorante (FATTO)
+- Tasto-pagina aggiungi recensione (FATTO)
+- Card apribile (FATTO)
+- Card recensione (FATTO)
 
 ### fgirlanda:
 
-- trova ristoranti vicini (FATTO)
-- gestire posizione utente/ristorante (FATTO)
-- calcola distanza (FATTO)
-- recensioni (file csv, classi) (FATTO)
-- sistemare tipo cucina csv (FATTO)
-- sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
-- funzione filtro distanza (FATTO)
-- coerenza codice
+- Trova ristoranti vicini (FATTO)
+- Gestire posizione utente/ristorante (FATTO)
+- Calcola distanza (FATTO)
+- Recensioni (file csv, classi) (FATTO)
+- Sistemare tipo cucina csv (FATTO)
+- Sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
+- Funzione filtro distanza (FATTO)
+- Fixare abilita/disabilita pulsanti
 
 ### Generale
 
-Preferiti e recensioni:
+Generale:
 
-- file csv con coppie id utente-ristorante_preferito/recensioni (FATTO)
-- id a ristoranti e recensioni (FATTO)
+- File csv con coppie id utente-ristorante_preferito/recensioni (FATTO)
+- ID a ristoranti e recensioni (FATTO)
 
-- csv recensioni (FATTO)
+- CSV recensioni (FATTO)
 
-    - id recensione
-    - id cliente
-    - id ristorante
-    - voto
-    - testo
-    - risposta
+    - ID recensione
+    - ID cliente
+    - ID ristorante
+    - Voto
+    - Testo
+    - Risposta
 
-- gestione ristorante aperto (FATTO)
+- Gestione ristorante aperto (FATTO)
+- Rimozione recensione (FATTO)
+- Modifica recensione (FATTO)
+- Numero di recensioni (FATTO)
 
-- fixare grafica
-- rimozione recensione (FATTO)
-- modifica recensione (FATTO)
-- numero di recensioni (FATTO)
+Grafica:
+
+- Fix dimensione finestra profilo
+- Fix login status (popup al posto di label?) 
+
+
+
+
+Pulizia codice:
+
+- Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) 
+- Sistemare coerenza di alcune azioni ()
+- Classe astratta Controller (?)
+- Gestione eccezioni
+- Generalizzazione dei percorsi file
+
+
 
 Extra:
 
-- whitelist caratteri
-- soluzione per ripetizione metodo caricaTessere (FATTO)
-- pulizia grafica
-- aggiungere controllo indirizzo
+- Whitelist caratteri
+- Soluzione per ripetizione metodo caricaTessere (FATTO)
+- Pulizia grafica
+- Aggiungere controllo indirizzo

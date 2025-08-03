@@ -15,6 +15,7 @@ import com.gruppo10.classi.Utente;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
 public class ProfiloClienteController {
@@ -31,6 +32,7 @@ public class ProfiloClienteController {
 
     String labelPasswordText = "********"; 
     
+    @FXML private TabPane tabPane;
     @FXML private VBox contenitoreTessereRis;
     @FXML private VBox contenitoreTessereRec;
     @FXML private Label labelNome;
@@ -79,6 +81,10 @@ public class ProfiloClienteController {
         );
     }
 
+    public void setTab(int tab){
+        tabPane.getSelectionModel().select(tab);
+    }
+
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteLoggato.getNome());
@@ -117,7 +123,7 @@ public class ProfiloClienteController {
 
     @FXML
     private void tornaIndietro(){
-        SceneManager.tornaPaginaPrincipale(stage);
+        SceneManager.apriPaginaPrincipale(stage);
     }
 
 

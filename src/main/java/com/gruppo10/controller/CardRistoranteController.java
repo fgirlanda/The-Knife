@@ -48,11 +48,13 @@ public class CardRistoranteController implements CardController<Ristorante>{
         });
     }
 
+
     @Override
     public void setItem(Ristorante ristorante, VBox contenitore){
         this.ristorante = ristorante;
         this.contenitore = contenitore;
     }
+    
     
     @Override
     public void setDati(){
@@ -61,10 +63,4 @@ public class CardRistoranteController implements CardController<Ristorante>{
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtTipoCucina.setText(this.ristorante.getTipoCucina().toString());
     }
-
-
-    // public void apriPaginaRistorante(){
-    //     System.out.println("Card ristorante | apri pagina ristorante -> " + this.paginaPrincipale);
-    //     SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
-    // }
 }

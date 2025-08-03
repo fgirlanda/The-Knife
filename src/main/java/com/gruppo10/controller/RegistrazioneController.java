@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.classi.UtenteReader;
@@ -40,58 +41,44 @@ public class RegistrazioneController {
 
     private boolean paginaPrincipale;
 
-    @FXML
-    private RadioButton clienteRadioButton;
+    @FXML private RadioButton clienteRadioButton;
     
-    @FXML
-    private RadioButton ristoratoreRadioButton;
+    @FXML private RadioButton ristoratoreRadioButton;
 
-    @FXML
-    private TextField nomeTextField;
+    @FXML private TextField nomeTextField;
     
-    @FXML
-    private TextField cognomeTextField;
+    @FXML private TextField cognomeTextField;
     
-    @FXML
-    private TextField usernameTextField;
+    @FXML private TextField usernameTextField;
     
-    @FXML
-    private PasswordField passwordField;
+    @FXML private PasswordField passwordField;
     
-    @FXML
-    private DatePicker dataNascitaPicker;
+    @FXML private DatePicker dataNascitaPicker;
     
-    @FXML
-    private TextField indirizzoTextField;
+    @FXML private TextField indirizzoTextField;
     
-    @FXML
-    private Button btnRegistrati;
+    @FXML private Button btnRegistrati;
     
-    @FXML
-    private Label statusRegistrazione;
+    @FXML private Label statusRegistrazione;
     
-    private ToggleGroup ruoloGroup;
+    @FXML private ToggleGroup ruoloGroup;
     
 
     public void initialize() {
-        // Inizializza il ToggleGroup e associa i RadioButton
-        ruoloGroup = new ToggleGroup();
-        clienteRadioButton.setToggleGroup(ruoloGroup);
-        ristoratoreRadioButton.setToggleGroup(ruoloGroup);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeTextField.textProperty().addListener((_, _, _) -> checkFields()); // (_, _, _) = (observable, oldValue, newValue)
-        cognomeTextField.textProperty().addListener((_, _, _) -> checkFields());
-        usernameTextField.textProperty().addListener((_, _, _) -> checkFields());
-        passwordField.textProperty().addListener((_, _, _) -> checkFields());
-        indirizzoTextField.textProperty().addListener((_, _, _) -> checkFields());
-        dataNascitaPicker.valueProperty().addListener((_, _, _) -> checkFields());
-        ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> checkFields());
+        nomeTextField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue, newValue)
+        cognomeTextField.textProperty().addListener((_, _, _) -> controllaCampi());
+        usernameTextField.textProperty().addListener((_, _, _) -> controllaCampi());
+        passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
+        indirizzoTextField.textProperty().addListener((_, _, _) -> controllaCampi());
+        dataNascitaPicker.valueProperty().addListener((_, _, _) -> controllaCampi());
+        ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
 
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(indirizzoTextField, request -> {
             try {
-                return getSuggestions(request.getUserText());
+                return Indirizzi.getSuggestions(request.getUserText());
             } catch (Exception e) {
                 return Collections.emptyList();
             }
@@ -110,8 +97,7 @@ public class RegistrazioneController {
     }
 
     
-    private void checkFields() {
-        // Controlla se tutti i campi sono riempiti
+    private void controllaCampi() {
         boolean allFieldsFilled = !nomeTextField.getText().isEmpty() &&
                                   !cognomeTextField.getText().isEmpty() &&
                                   !usernameTextField.getText().isEmpty() &&
@@ -120,7 +106,6 @@ public class RegistrazioneController {
                                   dataNascitaPicker.getValue() != null &&
                                   ruoloGroup.getSelectedToggle() != null;
 
-        // Abilita o disabilita il pulsante in base ai campi
         btnRegistrati.setDisable(!allFieldsFilled);
     }
 
@@ -140,20 +125,17 @@ public class RegistrazioneController {
         String indirizzo = indirizzoTextField.getText();
         
         // Verifica che l'username sia disponibile
-        UtenteReader reader = new UtenteReader();
-        if(reader.cercaUtente(username) != null) {
+        if(UtenteReader.cercaUtente(username) != null) {
             // Mostra un messaggio di errore se l'username è già in uso
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
         
-        // Formatta la data di nascita
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
         
-        // Cripta la password
         try {
-            password = Criptatore.cripta(password);
+            password = Criptatore.cripta(password); // Gestione NoSuchAlgorithmException in classe Criptatore
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,9 +149,9 @@ public class RegistrazioneController {
         utente.setDataDiNascita(dataNascita);
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
-        Coordinate coordinate = new Coordinate(indirizzo);
+        Coordinate coordinate = new Coordinate(indirizzo); // Gestire eccezioni generazione coordinate
         utente.setCords(coordinate);
-        reader.aggiungiUtente(utente.getUsername(),utente);
+        UtenteReader.aggiungiUtente(utente.getUsername(),utente);
         UtenteWriter writer = new UtenteWriter();
         try {
             writer.scriviUtente(utente);
@@ -180,35 +162,12 @@ public class RegistrazioneController {
         // Apri pagina di login
         apriLogin();
     }
-    
-
-    static List<String> getSuggestions(String query) throws IOException, InterruptedException {
-        String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
-        + "&format=json&addressdetails=1&limit=5";
-        
-        HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(url))
-        .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
-        .GET()
-        .build();
-        
-        HttpResponse<String> response = HttpClient.newHttpClient()
-        .send(request, HttpResponse.BodyHandlers.ofString());
-        
-        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
-        List<String> suggestions = new ArrayList<>();
-        
-        for (JsonElement result : results) {
-            suggestions.add(result.getAsJsonObject().get("display_name").getAsString());
-        }
-        return suggestions;
-    }
 
 
     @FXML
     private void annulla(){
         if(paginaPrincipale){
-            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", 
+            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", // Gestire eccezioni cambio scena
                 (PaginaPrincipaleController controller) -> controller.setStage(stage));
         }else{
             apriLogin();

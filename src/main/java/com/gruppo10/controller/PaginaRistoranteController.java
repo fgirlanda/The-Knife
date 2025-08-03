@@ -135,9 +135,14 @@ public class PaginaRistoranteController {
     @FXML
     private void tornaIndietro() {
         if (paginaPrincipale) {
-            SceneManager.tornaPaginaPrincipale(stage);
+            SceneManager.apriPaginaPrincipale(stage);
         } else {
-            SceneManager.tornaProfilo(stage, utenteLoggato);
+            if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)){
+                SceneManager.apriProfilo(stage, 1);
+            }else{
+                SceneManager.apriProfiloRistoratore(stage, 1);
+            }
+            
         }
     }
 
@@ -152,7 +157,7 @@ public class PaginaRistoranteController {
                 imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
                 rimuoviPreferito();
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // Gestire eccezione
             e.printStackTrace();
         }
     }
