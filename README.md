@@ -152,11 +152,14 @@ Generale:
 - Rimozione recensione (FATTO)
 - Modifica recensione (FATTO)
 - Numero di recensioni (FATTO)
+- Modificare filtri ricerca ristoranti
+- Calcolo media recensioni modificate
 
 Grafica:
 
 - Fix dimensione finestra profilo
 - Fix login status (popup al posto di label?) 
+- Modificare filtri ricerca ristoranti
 
 
 
@@ -168,6 +171,7 @@ Pulizia codice:
 - Classe astratta Controller (?)
 - Gestione eccezioni
 - Generalizzazione dei percorsi file
+
 
 
 

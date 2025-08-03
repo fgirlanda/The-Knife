@@ -53,8 +53,8 @@ public class Ristorante {
 
     public void aggiornaMedia(int vecchioVoto, int nuovoVoto){
         int tot = recensioni.size();
-        int diff = nuovoVoto - vecchioVoto;
-        mediaRec = mediaRec + diff/tot;
+        double diff = nuovoVoto - vecchioVoto;
+        this.mediaRec = mediaRec + diff/tot;
     }
 
     public int getNumeroRecensioni() {
