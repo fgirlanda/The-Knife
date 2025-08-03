@@ -17,10 +17,6 @@ public class CardRistoranteController implements CardController<Ristorante>{
     
     public Ristorante ristorante;
 
-    private boolean paginaPrincipale;
-
-    private VBox contenitore;
-    
     @FXML private HBox card;
     @FXML private ImageView imgRistorante;
     @FXML private Text txtNomeRistorante;
@@ -42,7 +38,6 @@ public class CardRistoranteController implements CardController<Ristorante>{
 
 
     public void setPrincipale(boolean paginaPrincipale){
-        this.paginaPrincipale = paginaPrincipale;
         card.setOnMouseClicked(_ -> { // _ = event
             SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
         });
@@ -52,10 +47,9 @@ public class CardRistoranteController implements CardController<Ristorante>{
     @Override
     public void setItem(Ristorante ristorante, VBox contenitore){
         this.ristorante = ristorante;
-        this.contenitore = contenitore;
     }
     
-    
+
     @Override
     public void setDati(){
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());

@@ -21,7 +21,7 @@ public class RecensioneReader {
                 String testo = dati[5]; 
                 String risposta = dati[6]; 
                 Recensione r = new Recensione();
-                r.setNomeUtente(nomeUtente);
+                r.setUsername(nomeUtente);
                 r.setIdUtente(idUtente);
                 r.setIdRis(idRis);
                 r.setStelle(stelle);

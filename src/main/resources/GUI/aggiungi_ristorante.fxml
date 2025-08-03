@@ -76,22 +76,22 @@
             </Label>
             <TextField fx:id="txtNomeRistorante" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4" />
             <TextField fx:id="txtIndirizzo" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" />
-            <RadioButton fx:id="radioDeliverySi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" toggleGroup="$deliveryGroup">
+            <RadioButton fx:id="radioDeliverySi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" toggleGroup="${deliveryGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioDeliveryNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="2" toggleGroup="$deliveryGroup">
+            <RadioButton fx:id="radioDeliveryNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="2" toggleGroup="${deliveryGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrenotazioneSi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" toggleGroup="$prenotazioneGroup">
+            <RadioButton fx:id="radioPrenotazioneSi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" toggleGroup="${prenotazioneGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrenotazioneNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="3" toggleGroup="$prenotazioneGroup">
+            <RadioButton fx:id="radioPrenotazioneNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="3" toggleGroup="${prenotazioneGroup}">
                <font>
                   <Font size="14.0" />
                </font>
@@ -107,22 +107,22 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <RadioButton fx:id="radioPrezzo1" mnemonicParsing="false" selected="true" text="€" GridPane.columnIndex="1" GridPane.rowIndex="5" toggleGroup="$prezzoGroup">
+            <RadioButton fx:id="radioPrezzo1" mnemonicParsing="false" selected="true" text="€" GridPane.columnIndex="1" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo2" mnemonicParsing="false" text="€€" GridPane.columnIndex="2" GridPane.rowIndex="5" toggleGroup="$prezzoGroup">
+            <RadioButton fx:id="radioPrezzo2" mnemonicParsing="false" text="€€" GridPane.columnIndex="2" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo3" mnemonicParsing="false" text="€€€" GridPane.columnIndex="3" GridPane.rowIndex="5" toggleGroup="$prezzoGroup">
+            <RadioButton fx:id="radioPrezzo3" mnemonicParsing="false" text="€€€" GridPane.columnIndex="3" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo4" mnemonicParsing="false" text="€€€€" GridPane.columnIndex="4" GridPane.rowIndex="5" toggleGroup="$prezzoGroup">
+            <RadioButton fx:id="radioPrezzo4" mnemonicParsing="false" text="€€€€" GridPane.columnIndex="4" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
                <font>
                   <Font size="14.0" />
                </font>

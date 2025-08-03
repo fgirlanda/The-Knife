@@ -6,8 +6,7 @@ import javafx.application.Application;
 public class TheKnife {
     public static void main(String[] args) throws Exception {
         // Carica gli utenti dal file CSV
-        UtenteReader utenteReader = new UtenteReader();
-        utenteReader.caricaUtenti();
+        UtenteReader.caricaUtenti();
         Application.launch(Login.class, args);
         // Application.launch(Registrazione.class, args);
     }

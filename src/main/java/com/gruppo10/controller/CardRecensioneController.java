@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.RecensioneWriter;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
@@ -25,8 +24,6 @@ public class CardRecensioneController implements CardController<Recensione>{
     private Recensione recensione;
 
     private Ristorante ristorante;
-
-    private List<Recensione> listaRecensioni;
 
     private boolean paginaPrincipale;
 
@@ -72,7 +69,6 @@ public class CardRecensioneController implements CardController<Recensione>{
 
 
     public void setListaRecensioni(List<Recensione> listaRecensioni){
-        this.listaRecensioni = listaRecensioni;
     }
 
 
@@ -95,7 +91,7 @@ public class CardRecensioneController implements CardController<Recensione>{
 
     @Override
     public void setDati(){
-        txtCliente.setText(this.recensione.getNomeUtente());
+        txtCliente.setText(this.recensione.getUsername());
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText(String.format("%d",this.recensione.getStelle()) + " ★");
         txtRisposta.setText(this.recensione.getRisposta());

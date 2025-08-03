@@ -16,21 +16,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/*
-WORK IN PROGRESS
-*/
-
 public class ModificaRecensioneController {
 
     private Recensione recensione;
     
     private Stage stage;
 
-    private VBox contenitore;
-
     private Ristorante ristorante;
 
     private boolean paginaPrincipale;
+
+    private String testoOriginale;
+
+    private String username;
+
+    private int vecchioVoto;
+
+    private int idRis;
+
+    private int idUt;
+
+    private String risposta;
 
     @FXML private Text txtOriginale;
     
@@ -76,11 +82,17 @@ public class ModificaRecensioneController {
 
     public void setRecensione(Recensione recensione, VBox contenitore){
         this.recensione = recensione;
-        txtOriginale.setText(recensione.getTesto());
+        
+        username = recensione.getUsername();
+        idUt = recensione.getIdUtente();
+        idRis = recensione.getIdRis();
+        vecchioVoto = recensione.getStelle();
+        testoOriginale = recensione.getTesto();
+        risposta = recensione.getRisposta();
 
-        int voto = recensione.getStelle();
+        txtOriginale.setText(testoOriginale);
         ObservableList<Toggle> toggles = stelleGroup.getToggles();
-        Toggle toggle = toggles.get(voto-1);
+        Toggle toggle = toggles.get(vecchioVoto-1);
         stelleGroup.selectToggle(toggle);
     }
 
@@ -99,14 +111,26 @@ public class ModificaRecensioneController {
     private void modificaRecensione(){
         String testoModificato = txtTestoModificato.getText();
         RadioButton selectedStella = (RadioButton) stelleGroup.getSelectedToggle();
-        int vecchioVoto = recensione.getStelle();
+
+        
         int nuovoVoto = selectedStella.getText().length();
 
         if(testoModificato != null && !testoModificato.isBlank()){
+            Recensione nuovaRecensione = new Recensione();
+            nuovaRecensione.setIdRis(idRis);
+            nuovaRecensione.setIdUtente(idUt);
+            nuovaRecensione.setUsername(username);
+            nuovaRecensione.setRisposta(risposta);
+            nuovaRecensione.setTesto(testoModificato);
+            nuovaRecensione.setStelle(nuovoVoto);
+
+            ristorante.rimuoviRecensione(recensione);
+            ristorante.aggiungiRecensione(nuovaRecensione);
+
             RecensioneWriter.modificaRecensione(this.recensione, testoModificato, nuovoVoto);
         }
 
-        ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
+        // ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
         SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
         annulla();
     }

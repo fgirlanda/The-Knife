@@ -40,10 +40,6 @@ public class AggiungiRistoranteController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
-    private List<Ristorante> ristoranti;
-
-    private VBox contenitore;
-
     private Runnable onCloseCallback;
 
     private Ristorante nuovoRistorante = null;
@@ -87,11 +83,9 @@ public class AggiungiRistoranteController {
     }
 
     public void setListaRistoranti(List<Ristorante> ristoranti){
-        this.ristoranti = ristoranti;
     }
 
     public void setContenitore(VBox contenitore){
-        this.contenitore = contenitore;
     }
 
 

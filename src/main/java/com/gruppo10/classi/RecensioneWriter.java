@@ -29,7 +29,7 @@ public class RecensioneWriter {
             // Se il file non esiste, scrivi l'header
             CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {
-                String[] header = { "ID Recensione", "Nome cliente", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"};
+                String[] header = { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"};
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
@@ -48,7 +48,7 @@ public class RecensioneWriter {
         String[] dati = new String[7];
         
         dati[0] = Integer.toString(RistoranteWriter.ultimoID(file));
-        dati[1] = recensione.getNomeUtente();
+        dati[1] = recensione.getUsername();
         dati[2] = Integer.toString(recensione.getIdUtente());
         dati[3] = Integer.toString(recensione.getIdRis());
         dati[4] = Integer.toString(recensione.getStelle());
@@ -79,7 +79,7 @@ public class RecensioneWriter {
             }
 
             try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
-                writer.writeNext(new String[]{"ID Recensione", "Nome cliente", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+                writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
                 for (String[] riga : listaTemp) {
                     writer.writeNext(riga);
                 }
@@ -100,8 +100,8 @@ public class RecensioneWriter {
                 int idRis = Integer.parseInt(dati[3]);
 
                 if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
-                    dati[5] = testoModificato;
                     dati[4] = Integer.toString(nuovoVoto);
+                    dati[5] = testoModificato;
                 }
                 listaTemp.add(dati);
             }
@@ -112,7 +112,7 @@ public class RecensioneWriter {
             }
 
             try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
-                writer.writeNext(new String[]{"ID Recensione", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+                writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
                 for (String[] riga : listaTemp) {
                     writer.writeNext(riga);
                 }

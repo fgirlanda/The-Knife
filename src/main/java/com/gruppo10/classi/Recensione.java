@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Recensione {
     // private int idRec;
-    private String nomeUtente;
+    private String username;
     private int idUtente;
     private int idRis; 
     private int stelle;

@@ -153,7 +153,7 @@ Generale:
 - Modifica recensione (FATTO)
 - Numero di recensioni (FATTO)
 - Modificare filtri ricerca ristoranti
-- Calcolo media recensioni modificate
+- Calcolo media recensioni modificate (FATTO)
 
 Grafica:
 
@@ -166,7 +166,7 @@ Grafica:
 
 Pulizia codice:
 
-- Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) 
+- Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) (FATTO)
 - Sistemare coerenza di alcune azioni ()
 - Classe astratta Controller (?)
 - Gestione eccezioni

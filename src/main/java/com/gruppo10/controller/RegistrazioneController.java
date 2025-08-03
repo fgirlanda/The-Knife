@@ -1,21 +1,8 @@
 package com.gruppo10.controller;
 
-import java.io.IOException;
 import javafx.scene.control.Label;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Indirizzi;
