@@ -130,15 +130,6 @@ public class PaginaPrincipaleController {
 
     @FXML
     private void gestisciBottoneUtente(){
-        // String testo = bottoneRegistratiProfilo.getText().toLowerCase();
-        // if (testo.equals("registrati")) {
-        //     SceneManager.apriRegistrati(stage);
-        // } else if (testo.equals("profilo")) {
-        //     if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE))
-        //         SceneManager.apriProfilo(stage);
-        //     else
-        //         SceneManager.apriProfiloRistoratore(stage);
-        // }
         Ruolo ruolo = utenteLoggato.getRuolo();
         if(ruolo.equals(Ruolo.CLIENTE)){
             SceneManager.apriProfilo(stage, 0);
