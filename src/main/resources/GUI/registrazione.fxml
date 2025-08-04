@@ -98,7 +98,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#annulla">
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#chiudi">
                <font>
                   <Font size="14.0" />
                </font>

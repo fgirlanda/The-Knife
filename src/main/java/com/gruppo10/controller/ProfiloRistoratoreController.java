@@ -42,7 +42,7 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti_test.csv");
+        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
         ristoranti = RistoranteReader.caricaCSV(path.toString());
         listaFiltrata = filtraProprietario(ristoranti);
         aggiornaContenitore(listaFiltrata);
@@ -79,10 +79,6 @@ public class ProfiloRistoratoreController {
     private void apriAggiungiRistorante() {
         SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
             (AggiungiRistoranteController controller) -> {
-                controller.setStage(stage);
-                controller.setListaRistoranti(listaFiltrata);
-                controller.setContenitore(contenitoreTessere);
-            
                 controller.setOnCloseCallback(() -> {
                     // Qui aggiungi il nuovo ristorante nella lista e aggiorni il contenitore
                     Ristorante r = controller.getNuovoRistorante();

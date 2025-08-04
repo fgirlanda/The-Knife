@@ -130,7 +130,7 @@
             <TextArea fx:id="txtDescrizione" prefHeight="200.0" prefWidth="200.0" promptText="descrivi il tuo ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6" GridPane.rowSpan="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnAnnulla" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#annulla" text="Annulla" />
+      <Button fx:id="btnAnnulla" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#chiudi" text="Annulla" />
       <Button fx:id="btnAggiungiRistorante" layoutX="194.0" layoutY="322.0" mnemonicParsing="false" onAction="#aggiungiRistorante" text="AGGIUNGI RISTORANTE">
          <font>
             <Font size="18.0" />

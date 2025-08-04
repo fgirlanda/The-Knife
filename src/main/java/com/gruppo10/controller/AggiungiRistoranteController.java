@@ -29,14 +29,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import javafx.scene.control.ComboBox;
 
 public class AggiungiRistoranteController {
-
-    private Stage stage;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -77,17 +72,6 @@ public class AggiungiRistoranteController {
     @FXML private ToggleGroup prenotazioneGroup;
     @FXML private ToggleGroup prezzoGroup;
     
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setListaRistoranti(List<Ristorante> ristoranti){
-    }
-
-    public void setContenitore(VBox contenitore){
-    }
-
 
     public void initialize() {
         // Inizializza il ComboBox con i valori dell'enum TipoCucina
@@ -183,10 +167,8 @@ public class AggiungiRistoranteController {
         if (onCloseCallback != null) {
             onCloseCallback.run();
         }
-        // Chiudi la finestra o esegui altre azioni
-        if (stage != null) {
-            annulla();
-        }
+
+        chiudi();
     }
 
 
@@ -215,8 +197,8 @@ public class AggiungiRistoranteController {
 
     
     @FXML
-    private void annulla() {
-        SceneManager.annulla(btnAnnulla);
+    private void chiudi() {
+        SceneManager.chiudi(btnAnnulla);
     }
 
     public Ristorante getNuovoRistorante(){

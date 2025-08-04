@@ -13,9 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-/*
-WORK IN PROGRESS
-*/
 
 public class AggiungiRecensioneController {
 
@@ -91,7 +88,6 @@ public class AggiungiRecensioneController {
 
         // Crea un oggetto recensione
         Recensione recensione = new Recensione();
-        // recensione.setIdRec(0); mettere solo nel csv e quando si scrive controllare l'ultimo presente?
         recensione.setUsername(utenteLoggato.getUsername());
         recensione.setIdUtente(utenteLoggato.getId());
         recensione.setIdRis(ristorante.getId());
@@ -99,10 +95,8 @@ public class AggiungiRecensioneController {
         recensione.setTesto(testo);
         recensione.setRisposta("");
 
-        // Ricalcolo media recensioni ristorante
         ristorante.aggiungiRecensione(recensione);
 
-        // Aggiungere recensione a csv
         RecensioneWriter writer = new RecensioneWriter();
         try {
             writer.scriviRecensione(recensione);
@@ -110,16 +104,14 @@ public class AggiungiRecensioneController {
             e.printStackTrace();
         }
 
-        // Ricarica card
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
 
-        // Chiudi la finestra o esegui altre azioni
-        annulla();
+        chiudi();
     }
     
     
     @FXML
-    private void annulla() {
-        SceneManager.annulla(btnAnnulla);
+    private void chiudi() {
+        SceneManager.chiudi(btnAnnulla);
     }
 }

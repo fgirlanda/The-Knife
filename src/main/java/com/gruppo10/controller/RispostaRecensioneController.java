@@ -6,15 +6,8 @@ import com.gruppo10.classi.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
-
-/*
-WORK IN PROGRESS
-*/
 
 public class RispostaRecensioneController {
-
-    private Stage stage;
 
     private Recensione recensione;
     
@@ -24,17 +17,12 @@ public class RispostaRecensioneController {
     
     @FXML private Button btnInvia;
 
+
     @FXML
     private void initialize() {
-
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtRisposta.textProperty().addListener((_, _, _) -> checkFields());
         checkFields();
-    }
-
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
 
@@ -55,25 +43,20 @@ public class RispostaRecensioneController {
     @FXML
     private void aggiungiRisposta() throws Exception {
 
-        // Recupera i dati dai campi
         String risposta = txtRisposta.getText();
 
-        // Aggiungere risposta a csv
         try {
             RecensioneWriter.aggiungiRisposta(this.recensione, risposta);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Chiudi la finestra o esegui altre azioni
-        if (stage != null) {
-            annulla();
-        }
+        chiudi();
     }
     
     
     @FXML
-    private void annulla() {
-        SceneManager.annulla(btnAnnulla);
+    private void chiudi() {
+        SceneManager.chiudi(btnAnnulla);
     }
 }

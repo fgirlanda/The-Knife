@@ -77,20 +77,7 @@ public class SceneManager {
     }
 
 
-    
-    
-    // public static void tornaProfilo(Stage stage, Utente utente){
-    //     if(utente.getRuolo() == Ruolo.CLIENTE){
-    //         SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo", 
-    //         (ProfiloClienteController controller) -> controller.setStage(stage));
-    //     }else{
-    //         SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Profilo", 
-    //         (ProfiloRistoratoreController controller) -> controller.setStage(stage));
-    //     }
-    // }
-    
-    
-    public static void annulla(Button annulla) {
+    public static void chiudi(Button annulla) {
         Stage dialogue = (Stage) annulla.getScene().getWindow();
         dialogue.close();
     }

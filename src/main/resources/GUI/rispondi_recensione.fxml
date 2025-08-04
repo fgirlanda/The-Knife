@@ -23,7 +23,7 @@
       </TextArea>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
          <children>
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" onAction="#annulla" prefHeight="25.0" prefWidth="92.0" text="Annulla">
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" onAction="#chiudi" prefHeight="25.0" prefWidth="92.0" text="Annulla">
                <font>
                   <Font size="15.0" />
                </font>

@@ -40,18 +40,6 @@ public class Utente {
             this.ruolo = Ruolo.NON_REGISTRATO; // Valore di default se non riconosciuto
         }
     }
-
-    @Override
-    public String toString() {
-        return "Utente{" +
-                "nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", username='" + username + '\'' +
-                ", dataDiNascita=" + dataDiNascita +
-                ", indirizzo='" + indirizzo + '\'' +
-                ", ruolo=" + ruolo +
-                '}';
-    }
 }
 
 

@@ -58,7 +58,7 @@
             <RadioButton fx:id="radioStella4" mnemonicParsing="false" text="★★★★" toggleGroup="${stelleGroup}" GridPane.columnIndex="3" />
             <RadioButton fx:id="radioStella5" mnemonicParsing="false" text="★★★★★" toggleGroup="${stelleGroup}" GridPane.columnIndex="4" />
             <TextArea fx:id="txtTestoModificato" prefHeight="134.0" prefWidth="466.0" promptText="Inserire recensione" GridPane.columnSpan="5" GridPane.rowIndex="1" />
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" onAction="#annulla" prefHeight="25.0" prefWidth="92.0" text="Annulla" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" onAction="#chiudi" prefHeight="25.0" prefWidth="92.0" text="Annulla" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
                </font>

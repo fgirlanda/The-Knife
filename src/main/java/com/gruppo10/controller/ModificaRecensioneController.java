@@ -132,12 +132,12 @@ public class ModificaRecensioneController {
 
         // ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
         SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
-        annulla();
+        chiudi();
     }
     
 
     @FXML
-    private void annulla() {
-        SceneManager.annulla(btnAnnulla);
+    private void chiudi() {
+        SceneManager.chiudi(btnAnnulla);
     }
 }

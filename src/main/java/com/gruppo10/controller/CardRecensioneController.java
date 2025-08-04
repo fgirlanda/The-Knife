@@ -101,7 +101,6 @@ public class CardRecensioneController implements CardController<Recensione>{
     @FXML
     private void rispondi(){
         SceneManager.finestraDialogo("/GUI/rispondi_recensione.fxml", "Rispondi", stage, (RispostaRecensioneController controller) -> {
-            controller.setStage(stage);
             controller.setRecensione(this.recensione);
         });
     }
