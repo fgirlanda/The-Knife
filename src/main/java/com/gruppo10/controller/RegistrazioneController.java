@@ -113,7 +113,6 @@ public class RegistrazioneController {
         
         // Verifica che l'username sia disponibile
         if(UtenteReader.cercaUtente(username) != null) {
-            // Mostra un messaggio di errore se l'username è già in uso
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
@@ -121,11 +120,9 @@ public class RegistrazioneController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
         
-        try {
-            password = Criptatore.cripta(password); // Gestione NoSuchAlgorithmException in classe Criptatore
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        password = Criptatore.cripta(password);
+ 
         
         // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();

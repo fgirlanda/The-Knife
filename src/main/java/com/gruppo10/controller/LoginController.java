@@ -54,38 +54,30 @@ public class LoginController {
     }
 
     
-    // Metodo per gestire il login
     @FXML
     public void provaLogin() {
-        try {
-            //Carico gli utenti registrati
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-            String hashedPassword = Criptatore.cripta(password); // Gestione NoSuchAlgorithmException in classe Criptatore
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String hashedPassword = Criptatore.cripta(password);
+        
+        // Verifica se l'utente esiste nel file CSV
+        Utente utente = UtenteReader.cercaUtente(username);
+        if (utente == null) {
+            loginStatus.setVisible(true);
+            loginStatus.setText("Login status: UTENTE NON REGISTRATO");
+            return;
+        }
+        
+        if (hashedPassword.equals(utente.getPassword())) {
+            // loginStatus.setText("Login status: LOGIN RIUSCITO"); // Eventuale intermezzo durante precaricamento pagina principale
             
-            // Verifica se l'utente esiste nel file CSV
-            Utente utente = UtenteReader.cercaUtente(username);
-            if (utente == null) {
-                loginStatus.setVisible(true);
-                loginStatus.setText("Login status: UTENTE NON REGISTRATO");
-                return;
-            }
-          
-            if (hashedPassword.equals(utente.getPassword())) {
-                // loginStatus.setText("Login status: LOGIN RIUSCITO"); // Eventuale intermezzo durante precaricamento pagina principale
-                
-                // Precaricamento pagina principale (?)
-                utenteLoggato = utente;
+            // Precaricamento pagina principale (?)
+            utenteLoggato = utente;
 
-                SceneManager.apriPaginaPrincipale(stage);
-                
-            } else {
-                loginStatus.setVisible(true);
-                loginStatus.setText("Login status: PASSWORD ERRATA");
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+            SceneManager.apriPaginaPrincipale(stage);       
+        } else {
+            loginStatus.setVisible(true);
+            loginStatus.setText("Login status: PASSWORD ERRATA");
         }
     }
     
@@ -108,7 +100,7 @@ public class LoginController {
             utenteLoggato = new Utente();
             utenteLoggato.setRuolo("NON_REGISTRATO");
             utenteLoggato.setIndirizzo(indirizzo);
-            Coordinate coordinate = new Coordinate(indirizzo); // Gestione genera coordinate in classe Coordinate
+            Coordinate coordinate = new Coordinate(indirizzo); // Gestire eccezione genera coordinate in classe Coordinate
             utenteLoggato.setCords(coordinate);
 
             // Precaricamento pagina principale (?)
