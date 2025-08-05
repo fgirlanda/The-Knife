@@ -1,6 +1,5 @@
 package com.gruppo10.controller;
 
-import java.util.Collections;
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
@@ -78,11 +77,7 @@ public class AggiungiRistoranteController {
         
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(txtIndirizzo, request -> {
-            try {
-                return Indirizzi.getSuggestions(request.getUserText());
-            } catch (Exception e) {
-                return Collections.emptyList();
-            }
+                return Indirizzi.getRisultati(request.getUserText());
         });
 
         checkFields();

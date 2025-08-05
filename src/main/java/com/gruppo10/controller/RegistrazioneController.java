@@ -2,7 +2,6 @@ package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.classi.Indirizzi;
@@ -64,11 +63,7 @@ public class RegistrazioneController {
 
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(indirizzoTextField, request -> {
-            try {
-                return Indirizzi.getSuggestions(request.getUserText());
-            } catch (Exception e) {
-                return Collections.emptyList();
-            }
+                return Indirizzi.getRisultati(request.getUserText());
         });
     }
 

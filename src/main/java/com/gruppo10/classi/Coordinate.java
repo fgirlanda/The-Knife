@@ -55,9 +55,12 @@ public class Coordinate {
             this.lat = lat;
             this.lon = lon;
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
+            throw new RuntimeException("Errore di rete durante la richiesta HTTP", e);
+
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Errore durante la richiesta HTTP", e);
+            throw new RuntimeException("Richiesta interrotta", e);
 
         } catch (JsonSyntaxException e) {
             throw new RuntimeException("Errore nel parsing della risposta JSON", e);

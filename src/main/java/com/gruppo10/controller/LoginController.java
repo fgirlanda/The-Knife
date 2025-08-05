@@ -3,8 +3,6 @@ package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
 
-import java.util.Collections;
-
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
@@ -37,11 +35,7 @@ public class LoginController {
     public void initialize(){
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(textIndirizzo, request -> {
-            try {
-                return Indirizzi.getSuggestions(request.getUserText()); // Gestione eccezioni in classe Indirizzi
-            } catch (Exception e) {
-                return Collections.emptyList();
-            }
+                return Indirizzi.getRisultati(request.getUserText());
         });
 
         loginStatus.setVisible(false);
