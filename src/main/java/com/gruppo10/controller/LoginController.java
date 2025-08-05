@@ -90,25 +90,22 @@ public class LoginController {
 
     @FXML
     public void continuaSenzaRegistrarti() {
-        try {
-            String indirizzo = textIndirizzo.getText();
-            if (indirizzo.isEmpty()) {
-                loginStatus.setVisible(true);
-                loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
-                return;
-            }
-            utenteLoggato = new Utente();
-            utenteLoggato.setRuolo("NON_REGISTRATO");
-            utenteLoggato.setIndirizzo(indirizzo);
-            Coordinate coordinate = new Coordinate(indirizzo); // Gestire eccezione genera coordinate in classe Coordinate
-            utenteLoggato.setCords(coordinate);
+        String indirizzo = textIndirizzo.getText();
 
-            // Precaricamento pagina principale (?)
-        
-            SceneManager.apriPaginaPrincipale(stage);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (indirizzo.isBlank()) {
+            loginStatus.setVisible(true);
+            loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
+            return;
         }
+
+        utenteLoggato = new Utente();
+        utenteLoggato.setRuolo("NON_REGISTRATO");
+        utenteLoggato.setIndirizzo(indirizzo);
+        Coordinate coordinate = new Coordinate(indirizzo);
+        utenteLoggato.setCords(coordinate);
+
+        // Precaricamento pagina principale (?)
+    
+        SceneManager.apriPaginaPrincipale(stage);
     }
 }

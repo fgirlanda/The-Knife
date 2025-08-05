@@ -9,6 +9,7 @@ public class Criptatore {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Input non valido");
         }
+        
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(input.getBytes());

@@ -1,5 +1,6 @@
 package com.gruppo10.classi;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,6 +8,7 @@ import java.net.http.HttpResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import lombok.Data;
 
@@ -18,7 +20,11 @@ public class Coordinate {
     private double lat, lon;
 
     // Algoritmo di geocode
-    public Coordinate(String address) throws Exception { // Inserire try catch
+    public Coordinate(String address){
+
+        if(address == null || address.isBlank()){
+            throw new IllegalArgumentException("Indirizzo non valido");
+        }
 
         String encodedAddress = address.replace(" ", "+");
         String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";
@@ -29,16 +35,33 @@ public class Coordinate {
             .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
             .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Errore HTTP: " + response.statusCode());
+            }
 
-        JsonObject obj = results.get(0).getAsJsonObject();
-        double lat = obj.get("lat").getAsDouble();
-        double lon = obj.get("lon").getAsDouble();
+            JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
 
-        this.lat = lat;
-        this.lon = lon;
+            if (results.size() == 0) {
+                throw new RuntimeException("Nessun risultato trovato per l'indirizzo: " + address);
+            }
+
+            JsonObject obj = results.get(0).getAsJsonObject();
+            double lat = obj.get("lat").getAsDouble();
+            double lon = obj.get("lon").getAsDouble();
+
+            this.lat = lat;
+            this.lon = lon;
+
+        } catch (IOException | InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Errore durante la richiesta HTTP", e);
+
+        } catch (JsonSyntaxException e) {
+            throw new RuntimeException("Errore nel parsing della risposta JSON", e);
+        }
     }
 
     public Coordinate(double lat, double lon) {
@@ -56,6 +79,6 @@ public class Coordinate {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return R * c; // distanza in km
+        return R * c; // Distanza in km
     }
 }

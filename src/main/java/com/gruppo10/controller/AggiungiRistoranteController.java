@@ -1,22 +1,10 @@
 package com.gruppo10.controller;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
 import org.controlsfx.control.textfield.TextFields;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteWriter;
 import com.gruppo10.classi.SceneManager;
@@ -91,7 +79,7 @@ public class AggiungiRistoranteController {
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(txtIndirizzo, request -> {
             try {
-                return getSuggestions(request.getUserText());
+                return Indirizzi.getSuggestions(request.getUserText());
             } catch (Exception e) {
                 return Collections.emptyList();
             }
@@ -132,14 +120,6 @@ public class AggiungiRistoranteController {
         if(tempDelivery.equals("Sì")) {delivery = true;} else {delivery = false;}
         if (tempPrenotazione.equals("Sì")) {prenotazioneOnline = true;} else {prenotazioneOnline = false;}
     
-        // String tipoCucina = comboCucina.getValue().toString();
-
-        // // Verifica che tutti i campi obbligatori siano compilati
-        // if (nomeRistorante.isEmpty() || indirizzo.isEmpty() || tipoCucina == null) {
-        //     System.out.println("Compila tutti i campi obbligatori!");
-        //     return;
-        // }
-
         // Crea un oggetto Ristorante
         int idProprietario = utenteLoggato.getId();
         Ristorante ristorante = new Ristorante();
@@ -171,31 +151,6 @@ public class AggiungiRistoranteController {
         chiudi();
     }
 
-
-    // Autocompletamento con Nominatim
-    private List<String> getSuggestions(String query) throws IOException, InterruptedException {
-        String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
-                     + "&format=json&addressdetails=1&limit=5";
-
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(url))
-            .header("User-Agent", "TheKnife/1.0 (fgirlanda@studenti.uninsubria.it)")
-            .GET()
-            .build();
-
-        HttpResponse<String> response = HttpClient.newHttpClient()
-            .send(request, HttpResponse.BodyHandlers.ofString());
-
-        JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
-        List<String> suggestions = new ArrayList<>();
-
-        for (JsonElement result : results) {
-            suggestions.add(result.getAsJsonObject().get("display_name").getAsString());
-        }
-        return suggestions;
-    }
-
-    
     @FXML
     private void chiudi() {
         SceneManager.chiudi(btnAnnulla);

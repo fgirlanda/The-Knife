@@ -133,7 +133,7 @@ public class RegistrazioneController {
         utente.setDataDiNascita(dataNascita);
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
-        Coordinate coordinate = new Coordinate(indirizzo); // Gestire eccezioni generazione coordinate
+        Coordinate coordinate = new Coordinate(indirizzo);
         utente.setCords(coordinate);
         UtenteReader.aggiungiUtente(utente.getUsername(),utente);
         UtenteWriter writer = new UtenteWriter();
