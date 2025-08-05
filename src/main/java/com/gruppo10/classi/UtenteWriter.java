@@ -42,7 +42,7 @@ public class UtenteWriter {
         }
     }
 
-    private String[] estraiDati(Utente utente, File file) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+    private String[] estraiDati(Utente utente, File file) throws FileNotFoundException, IOException {
         String[] dati = new String[10];
         dati[0] = String.valueOf(RistoranteWriter.ultimoID(file));
         dati[1] = utente.getNome();

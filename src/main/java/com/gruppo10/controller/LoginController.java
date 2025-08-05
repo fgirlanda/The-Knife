@@ -31,7 +31,6 @@ public class LoginController {
     @FXML private Label loginStatus;
 
     // Aggiungere controllaCampi
-
     public void initialize(){
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(textIndirizzo, request -> {

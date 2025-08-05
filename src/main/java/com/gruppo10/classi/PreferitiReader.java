@@ -1,8 +1,10 @@
 package com.gruppo10.classi;
 
 import java.io.FileReader;
+import java.io.IOException;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class PreferitiReader {
 
@@ -20,10 +22,12 @@ public class PreferitiReader {
                     return true;
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getMessage());
-        }
+        } catch (CsvValidationException e) {
+            System.err.println("Errore format csv." + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + nomeFile);
+        } 
         
-        return false; // Placeholder, implementare la logica reale
+        return false;
     }
 }

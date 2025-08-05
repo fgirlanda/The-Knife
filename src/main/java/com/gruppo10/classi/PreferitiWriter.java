@@ -15,7 +15,7 @@ public class PreferitiWriter {
 
     private static final String nomeFile = "fileCSV/preferiti.csv";
 
-    public static void aggiungiPreferito(int idUtente, int idRistorante) throws IOException{
+    public static void aggiungiPreferito(int idUtente, int idRistorante){
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
@@ -26,10 +26,9 @@ public class PreferitiWriter {
         // Crea lista dati
         String[] dati = { String.valueOf(idUtente), String.valueOf(idRistorante) };
 
-        try (Writer writer = new FileWriter(filePreferiti, true)) {
+        try (Writer writer = new FileWriter(filePreferiti, true); CSVWriter csvWriter = new CSVWriter(writer)) {
 
             // Se il file non esiste, scrivi l'header
-            CSVWriter csvWriter = new CSVWriter(writer);
             if (!fileEsiste) {
                 String[] header = { "ID Utente", "ID Ristorante"};
                 csvWriter.writeNext(header);
@@ -38,8 +37,8 @@ public class PreferitiWriter {
             
             // Scrivi i dati della recensione
             csvWriter.writeNext(dati);
-            csvWriter.close();
-            writer.close();
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + filePreferiti.toString());
         }
     }
 
@@ -71,7 +70,7 @@ public class PreferitiWriter {
             }
 
         } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getMessage());
+            System.err.println("Errore caricamento file: " + nomeFile);
         }  
     }
 }

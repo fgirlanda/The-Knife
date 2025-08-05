@@ -64,8 +64,8 @@ public class ProfiloClienteController {
         );
 
         // Carica recensioni utente
-        Path pathRecensioni= Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
-        recensioni = RecensioneReader.caricaCSV(pathRecensioni.toString());
+        // Path pathRecensioni= Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
+        recensioni = RecensioneReader.caricaCSV();
         List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
         // RecensioneReader.caricaTessere(listaRecFiltrata, contenitoreTessereRec, stage, utenteLoggato.getId());
         SceneManager.caricaTessere(

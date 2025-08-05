@@ -53,6 +53,7 @@ public class AggiungiRecensioneController {
         
     }
 
+    
     public void setStage(Stage stage){
         this.stage = stage;
     }
@@ -98,11 +99,7 @@ public class AggiungiRecensioneController {
         ristorante.aggiungiRecensione(recensione);
 
         RecensioneWriter writer = new RecensioneWriter();
-        try {
-            writer.scriviRecensione(recensione);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        writer.scriviRecensione(recensione);
 
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
 

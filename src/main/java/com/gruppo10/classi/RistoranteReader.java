@@ -15,7 +15,7 @@ public class RistoranteReader {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         File fileRecensioni = new File(path.toString());
         if(fileRecensioni.exists()){
-            listaRecensioni = RecensioneReader.caricaCSV("fileCSV/recensioni.csv");
+            listaRecensioni = RecensioneReader.caricaCSV();
         }
         
         List<Ristorante> lista = new ArrayList<>();

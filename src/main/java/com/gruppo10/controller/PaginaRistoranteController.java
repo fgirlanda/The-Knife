@@ -81,7 +81,7 @@ public class PaginaRistoranteController {
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         File fileRecensioni = new File(path.toString());
         if (fileRecensioni.exists()) {
-            recensioni = RecensioneReader.caricaCSV(path.toString());
+            recensioni = RecensioneReader.caricaCSV();
             List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
             presente = recensioneInserita(listaFiltrata);
             SceneManager.caricaTessere(
@@ -164,14 +164,9 @@ public class PaginaRistoranteController {
 
 
     private void aggiungiPreferito() {
-        try {
-            if (!PreferitiReader.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
-                PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!PreferitiReader.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
+            PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
         }
-
     }
 
 

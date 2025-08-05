@@ -8,7 +8,9 @@ import com.opencsv.CSVReader;
 
 public class RecensioneReader {
 
-    public static List<Recensione> caricaCSV(String nomeFile) {
+    private static final String nomeFile = "fileCSV/recensioni.csv";
+
+    public static List<Recensione> caricaCSV() {
         List<Recensione> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
@@ -30,7 +32,7 @@ public class RecensioneReader {
                 lista.add(r);
             }
         } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getStackTrace());
+            System.err.println("Errore caricamento file csv: " + nomeFile);
         }
         return lista;
     }
