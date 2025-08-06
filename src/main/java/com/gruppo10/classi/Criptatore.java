@@ -5,11 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Criptatore {
 
-    public static String cripta(String input) {
-        if (input == null || input.isBlank()) {
-            throw new IllegalArgumentException("Input non valido");
-        }
-        
+    public static String cripta(String input) {     
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(input.getBytes());
@@ -20,7 +16,7 @@ public class Criptatore {
             return hexString.toString();
 
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Algoritmo SHA-256 non disponibile", e);
+            return (String) GestioneEccezioni.errore("Algoritmo SHA-256 non disponibile: " + e);
         }
     }
 }

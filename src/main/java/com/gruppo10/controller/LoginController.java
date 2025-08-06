@@ -1,6 +1,7 @@
 package com.gruppo10.controller;
 
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -22,22 +23,39 @@ public class LoginController {
 
     private Stage stage;
 
-    @FXML private TextField textIndirizzo;
+    @FXML private TextField indirizzoField;
 
     @FXML private TextField usernameField;
     
     @FXML private TextField passwordField;
+
+    @FXML private Button btnLogin;
+
+    @FXML private Button btnContinua;
     
     @FXML private Label loginStatus;
 
     // Aggiungere controllaCampi
     public void initialize(){
+        usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
+        passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
+        indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
+
         // Autocompletamento con Nominatim
-        TextFields.<String>bindAutoCompletion(textIndirizzo, request -> {
+        TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
                 return Indirizzi.getRisultati(request.getUserText());
         });
 
         loginStatus.setVisible(false);
+    }
+
+
+    private void controllaCampi() {
+        boolean userPassword = usernameField.getText().isBlank() || passwordField.getText().isBlank();
+        boolean indirizzo = indirizzoField.getText().isBlank();
+
+        btnLogin.setDisable(userPassword);
+        btnContinua.setDisable(indirizzo);
     }
 
 
@@ -51,12 +69,9 @@ public class LoginController {
     public void provaLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if(password.isBlank()){
-            loginStatus.setVisible(true);
-            loginStatus.setText("Login status: INSERISCI LA PASSWORD");
-            return;
-        }
         String hashedPassword = Criptatore.cripta(password);
+
+        if(hashedPassword == null) return;
         
         // Verifica se l'utente esiste nel file CSV
         Utente utente = UtenteReader.cercaUtente(username);
@@ -88,12 +103,7 @@ public class LoginController {
 
     @FXML
     public void continuaSenzaRegistrarti() {
-        String indirizzo = textIndirizzo.getText();
-        if (indirizzo.isBlank()) {
-            loginStatus.setVisible(true);
-            loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
-            return;
-        }
+        String indirizzo = indirizzoField.getText();
         Coordinate coordinate = new Coordinate(indirizzo);
         if(coordinate.getLat() == null) return;
         utenteLoggato = new Utente();

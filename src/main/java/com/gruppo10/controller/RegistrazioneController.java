@@ -31,17 +31,17 @@ public class RegistrazioneController {
     
     @FXML private RadioButton ristoratoreRadioButton;
 
-    @FXML private TextField nomeTextField;
+    @FXML private TextField nomeField;
     
-    @FXML private TextField cognomeTextField;
+    @FXML private TextField cognomeField;
     
-    @FXML private TextField usernameTextField;
+    @FXML private TextField usernameField;
     
+    @FXML private TextField indirizzoField;
+
     @FXML private PasswordField passwordField;
     
     @FXML private DatePicker dataNascitaPicker;
-    
-    @FXML private TextField indirizzoTextField;
     
     @FXML private Button btnRegistrati;
     
@@ -53,16 +53,16 @@ public class RegistrazioneController {
     public void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeTextField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue, newValue)
-        cognomeTextField.textProperty().addListener((_, _, _) -> controllaCampi());
-        usernameTextField.textProperty().addListener((_, _, _) -> controllaCampi());
+        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue, newValue)
+        cognomeField.textProperty().addListener((_, _, _) -> controllaCampi());
+        usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
-        indirizzoTextField.textProperty().addListener((_, _, _) -> controllaCampi());
+        indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
         dataNascitaPicker.valueProperty().addListener((_, _, _) -> controllaCampi());
         ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
 
         // Autocompletamento con Nominatim
-        TextFields.<String>bindAutoCompletion(indirizzoTextField, request -> {
+        TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
                 return Indirizzi.getRisultati(request.getUserText());
         });
     }
@@ -80,15 +80,15 @@ public class RegistrazioneController {
 
     
     private void controllaCampi() {
-        boolean allFieldsFilled = !nomeTextField.getText().isEmpty() &&
-                                  !cognomeTextField.getText().isEmpty() &&
-                                  !usernameTextField.getText().isEmpty() &&
-                                  !passwordField.getText().isEmpty() &&
-                                  !indirizzoTextField.getText().isEmpty() &&
-                                  dataNascitaPicker.getValue() != null &&
-                                  ruoloGroup.getSelectedToggle() != null;
-
-        btnRegistrati.setDisable(!allFieldsFilled);
+        boolean allFieldsFilled = nomeField.getText().isBlank() ||
+                                  cognomeField.getText().isBlank() ||
+                                  usernameField.getText().isBlank() ||
+                                  passwordField.getText().isBlank() ||
+                                  indirizzoField.getText().isBlank() ||
+                                  dataNascitaPicker.getValue() == null ||
+                                  ruoloGroup.getSelectedToggle() == null;
+        System.out.println("test");
+        btnRegistrati.setDisable(allFieldsFilled);
     }
 
     
@@ -100,11 +100,11 @@ public class RegistrazioneController {
         String ruolo = selectedRadioButton.getText();
         
         // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
-        String nome = nomeTextField.getText();
-        String cognome = cognomeTextField.getText();
-        String username = usernameTextField.getText();
+        String nome = nomeField.getText();
+        String cognome = cognomeField.getText();
+        String username = usernameField.getText();
         String password = passwordField.getText();
-        String indirizzo = indirizzoTextField.getText();
+        String indirizzo = indirizzoField.getText();
         
         // Verifica che l'username sia disponibile
         if(UtenteReader.cercaUtente(username) != null) {
@@ -117,6 +117,8 @@ public class RegistrazioneController {
         
 
         password = Criptatore.cripta(password);
+
+        if(password == null) return;
  
         Coordinate coordinate = new Coordinate(indirizzo);
         if(coordinate.getLat() == null) return;
@@ -145,7 +147,7 @@ public class RegistrazioneController {
 
 
     @FXML
-    private void annulla(){
+    private void chiudi(){
         if(paginaPrincipale){
             SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", // Gestire eccezioni cambio scena
                 (PaginaPrincipaleController controller) -> controller.setStage(stage));

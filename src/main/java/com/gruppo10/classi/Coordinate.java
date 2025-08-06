@@ -20,11 +20,6 @@ public class Coordinate {
 
     // Algoritmo di geocode
     public Coordinate(String indirizzo){
-
-        if(indirizzo == null || indirizzo.isBlank()){
-            throw new IllegalArgumentException("Indirizzo non valido");
-        }
-
         String encodedindirizzo = indirizzo.replace(" ", "+");
         String url = "https://nominatim.openstreetmap.org/search?q=" + encodedindirizzo + "&format=json&limit=1";
 
@@ -38,7 +33,8 @@ public class Coordinate {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
-                throw new RuntimeException("Errore HTTP: " + response.statusCode());
+                this.lat = (Double) GestioneEccezioni.errore("Errore HTTP: " + response.statusCode());
+                return;
             }
 
             JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();

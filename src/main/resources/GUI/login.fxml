@@ -22,7 +22,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#provaLogin" prefHeight="25.0" prefWidth="68.0" text="Login" textAlignment="CENTER">
+            <Button fx:id="btnLogin" disable="true" mnemonicParsing="false" onAction="#provaLogin" prefHeight="25.0" prefWidth="68.0" text="Login" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -30,7 +30,7 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button fx:id="registratiButton" mnemonicParsing="false" onAction="#apriRegistrazione" prefHeight="30.0" prefWidth="84.0" text="Registrati" textAlignment="CENTER" GridPane.columnIndex="1">
+            <Button fx:id="btnRegistrati" mnemonicParsing="false" onAction="#apriRegistrazione" prefHeight="30.0" prefWidth="84.0" text="Registrati" textAlignment="CENTER" GridPane.columnIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -78,9 +78,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="textIndirizzo" alignment="CENTER" prefHeight="25.0" prefWidth="194.0" promptText="inserisci un indirizzo" GridPane.columnSpan="2" />
+            <TextField fx:id="indirizzoField" alignment="CENTER" prefHeight="25.0" prefWidth="194.0" promptText="inserisci un indirizzo" GridPane.columnSpan="2" />
             <Label prefHeight="17.0" prefWidth="136.0" text="continua senza registrarti" GridPane.rowIndex="1" />
-            <Button fx:id="continuaButton" mnemonicParsing="false" onAction="#continuaSenzaRegistrarti" prefHeight="25.0" prefWidth="98.0" text="Continua" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnContinua" disable="true" mnemonicParsing="false" onAction="#continuaSenzaRegistrarti" prefHeight="25.0" prefWidth="98.0" text="Continua" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label fx:id="loginStatus" layoutX="174.0" layoutY="274.0" prefHeight="27.0" prefWidth="256.0" text="Login status: ACCESSO NON EFFETTUATO" />

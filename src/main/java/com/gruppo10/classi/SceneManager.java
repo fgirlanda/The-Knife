@@ -40,7 +40,7 @@ public class SceneManager {
             }
 
         } catch (IOException e) {
-            System.err.println("Errore caricamento file fxml: " + fxmlPath);
+            System.err.println("Errore caricamento file fxml: " + fxmlPath + "\nEccezioni: " + e);
         }
     }
 
