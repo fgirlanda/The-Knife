@@ -1,7 +1,5 @@
 package com.gruppo10.controller;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,8 +78,7 @@ public class PaginaPrincipaleController {
 
     // Lista ristoranti, calcolo distanze e caricamento card
     public void setRistoranti(){
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-        ristoranti = RistoranteReader.caricaCSV(path.toString());
+        ristoranti = RistoranteReader.caricaCSV();
         mappaDistanze(ristoranti);
         caricaTessere(ristoranti);
     }

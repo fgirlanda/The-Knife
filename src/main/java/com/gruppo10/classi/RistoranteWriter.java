@@ -2,19 +2,16 @@ package com.gruppo10.classi;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 // Aggiungere id, shiftare tutti i dati
 public class RistoranteWriter {
 
-    public void scriviRistorante(Ristorante ristorante) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    public void scriviRistorante(Ristorante ristorante){
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
@@ -22,8 +19,7 @@ public class RistoranteWriter {
 
         boolean fileEsiste = fileRistorante.exists();
         
-        try (Writer writer = new FileWriter(fileRistorante, true)) {
-            CSVWriter csvWriter = new CSVWriter(writer);
+        try (Writer writer = new FileWriter(fileRistorante, true); CSVWriter csvWriter = new CSVWriter(writer);) {
             if (!fileEsiste) {
                 String[] header = { "Id", "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario"};
                 csvWriter.writeNext(header);
@@ -33,13 +29,13 @@ public class RistoranteWriter {
             String[] dati = estraiDati(ristorante, fileRistorante);
             // Scrivi i dati del ristorante
             csvWriter.writeNext(dati);
-            csvWriter.close();
-            writer.close();
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + fileRistorante.toString());
         }
     }
 
 
-    private String[] estraiDati(Ristorante ristorante, File file) throws FileNotFoundException, IOException {
+    private String[] estraiDati(Ristorante ristorante, File file){
         String[] dati = new String[11];
         dati[0] = String.valueOf(ultimoID(file));
         dati[1] = ristorante.getNomeRistorante();
@@ -58,13 +54,14 @@ public class RistoranteWriter {
     }  
 
 
-    public static int ultimoID(File file) throws FileNotFoundException, IOException{
-        int contaID;
+    public static int ultimoID(File file){
+        int contaID = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                contaID = 0; // Inizializza contaID a -1 per non contare l'header
                 while (br.readLine() != null) {
                     contaID++;
                 }
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + e.getMessage());
         } 
         return contaID;
     }

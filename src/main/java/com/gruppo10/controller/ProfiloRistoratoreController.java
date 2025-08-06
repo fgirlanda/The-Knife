@@ -1,7 +1,5 @@
 package com.gruppo10.controller;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +40,7 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-        ristoranti = RistoranteReader.caricaCSV(path.toString());
+        ristoranti = RistoranteReader.caricaCSV();
         listaFiltrata = filtraProprietario(ristoranti);
         aggiornaContenitore(listaFiltrata);
     }
@@ -80,7 +77,6 @@ public class ProfiloRistoratoreController {
         SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
             (AggiungiRistoranteController controller) -> {
                 controller.setOnCloseCallback(() -> {
-                    // Qui aggiungi il nuovo ristorante nella lista e aggiorni il contenitore
                     Ristorante r = controller.getNuovoRistorante();
                     if (r != null) {
                         listaFiltrata.add(r);

@@ -3,9 +3,11 @@ package com.gruppo10.classi;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class UtenteReader {
     
@@ -34,10 +36,12 @@ public class UtenteReader {
                         utente.setCords(Double.parseDouble(dati[8]),Double.parseDouble(dati[9]));
                         aggiungiUtente(utente.getUsername(), utente);
                     }
-                } catch (Exception e) { // Gestione eccezioni
-                    System.err.println("Errore durante il caricamento degli utenti: " + e.getMessage());
-                    e.printStackTrace();
-                }
+
+                } catch (CsvValidationException e) {
+                    System.err.println("Errore format csv." + e.getMessage());
+                } catch (IOException e) {
+                    System.err.println("Errore caricamento file: " + fileUtente.toString());
+                } 
             }
         }
 

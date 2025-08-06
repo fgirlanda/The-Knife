@@ -39,14 +39,9 @@ public class SceneManager {
                 controllerConsumer.accept(controller);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file fxml: " + fxmlPath);
         }
-    }
-
-
-    public static void cambioScena(Stage stage, String fxmlPath, String title) {
-        cambioScena(stage, fxmlPath, title, null);
     }
 
 
@@ -106,7 +101,7 @@ public class SceneManager {
                 
                 contenitoreTessere.getChildren().add(card);
             } catch (IOException e) {
-                System.err.println("Errore nel caricamento della scheda del ristorante: " + e.getMessage());
+                System.err.println("Errore nel caricamento della scheda: " + fxmlPath);
             }
         }
     }

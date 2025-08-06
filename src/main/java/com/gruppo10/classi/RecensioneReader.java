@@ -1,10 +1,12 @@
 package com.gruppo10.classi;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class RecensioneReader {
 
@@ -31,9 +33,11 @@ public class RecensioneReader {
                 r.setRisposta(risposta);
                 lista.add(r);
             }
-        } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + nomeFile);
-        }
+        } catch (CsvValidationException e) {
+            System.err.println("Errore format csv." + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + nomeFile);
+        }  
         return lista;
     }
 }

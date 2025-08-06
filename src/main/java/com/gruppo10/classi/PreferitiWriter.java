@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class PreferitiWriter {
 
@@ -42,7 +43,7 @@ public class PreferitiWriter {
         }
     }
 
-    public static void rimuoviPreferito(int idUtente, int idRistorante) throws IOException {
+    public static void rimuoviPreferito(int idUtente, int idRistorante){
         try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
             String[] dati;
             List<String[]> listaTemp = new ArrayList<>();
@@ -69,7 +70,9 @@ public class PreferitiWriter {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (CsvValidationException e) {
+            System.err.println("Errore format csv." + e.getMessage());
+        } catch (IOException e) {
             System.err.println("Errore caricamento file: " + nomeFile);
         }  
     }

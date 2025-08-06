@@ -2,15 +2,18 @@ package com.gruppo10.classi;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class RistoranteReader {
-    public static List<Ristorante> caricaCSV(String nomeFile) {
+    private static final String nomeFile = "fileCSV/ristoranti.csv";
+    public static List<Ristorante> caricaCSV() {
         List<Recensione> listaRecensioni = new ArrayList<>();
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         File fileRecensioni = new File(path.toString());
@@ -52,9 +55,11 @@ public class RistoranteReader {
                 }
                 lista.add(r);
             }
-        } catch (Exception e) {
-            System.err.println("Errore caricamento file csv: " + e.getMessage());
-        }
+        } catch (CsvValidationException e) {
+            System.err.println("Errore format csv." + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + nomeFile);
+        }  
         return lista;
     }
 }

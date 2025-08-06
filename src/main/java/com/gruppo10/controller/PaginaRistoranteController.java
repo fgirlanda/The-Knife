@@ -1,7 +1,6 @@
 package com.gruppo10.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -171,11 +170,7 @@ public class PaginaRistoranteController {
 
 
     private void rimuoviPreferito() {
-        try {
-            PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
     }
 
 

@@ -1,20 +1,16 @@
 package com.gruppo10.classi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.security.NoSuchAlgorithmException;
 import java.time.format.DateTimeFormatter;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.CSVWriter;
 
 public class UtenteWriter {
 
 
-    public void scriviUtente(Utente utente) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, NoSuchAlgorithmException {
+    public void scriviUtente(Utente utente){
         File dir = new File("fileCSV");
         if (!dir.exists()) dir.mkdirs();
 
@@ -22,10 +18,9 @@ public class UtenteWriter {
         
         boolean fileEsiste = fileUtente.exists();
 
-        try (Writer writer = new FileWriter(fileUtente, true)) {
+        try (Writer writer = new FileWriter(fileUtente, true); CSVWriter csvWriter = new CSVWriter(writer);) {
             
-            // Se il file non esiste, scrivi l'header
-            CSVWriter csvWriter = new CSVWriter(writer);
+            // Se il file non esiste, scrivi l'header    
             if (!fileEsiste) {
                 String[] header = { "ID","Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo", "Latitudine", "Longitudine" }; // Sostituisci con i nomi dei campi della classe Utente
                 csvWriter.writeNext(header);
@@ -37,12 +32,12 @@ public class UtenteWriter {
 
             // Scrivi i dati dell'utente
             csvWriter.writeNext(dati);
-            csvWriter.close();
-            writer.close();
+        } catch (IOException e) {
+            System.err.println("Errore caricamento file: " + fileUtente.toString());
         }
     }
 
-    private String[] estraiDati(Utente utente, File file) throws FileNotFoundException, IOException {
+    private String[] estraiDati(Utente utente, File file){
         String[] dati = new String[10];
         dati[0] = String.valueOf(RistoranteWriter.ultimoID(file));
         dati[1] = utente.getNome();

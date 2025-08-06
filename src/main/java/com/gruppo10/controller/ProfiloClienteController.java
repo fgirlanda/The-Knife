@@ -1,7 +1,5 @@
 package com.gruppo10.controller;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +48,7 @@ public class ProfiloClienteController {
         caricaDatiUtente();
 
         // Carica ristoranti preferiti
-        Path pathRistoranti = Paths.get(System.getProperty("user.dir"), "fileCSV", "ristoranti.csv");
-        ristoranti = RistoranteReader.caricaCSV(pathRistoranti.toString());
+        ristoranti = RistoranteReader.caricaCSV();
         List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
         SceneManager.caricaTessere(
             listaRisFiltrata,
@@ -64,10 +61,8 @@ public class ProfiloClienteController {
         );
 
         // Carica recensioni utente
-        // Path pathRecensioni= Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         recensioni = RecensioneReader.caricaCSV();
         List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
-        // RecensioneReader.caricaTessere(listaRecFiltrata, contenitoreTessereRec, stage, utenteLoggato.getId());
         SceneManager.caricaTessere(
             listaRecFiltrata,
             contenitoreTessereRec,
