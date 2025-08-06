@@ -18,14 +18,10 @@ import com.google.gson.JsonSyntaxException;
 
 public class Indirizzi {
     public static List<String> getRisultati(String query) {
-
-    if (query == null || query.isBlank()) {
-        throw new IllegalArgumentException("Il parametro query non può essere nullo o vuoto");
-    }
-
     String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
                + "&format=json&addressdetails=1&limit=5";
 
+    List<String> suggerimenti = new ArrayList<>();
     HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(url))
             .header("User-Agent", "TuaApp/1.0 (tua@email.com)")
@@ -37,35 +33,35 @@ public class Indirizzi {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            throw new RuntimeException("Errore HTTP: " + response.statusCode());
+            GestioneEccezioni.errore("Errore HTTP, status code: " + response.statusCode(), suggerimenti);
+            return suggerimenti;
         }
 
         String body = response.body();
-        if (body == null || body.isBlank()) {
-            throw new RuntimeException("Risposta vuota dal servizio di suggerimenti");
-        }
 
-        JsonArray results = JsonParser.parseString(body).getAsJsonArray();
-        List<String> suggestions = new ArrayList<>();
+        JsonArray risultati = JsonParser.parseString(body).getAsJsonArray();
 
-        for (JsonElement result : results) {
-            JsonObject obj = result.getAsJsonObject();
+        for (JsonElement risultato : risultati) {
+            JsonObject obj = risultato.getAsJsonObject();
             if (obj.has("display_name")) {
-                suggestions.add(obj.get("display_name").getAsString());
+                suggerimenti.add(obj.get("display_name").getAsString());
             }
         }
 
-        return suggestions;
+        return suggerimenti;
 
         } catch (IOException e) {
-            throw new RuntimeException("Errore di rete durante la richiesta HTTP", e);
+            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP :" + e, suggerimenti);
+            return suggerimenti;
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Richiesta interrotta", e);
-
+            GestioneEccezioni.errore("Richiesta interrotta :" + e, suggerimenti);
+            return suggerimenti;
+            
         } catch (JsonSyntaxException e) {
-            throw new RuntimeException("Errore nel parsing della risposta JSON", e);
+            GestioneEccezioni.errore("Errore nel parsing della risposta JSON :" + e, suggerimenti);
+            return suggerimenti;
         }
     }
 }

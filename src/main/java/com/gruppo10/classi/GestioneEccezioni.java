@@ -3,8 +3,8 @@ package com.gruppo10.classi;
 import com.gruppo10.controller.StatusController;
 
 public class GestioneEccezioni {
-    public static Object errore(String errore){
+    public static void errore(String errore, Object variabile){
         SceneManager.finestraDialogo("/GUI/status.fxml", "Errore", null, (StatusController controller) -> controller.setTesto(errore)); 
-        return null;
+        variabile = null;
     }
 }
