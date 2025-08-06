@@ -18,18 +18,17 @@ public class CardRistoranteController implements CardController<Ristorante>{
     public Ristorante ristorante;
 
     @FXML private HBox card;
+    
     @FXML private ImageView imgRistorante;
+
     @FXML private Text txtNomeRistorante;
+
     @FXML private Text txtRecensioni;
+
     @FXML private Text txtPrezzo;
+
     @FXML private Text txtTipoCucina;
 
-
-    // public void initialize() {
-    //     card.setOnMouseClicked(_ -> { // _ = event
-    //         apriPaginaRistorante();
-    //     });
-    // }
 
     @Override
     public void setStage(Stage stage) { 

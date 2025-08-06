@@ -34,10 +34,14 @@ public class RecensioneReader {
                 lista.add(r);
             }
         } catch (CsvValidationException e) {
-            System.err.println("Errore format csv." + e.getMessage());
+            GestioneEccezioni.errore("Errore format csv in: " + nomeFile, lista);
+            return lista;
+            
         } catch (IOException e) {
-            System.err.println("Errore caricamento file: " + nomeFile);
-        }  
+            GestioneEccezioni.errore("Errore caricamento file: " + nomeFile, lista);
+            return lista;
+        }
+
         return lista;
     }
 }

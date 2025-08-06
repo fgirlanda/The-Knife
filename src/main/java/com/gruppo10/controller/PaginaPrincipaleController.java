@@ -79,8 +79,10 @@ public class PaginaPrincipaleController {
     // Lista ristoranti, calcolo distanze e caricamento card
     public void setRistoranti(){
         ristoranti = RistoranteReader.caricaCSV();
-        mappaDistanze(ristoranti);
-        caricaTessere(ristoranti);
+        if(ristoranti != null){
+            caricaTessere(ristoranti);
+            mappaDistanze(ristoranti);
+        }
     }
 
 

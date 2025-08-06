@@ -12,7 +12,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
-public class PreferitiWriter {
+public class GestionePreferiti {
 
     private static final String nomeFile = "fileCSV/preferiti.csv";
 
@@ -39,7 +39,7 @@ public class PreferitiWriter {
             // Scrivi i dati della recensione
             csvWriter.writeNext(dati);
         } catch (IOException e) {
-            System.err.println("Errore caricamento file: " + filePreferiti.toString());
+            GestioneEccezioni.errore("Errore caricamento file: " + nomeFile, null);
         }
     }
 
@@ -71,9 +71,32 @@ public class PreferitiWriter {
             }
 
         } catch (CsvValidationException e) {
-            System.err.println("Errore format csv." + e.getMessage());
+            GestioneEccezioni.errore("Errore format csv in: " + nomeFile, null);
+            
         } catch (IOException e) {
-            System.err.println("Errore caricamento file: " + nomeFile);
+            GestioneEccezioni.errore("Errore caricamento file: " + nomeFile, null);
         }  
+    }
+
+    public static boolean controlloPreferito(int idUtente, int idRistorante) {
+        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+            String[] dati;
+            reader.readNext(); // Salta header
+            while ((dati = reader.readNext()) != null) {
+                int idUt = Integer.parseInt(dati[0]);
+                int idRis = Integer.parseInt(dati[1]);
+
+                if (idUt == idUtente && idRis == idRistorante) {
+                    return true;
+                }
+            }
+        } catch (CsvValidationException e) {
+            GestioneEccezioni.errore("Errore format csv." + e.getMessage(), null);
+            
+        } catch (IOException e) {
+            GestioneEccezioni.errore("Errore caricamento file: " + nomeFile, null);
+        } 
+
+        return false;
     }
 }

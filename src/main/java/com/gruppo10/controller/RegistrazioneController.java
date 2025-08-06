@@ -133,7 +133,7 @@ public class RegistrazioneController {
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
         utente.setCords(coordinate);
-        UtenteReader.aggiungiUtente(utente.getUsername(),utente);
+        UtenteReader.aggiungiUtente(utente);
         UtenteWriter writer = new UtenteWriter();
         try {
             writer.scriviUtente(utente);

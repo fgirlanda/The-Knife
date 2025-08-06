@@ -41,8 +41,10 @@ public class ProfiloRistoratoreController {
         this.stage = stage;
         caricaDatiUtente();
         ristoranti = RistoranteReader.caricaCSV();
-        listaFiltrata = filtraProprietario(ristoranti);
-        aggiornaContenitore(listaFiltrata);
+        if(ristoranti != null){
+            listaFiltrata = filtraProprietario(ristoranti);
+            aggiornaContenitore(listaFiltrata);
+        }
     }
 
     public void setTab(int tab){

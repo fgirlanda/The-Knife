@@ -3,7 +3,7 @@ package com.gruppo10.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gruppo10.classi.PreferitiReader;
+import com.gruppo10.classi.GestionePreferiti;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.Ristorante;
@@ -49,31 +49,35 @@ public class ProfiloClienteController {
 
         // Carica ristoranti preferiti
         ristoranti = RistoranteReader.caricaCSV();
-        List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
-        SceneManager.caricaTessere(
-            listaRisFiltrata,
-            contenitoreTessereRis,
-            stage,
-            "/GUI/card_ristorante.fxml",
-            (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(false);
-            }
-        );
+        if(ristoranti != null){
+            List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
+            SceneManager.caricaTessere(
+                listaRisFiltrata,
+                contenitoreTessereRis,
+                stage,
+                "/GUI/card_ristorante.fxml",
+                (controller, _) -> {
+                    ((CardRistoranteController) controller).setPrincipale(false);
+                }
+            );
+        }
 
         // Carica recensioni utente
         recensioni = RecensioneReader.caricaCSV();
-        List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
-        SceneManager.caricaTessere(
-            listaRecFiltrata,
-            contenitoreTessereRec,
-            stage,
-            "/GUI/card_recensione.fxml",
-            (controller, _) -> {
-                ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
-                ((CardRecensioneController) controller).setRistorante(null);
-                ((CardRecensioneController) controller).setPrincipale(false);
-            }
-        );
+        if(recensioni != null){
+            List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
+            SceneManager.caricaTessere(
+                listaRecFiltrata,
+                contenitoreTessereRec,
+                stage,
+                "/GUI/card_recensione.fxml",
+                (controller, _) -> {
+                    ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
+                    ((CardRecensioneController) controller).setRistorante(null);
+                    ((CardRecensioneController) controller).setPrincipale(false);
+                }
+            );
+        }
     }
 
     public void setTab(int tab){
@@ -96,7 +100,7 @@ public class ProfiloClienteController {
         List<Ristorante> nuovaLista = new ArrayList<>();
         
         for (Ristorante r : listaRistoranti) {
-            if (PreferitiReader.controlloPreferito(utenteLoggato.getId(), r.getId())) {
+            if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), r.getId())) {
                 nuovaLista.add(r);
             }
         }

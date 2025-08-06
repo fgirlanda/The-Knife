@@ -6,8 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gruppo10.classi.PreferitiReader;
-import com.gruppo10.classi.PreferitiWriter;
+import com.gruppo10.classi.GestionePreferiti;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneReader;
 import com.gruppo10.classi.Ristorante;
@@ -71,7 +70,7 @@ public class PaginaRistoranteController {
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
 
-        if (PreferitiReader.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
+        if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
             imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
         } else {
             imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
@@ -81,20 +80,22 @@ public class PaginaRistoranteController {
         File fileRecensioni = new File(path.toString());
         if (fileRecensioni.exists()) {
             recensioni = RecensioneReader.caricaCSV();
-            List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
-            presente = recensioneInserita(listaFiltrata);
-            SceneManager.caricaTessere(
-                listaFiltrata,
-                contenitoreTessere,
-                stage,
-                "/GUI/card_recensione.fxml",
-                (controller, _) -> {
-                    ((CardRecensioneController) controller).setIdProprietario(this.ristorante.getIdproprietario());
-                    ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
-                    ((CardRecensioneController) controller).setRistorante(this.ristorante);
-                    ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
-                }
-            );
+            if(recensioni != null){
+                List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
+                presente = recensioneInserita(listaFiltrata);
+                SceneManager.caricaTessere(
+                    listaFiltrata,
+                    contenitoreTessere,
+                    stage,
+                    "/GUI/card_recensione.fxml",
+                    (controller, _) -> {
+                        ((CardRecensioneController) controller).setIdProprietario(this.ristorante.getIdproprietario());
+                        ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
+                        ((CardRecensioneController) controller).setRistorante(this.ristorante);
+                        ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
+                    }
+                );
+            }
         }
 
         if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
@@ -163,14 +164,14 @@ public class PaginaRistoranteController {
 
 
     private void aggiungiPreferito() {
-        if (!PreferitiReader.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
-            PreferitiWriter.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
+        if (!GestionePreferiti.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
+            GestionePreferiti.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
         }
     }
 
 
     private void rimuoviPreferito() {
-        PreferitiWriter.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
+        GestionePreferiti.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
     }
 
 
