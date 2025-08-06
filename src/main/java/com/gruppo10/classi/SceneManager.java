@@ -54,7 +54,7 @@ public class SceneManager {
             dialogStage = new Stage();
             dialogStage.setTitle(title);
             dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(owner);
+            if (owner != null) dialogStage.initOwner(owner);
             dialogStage.setScene(new Scene(root));
 
             T controller = loader.getController();

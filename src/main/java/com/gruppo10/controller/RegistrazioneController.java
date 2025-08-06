@@ -118,6 +118,8 @@ public class RegistrazioneController {
 
         password = Criptatore.cripta(password);
  
+        Coordinate coordinate = new Coordinate(indirizzo);
+        if(coordinate.getLat() == null) return;
         
         // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();
@@ -128,7 +130,6 @@ public class RegistrazioneController {
         utente.setDataDiNascita(dataNascita);
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
-        Coordinate coordinate = new Coordinate(indirizzo);
         utente.setCords(coordinate);
         UtenteReader.aggiungiUtente(utente.getUsername(),utente);
         UtenteWriter writer = new UtenteWriter();

@@ -9,7 +9,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-
 import lombok.Data;
 
 @Data
@@ -17,17 +16,17 @@ public class Coordinate {
 
     final static int R = 6371; // Raggio della Terra in km
 
-    private double lat, lon;
+    private Double lat, lon;
 
     // Algoritmo di geocode
-    public Coordinate(String address){
+    public Coordinate(String indirizzo){
 
-        if(address == null || address.isBlank()){
+        if(indirizzo == null || indirizzo.isBlank()){
             throw new IllegalArgumentException("Indirizzo non valido");
         }
 
-        String encodedAddress = address.replace(" ", "+");
-        String url = "https://nominatim.openstreetmap.org/search?q=" + encodedAddress + "&format=json&limit=1";
+        String encodedindirizzo = indirizzo.replace(" ", "+");
+        String url = "https://nominatim.openstreetmap.org/search?q=" + encodedindirizzo + "&format=json&limit=1";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -45,7 +44,8 @@ public class Coordinate {
             JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
 
             if (results.size() == 0) {
-                throw new RuntimeException("Nessun risultato trovato per l'indirizzo: " + address);
+                this.lat = (Double) GestioneEccezioni.errore("Nessun risultato trovato per: " + indirizzo);
+                return;
             }
 
             JsonObject obj = results.get(0).getAsJsonObject();
@@ -56,14 +56,17 @@ public class Coordinate {
             this.lon = lon;
 
         } catch (IOException e) {
-            throw new RuntimeException("Errore di rete durante la richiesta HTTP", e);
+            this.lat = (Double) GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP: " + e);
+            return;
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Richiesta interrotta", e);
+            this.lat = (Double) GestioneEccezioni.errore("Errore: richiesta interrotta: " + e);
+            return;
 
         } catch (JsonSyntaxException e) {
-            throw new RuntimeException("Errore nel parsing della risposta JSON", e);
+            this.lat = (Double) GestioneEccezioni.errore("Errore nel parsing della risposta JSON: " + e);
+            return;
         }
     }
 

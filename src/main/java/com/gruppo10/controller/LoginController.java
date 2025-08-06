@@ -51,6 +51,11 @@ public class LoginController {
     public void provaLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
+        if(password.isBlank()){
+            loginStatus.setVisible(true);
+            loginStatus.setText("Login status: INSERISCI LA PASSWORD");
+            return;
+        }
         String hashedPassword = Criptatore.cripta(password);
         
         // Verifica se l'utente esiste nel file CSV
@@ -84,17 +89,16 @@ public class LoginController {
     @FXML
     public void continuaSenzaRegistrarti() {
         String indirizzo = textIndirizzo.getText();
-
         if (indirizzo.isBlank()) {
             loginStatus.setVisible(true);
             loginStatus.setText("Login status: INSERISCI UN INDIRIZZO");
             return;
         }
-
+        Coordinate coordinate = new Coordinate(indirizzo);
+        if(coordinate.getLat() == null) return;
         utenteLoggato = new Utente();
         utenteLoggato.setRuolo("NON_REGISTRATO");
         utenteLoggato.setIndirizzo(indirizzo);
-        Coordinate coordinate = new Coordinate(indirizzo);
         utenteLoggato.setCords(coordinate);
 
         // Precaricamento pagina principale (?)

@@ -101,6 +101,9 @@ public class AggiungiRistoranteController {
     @FXML
     private void aggiungiRistorante() throws Exception {
 
+        String indirizzo = txtIndirizzo.getText();
+        Coordinate cords = new Coordinate(indirizzo);
+        if(cords.getLat() == null) return;
         // Recupera i dati dai campi
         RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
         RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
@@ -109,7 +112,6 @@ public class AggiungiRistoranteController {
         String tempPrenotazione = selectedPrenotazione.getText();
 
         String nomeRistorante = txtNomeRistorante.getText();
-        String indirizzo = txtIndirizzo.getText();
         boolean delivery;
         boolean prenotazioneOnline;
         if(tempDelivery.equals("Sì")) {delivery = true;} else {delivery = false;}
@@ -129,7 +131,6 @@ public class AggiungiRistoranteController {
 
         this.nuovoRistorante = ristorante;
 
-        Coordinate cords = new Coordinate(indirizzo);
         ristorante.setCords(cords);
 
         RistoranteWriter writer = new RistoranteWriter();
