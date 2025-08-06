@@ -60,24 +60,25 @@ public class ProfiloClienteController {
                     ((CardRistoranteController) controller).setPrincipale(false);
                 }
             );
+            
+            // Carica recensioni utente
+            recensioni = RecensioneReader.caricaCSV();
+            if(recensioni != null){
+                List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
+                SceneManager.caricaTessere(
+                    listaRecFiltrata,
+                    contenitoreTessereRec,
+                    stage,
+                    "/GUI/card_recensione.fxml",
+                    (controller, _) -> {
+                        ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
+                        ((CardRecensioneController) controller).setRistorante(null);
+                        ((CardRecensioneController) controller).setPrincipale(false);
+                    }
+                );
+            }
         }
 
-        // Carica recensioni utente
-        recensioni = RecensioneReader.caricaCSV();
-        if(recensioni != null){
-            List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
-            SceneManager.caricaTessere(
-                listaRecFiltrata,
-                contenitoreTessereRec,
-                stage,
-                "/GUI/card_recensione.fxml",
-                (controller, _) -> {
-                    ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
-                    ((CardRecensioneController) controller).setRistorante(null);
-                    ((CardRecensioneController) controller).setPrincipale(false);
-                }
-            );
-        }
     }
 
     public void setTab(int tab){

@@ -1,4 +1,4 @@
-"ID Recensione","ID Cliente","ID Ristorante","Voto","Testo","Risposta"
+"ID Recensione","Username","ID Cliente","ID Ristorante","Voto","Testo","Risposta"
 "1","test","7","1","5","test",""
 "2","carlo","4","51","5","bob",""
 "3","bib","0","51","5","bib",""

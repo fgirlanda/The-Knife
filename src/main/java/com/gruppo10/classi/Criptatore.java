@@ -16,7 +16,7 @@ public class Criptatore {
             return hexString.toString();
 
         } catch (NoSuchAlgorithmException e) {
-            GestioneEccezioni.errore("Algoritmo SHA-256 non disponibile: " + e, null);
+            GestioneEccezioni.errore("Algoritmo SHA-256 non disponibile: " + e);
             return null;
         }
     }

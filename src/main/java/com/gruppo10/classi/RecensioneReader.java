@@ -1,5 +1,6 @@
 package com.gruppo10.classi;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,11 +11,11 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class RecensioneReader {
 
-    private static final String nomeFile = "fileCSV/recensioni.csv";
-
     public static List<Recensione> caricaCSV() {
+        File dir = new File("fileCSV");
+        File fileRecensioni = new File(dir, "recensioni.csv");
         List<Recensione> lista = new ArrayList<>();
-        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
             reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {
@@ -34,12 +35,12 @@ public class RecensioneReader {
                 lista.add(r);
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + nomeFile, lista);
-            return lista;
+            GestioneEccezioni.errore("Errore format csv in: " + fileRecensioni);
+            return null;
             
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + nomeFile, lista);
-            return lista;
+            GestioneEccezioni.errore("Errore caricamento file: " + fileRecensioni);
+            return null;
         }
 
         return lista;

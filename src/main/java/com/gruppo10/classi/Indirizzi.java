@@ -33,8 +33,8 @@ public class Indirizzi {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            GestioneEccezioni.errore("Errore HTTP, status code: " + response.statusCode(), suggerimenti);
-            return suggerimenti;
+            GestioneEccezioni.errore("Errore HTTP, status code: " + response.statusCode());
+            return null;
         }
 
         String body = response.body();
@@ -51,17 +51,17 @@ public class Indirizzi {
         return suggerimenti;
 
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP :" + e, suggerimenti);
-            return suggerimenti;
+            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP :" + e);
+            return null;
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            GestioneEccezioni.errore("Richiesta interrotta :" + e, suggerimenti);
-            return suggerimenti;
+            GestioneEccezioni.errore("Richiesta interrotta :" + e);
+            return null;
             
         } catch (JsonSyntaxException e) {
-            GestioneEccezioni.errore("Errore nel parsing della risposta JSON :" + e, suggerimenti);
-            return suggerimenti;
+            GestioneEccezioni.errore("Errore nel parsing della risposta JSON :" + e);
+            return null;
         }
     }
 }

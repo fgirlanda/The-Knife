@@ -30,7 +30,7 @@ public class RistoranteWriter {
             // Scrivi i dati del ristorante
             csvWriter.writeNext(dati);
         } catch (IOException e) {
-            System.err.println("Errore caricamento file: " + fileRistorante.toString());
+            System.err.println("Errore caricamento file: " + fileRistorante);
         }
     }
 

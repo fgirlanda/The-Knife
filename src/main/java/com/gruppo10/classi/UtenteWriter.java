@@ -19,21 +19,18 @@ public class UtenteWriter {
         boolean fileEsiste = fileUtente.exists();
 
         try (Writer writer = new FileWriter(fileUtente, true); CSVWriter csvWriter = new CSVWriter(writer);) {
-            
-            // Se il file non esiste, scrivi l'header    
+              
             if (!fileEsiste) {
-                String[] header = { "ID","Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo", "Latitudine", "Longitudine" }; // Sostituisci con i nomi dei campi della classe Utente
+                String[] header = { "ID","Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo", "Latitudine", "Longitudine" };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
             
-            // Crea lista dati
             String[] dati = estraiDati(utente, fileUtente);
 
-            // Scrivi i dati dell'utente
             csvWriter.writeNext(dati);
         } catch (IOException e) {
-            System.err.println("Errore caricamento file: " + fileUtente.toString());
+            System.err.println("Errore caricamento file: " + fileUtente);
         }
     }
 

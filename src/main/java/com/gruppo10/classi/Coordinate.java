@@ -33,14 +33,16 @@ public class Coordinate {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
-                GestioneEccezioni.errore("Errore HTTP: " + response.statusCode(), this.lat);
+                GestioneEccezioni.errore("Errore HTTP: " + response.statusCode());
+                this.lat = null;
                 return;
             }
 
             JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
 
             if (results.size() == 0) {
-                GestioneEccezioni.errore("Nessun risultato trovato per: " + indirizzo, this.lat);
+                GestioneEccezioni.errore("Nessun risultato trovato per: " + indirizzo);
+                this.lat = null;
                 return;
             }
 
@@ -52,17 +54,17 @@ public class Coordinate {
             this.lon = lon;
 
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP: " + e, this.lat);
-            return;
+            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP: " + e);
+            this.lat = null;
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            GestioneEccezioni.errore("Errore: richiesta interrotta: " + e, this.lat);
-            return;
+            GestioneEccezioni.errore("Errore: richiesta interrotta: " + e);
+            this.lat = null;
 
         } catch (JsonSyntaxException e) {
-            GestioneEccezioni.errore("Errore nel parsing della risposta JSON: " + e, this.lat);
-            return;
+            GestioneEccezioni.errore("Errore nel parsing della risposta JSON: " + e);
+            this.lat = null;
         }
     }
 

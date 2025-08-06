@@ -15,10 +15,10 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class RecensioneWriter {
-    private static final String nomeFile = "fileCSV/recensioni.csv";
+    static File dir = new File("fileCSV");
+    static File fileRecensioni = new File(dir, "recensioni.csv");
 
     public void scriviRecensione(Recensione recensione) {
-        File dir = new File("fileCSV");
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
                 System.err.println("Errore: impossibile creare la directory fileCSV");
@@ -26,7 +26,6 @@ public class RecensioneWriter {
             }
         }
 
-        File fileRecensioni = new File(dir, "recensioni.csv");
         boolean fileEsiste = fileRecensioni.exists();
 
         Writer writer = null;
@@ -68,7 +67,7 @@ public class RecensioneWriter {
     }
 
 
-    private String[] estraiDati(Recensione recensione, File file) throws FileNotFoundException, IOException {
+    private String[] estraiDati(Recensione recensione, File file){
         String[] dati = new String[7];
         
         dati[0] = Integer.toString(RistoranteWriter.ultimoID(file)); // Gestire eccezione in RistoranteWriter
@@ -91,7 +90,7 @@ public class RecensioneWriter {
 
         List<String[]> listaTemp = new ArrayList<>();
 
-        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
             try {
                 reader.readNext(); // Salta header
@@ -123,7 +122,7 @@ public class RecensioneWriter {
             }
 
         } catch (FileNotFoundException e) {
-            System.err.println("Errore: file CSV non trovato: " + nomeFile);
+            System.err.println("Errore: file CSV non trovato: " + fileRecensioni);
             return;
         } catch (IOException e) {
             System.err.println("Errore di lettura dal file CSV: " + e.getMessage());
@@ -131,7 +130,7 @@ public class RecensioneWriter {
         }
 
         // Sovrascrivi il file con i dati aggiornati
-        try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
             writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);
@@ -152,7 +151,7 @@ public class RecensioneWriter {
         List<String[]> listaTemp = new ArrayList<>();
 
         // Lettura del CSV
-        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
             reader.readNext(); // Salta l'header
 
@@ -180,7 +179,7 @@ public class RecensioneWriter {
             }
 
         } catch (FileNotFoundException e) {
-            System.err.println("Errore: file CSV non trovato: " + nomeFile);
+            System.err.println("Errore: file CSV non trovato: " + fileRecensioni);
             return;
 
         } catch (IOException e) {
@@ -193,7 +192,7 @@ public class RecensioneWriter {
         }
 
         // Scrittura del CSV aggiornato
-        try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
             writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);
@@ -213,7 +212,7 @@ public class RecensioneWriter {
         List<String[]> listaTemp = new ArrayList<>();
 
         // Lettura del CSV
-        try (CSVReader reader = new CSVReader(new FileReader(nomeFile))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
             reader.readNext(); // Salta l'header
 
@@ -237,7 +236,7 @@ public class RecensioneWriter {
             }
 
         } catch (FileNotFoundException e) {
-            System.err.println("Errore: file CSV non trovato: " + nomeFile);
+            System.err.println("Errore: file CSV non trovato: " + fileRecensioni);
             return;
 
         } catch (IOException e) {
@@ -250,7 +249,7 @@ public class RecensioneWriter {
         }
 
         // Scrittura del CSV aggiornato (senza cancellazione preventiva)
-        try (CSVWriter writer = new CSVWriter(new FileWriter(nomeFile))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
             writer.writeNext(new String[]{
                 "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"
             });
