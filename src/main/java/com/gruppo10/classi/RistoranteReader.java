@@ -15,7 +15,8 @@ public class RistoranteReader {
     static File fileRistoranti = new File(dir, "ristoranti_test.csv");
 
     public static List<Ristorante> caricaCSV() {
-        List<Recensione> listaRecensioni = RecensioneReader.caricaCSV();
+        RecensioneCSV recensioneCSV = new RecensioneCSV();
+        List<Recensione> listaRecensioni = recensioneCSV.caricaCSV();
 
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(fileRistoranti))) {

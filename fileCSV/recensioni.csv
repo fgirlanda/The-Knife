@@ -1,5 +1,4 @@
 "ID Recensione","Username","ID Cliente","ID Ristorante","Voto","Testo","Risposta"
 "1","carlo","4","7","5","test","test"
-"2","carlo","4","0","5","test","test"
-"3","carlo","4","1","5","test","test"
 "4","carlo","4","2","5","test",""
+"5","carlo","4","4","5","test",""

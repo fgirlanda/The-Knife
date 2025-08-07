@@ -1,7 +1,8 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.RecensioneCSV;
+// import com.gruppo10.classi.RecensioneWriter;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
@@ -133,7 +134,9 @@ public class ModificaRecensioneController {
             ristorante.rimuoviRecensione(recensione);
             ristorante.aggiungiRecensione(nuovaRecensione);
 
-            RecensioneWriter.modificaRecensione(this.recensione, testoModificato, nuovoVoto);
+            RecensioneCSV recensioneCSV = new RecensioneCSV();
+            recensioneCSV.modificaRecensione(nuovaRecensione, testoModificato, nuovoVoto);
+            // RecensioneWriter.modificaRecensione(this.recensione, testoModificato, nuovoVoto);
         }
 
         // ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);

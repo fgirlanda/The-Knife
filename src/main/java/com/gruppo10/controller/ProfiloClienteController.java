@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.gruppo10.classi.GestionePreferiti;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneReader;
+import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.SceneManager;
@@ -68,7 +68,8 @@ public class ProfiloClienteController {
                     });
 
             // Carica recensioni utente
-            recensioni = RecensioneReader.caricaCSV();
+            RecensioneCSV recensioneCSV = new RecensioneCSV();
+            recensioni = recensioneCSV.caricaCSV();
             if (recensioni != null) {
                 List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
                 SceneManager.caricaTessere(

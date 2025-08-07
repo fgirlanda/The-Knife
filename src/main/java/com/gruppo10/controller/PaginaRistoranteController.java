@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.gruppo10.classi.GestionePreferiti;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneReader;
+import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
@@ -83,7 +83,8 @@ public class PaginaRistoranteController {
             imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
         }
 
-        recensioni = RecensioneReader.caricaCSV();
+        RecensioneCSV recensioneCSV = new RecensioneCSV();
+        recensioni = recensioneCSV.caricaCSV();
         if (recensioni != null) {
             List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
             presente = recensioneInserita(listaFiltrata);

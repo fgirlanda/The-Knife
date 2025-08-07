@@ -1,7 +1,7 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,7 +43,8 @@ public class RispostaRecensioneController {
         String risposta = txtRisposta.getText();
 
         try {
-            RecensioneWriter.aggiungiRisposta(this.recensione, risposta);
+            RecensioneCSV recensioneCSV = new RecensioneCSV();
+            recensioneCSV.aggiungiRisposta(recensione, risposta);
         } catch (Exception e) {
             return;
         }

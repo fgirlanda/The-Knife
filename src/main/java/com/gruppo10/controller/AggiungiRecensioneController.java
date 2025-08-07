@@ -1,7 +1,7 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -82,7 +82,7 @@ public class AggiungiRecensioneController {
     }
 
     @FXML
-    private void aggiungiRecensione() throws Exception {
+    private void aggiungiRecensione(){
 
         // Recupera i dati dai campi
         String testo = txtTesto.getText();
@@ -101,7 +101,8 @@ public class AggiungiRecensioneController {
         ristorante.aggiungiRecensione(recensione);
 
         try {
-            RecensioneWriter.scriviRecensione(recensione);
+            RecensioneCSV recensioneCSV = new RecensioneCSV();
+            recensioneCSV.scrivi(recensione);
         } catch (Exception e) {
             return;
         }

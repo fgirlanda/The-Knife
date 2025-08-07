@@ -2,7 +2,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneWriter;
+import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
@@ -119,7 +119,9 @@ public class CardRecensioneController implements CardController<Recensione> {
     @FXML
     private void rimuovi() {
         this.ristorante.rimuoviRecensione(this.recensione);
-        RecensioneWriter.rimuoviRecensione(this.recensione);
+        // RecensioneWriter.rimuoviRecensione(this.recensione);
+        RecensioneCSV recensioneCSV = new RecensioneCSV();
+        recensioneCSV.rimuoviRecensione(recensione);
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
     }
 }
