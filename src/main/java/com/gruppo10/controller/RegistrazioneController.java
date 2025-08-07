@@ -87,7 +87,6 @@ public class RegistrazioneController {
                                   indirizzoField.getText().isBlank() ||
                                   dataNascitaPicker.getValue() == null ||
                                   ruoloGroup.getSelectedToggle() == null;
-        System.out.println("test");
         btnRegistrati.setDisable(allFieldsFilled);
     }
 

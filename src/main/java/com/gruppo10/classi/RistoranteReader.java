@@ -10,11 +10,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class RistoranteReader {
+    static File dir = new File("fileCSV");
+    static File fileRistoranti = new File(dir, "ristoranti2.csv");
+
     public static List<Ristorante> caricaCSV() {
-        File dir = new File("fileCSV");
-        File fileRistoranti = new File(dir, "ristoranti.csv");
-        List<Recensione> listaRecensioni = new ArrayList<>();
-        listaRecensioni = RecensioneReader.caricaCSV();
+        List<Recensione> listaRecensioni = RecensioneReader.caricaCSV();
         
         List<Ristorante> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(fileRistoranti))) {
@@ -53,11 +53,11 @@ public class RistoranteReader {
                 lista.add(r);
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + fileRistoranti);
+            GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, file -> fileRistoranti = file);
             return null;
 
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + fileRistoranti);
+            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, file -> fileRistoranti = file);
             return null;
         }  
         return lista;

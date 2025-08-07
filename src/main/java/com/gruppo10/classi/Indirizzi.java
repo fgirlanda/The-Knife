@@ -33,7 +33,7 @@ public class Indirizzi {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 200) {
-            GestioneEccezioni.errore("Errore HTTP, status code: " + response.statusCode());
+            GestioneEccezioni.errore("Errore HTTP", "Status code: " + response.statusCode(), false, null);
             return null;
         }
 
@@ -51,16 +51,16 @@ public class Indirizzi {
         return suggerimenti;
 
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP :" + e);
+            GestioneEccezioni.errore("Errore di rete durante la richiesta HTTP", e.getMessage(), false, null);
             return null;
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            GestioneEccezioni.errore("Richiesta interrotta :" + e);
+            GestioneEccezioni.errore("Richiesta interrotta", e.getMessage(), false, null);
             return null;
             
         } catch (JsonSyntaxException e) {
-            GestioneEccezioni.errore("Errore nel parsing della risposta JSON :" + e);
+            GestioneEccezioni.errore("Errore nel parsing della risposta JSON", e.getMessage(), false, null);
             return null;
         }
     }

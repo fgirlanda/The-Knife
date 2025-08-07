@@ -9,11 +9,11 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
-public class RecensioneReader {
+public class RecensioneReader{
+    static File dir = new File("fileCSV");
+    static File fileRecensioni = new File(dir, "recensioni2.csv");
 
     public static List<Recensione> caricaCSV() {
-        File dir = new File("fileCSV");
-        File fileRecensioni = new File(dir, "recensioni.csv");
         List<Recensione> lista = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
@@ -35,11 +35,11 @@ public class RecensioneReader {
                 lista.add(r);
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + fileRecensioni);
+            GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, file -> fileRecensioni = file);
             return null;
             
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + fileRecensioni);
+            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, file -> fileRecensioni = file);
             return null;
         }
 

@@ -38,7 +38,7 @@ public class GestionePreferiti {
             // Scrivi i dati della recensione
             csvWriter.writeNext(dati);
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti);
+            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
         }
     }
 
@@ -69,10 +69,10 @@ public class GestionePreferiti {
             }
 
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti);
+            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
             
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti);
+            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
         }  
     }
 
@@ -89,11 +89,11 @@ public class GestionePreferiti {
                 }
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv." + e.getMessage());
+            GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, file -> filePreferiti = file);
             return false;
             
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti);
+            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, file -> filePreferiti = file);
             return false;
         } 
 

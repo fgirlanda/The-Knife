@@ -36,11 +36,11 @@ public class UtenteReader {
                 }
 
             } catch (CsvValidationException e) {
-                System.err.println("Errore format csv utenti." + e.getMessage());
+                System.err.println("Errore format csv utenti: " + e.getMessage());
                 return false;
 
             } catch (IOException e) {
-                System.err.println("Errore caricamento file: " + fileUtente.toString());
+                System.err.println("Errore caricamento file: " + fileUtente);
                 return false;
             } 
             return true;
