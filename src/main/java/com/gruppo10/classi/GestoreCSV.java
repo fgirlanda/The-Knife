@@ -25,6 +25,7 @@ public abstract class GestoreCSV<T> {
 
     public List<T> caricaCSV() {
         List<T> lista = new ArrayList<>();
+        caricamentoExtra();
         try (CSVReader reader = new CSVReader(new FileReader(file))){
             String[] dati;
             reader.readNext(); // Salta header
@@ -45,6 +46,8 @@ public abstract class GestoreCSV<T> {
         }
         return lista;
     }
+
+    public void caricamentoExtra(){}
 
     public void scrivi(T obj) {
         if (!dir.exists()) {

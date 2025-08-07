@@ -7,7 +7,7 @@ import com.gruppo10.classi.GestionePreferiti;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteReader;
+import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 import javafx.stage.Stage;
@@ -55,7 +55,8 @@ public class ProfiloClienteController {
         caricaDatiUtente();
 
         // Carica ristoranti preferiti
-        ristoranti = RistoranteReader.caricaCSV();
+        RistoranteCSV ristoranteCSV = new RistoranteCSV();
+        ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
             List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
             SceneManager.caricaTessere(

@@ -5,7 +5,7 @@ import org.controlsfx.control.textfield.TextFields;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteWriter;
+import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
@@ -156,7 +156,8 @@ public class AggiungiRistoranteController {
         ristorante.setCords(cords);
 
         try {
-            RistoranteWriter.scriviRistorante(ristorante);
+            RistoranteCSV ristoranteCSV = new RistoranteCSV();
+            ristoranteCSV.scrivi(ristorante);
         } catch (Exception e) {
             return;
         }

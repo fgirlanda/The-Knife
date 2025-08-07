@@ -3,10 +3,10 @@ package com.gruppo10.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gruppo10.classi.RistoranteReader;
 import com.gruppo10.classi.FiltroPrezzo;
 import com.gruppo10.classi.FiltroTipoCucina;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -84,7 +84,8 @@ public class PaginaPrincipaleController {
 
     // Lista ristoranti, calcolo distanze e caricamento card
     public void setRistoranti() {
-        ristoranti = RistoranteReader.caricaCSV();
+        RistoranteCSV ristoranteCSV = new RistoranteCSV();
+        ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
             caricaTessere(ristoranti);
             mappaDistanze(ristoranti);

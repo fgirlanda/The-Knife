@@ -1,7 +1,13 @@
 package com.gruppo10.classi;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class RistoranteCSV extends GestoreCSV<Ristorante> {
     static String f = "ristoranti.csv";
+    private HashMap<Integer, List<Recensione>> mappaRecensioni = new HashMap<>();
+
 
     public RistoranteCSV() {
         super(f);
@@ -20,37 +26,42 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
         double lat = Double.parseDouble(dati[8]);
         double lon = Double.parseDouble(dati[9]);
         int idproprietario = Integer.parseInt(dati[10]);
-        Ristorante r = new Ristorante();
-        r.setId(id);
-        r.setNomeRistorante(nome);
-        r.setIndirizzo(indirizzo);
-        r.setDelivery(delivery);
-        r.setPrenotazioneOnline(prenotazione);
-        r.setCucina(cucina);
-        r.setPrezzo(prezzo);
-        r.setDescrizione(descrizione);
-        r.setCords(new Coordinate(lat, lon));
-        r.setIdproprietario(idproprietario);
+        Ristorante ristorante = new Ristorante();
+        ristorante.setId(id);
+        ristorante.setNomeRistorante(nome);
+        ristorante.setIndirizzo(indirizzo);
+        ristorante.setDelivery(delivery);
+        ristorante.setPrenotazioneOnline(prenotazione);
+        ristorante.setCucina(cucina);
+        ristorante.setPrezzo(prezzo);
+        ristorante.setDescrizione(descrizione);
+        ristorante.setCords(new Coordinate(lat, lon));
+        ristorante.setIdproprietario(idproprietario);
 
-        return r;
+        List<Recensione> listaFiltrata = mappaRecensioni.getOrDefault(id, new ArrayList<>());
+        for(Recensione recensione: listaFiltrata){
+            ristorante.aggiungiRecensione(recensione);
+        }
+
+        return ristorante;
     }
 
     @Override
-    protected String[] estraiDati(Ristorante r) {
+    protected String[] estraiDati(Ristorante ristorante) {
         String[] dati = new String[11];
         dati[0] = String.valueOf(ultimoID());
-        dati[1] = r.getNomeRistorante();
-        dati[2] = r.getIndirizzo();
-        dati[3] = String.valueOf(r.isDelivery());
-        dati[4] = String.valueOf(r.isPrenotazioneOnline());
-        dati[5] = r.getTipoCucina().toString();
-        dati[6] = r.getPrezzo();
-        dati[7] = r.getDescrizione();
-        Double lat = r.getCords().getLat();
-        Double lon = r.getCords().getLon();
+        dati[1] = ristorante.getNomeRistorante();
+        dati[2] = ristorante.getIndirizzo();
+        dati[3] = String.valueOf(ristorante.isDelivery());
+        dati[4] = String.valueOf(ristorante.isPrenotazioneOnline());
+        dati[5] = ristorante.getTipoCucina().toString();
+        dati[6] = ristorante.getPrezzo();
+        dati[7] = ristorante.getDescrizione();
+        Double lat = ristorante.getCords().getLat();
+        Double lon = ristorante.getCords().getLon();
         dati[8] = lat.toString();
         dati[9] = lon.toString();
-        dati[10] = String.valueOf(r.getIdproprietario());
+        dati[10] = String.valueOf(ristorante.getIdproprietario());
         return dati;
     }
 
@@ -61,4 +72,26 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
 
         return header;
     }
+
+    @Override
+    public void caricamentoExtra(){
+        RecensioneCSV recensioneCSV = new RecensioneCSV();
+        List<Recensione> listaRecensioni = recensioneCSV.caricaCSV();
+        for(Recensione recensione: listaRecensioni){
+            int idRis = recensione.getIdRis();
+            if(!mappaRecensioni.containsKey(idRis)){
+                List<Recensione> listaRecRistorante = new ArrayList<>();
+                listaRecRistorante.add(recensione);
+                mappaRecensioni.put(idRis, listaRecRistorante);
+            }else{
+                mappaRecensioni.get(idRis).add(recensione);
+            }
+        }
+    }
 }
+
+// r1 1
+// r2 1
+// r3 2
+// r4 3
+// r5 2

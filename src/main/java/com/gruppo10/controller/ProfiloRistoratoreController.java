@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteReader;
+import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
@@ -48,7 +48,8 @@ public class ProfiloRistoratoreController {
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
-        ristoranti = RistoranteReader.caricaCSV();
+        RistoranteCSV ristoranteCSV = new RistoranteCSV();
+        ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
             listaFiltrata = filtraProprietario(ristoranti);
             aggiornaContenitore(listaFiltrata);

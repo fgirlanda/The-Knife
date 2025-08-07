@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import com.gruppo10.TheKnife;
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
@@ -25,7 +26,7 @@ public class SceneManager {
 
     public static <T> void cambioScena(Stage stage, String fxmlPath, String title, Consumer<T> controllerConsumer) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(fxmlPath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -48,7 +49,7 @@ public class SceneManager {
             Consumer<T> controllerConsumer) {
         Stage dialogStage = null;
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(fxmlPath));
             Parent root = loader.load();
 
             dialogStage = new Stage();
@@ -87,7 +88,7 @@ public class SceneManager {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
-                FXMLLoader loader = new FXMLLoader(RistoranteReader.class.getResource(fxmlPath));
+                FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(fxmlPath));
                 HBox card = loader.load();
 
                 CardController<T> controller = loader.getController();
