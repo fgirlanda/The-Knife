@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class ModificaRecensioneController {
 
     private Recensione recensione;
-    
+
     private Stage stage;
 
     private Ristorante ristorante;
@@ -38,26 +38,35 @@ public class ModificaRecensioneController {
 
     private String risposta;
 
-    @FXML private Text txtOriginale;
-    
-    @FXML private TextArea txtTestoModificato;
-    
-    @FXML private Button btnAnnulla;
-    
-    @FXML private Button btnInvia;
+    @FXML
+    private Text txtOriginale;
 
-    @FXML private RadioButton radioStella1;
+    @FXML
+    private TextArea txtTestoModificato;
 
-    @FXML private RadioButton radioStella2;
-    
-    @FXML private RadioButton radioStella3;
+    @FXML
+    private Button btnAnnulla;
 
-    @FXML private RadioButton radioStella4;
+    @FXML
+    private Button btnInvia;
 
-    @FXML private RadioButton radioStella5;
+    @FXML
+    private RadioButton radioStella1;
 
-    @FXML private ToggleGroup stelleGroup;
-    
+    @FXML
+    private RadioButton radioStella2;
+
+    @FXML
+    private RadioButton radioStella3;
+
+    @FXML
+    private RadioButton radioStella4;
+
+    @FXML
+    private RadioButton radioStella5;
+
+    @FXML
+    private ToggleGroup stelleGroup;
 
     @FXML
     private void initialize() {
@@ -68,21 +77,21 @@ public class ModificaRecensioneController {
         checkFields();
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setRistorante(Ristorante ristorante){
+    public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
 
-    public void setPrincipale(boolean paginaPrincipale){
+    public void setPrincipale(boolean paginaPrincipale) {
         this.paginaPrincipale = paginaPrincipale;
     }
 
-    public void setRecensione(Recensione recensione, VBox contenitore){
+    public void setRecensione(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
-        
+
         username = recensione.getUsername();
         idUt = recensione.getIdUtente();
         idRis = recensione.getIdRis();
@@ -92,30 +101,27 @@ public class ModificaRecensioneController {
 
         txtOriginale.setText(testoOriginale);
         ObservableList<Toggle> toggles = stelleGroup.getToggles();
-        Toggle toggle = toggles.get(vecchioVoto-1);
+        Toggle toggle = toggles.get(vecchioVoto - 1);
         stelleGroup.selectToggle(toggle);
     }
-
 
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtTestoModificato.getText().isEmpty() &&
-                                  stelleGroup.getSelectedToggle() != null;
-                                  
+                stelleGroup.getSelectedToggle() != null;
+
         // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);
     }
 
-
     @FXML
-    private void modificaRecensione(){
+    private void modificaRecensione() {
         String testoModificato = txtTestoModificato.getText();
         RadioButton selectedStella = (RadioButton) stelleGroup.getSelectedToggle();
 
-        
         int nuovoVoto = selectedStella.getText().length();
 
-        if(testoModificato != null && !testoModificato.isBlank()){
+        if (testoModificato != null && !testoModificato.isBlank()) {
             Recensione nuovaRecensione = new Recensione();
             nuovaRecensione.setIdRis(idRis);
             nuovaRecensione.setIdUtente(idUt);
@@ -134,7 +140,6 @@ public class ModificaRecensioneController {
         SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
         chiudi();
     }
-    
 
     @FXML
     private void chiudi() {

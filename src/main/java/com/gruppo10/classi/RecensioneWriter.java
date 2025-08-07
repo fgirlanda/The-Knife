@@ -37,7 +37,8 @@ public class RecensioneWriter {
 
             // Scrivi header se il file non esiste
             if (!fileEsiste) {
-                String[] header = { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta" };
+                String[] header = { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
+                        "Risposta" };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
@@ -58,18 +59,19 @@ public class RecensioneWriter {
         } finally {
             // Chiudi risorse
             try {
-                if (csvWriter != null) csvWriter.close();
-                if (writer != null) writer.close();
+                if (csvWriter != null)
+                    csvWriter.close();
+                if (writer != null)
+                    writer.close();
             } catch (IOException e) {
                 System.err.println("Errore nella chiusura delle risorse: " + e.getMessage());
             }
         }
     }
 
-
-    private String[] estraiDati(Recensione recensione, File file){
+    private String[] estraiDati(Recensione recensione, File file) {
         String[] dati = new String[7];
-        
+
         dati[0] = Integer.toString(RistoranteWriter.ultimoID(file)); // Gestire eccezione in RistoranteWriter
         dati[1] = recensione.getUsername();
         dati[2] = Integer.toString(recensione.getIdUtente());
@@ -79,8 +81,7 @@ public class RecensioneWriter {
         dati[6] = recensione.getRisposta();
 
         return dati;
-    }    
-    
+    }
 
     public static void aggiungiRisposta(Recensione recensione, String risposta) {
         if (recensione == null || risposta == null) {
@@ -94,17 +95,17 @@ public class RecensioneWriter {
             String[] dati;
             try {
                 reader.readNext(); // Salta header
-                
+
                 while ((dati = reader.readNext()) != null) {
                     if (dati.length < 7) {
                         System.err.println("Riga CSV non valida, ignorata: " + Arrays.toString(dati));
                         continue;
                     }
-                    
+
                     try {
                         int idUt = Integer.parseInt(dati[2]);
                         int idRis = Integer.parseInt(dati[3]);
-                        
+
                         if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
                             dati[6] = risposta;
                         }
@@ -114,7 +115,7 @@ public class RecensioneWriter {
                     } catch (NumberFormatException e) {
                         System.err.println("Errore parsing ID nella riga: " + Arrays.toString(dati));
                     }
-                    
+
                 }
 
             } catch (CsvValidationException e) {
@@ -131,7 +132,8 @@ public class RecensioneWriter {
 
         // Sovrascrivi il file con i dati aggiornati
         try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
-            writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+            writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
+                    "Risposta" });
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);
             }
@@ -140,7 +142,6 @@ public class RecensioneWriter {
             System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
         }
     }
-
 
     public static void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto) {
         if (recensione == null || testoModificato == null) {
@@ -169,7 +170,7 @@ public class RecensioneWriter {
                         dati[4] = Integer.toString(nuovoVoto);
                         dati[5] = testoModificato;
                     }
-                    
+
                     listaTemp.add(dati);
 
                 } catch (NumberFormatException e) {
@@ -193,7 +194,8 @@ public class RecensioneWriter {
 
         // Scrittura del CSV aggiornato
         try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
-            writer.writeNext(new String[]{"ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"});
+            writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
+                    "Risposta" });
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);
             }
@@ -201,7 +203,6 @@ public class RecensioneWriter {
             System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
         }
     }
-
 
     public static void rimuoviRecensione(Recensione recensione) {
         if (recensione == null) {
@@ -250,8 +251,8 @@ public class RecensioneWriter {
 
         // Scrittura del CSV aggiornato (senza cancellazione preventiva)
         try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
-            writer.writeNext(new String[]{
-                "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"
+            writer.writeNext(new String[] {
+                    "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo", "Risposta"
             });
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);

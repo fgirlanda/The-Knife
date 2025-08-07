@@ -16,7 +16,8 @@ public class GestioneEccezioni {
         alert.setContentText(errore);
 
         ButtonType scegliAltro = new ButtonType("Scegli un altro file");
-        if(bottone) alert.getButtonTypes().add(scegliAltro);
+        if (bottone)
+            alert.getButtonTypes().add(scegliAltro);
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == scegliAltro) {

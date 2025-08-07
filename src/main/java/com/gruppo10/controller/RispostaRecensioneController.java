@@ -10,13 +10,15 @@ import javafx.scene.control.TextArea;
 public class RispostaRecensioneController {
 
     private Recensione recensione;
-    
-    @FXML private TextArea txtRisposta;
-    
-    @FXML private Button btnAnnulla;
-    
-    @FXML private Button btnInvia;
 
+    @FXML
+    private TextArea txtRisposta;
+
+    @FXML
+    private Button btnAnnulla;
+
+    @FXML
+    private Button btnInvia;
 
     @FXML
     private void initialize() {
@@ -25,20 +27,17 @@ public class RispostaRecensioneController {
         checkFields();
     }
 
-
-    public void setRecensione(Recensione recensione){
+    public void setRecensione(Recensione recensione) {
         this.recensione = recensione;
     }
-
 
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtRisposta.getText().isEmpty();
-                                  
+
         // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);
     }
-
 
     @FXML
     private void aggiungiRisposta() throws Exception {
@@ -53,8 +52,7 @@ public class RispostaRecensioneController {
 
         chiudi();
     }
-    
-    
+
     @FXML
     private void chiudi() {
         SceneManager.chiudi(btnAnnulla);

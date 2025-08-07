@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Criptatore {
 
-    public static String cripta(String input) {     
+    public static String cripta(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(input.getBytes());

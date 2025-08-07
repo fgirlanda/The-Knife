@@ -27,33 +27,44 @@ public class RegistrazioneController {
 
     private boolean paginaPrincipale;
 
-    @FXML private RadioButton clienteRadioButton;
-    
-    @FXML private RadioButton ristoratoreRadioButton;
+    @FXML
+    private RadioButton clienteRadioButton;
 
-    @FXML private TextField nomeField;
-    
-    @FXML private TextField cognomeField;
-    
-    @FXML private TextField usernameField;
-    
-    @FXML private TextField indirizzoField;
+    @FXML
+    private RadioButton ristoratoreRadioButton;
 
-    @FXML private PasswordField passwordField;
-    
-    @FXML private DatePicker dataNascitaPicker;
-    
-    @FXML private Button btnRegistrati;
-    
-    @FXML private Label statusRegistrazione;
-    
-    @FXML private ToggleGroup ruoloGroup;
-    
+    @FXML
+    private TextField nomeField;
+
+    @FXML
+    private TextField cognomeField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField indirizzoField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private DatePicker dataNascitaPicker;
+
+    @FXML
+    private Button btnRegistrati;
+
+    @FXML
+    private Label statusRegistrazione;
+
+    @FXML
+    private ToggleGroup ruoloGroup;
 
     public void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue, newValue)
+        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue,
+                                                                             // newValue)
         cognomeField.textProperty().addListener((_, _, _) -> controllaCampi());
         usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
@@ -63,65 +74,62 @@ public class RegistrazioneController {
 
         // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
-                return Indirizzi.getRisultati(request.getUserText());
+            return Indirizzi.getRisultati(request.getUserText());
         });
     }
-
 
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
 
-    public void setPrincipale(boolean paginaPrincipale){
+    public void setPrincipale(boolean paginaPrincipale) {
         this.paginaPrincipale = paginaPrincipale;
     }
 
-    
     private void controllaCampi() {
         boolean allFieldsFilled = nomeField.getText().isBlank() ||
-                                  cognomeField.getText().isBlank() ||
-                                  usernameField.getText().isBlank() ||
-                                  passwordField.getText().isBlank() ||
-                                  indirizzoField.getText().isBlank() ||
-                                  dataNascitaPicker.getValue() == null ||
-                                  ruoloGroup.getSelectedToggle() == null;
+                cognomeField.getText().isBlank() ||
+                usernameField.getText().isBlank() ||
+                passwordField.getText().isBlank() ||
+                indirizzoField.getText().isBlank() ||
+                dataNascitaPicker.getValue() == null ||
+                ruoloGroup.getSelectedToggle() == null;
         btnRegistrati.setDisable(allFieldsFilled);
     }
 
-    
-    
     @FXML
     public void registrati() throws Exception {
         // Ottieni il ruolo selezionato
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
-        
-        // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.) dai campi di input
+
+        // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.)
+        // dai campi di input
         String nome = nomeField.getText();
         String cognome = cognomeField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
         String indirizzo = indirizzoField.getText();
-        
+
         // Verifica che l'username sia disponibile
-        if(UtenteReader.cercaUtente(username) != null) {
+        if (UtenteReader.cercaUtente(username) != null) {
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
-        
 
         password = Criptatore.cripta(password);
 
-        if(password == null) return;
- 
+        if (password == null)
+            return;
+
         Coordinate coordinate = new Coordinate(indirizzo);
-        if(coordinate.getLat() == null) return;
-        
+        if (coordinate.getLat() == null)
+            return;
+
         // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();
         utente.setNome(nome);
@@ -139,25 +147,24 @@ public class RegistrazioneController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // Apri pagina di login
         apriLogin();
     }
 
-
     @FXML
-    private void chiudi(){
-        if(paginaPrincipale){
-            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", // Gestire eccezioni cambio scena
-                (PaginaPrincipaleController controller) -> controller.setStage(stage));
-        }else{
+    private void chiudi() {
+        if (paginaPrincipale) {
+            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", // Gestire eccezioni
+                                                                                                // cambio scena
+                    (PaginaPrincipaleController controller) -> controller.setStage(stage));
+        } else {
             apriLogin();
         }
     }
 
-
-    private void apriLogin(){
-        SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login", 
-            (LoginController controller) -> controller.setStage(stage));
+    private void apriLogin() {
+        SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login",
+                (LoginController controller) -> controller.setStage(stage));
     }
 }

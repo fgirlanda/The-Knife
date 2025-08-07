@@ -5,5 +5,5 @@ public enum FiltroPrezzo {
     €,
     €€,
     €€€,
-    €€€€   
+    €€€€
 }

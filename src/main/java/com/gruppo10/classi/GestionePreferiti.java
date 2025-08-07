@@ -1,6 +1,7 @@
 package com.gruppo10.classi;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,9 +18,9 @@ public class GestionePreferiti {
     static File dir = new File("fileCSV");
     static File filePreferiti = new File(dir, "preferiti.csv");
 
-    public static void aggiungiPreferito(int idUtente, int idRistorante){
-        if (!dir.exists()) dir.mkdirs();
-
+    public static void aggiungiPreferito(int idUtente, int idRistorante) {
+        if (!dir.exists())
+            dir.mkdirs();
 
         boolean fileEsiste = filePreferiti.exists();
 
@@ -30,19 +31,22 @@ public class GestionePreferiti {
 
             // Se il file non esiste, scrivi l'header
             if (!fileEsiste) {
-                String[] header = { "ID Utente", "ID Ristorante"};
+                String[] header = { "ID Utente", "ID Ristorante" };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
-            
+
             // Scrivi i dati della recensione
             csvWriter.writeNext(dati);
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
+            if (!(e instanceof FileNotFoundException)) {
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                        file -> filePreferiti = file);
+            }
         }
     }
 
-    public static void rimuoviPreferito(int idUtente, int idRistorante){
+    public static void rimuoviPreferito(int idUtente, int idRistorante) {
         try (CSVReader reader = new CSVReader(new FileReader(filePreferiti))) {
             String[] dati;
             List<String[]> listaTemp = new ArrayList<>();
@@ -62,18 +66,22 @@ public class GestionePreferiti {
             }
 
             try (CSVWriter writer = new CSVWriter(new FileWriter(filePreferiti))) {
-                writer.writeNext(new String[]{"ID Utente", "ID Ristorante"});
+                writer.writeNext(new String[] { "ID Utente", "ID Ristorante" });
                 for (String[] riga : listaTemp) {
                     writer.writeNext(riga);
                 }
             }
 
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
-            
+            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e.getMessage(), true,
+                    file -> filePreferiti = file);
+
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true, file -> filePreferiti = file);
-        }  
+            if (!(e instanceof FileNotFoundException)) {
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                        file -> filePreferiti = file);
+            }
+        }
     }
 
     public static boolean controlloPreferito(int idUtente, int idRistorante) {
@@ -91,11 +99,14 @@ public class GestionePreferiti {
         } catch (CsvValidationException e) {
             GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, file -> filePreferiti = file);
             return false;
-            
+
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, file -> filePreferiti = file);
-            return false;
-        } 
+            if (!(e instanceof FileNotFoundException)) {
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                        file -> filePreferiti = file);
+                return false;
+            }
+        }
 
         return false;
     }

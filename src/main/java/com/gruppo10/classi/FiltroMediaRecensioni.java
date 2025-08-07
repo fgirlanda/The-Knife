@@ -1,4 +1,4 @@
- package com.gruppo10.classi;
+package com.gruppo10.classi;
 
 public enum FiltroMediaRecensioni {
     ZERO(0),
@@ -24,9 +24,9 @@ public enum FiltroMediaRecensioni {
             stelle.append("★");
         }
 
-        if(valore == 0.0) {
+        if (valore == 0.0) {
             return "TUTTO";
         }
         return stelle.toString();
     }
- }
+}

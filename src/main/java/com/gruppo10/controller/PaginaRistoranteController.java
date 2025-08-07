@@ -36,27 +36,38 @@ public class PaginaRistoranteController {
 
     private boolean presente = false;
 
-    @FXML private Label txtIndirizzo;
+    @FXML
+    private Label txtIndirizzo;
 
-    @FXML private Label txtPaese;
+    @FXML
+    private Label txtPaese;
 
-    @FXML private Label txtMediaRec;
+    @FXML
+    private Label txtMediaRec;
 
-    @FXML private Label txtPrezzo;
+    @FXML
+    private Label txtPrezzo;
 
-    @FXML private Label txtNomeRistorante;
+    @FXML
+    private Label txtNomeRistorante;
 
-    @FXML private Text txtDescrizione;
+    @FXML
+    private Text txtDescrizione;
 
-    @FXML private ImageView imagePreferiti;
+    @FXML
+    private ImageView imagePreferiti;
 
-    @FXML private Button btnIndietro;
+    @FXML
+    private Button btnIndietro;
 
-    @FXML private Button btnAggiungiRecensione;
+    @FXML
+    private Button btnAggiungiRecensione;
 
-    @FXML private Button btnPreferiti;
+    @FXML
+    private Button btnPreferiti;
 
-    @FXML private VBox contenitoreTessere;
+    @FXML
+    private VBox contenitoreTessere;
 
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
@@ -75,26 +86,26 @@ public class PaginaRistoranteController {
         } else {
             imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
         }
-        
+
         Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
         File fileRecensioni = new File(path.toString());
         if (fileRecensioni.exists()) {
             recensioni = RecensioneReader.caricaCSV();
-            if(recensioni != null){
+            if (recensioni != null) {
                 List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
                 presente = recensioneInserita(listaFiltrata);
                 SceneManager.caricaTessere(
-                    listaFiltrata,
-                    contenitoreTessere,
-                    stage,
-                    "/GUI/card_recensione.fxml",
-                    (controller, _) -> {
-                        ((CardRecensioneController) controller).setIdProprietario(this.ristorante.getIdproprietario());
-                        ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
-                        ((CardRecensioneController) controller).setRistorante(this.ristorante);
-                        ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
-                    }
-                );
+                        listaFiltrata,
+                        contenitoreTessere,
+                        stage,
+                        "/GUI/card_recensione.fxml",
+                        (controller, _) -> {
+                            ((CardRecensioneController) controller)
+                                    .setIdProprietario(this.ristorante.getIdproprietario());
+                            ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
+                            ((CardRecensioneController) controller).setRistorante(this.ristorante);
+                            ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
+                        });
             }
         }
 
@@ -103,11 +114,10 @@ public class PaginaRistoranteController {
             btnPreferiti.setVisible(false);
         }
 
-        if(presente){
+        if (presente) {
             btnAggiungiRecensione.setVisible(false);
         }
     }
-
 
     public void setDati() {
         int numRecensioni = this.ristorante.getNumeroRecensioni();
@@ -120,7 +130,6 @@ public class PaginaRistoranteController {
         txtDescrizione.setText(this.ristorante.getDescrizione());
     }
 
-
     @FXML
     private void aggiungiRecensione() {
         SceneManager.finestraDialogo("/GUI/aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
@@ -131,21 +140,19 @@ public class PaginaRistoranteController {
                 });
     }
 
-
     @FXML
     private void tornaIndietro() {
         if (paginaPrincipale) {
             SceneManager.apriPaginaPrincipale(stage);
         } else {
-            if(utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)){
+            if (utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)) {
                 SceneManager.apriProfilo(stage, 1);
-            }else{
+            } else {
                 SceneManager.apriProfiloRistoratore(stage, 1);
             }
-            
+
         }
     }
-
 
     @FXML
     private void gestisciPreferiti() {
@@ -162,18 +169,15 @@ public class PaginaRistoranteController {
         }
     }
 
-
     private void aggiungiPreferito() {
         if (!GestionePreferiti.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
             GestionePreferiti.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
         }
     }
 
-
     private void rimuoviPreferito() {
         GestionePreferiti.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
     }
-
 
     private List<Recensione> filtraRecensioni(List<Recensione> recensioni) {
         List<Recensione> listaTemp = new ArrayList<>();
@@ -186,10 +190,9 @@ public class PaginaRistoranteController {
         return listaTemp;
     }
 
-
     private boolean recensioneInserita(List<Recensione> recensioni) {
-        for(Recensione rec: recensioni){
-            if(utenteLoggato.getId() == rec.getIdUtente()){
+        for (Recensione rec : recensioni) {
+            if (utenteLoggato.getId() == rec.getIdUtente()) {
                 return true;
             }
         }

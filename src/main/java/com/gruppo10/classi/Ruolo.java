@@ -1,7 +1,7 @@
 package com.gruppo10.classi;
 
 public enum Ruolo {
-    CLIENTE, 
-    RISTORATORE, 
+    CLIENTE,
+    RISTORATORE,
     NON_REGISTRATO;
 }

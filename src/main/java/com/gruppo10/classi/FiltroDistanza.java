@@ -11,30 +11,31 @@ public enum FiltroDistanza {
 
     private final double km;
 
-    FiltroDistanza(double km){
+    FiltroDistanza(double km) {
         this.km = km;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String chilometri = "";
-        switch ((int)this.km){
-            case 10: 
-            chilometri = "10 km";
-            break;
-            case 20: 
-            chilometri = "20 km";
-            break;
+        switch ((int) this.km) {
+            case 10:
+                chilometri = "10 km";
+                break;
+            case 20:
+                chilometri = "20 km";
+                break;
             case 30:
-            chilometri = "30 km";
-            break;
-            case 1000: chilometri = "50+ km";
+                chilometri = "30 km";
+                break;
+            case 1000:
+                chilometri = "50+ km";
         }
 
         return chilometri;
     }
 
-    public Double getKM(){
+    public Double getKM() {
         return this.km;
     }
 

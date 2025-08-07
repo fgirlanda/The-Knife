@@ -19,15 +19,15 @@ public class Coordinate {
     private Double lat, lon;
 
     // Algoritmo di geocode
-    public Coordinate(String indirizzo){
+    public Coordinate(String indirizzo) {
         String encodedindirizzo = indirizzo.replace(" ", "+");
         String url = "https://nominatim.openstreetmap.org/search?q=" + encodedindirizzo + "&format=json&limit=1";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(url))
-            .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
-            .build();
+                .uri(URI.create(url))
+                .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
+                .build();
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -41,7 +41,8 @@ public class Coordinate {
             JsonArray results = JsonParser.parseString(response.body()).getAsJsonArray();
 
             if (results.size() == 0) {
-                GestioneEccezioni.errore("Errore calcolo coordinate", "Nessun risultato trovato per: " + indirizzo, false, null);
+                GestioneEccezioni.errore("Errore calcolo coordinate", "Nessun risultato trovato per: " + indirizzo,
+                        false, null);
                 this.lat = null;
                 return;
             }
@@ -73,13 +74,13 @@ public class Coordinate {
         this.lon = lon;
     }
 
-    public double calcolaDistanza(Coordinate c2){
+    public double calcolaDistanza(Coordinate c2) {
         double deltaLat = Math.toRadians(c2.getLat() - this.getLat());
         double deltaLon = Math.toRadians(c2.getLon() - this.getLon());
 
         double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
                 Math.cos(Math.toRadians(this.getLat())) * Math.cos(Math.toRadians(c2.getLat())) *
-                Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+                        Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 

@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-
 public class AggiungiRecensioneController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
@@ -23,25 +22,33 @@ public class AggiungiRecensioneController {
     private Stage stage;
 
     private boolean paginaPrincipale;
-    
-    @FXML private TextArea txtTesto;
-    
-    @FXML private Button btnAnnulla;
-    
-    @FXML private Button btnInvia;
 
-    @FXML private RadioButton radioStella1;
+    @FXML
+    private TextArea txtTesto;
 
-    @FXML private RadioButton radioStella2;
-    
-    @FXML private RadioButton radioStella3;
+    @FXML
+    private Button btnAnnulla;
 
-    @FXML private RadioButton radioStella4;
+    @FXML
+    private Button btnInvia;
 
-    @FXML private RadioButton radioStella5;
+    @FXML
+    private RadioButton radioStella1;
 
-    @FXML private ToggleGroup stelleGroup;
-    
+    @FXML
+    private RadioButton radioStella2;
+
+    @FXML
+    private RadioButton radioStella3;
+
+    @FXML
+    private RadioButton radioStella4;
+
+    @FXML
+    private RadioButton radioStella5;
+
+    @FXML
+    private ToggleGroup stelleGroup;
 
     @FXML
     private void initialize() {
@@ -50,34 +57,29 @@ public class AggiungiRecensioneController {
         txtTesto.textProperty().addListener((_, _, _) -> checkFields());
 
         checkFields();
-        
+
     }
 
-    
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-
-    public void setPrincipale(boolean paginaPrincipale){
+    public void setPrincipale(boolean paginaPrincipale) {
         this.paginaPrincipale = paginaPrincipale;
     }
 
-
-    public void setRistorante(Ristorante ristorante){
+    public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
-
 
     private void checkFields() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
-                                  stelleGroup.getSelectedToggle() != null;
-                                  
+                stelleGroup.getSelectedToggle() != null;
+
         // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);
     }
-
 
     @FXML
     private void aggiungiRecensione() throws Exception {
@@ -105,8 +107,7 @@ public class AggiungiRecensioneController {
 
         chiudi();
     }
-    
-    
+
     @FXML
     private void chiudi() {
         SceneManager.chiudi(btnAnnulla);

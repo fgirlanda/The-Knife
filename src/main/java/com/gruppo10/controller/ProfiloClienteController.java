@@ -26,21 +26,28 @@ public class ProfiloClienteController {
 
     private List<Recensione> recensioni;
 
+    String labelPasswordText = "********";
 
-
-    String labelPasswordText = "********"; 
-    
-    @FXML private TabPane tabPane;
-    @FXML private VBox contenitoreTessereRis;
-    @FXML private VBox contenitoreTessereRec;
-    @FXML private Label labelNome;
-    @FXML private Label labelCognome;
-    @FXML private Label labelUsername;
-    @FXML private Label labelIndirizzo;
-    @FXML private Label labelData;
-    @FXML private Label labelRuolo;
-    @FXML private Label labelPassword;
-    
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private VBox contenitoreTessereRis;
+    @FXML
+    private VBox contenitoreTessereRec;
+    @FXML
+    private Label labelNome;
+    @FXML
+    private Label labelCognome;
+    @FXML
+    private Label labelUsername;
+    @FXML
+    private Label labelIndirizzo;
+    @FXML
+    private Label labelData;
+    @FXML
+    private Label labelRuolo;
+    @FXML
+    private Label labelPassword;
 
     // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
@@ -49,42 +56,39 @@ public class ProfiloClienteController {
 
         // Carica ristoranti preferiti
         ristoranti = RistoranteReader.caricaCSV();
-        if(ristoranti != null){
+        if (ristoranti != null) {
             List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
             SceneManager.caricaTessere(
-                listaRisFiltrata,
-                contenitoreTessereRis,
-                stage,
-                "/GUI/card_ristorante.fxml",
-                (controller, _) -> {
-                    ((CardRistoranteController) controller).setPrincipale(false);
-                }
-            );
-            
+                    listaRisFiltrata,
+                    contenitoreTessereRis,
+                    stage,
+                    "/GUI/card_ristorante.fxml",
+                    (controller, _) -> {
+                        ((CardRistoranteController) controller).setPrincipale(false);
+                    });
+
             // Carica recensioni utente
             recensioni = RecensioneReader.caricaCSV();
-            if(recensioni != null){
+            if (recensioni != null) {
                 List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
                 SceneManager.caricaTessere(
-                    listaRecFiltrata,
-                    contenitoreTessereRec,
-                    stage,
-                    "/GUI/card_recensione.fxml",
-                    (controller, _) -> {
-                        ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
-                        ((CardRecensioneController) controller).setRistorante(null);
-                        ((CardRecensioneController) controller).setPrincipale(false);
-                    }
-                );
+                        listaRecFiltrata,
+                        contenitoreTessereRec,
+                        stage,
+                        "/GUI/card_recensione.fxml",
+                        (controller, _) -> {
+                            ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
+                            ((CardRecensioneController) controller).setRistorante(null);
+                            ((CardRecensioneController) controller).setPrincipale(false);
+                        });
             }
         }
 
     }
 
-    public void setTab(int tab){
+    public void setTab(int tab) {
         tabPane.getSelectionModel().select(tab);
     }
-
 
     private void caricaDatiUtente() {
         labelNome.setText(utenteLoggato.getNome());
@@ -96,10 +100,9 @@ public class ProfiloClienteController {
         labelPassword.setText(labelPasswordText);
     }
 
-
     private List<Ristorante> filtraPreferiti(List<Ristorante> listaRistoranti) {
         List<Ristorante> nuovaLista = new ArrayList<>();
-        
+
         for (Ristorante r : listaRistoranti) {
             if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), r.getId())) {
                 nuovaLista.add(r);
@@ -108,27 +111,25 @@ public class ProfiloClienteController {
         return nuovaLista;
     }
 
-    private List<Recensione> filtraRecensioni(List<Recensione> listaRecensioni){
+    private List<Recensione> filtraRecensioni(List<Recensione> listaRecensioni) {
         List<Recensione> nuovaLista = new ArrayList<>();
 
-        for(Recensione r : listaRecensioni){
-            if(r.getIdUtente() == utenteLoggato.getId()){
+        for (Recensione r : listaRecensioni) {
+            if (r.getIdUtente() == utenteLoggato.getId()) {
                 nuovaLista.add(r);
             }
         }
 
         return nuovaLista;
     }
-    
 
     @FXML
-    private void tornaIndietro(){
+    private void tornaIndietro() {
         SceneManager.apriPaginaPrincipale(stage);
     }
 
-
     @FXML
-    private void logOut(){
+    private void logOut() {
         LoginController.utenteLoggato = null;
         this.utenteLoggato = null;
         SceneManager.logOut(stage);

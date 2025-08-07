@@ -24,30 +24,38 @@ public class ProfiloRistoratoreController {
 
     private List<Ristorante> listaFiltrata;
 
-    @FXML private TabPane tabPane;
-    @FXML private VBox contenitoreTessere;
-    @FXML private Label labelNome;
-    @FXML private Label labelCognome;
-    @FXML private Label labelUsername;
-    @FXML private Label labelIndirizzo;
-    @FXML private Label labelData;
-    @FXML private Label labelRuolo;
-    @FXML private Label labelPassword;
-    String labelPasswordText = "********"; 
-
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private VBox contenitoreTessere;
+    @FXML
+    private Label labelNome;
+    @FXML
+    private Label labelCognome;
+    @FXML
+    private Label labelUsername;
+    @FXML
+    private Label labelIndirizzo;
+    @FXML
+    private Label labelData;
+    @FXML
+    private Label labelRuolo;
+    @FXML
+    private Label labelPassword;
+    String labelPasswordText = "********";
 
     // Imposta il riferimento alla finestra principale (Stage)
     public void setStage(Stage stage) {
         this.stage = stage;
         caricaDatiUtente();
         ristoranti = RistoranteReader.caricaCSV();
-        if(ristoranti != null){
+        if (ristoranti != null) {
             listaFiltrata = filtraProprietario(ristoranti);
             aggiornaContenitore(listaFiltrata);
         }
     }
 
-    public void setTab(int tab){
+    public void setTab(int tab) {
         tabPane.getSelectionModel().select(tab);
     }
 
@@ -61,8 +69,7 @@ public class ProfiloRistoratoreController {
         labelPassword.setText(labelPasswordText);
     }
 
-
-    private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti){
+    private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti) {
         List<Ristorante> nuovaLista = new ArrayList<>();
 
         for (Ristorante r : listaRistoranti) {
@@ -73,44 +80,40 @@ public class ProfiloRistoratoreController {
         return nuovaLista;
     }
 
-
     @FXML
     private void apriAggiungiRistorante() {
         SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
-            (AggiungiRistoranteController controller) -> {
-                controller.setOnCloseCallback(() -> {
-                    Ristorante r = controller.getNuovoRistorante();
-                    if (r != null) {
-                        listaFiltrata.add(r);
-                        aggiornaContenitore(listaFiltrata);
-                    }
+                (AggiungiRistoranteController controller) -> {
+                    controller.setOnCloseCallback(() -> {
+                        Ristorante r = controller.getNuovoRistorante();
+                        if (r != null) {
+                            listaFiltrata.add(r);
+                            aggiornaContenitore(listaFiltrata);
+                        }
+                    });
                 });
-            });
     }
 
-    
     @FXML
-    public void tornaIndietro(){
+    public void tornaIndietro() {
         SceneManager.apriPaginaPrincipale(stage);
     }
 
-
     @FXML
-    private void logOut(){
+    private void logOut() {
         LoginController.utenteLoggato = null;
         this.utenteloggato = null;
         SceneManager.logOut(stage);
     }
 
-    private void aggiornaContenitore(List<Ristorante> lista){
+    private void aggiornaContenitore(List<Ristorante> lista) {
         SceneManager.caricaTessere(
-            lista,
-            contenitoreTessere,
-            stage,
-            "/GUI/card_ristorante.fxml",
-            (controller, _) -> {
-                ((CardRistoranteController) controller).setPrincipale(false);
-            }
-        );
+                lista,
+                contenitoreTessere,
+                stage,
+                "/GUI/card_ristorante.fxml",
+                (controller, _) -> {
+                    ((CardRistoranteController) controller).setPrincipale(false);
+                });
     }
 }

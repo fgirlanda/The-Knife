@@ -11,17 +11,19 @@ import com.opencsv.CSVWriter;
 // Aggiungere id, shiftare tutti i dati
 public class RistoranteWriter {
 
-    public void scriviRistorante(Ristorante ristorante){
+    public void scriviRistorante(Ristorante ristorante) {
         File dir = new File("fileCSV");
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists())
+            dir.mkdirs();
 
         File fileRistorante = new File(dir, "ristoranti.csv");
 
         boolean fileEsiste = fileRistorante.exists();
-        
+
         try (Writer writer = new FileWriter(fileRistorante, true); CSVWriter csvWriter = new CSVWriter(writer);) {
             if (!fileEsiste) {
-                String[] header = { "Id", "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina", "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario"};
+                String[] header = { "Id", "Nome", "Indirizzo", "Delivery", "Prenotazione online", "Tipo Cucina",
+                        "Prezzo", "Descrizione", "Latitudine", "Longitudine", "Proprietario" };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
@@ -34,8 +36,7 @@ public class RistoranteWriter {
         }
     }
 
-
-    private String[] estraiDati(Ristorante ristorante, File file){
+    private String[] estraiDati(Ristorante ristorante, File file) {
         String[] dati = new String[11];
         dati[0] = String.valueOf(ultimoID(file));
         dati[1] = ristorante.getNomeRistorante();
@@ -51,18 +52,17 @@ public class RistoranteWriter {
         dati[9] = lon.toString();
         dati[10] = String.valueOf(ristorante.getIdproprietario());
         return dati;
-    }  
+    }
 
-
-    public static int ultimoID(File file){
+    public static int ultimoID(File file) {
         int contaID = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                while (br.readLine() != null) {
-                    contaID++;
-                }
+            while (br.readLine() != null) {
+                contaID++;
+            }
         } catch (IOException e) {
             System.err.println("Errore caricamento file: " + e.getMessage());
-        } 
+        }
         return contaID;
     }
 }

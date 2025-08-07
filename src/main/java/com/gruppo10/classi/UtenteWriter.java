@@ -9,23 +9,24 @@ import com.opencsv.CSVWriter;
 
 public class UtenteWriter {
 
-
-    public void scriviUtente(Utente utente){
+    public void scriviUtente(Utente utente) {
         File dir = new File("fileCSV");
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists())
+            dir.mkdirs();
 
         File fileUtente = new File(dir, "utenti.csv");
-        
+
         boolean fileEsiste = fileUtente.exists();
 
         try (Writer writer = new FileWriter(fileUtente, true); CSVWriter csvWriter = new CSVWriter(writer);) {
-              
+
             if (!fileEsiste) {
-                String[] header = { "ID","Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo", "Ruolo", "Latitudine", "Longitudine" };
+                String[] header = { "ID", "Nome", "Cognome", "Username", "Password", "Data di nascita", "Indirizzo",
+                        "Ruolo", "Latitudine", "Longitudine" };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
             }
-            
+
             String[] dati = estraiDati(utente, fileUtente);
 
             csvWriter.writeNext(dati);
@@ -34,12 +35,12 @@ public class UtenteWriter {
         }
     }
 
-    private String[] estraiDati(Utente utente, File file){
+    private String[] estraiDati(Utente utente, File file) {
         String[] dati = new String[10];
         dati[0] = String.valueOf(RistoranteWriter.ultimoID(file));
         dati[1] = utente.getNome();
         dati[2] = utente.getCognome();
-        dati[3] = utente.getUsername();        
+        dati[3] = utente.getUsername();
         dati[4] = utente.getPassword();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         dati[5] = utente.getDataDiNascita().format(formatter).toString();
@@ -52,5 +53,3 @@ public class UtenteWriter {
         return dati;
     }
 }
-
-
