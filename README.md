@@ -170,9 +170,9 @@ Pulizia codice:
 
 - Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) (FATTO)
 - Classe astratta Controller (?)
-- Classe astratta CSVHandler
-- Gestione eccezioni 
-- Generalizzazione dei percorsi file
+- Classe astratta CSVHandler (FATTO)
+- Gestione eccezioni (FATTO)
+- Generalizzazione dei percorsi file (FATTO)
 
 
 
