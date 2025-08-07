@@ -18,11 +18,10 @@ public class RecensioneWriter {
     static File dir = new File("fileCSV");
     static File fileRecensioni = new File(dir, "recensioni.csv");
 
-    public static boolean scriviRecensione(Recensione recensione) {
+    public static void scriviRecensione(Recensione recensione) {
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
                 GestioneEccezioni.errore("Impossibile creare la directory fileCSV", null, false, null);
-                return false;
             }
         }
 
@@ -45,19 +44,17 @@ public class RecensioneWriter {
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore di I/O durante la scrittura della recensione", e.getMessage(), false,
-                        null);
-                return false;
+                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                        file -> fileRecensioni = file);
             }
         } catch (SecurityException e) {
             GestioneEccezioni.errore("Permesso negato per la scrittura del file", e.getMessage(), true,
                     file -> fileRecensioni = file);
-            return false;
+
         } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore nei dati della recensione", e.getMessage(), false, null);
-            return false;
         }
-        return true;
+
     }
 
     private static String[] estraiDati(Recensione recensione, File file) {
@@ -77,8 +74,7 @@ public class RecensioneWriter {
     public static void aggiungiRisposta(Recensione recensione, String risposta) {
         List<String[]> listaTemp = new ArrayList<>();
 
-        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni));
-                CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
             String[] dati;
             try {
                 reader.readNext(); // Salta header
@@ -102,11 +98,12 @@ public class RecensioneWriter {
             } catch (CsvValidationException e) {
                 GestioneEccezioni.errore("Errore formato csv", e.getMessage(), false, null);
             }
-            writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
-                    "Risposta" });
-            for (String[] riga : listaTemp) {
-                writer.writeNext(riga);
-            }
+            // writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente",
+            // "ID Ristorante", "Voto", "Testo",
+            // "Risposta" });
+            // for (String[] riga : listaTemp) {
+            // writer.writeNext(riga);
+            // }
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
                 GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
@@ -116,17 +113,17 @@ public class RecensioneWriter {
         }
 
         // Sovrascrivi il file con i dati aggiornati
-        // try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
-        // writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente",
-        // "ID Ristorante", "Voto", "Testo",
-        // "Risposta" });
-        // for (String[] riga : listaTemp) {
-        // writer.writeNext(riga);
-        // }
+        try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
+            writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente",
+                    "ID Ristorante", "Voto", "Testo",
+                    "Risposta" });
+            for (String[] riga : listaTemp) {
+                writer.writeNext(riga);
+            }
 
-        // } catch (IOException e) {
-        // System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
-        // }
+        } catch (IOException e) {
+            System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
+        }
     }
 
     public static void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto) {

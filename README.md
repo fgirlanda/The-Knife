@@ -154,6 +154,8 @@ Generale:
 - Numero di recensioni (FATTO)
 - Modificare filtri ricerca ristoranti
 - Calcolo media recensioni modificate (FATTO)
+- Disabilitare bottone risposta recensione dopo aver risposto (FATTO)
+- Rendere visibile la risposta (FATTO)
 
 Grafica:
 
@@ -167,9 +169,8 @@ Grafica:
 Pulizia codice:
 
 - Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) (FATTO)
-- Sistemare coerenza di alcune azioni ()
 - Classe astratta Controller (?)
-- Gestione eccezioni
+- Gestione eccezioni 
 - Generalizzazione dei percorsi file
 
 
@@ -180,4 +181,4 @@ Extra:
 - Whitelist caratteri
 - Soluzione per ripetizione metodo caricaTessere (FATTO)
 - Pulizia grafica
-- Aggiungere controllo indirizzo
+- Aggiungere controllo indirizzo (FATTO)

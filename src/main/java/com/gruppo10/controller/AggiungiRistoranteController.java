@@ -155,11 +155,10 @@ public class AggiungiRistoranteController {
 
         ristorante.setCords(cords);
 
-        RistoranteWriter writer = new RistoranteWriter();
         try {
-            writer.scriviRistorante(ristorante);
+            RistoranteWriter.scriviRistorante(ristorante);
         } catch (Exception e) {
-            e.printStackTrace();
+            return;
         }
 
         if (onCloseCallback != null) {

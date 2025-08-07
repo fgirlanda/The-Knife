@@ -62,7 +62,7 @@ public class CardRecensioneController implements CardController<Recensione> {
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
         String titolo = stage.getTitle().toLowerCase();
-        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario()) {
+        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario() || !txtRisposta.getText().isBlank()) {
             btnRispondi.setVisible(false);
         }
         if (utenteLoggato.getId() != this.recensione.getIdUtente() || titolo.equals("the knife - profilo")) {
@@ -94,6 +94,14 @@ public class CardRecensioneController implements CardController<Recensione> {
         SceneManager.finestraDialogo("/GUI/rispondi_recensione.fxml", "Rispondi", stage,
                 (RispostaRecensioneController controller) -> {
                     controller.setRecensione(this.recensione);
+                    controller.setOnCloseCallBack(() -> {
+
+                        String nuovaRisposta = controller.getRisposta();
+                        if(nuovaRisposta != null){
+                            txtRisposta.setText(nuovaRisposta);
+                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+                        }
+                    });
                 });
     }
 

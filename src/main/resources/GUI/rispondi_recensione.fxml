@@ -28,7 +28,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnInvia" mnemonicParsing="false" onAction="#aggiungiRisposta" prefHeight="25.0" prefWidth="92.0" text="Invia">
+            <Button fx:id="btnInvia" disable="true" mnemonicParsing="false" onAction="#aggiungiRisposta" prefHeight="25.0" prefWidth="92.0" text="Invia">
                <font>
                   <Font size="15.0" />
                </font>

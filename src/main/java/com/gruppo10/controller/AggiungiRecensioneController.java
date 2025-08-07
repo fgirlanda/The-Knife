@@ -100,10 +100,13 @@ public class AggiungiRecensioneController {
 
         ristorante.aggiungiRecensione(recensione);
 
-        if (RecensioneWriter.scriviRecensione(recensione)) {
-            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
-            chiudi();
+        try {
+            RecensioneWriter.scriviRecensione(recensione);
+        } catch (Exception e) {
+            return;
         }
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+        chiudi();
     }
 
     @FXML

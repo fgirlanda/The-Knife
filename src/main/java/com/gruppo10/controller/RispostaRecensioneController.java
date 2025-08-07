@@ -11,6 +11,8 @@ public class RispostaRecensioneController {
 
     private Recensione recensione;
 
+    private Runnable onCloseCallBack;
+
     @FXML
     private TextArea txtRisposta;
 
@@ -20,22 +22,18 @@ public class RispostaRecensioneController {
     @FXML
     private Button btnInvia;
 
+
     @FXML
     private void initialize() {
-        // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtRisposta.textProperty().addListener((_, _, _) -> checkFields());
-        checkFields();
+        txtRisposta.textProperty().addListener((_, _, _) -> controllaCampi());
     }
 
     public void setRecensione(Recensione recensione) {
         this.recensione = recensione;
     }
 
-    private void checkFields() {
-        // Controlla se tutti i campi sono riempiti
+    private void controllaCampi() {
         boolean allFieldsFilled = !txtRisposta.getText().isEmpty();
-
-        // Abilita o disabilita il pulsante in base ai campi
         btnInvia.setDisable(!allFieldsFilled);
     }
 
@@ -47,9 +45,13 @@ public class RispostaRecensioneController {
         try {
             RecensioneWriter.aggiungiRisposta(this.recensione, risposta);
         } catch (Exception e) {
-            e.printStackTrace();
+            return;
         }
 
+        if(onCloseCallBack != null){
+            onCloseCallBack.run();
+        }
+        
         chiudi();
     }
 
@@ -57,4 +59,13 @@ public class RispostaRecensioneController {
     private void chiudi() {
         SceneManager.chiudi(btnAnnulla);
     }
+
+    public String getRisposta(){
+        return this.txtRisposta.getText();
+    }
+
+    public void setOnCloseCallBack(Runnable callback){
+        this.onCloseCallBack = callback;
+    }
+
 }

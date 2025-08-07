@@ -12,7 +12,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class RistoranteReader {
     static File dir = new File("fileCSV");
-    static File fileRistoranti = new File(dir, "ristoranti.csv");
+    static File fileRistoranti = new File(dir, "ristoranti_test.csv");
 
     public static List<Ristorante> caricaCSV() {
         List<Recensione> listaRecensioni = RecensioneReader.caricaCSV();
