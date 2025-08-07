@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import com.gruppo10.controller.StatusController;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
