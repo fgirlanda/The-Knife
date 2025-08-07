@@ -77,8 +77,7 @@ public class ProfiloClienteController {
                         stage,
                         "/GUI/card_recensione.fxml",
                         (controller, _) -> {
-                            ((CardRecensioneController) controller).setIdProprietario(utenteLoggato.getId());
-                            ((CardRecensioneController) controller).setRistorante(null);
+                            // ((CardRecensioneController) controller).setRistorante(null); // Necessario se si vuole fare in modo di aprire la pagina ristorante dalla card recensione
                             ((CardRecensioneController) controller).setPrincipale(false);
                         });
             }

@@ -1,7 +1,5 @@
 package com.gruppo10.controller;
 
-import java.util.List;
-
 import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneWriter;
@@ -28,8 +26,6 @@ public class CardRecensioneController implements CardController<Recensione> {
     private boolean paginaPrincipale;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
-
-    private int idProprietario;
 
     private VBox contenitore;
 
@@ -62,26 +58,11 @@ public class CardRecensioneController implements CardController<Recensione> {
         this.stage = stage;
     }
 
-    public void setRistorante(Ristorante ristorante) {
-        this.ristorante = ristorante;
-    }
-
-    public void setIdProprietario(int idProprietario) {
-        this.idProprietario = idProprietario;
-    }
-
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
-
-    public void setListaRecensioni(List<Recensione> listaRecensioni) {
-    }
-
     @Override
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
         String titolo = stage.getTitle().toLowerCase();
-        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.idProprietario) {
+        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario()) {
             btnRispondi.setVisible(false);
         }
         if (utenteLoggato.getId() != this.recensione.getIdUtente() || titolo.equals("the knife - profilo")) {
@@ -98,6 +79,14 @@ public class CardRecensioneController implements CardController<Recensione> {
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText(String.format("%d", this.recensione.getStelle()) + " ★");
         txtRisposta.setText(this.recensione.getRisposta());
+    }
+
+    public void setRistorante(Ristorante ristorante) {
+        this.ristorante = ristorante;
+    }
+
+    public void setPrincipale(boolean paginaPrincipale) {
+        this.paginaPrincipale = paginaPrincipale;
     }
 
     @FXML

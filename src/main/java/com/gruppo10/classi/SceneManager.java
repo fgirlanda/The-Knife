@@ -92,12 +92,12 @@ public class SceneManager {
 
                 CardController<T> controller = loader.getController();
                 controller.setStage(stage);
-                controller.setItem(r, contenitoreTessere);
-                controller.setDati();
-
+                
                 if (extraConfig != null) {
                     extraConfig.accept(controller, r);
                 }
+                controller.setItem(r, contenitoreTessere);
+                controller.setDati();
 
                 contenitoreTessere.getChildren().add(card);
             } catch (IOException e) {

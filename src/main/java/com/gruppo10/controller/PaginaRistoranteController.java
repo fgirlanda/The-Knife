@@ -1,8 +1,5 @@
 package com.gruppo10.controller;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +66,6 @@ public class PaginaRistoranteController {
     @FXML
     private VBox contenitoreTessere;
 
-    // Imposta il riferimento alla finestra principale
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -87,26 +83,19 @@ public class PaginaRistoranteController {
             imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
         }
 
-        Path path = Paths.get(System.getProperty("user.dir"), "fileCSV", "recensioni.csv");
-        File fileRecensioni = new File(path.toString());
-        if (fileRecensioni.exists()) {
-            recensioni = RecensioneReader.caricaCSV();
-            if (recensioni != null) {
-                List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
-                presente = recensioneInserita(listaFiltrata);
-                SceneManager.caricaTessere(
-                        listaFiltrata,
-                        contenitoreTessere,
-                        stage,
-                        "/GUI/card_recensione.fxml",
-                        (controller, _) -> {
-                            ((CardRecensioneController) controller)
-                                    .setIdProprietario(this.ristorante.getIdproprietario());
-                            ((CardRecensioneController) controller).setListaRecensioni(listaFiltrata);
-                            ((CardRecensioneController) controller).setRistorante(this.ristorante);
-                            ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
-                        });
-            }
+        recensioni = RecensioneReader.caricaCSV();
+        if (recensioni != null) {
+            List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
+            presente = recensioneInserita(listaFiltrata);
+            SceneManager.caricaTessere(
+                    listaFiltrata,
+                    contenitoreTessere,
+                    stage,
+                    "/GUI/card_recensione.fxml",
+                    (controller, _) -> {
+                        ((CardRecensioneController) controller).setRistorante(this.ristorante);
+                        ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
+                    });
         }
 
         if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
@@ -156,17 +145,14 @@ public class PaginaRistoranteController {
 
     @FXML
     private void gestisciPreferiti() {
-        try {
-            if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-                imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
-                aggiungiPreferito();
-            } else {
-                imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
-                rimuoviPreferito();
-            }
-        } catch (Exception e) { // Gestire eccezione
-            e.printStackTrace();
+        if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
+            imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
+            aggiungiPreferito();
+        } else {
+            imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
+            rimuoviPreferito();
         }
+
     }
 
     private void aggiungiPreferito() {

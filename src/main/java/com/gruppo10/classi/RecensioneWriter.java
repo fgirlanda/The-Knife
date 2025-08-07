@@ -18,22 +18,17 @@ public class RecensioneWriter {
     static File dir = new File("fileCSV");
     static File fileRecensioni = new File(dir, "recensioni.csv");
 
-    public void scriviRecensione(Recensione recensione) {
+    public static boolean scriviRecensione(Recensione recensione) {
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                System.err.println("Errore: impossibile creare la directory fileCSV");
-                return;
+                GestioneEccezioni.errore("Impossibile creare la directory fileCSV", null, false, null);
+                return false;
             }
         }
 
         boolean fileEsiste = fileRecensioni.exists();
 
-        Writer writer = null;
-        CSVWriter csvWriter = null;
-
-        try {
-            writer = new FileWriter(fileRecensioni, true);
-            csvWriter = new CSVWriter(writer);
+        try (Writer writer = new FileWriter(fileRecensioni, true); CSVWriter csvWriter = new CSVWriter(writer)) {
 
             // Scrivi header se il file non esiste
             if (!fileEsiste) {
@@ -49,27 +44,23 @@ public class RecensioneWriter {
             csvWriter.flush();
 
         } catch (IOException e) {
-            System.err.println("Errore di I/O durante la scrittura della recensione: " + e.getMessage());
-        } catch (NullPointerException e) {
-            System.err.println("Errore: recensione inesistente o dati mancanti.");
-        } catch (SecurityException e) {
-            System.err.println("Permesso negato per la scrittura del file: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Errore nei dati della recensione: " + e.getMessage());
-        } finally {
-            // Chiudi risorse
-            try {
-                if (csvWriter != null)
-                    csvWriter.close();
-                if (writer != null)
-                    writer.close();
-            } catch (IOException e) {
-                System.err.println("Errore nella chiusura delle risorse: " + e.getMessage());
+            if (!(e instanceof FileNotFoundException)) {
+                GestioneEccezioni.errore("Errore di I/O durante la scrittura della recensione", e.getMessage(), false,
+                        null);
+                return false;
             }
+        } catch (SecurityException e) {
+            GestioneEccezioni.errore("Permesso negato per la scrittura del file", e.getMessage(), true,
+                    file -> fileRecensioni = file);
+            return false;
+        } catch (IllegalArgumentException e) {
+            GestioneEccezioni.errore("Errore nei dati della recensione", e.getMessage(), false, null);
+            return false;
         }
+        return true;
     }
 
-    private String[] estraiDati(Recensione recensione, File file) {
+    private static String[] estraiDati(Recensione recensione, File file) {
         String[] dati = new String[7];
 
         dati[0] = Integer.toString(RistoranteWriter.ultimoID(file)); // Gestire eccezione in RistoranteWriter
@@ -84,24 +75,15 @@ public class RecensioneWriter {
     }
 
     public static void aggiungiRisposta(Recensione recensione, String risposta) {
-        if (recensione == null || risposta == null) {
-            System.err.println("Errore: recensione o risposta null.");
-            return;
-        }
-
         List<String[]> listaTemp = new ArrayList<>();
 
-        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni))) {
+        try (CSVReader reader = new CSVReader(new FileReader(fileRecensioni));
+                CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
             String[] dati;
             try {
                 reader.readNext(); // Salta header
 
                 while ((dati = reader.readNext()) != null) {
-                    if (dati.length < 7) {
-                        System.err.println("Riga CSV non valida, ignorata: " + Arrays.toString(dati));
-                        continue;
-                    }
-
                     try {
                         int idUt = Integer.parseInt(dati[2]);
                         int idRis = Integer.parseInt(dati[3]);
@@ -113,34 +95,38 @@ public class RecensioneWriter {
                         listaTemp.add(dati);
 
                     } catch (NumberFormatException e) {
-                        System.err.println("Errore parsing ID nella riga: " + Arrays.toString(dati));
+                        GestioneEccezioni.errore("Errore parsing ID", "Riga: " + Arrays.toString(dati), false, null);
                     }
-
                 }
 
             } catch (CsvValidationException e) {
-                System.err.println("Errore formato csv: " + e.getMessage());
+                GestioneEccezioni.errore("Errore formato csv", e.getMessage(), false, null);
             }
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Errore: file CSV non trovato: " + fileRecensioni);
-            return;
-        } catch (IOException e) {
-            System.err.println("Errore di lettura dal file CSV: " + e.getMessage());
-            return;
-        }
-
-        // Sovrascrivi il file con i dati aggiornati
-        try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
             writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
                     "Risposta" });
             for (String[] riga : listaTemp) {
                 writer.writeNext(riga);
             }
-
         } catch (IOException e) {
-            System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
+            if (!(e instanceof FileNotFoundException)) {
+                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                        file -> fileRecensioni = file);
+                return;
+            }
         }
+
+        // Sovrascrivi il file con i dati aggiornati
+        // try (CSVWriter writer = new CSVWriter(new FileWriter(fileRecensioni))) {
+        // writer.writeNext(new String[] { "ID Recensione", "Username", "ID Cliente",
+        // "ID Ristorante", "Voto", "Testo",
+        // "Risposta" });
+        // for (String[] riga : listaTemp) {
+        // writer.writeNext(riga);
+        // }
+
+        // } catch (IOException e) {
+        // System.err.println("Errore di scrittura nel file CSV: " + e.getMessage());
+        // }
     }
 
     public static void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto) {
