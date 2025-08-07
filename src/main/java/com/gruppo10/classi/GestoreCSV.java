@@ -25,7 +25,7 @@ public abstract class GestoreCSV<T> {
 
     public List<T> caricaCSV() {
         List<T> lista = new ArrayList<>();
-        try (CSVReader reader = new CSVReader(new FileReader(file))) {
+        try (CSVReader reader = new CSVReader(new FileReader(file))){
             String[] dati;
             reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {

@@ -4,12 +4,11 @@ import javafx.scene.control.Label;
 import java.time.format.DateTimeFormatter;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteReader;
-import com.gruppo10.classi.UtenteWriter;
-
+import com.gruppo10.classi.UtenteCSV;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -99,21 +98,17 @@ public class RegistrazioneController {
     }
 
     @FXML
-    public void registrati() throws Exception {
-        // Ottieni il ruolo selezionato
+    public void registrati() {
+        UtenteCSV utenteCSV = new UtenteCSV();
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
-
-        // Ottieni i dati di registrazione (es. nome, cognome, username, password, ecc.)
-        // dai campi di input
         String nome = nomeField.getText();
         String cognome = cognomeField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
         String indirizzo = indirizzoField.getText();
 
-        // Verifica che l'username sia disponibile
-        if (UtenteReader.cercaUtente(username) != null) {
+        if (utenteCSV.cercaUtente(username) != null) {
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
@@ -140,24 +135,21 @@ public class RegistrazioneController {
         utente.setIndirizzo(indirizzo);
         utente.setRuolo(ruolo);
         utente.setCords(coordinate);
-        UtenteReader.aggiungiUtente(utente);
-        UtenteWriter writer = new UtenteWriter();
-        try {
-            writer.scriviUtente(utente);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        // Apri pagina di login
+        utenteCSV.aggiungiUtente(utente);
+        try {
+            utenteCSV.scrivi(utente);
+        } catch (Exception e) {
+            GestioneEccezioni.errore("Errore di registrazione", e.getMessage(), false, null);
+            return;
+        }
         apriLogin();
     }
 
     @FXML
     private void chiudi() {
         if (paginaPrincipale) {
-            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", // Gestire eccezioni
-                                                                                                // cambio scena
-                    (PaginaPrincipaleController controller) -> controller.setStage(stage));
+            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", (PaginaPrincipaleController controller) -> controller.setStage(stage));
         } else {
             apriLogin();
         }

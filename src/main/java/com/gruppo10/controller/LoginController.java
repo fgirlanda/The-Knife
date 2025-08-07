@@ -12,8 +12,7 @@ import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteReader;
-
+import com.gruppo10.classi.UtenteCSV;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -86,7 +85,8 @@ public class LoginController {
             return;
 
         // Verifica se l'utente esiste nel file CSV
-        Utente utente = UtenteReader.cercaUtente(username);
+        UtenteCSV utenteCSV = new UtenteCSV();
+        Utente utente = utenteCSV.cercaUtente(username);
         if (utente == null) {
             loginStatus.setVisible(true);
             loginStatus.setText("Login status: UTENTE NON REGISTRATO");
