@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="680.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
+<VBox prefHeight="680.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="999.0" spacing="10.0">
          <children>
@@ -25,7 +25,8 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Separator prefHeight="3.0" prefWidth="404.0" visible="false" />
+            <Button fx:id="bottoneApplicaFiltri" mnemonicParsing="false" onAction="#applicaFiltri" prefHeight="25.0" prefWidth="137.0" text="Applica Filtri" />
+            <Separator prefHeight="3.0" prefWidth="161.0" visible="false" />
             <Button fx:id="bottoneRegistratiProfilo" mnemonicParsing="false" onAction="#gestisciBottoneUtente" prefHeight="25.0" prefWidth="69.0" text="Registrati" />
          </children>
          <opaqueInsets>
@@ -43,13 +44,12 @@
             <ComboBox fx:id="comboFiltroDelivery" prefHeight="25.0" prefWidth="95.0" promptText="delivery" />
             <ComboBox fx:id="comboFiltroPrenotazione" prefHeight="25.0" prefWidth="150.0" promptText="prenotazione online" />
             <ComboBox fx:id="comboFiltroDistanza" prefHeight="25.0" prefWidth="90.0" promptText="distanza" />
-            <Button fx:id="bottoneApplicaFiltri" mnemonicParsing="false" onAction="#applicaFiltri" text="Applica Filtri" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </HBox>
-      <ScrollPane fitToHeight="true" prefHeight="600.0" prefWidth="861.0">
+      <ScrollPane fitToHeight="true" prefHeight="600.0" prefWidth="771.0">
          <content>
             <VBox fx:id="contenitoreTessere" />
          </content>
