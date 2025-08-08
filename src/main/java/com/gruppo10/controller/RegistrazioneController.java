@@ -132,7 +132,7 @@ public class RegistrazioneController extends Controller {
     }
 
     @FXML
-    private void chiudi() {
+    private void annulla() {
         if (paginaPrincipale) {
             SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", (PaginaPrincipaleController controller) -> controller.setStage(stage));
         } else {

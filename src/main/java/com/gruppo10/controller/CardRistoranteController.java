@@ -1,6 +1,5 @@
 package com.gruppo10.controller;
 
-import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 

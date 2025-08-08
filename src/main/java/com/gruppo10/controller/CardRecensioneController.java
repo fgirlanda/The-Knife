@@ -1,6 +1,5 @@
 package com.gruppo10.controller;
 
-import com.gruppo10.classi.CardController;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;

@@ -2,12 +2,11 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
-import com.gruppo10.classi.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
-public class RispostaRecensioneController {
+public class RispostaRecensioneController extends Controller{
 
     private Recensione recensione;
 
@@ -15,9 +14,6 @@ public class RispostaRecensioneController {
 
     @FXML
     private TextArea txtRisposta;
-
-    @FXML
-    private Button btnAnnulla;
 
     @FXML
     private Button btnInvia;
@@ -54,11 +50,6 @@ public class RispostaRecensioneController {
         }
         
         chiudi();
-    }
-
-    @FXML
-    private void chiudi() {
-        SceneManager.chiudi(btnAnnulla);
     }
 
     public String getRisposta(){

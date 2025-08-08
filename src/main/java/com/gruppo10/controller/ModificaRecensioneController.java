@@ -40,9 +40,6 @@ public class ModificaRecensioneController extends Controller {
     private TextArea txtTestoModificato;
 
     @FXML
-    private Button btnAnnulla;
-
-    @FXML
     private Button btnInvia;
 
     @FXML
@@ -126,10 +123,5 @@ public class ModificaRecensioneController extends Controller {
         // ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
         SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
         chiudi();
-    }
-
-    @FXML
-    private void chiudi() {
-        SceneManager.chiudi(btnAnnulla);
     }
 }

@@ -22,9 +22,6 @@ public class AggiungiRecensioneController extends Controller {
     private TextArea txtTesto;
 
     @FXML
-    private Button btnAnnulla;
-
-    @FXML
     private Button btnInvia;
 
     @FXML
@@ -93,10 +90,5 @@ public class AggiungiRecensioneController extends Controller {
         }
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
         chiudi();
-    }
-
-    @FXML
-    private void chiudi() {
-        SceneManager.chiudi(btnAnnulla);
     }
 }

@@ -10,15 +10,12 @@ import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
 public class ProfiloClienteController extends Controller{
-
-    private Stage stage;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 

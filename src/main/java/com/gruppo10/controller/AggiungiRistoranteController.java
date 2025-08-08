@@ -6,7 +6,6 @@ import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteCSV;
-import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
 
@@ -18,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ComboBox;
 
-public class AggiungiRistoranteController {
+public class AggiungiRistoranteController extends Controller{
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -61,9 +60,6 @@ public class AggiungiRistoranteController {
 
     @FXML
     private TextArea txtDescrizione;
-
-    @FXML
-    private Button btnAnnulla;
 
     @FXML
     private Button btnAggiungiRistorante;
@@ -167,11 +163,6 @@ public class AggiungiRistoranteController {
         }
 
         chiudi();
-    }
-
-    @FXML
-    private void chiudi() {
-        SceneManager.chiudi(btnAnnulla);
     }
 
     public Ristorante getNuovoRistorante() {

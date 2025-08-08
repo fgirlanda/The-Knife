@@ -1,4 +1,4 @@
-package com.gruppo10.classi;
+package com.gruppo10.controller;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
