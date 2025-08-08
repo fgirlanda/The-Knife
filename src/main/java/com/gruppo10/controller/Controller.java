@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class Controller {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
+    
     protected Stage stage;
 
     protected boolean paginaPrincipale;
@@ -48,7 +49,10 @@ public class Controller {
         SceneManager.chiudi(btnAnnulla);
     }
 
-
+    public void disabilitaBottone(Button bottone, boolean abilita){
+        bottone.setDisable(abilita);
+    }
+    
     // Profilo cliente/ristoratore
     public void caricaDatiUtente() {
         String labelPasswordText = "********";

@@ -29,8 +29,8 @@ public class RispostaRecensioneController extends Controller{
     }
 
     private void controllaCampi() {
-        boolean allFieldsFilled = !txtRisposta.getText().isEmpty();
-        btnInvia.setDisable(!allFieldsFilled);
+        boolean campiVuoti = txtRisposta.getText().isEmpty();
+        disabilitaBottone(btnInvia, campiVuoti);
     }
 
     @FXML

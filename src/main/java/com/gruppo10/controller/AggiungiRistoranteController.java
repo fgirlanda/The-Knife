@@ -93,15 +93,13 @@ public class AggiungiRistoranteController extends Controller{
     }
 
     private void controllaCampi() {
-        // Controlla se tutti i campi sono riempiti
-        boolean allFieldsFilled = !txtNomeRistorante.getText().isEmpty() &&
-                !txtIndirizzo.getText().isEmpty() &&
-                deliveryGroup.getSelectedToggle() != null &&
-                prenotazioneGroup.getSelectedToggle() != null &&
-                comboCucina.getValue() != null;
+        boolean campiVuoti = txtNomeRistorante.getText().isEmpty() ||
+                txtIndirizzo.getText().isEmpty() ||
+                deliveryGroup.getSelectedToggle() == null ||
+                prenotazioneGroup.getSelectedToggle() == null ||
+                comboCucina.getValue() == null;
 
-        // Abilita o disabilita il pulsante in base ai campi
-        btnAggiungiRistorante.setDisable(!allFieldsFilled);
+        disabilitaBottone(btnAggiungiRistorante, campiVuoti);
     }
 
     @FXML

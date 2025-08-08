@@ -131,7 +131,7 @@
          </children>
       </GridPane>
       <Button fx:id="btnAnnulla" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#chiudi" text="Annulla" />
-      <Button fx:id="btnAggiungiRistorante" layoutX="194.0" layoutY="322.0" mnemonicParsing="false" onAction="#aggiungiRistorante" text="AGGIUNGI RISTORANTE">
+      <Button fx:id="btnAggiungiRistorante" disable="true" layoutX="194.0" layoutY="322.0" mnemonicParsing="false" onAction="#aggiungiRistorante" text="AGGIUNGI RISTORANTE">
          <font>
             <Font size="18.0" />
          </font>

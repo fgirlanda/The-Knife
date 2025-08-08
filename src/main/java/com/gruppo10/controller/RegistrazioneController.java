@@ -72,14 +72,15 @@ public class RegistrazioneController extends Controller {
     }
 
     private void controllaCampi() {
-        boolean allFieldsFilled = nomeField.getText().isBlank() ||
+        boolean campiVuoti = nomeField.getText().isBlank() ||
                 cognomeField.getText().isBlank() ||
                 usernameField.getText().isBlank() ||
                 passwordField.getText().isBlank() ||
                 indirizzoField.getText().isBlank() ||
                 dataNascitaPicker.getValue() == null ||
                 ruoloGroup.getSelectedToggle() == null;
-        btnRegistrati.setDisable(allFieldsFilled);
+                
+        disabilitaBottone(btnRegistrati, campiVuoti);
     }
 
     @FXML

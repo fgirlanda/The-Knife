@@ -53,7 +53,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnInvia" mnemonicParsing="false" onAction="#aggiungiRecensione" prefHeight="25.0" prefWidth="92.0" text="Invia" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Button fx:id="btnInvia" disable="true" mnemonicParsing="false" onAction="#aggiungiRecensione" prefHeight="25.0" prefWidth="92.0" text="Invia" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
                </font>

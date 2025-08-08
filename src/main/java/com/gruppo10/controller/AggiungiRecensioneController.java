@@ -54,12 +54,10 @@ public class AggiungiRecensioneController extends Controller {
     }
 
     private void controllaCampi() {
-        // Controlla se tutti i campi sono riempiti
-        boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
-                stelleGroup.getSelectedToggle() != null;
+        boolean campiVuoti = txtTesto.getText().isBlank() ||
+                stelleGroup.getSelectedToggle() == null;
 
-        // Abilita o disabilita il pulsante in base ai campi
-        btnInvia.setDisable(!allFieldsFilled);
+        disabilitaBottone(btnInvia, campiVuoti);
     }
 
     @FXML
