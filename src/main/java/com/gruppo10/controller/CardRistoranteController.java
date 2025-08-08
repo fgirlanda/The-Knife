@@ -11,11 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CardRistoranteController implements CardController<Ristorante> {
+public class CardRistoranteController extends Controller implements CardController<Ristorante> {
 
     private Stage stage;
 
     public Ristorante ristorante;
+
+    // private boolean paginaPrincipale;
 
     @FXML
     private HBox card;
@@ -39,8 +41,12 @@ public class CardRistoranteController implements CardController<Ristorante> {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    public void setPrincipale(boolean paginaPrincipale) {
+    
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
+    
+    public void setOnClick(){
         card.setOnMouseClicked(_ -> { // _ = event
             SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
         });

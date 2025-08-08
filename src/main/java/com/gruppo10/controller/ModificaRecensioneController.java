@@ -2,7 +2,6 @@ package com.gruppo10.controller;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
-// import com.gruppo10.classi.RecensioneWriter;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
@@ -17,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ModificaRecensioneController {
+public class ModificaRecensioneController extends Controller {
 
     private Recensione recensione;
 
@@ -25,7 +24,7 @@ public class ModificaRecensioneController {
 
     private Ristorante ristorante;
 
-    private boolean paginaPrincipale;
+    // private boolean paginaPrincipale;
 
     private String testoOriginale;
 
@@ -84,9 +83,9 @@ public class ModificaRecensioneController {
         this.ristorante = ristorante;
     }
 
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
 
     public void setRecensione(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;

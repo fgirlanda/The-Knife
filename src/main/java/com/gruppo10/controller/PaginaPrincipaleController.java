@@ -180,6 +180,8 @@ public class PaginaPrincipaleController {
                 "/GUI/card_ristorante.fxml",
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(true);
+                    ((CardRistoranteController) controller).setStage(stage);
+                    ((CardRistoranteController) controller).setOnClick();
                 });
     }
 }

@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CardRecensioneController implements CardController<Recensione> {
+public class CardRecensioneController extends Controller implements CardController<Recensione> {
 
     private Stage stage;
 
@@ -23,7 +23,7 @@ public class CardRecensioneController implements CardController<Recensione> {
 
     private Ristorante ristorante;
 
-    private boolean paginaPrincipale;
+    // private boolean paginaPrincipale;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -85,9 +85,9 @@ public class CardRecensioneController implements CardController<Recensione> {
         this.ristorante = ristorante;
     }
 
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
 
     @FXML
     private void rispondi() {

@@ -115,6 +115,8 @@ public class ProfiloRistoratoreController {
                 "/GUI/card_ristorante.fxml",
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(false);
+                    ((CardRistoranteController) controller).setStage(stage);
+                    ((CardRistoranteController) controller).setOnClick();
                 });
     }
 }

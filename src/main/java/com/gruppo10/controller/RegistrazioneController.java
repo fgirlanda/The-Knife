@@ -20,11 +20,11 @@ import javafx.stage.Stage;
 
 import org.controlsfx.control.textfield.TextFields;
 
-public class RegistrazioneController {
+public class RegistrazioneController extends Controller {
 
     private Stage stage;
 
-    private boolean paginaPrincipale;
+    // private boolean paginaPrincipale;
 
     @FXML
     private RadioButton clienteRadioButton;
@@ -82,9 +82,9 @@ public class RegistrazioneController {
         this.stage = stage;
     }
 
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
 
     private void controllaCampi() {
         boolean allFieldsFilled = nomeField.getText().isBlank() ||

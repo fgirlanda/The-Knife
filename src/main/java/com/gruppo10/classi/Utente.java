@@ -1,8 +1,6 @@
 package com.gruppo10.classi;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data
@@ -17,8 +15,6 @@ public class Utente {
     private Ruolo ruolo;
 
     private Coordinate cords;
-    private ArrayList<Ristorante> ristorantiPreferiti;
-    private ArrayList<Ristorante> ristorantiOwned;
 
     public void setCords(double lat, double lon) {
         this.cords = new Coordinate(lat, lon);
@@ -38,5 +34,9 @@ public class Utente {
         } catch (IllegalArgumentException e) {
             this.ruolo = Ruolo.NON_REGISTRATO; // Valore di default se non riconosciuto
         }
+    }
+
+    public void setRuolo(Ruolo ruolo){
+        this.ruolo = ruolo;
     }
 }

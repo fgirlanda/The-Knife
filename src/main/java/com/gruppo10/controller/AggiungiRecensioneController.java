@@ -13,7 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class AggiungiRecensioneController {
+public class AggiungiRecensioneController extends Controller {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -21,7 +21,7 @@ public class AggiungiRecensioneController {
 
     private Stage stage;
 
-    private boolean paginaPrincipale;
+    // private boolean paginaPrincipale;
 
     @FXML
     private TextArea txtTesto;
@@ -54,25 +54,22 @@ public class AggiungiRecensioneController {
     private void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtTesto.textProperty().addListener((_, _, _) -> checkFields());
-
-        checkFields();
-
+        txtTesto.textProperty().addListener((_, _, _) -> controllaCampi());
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
 
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
 
-    private void checkFields() {
+    private void controllaCampi() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtTesto.getText().isEmpty() &&
                 stelleGroup.getSelectedToggle() != null;

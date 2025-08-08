@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class PaginaRistoranteController {
+public class PaginaRistoranteController extends Controller {
 
     private Stage stage;
 
@@ -70,9 +70,9 @@ public class PaginaRistoranteController {
         this.stage = stage;
     }
 
-    public void setPrincipale(boolean paginaPrincipale) {
-        this.paginaPrincipale = paginaPrincipale;
-    }
+    // public void setPrincipale(boolean paginaPrincipale) {
+    //     this.paginaPrincipale = paginaPrincipale;
+    // }
 
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;

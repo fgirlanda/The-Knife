@@ -66,6 +66,8 @@ public class ProfiloClienteController {
                     "/GUI/card_ristorante.fxml",
                     (controller, _) -> {
                         ((CardRistoranteController) controller).setPrincipale(false);
+                        ((CardRistoranteController) controller).setStage(stage);
+                        ((CardRistoranteController) controller).setOnClick();
                     });
 
             // Carica recensioni utente
@@ -79,7 +81,8 @@ public class ProfiloClienteController {
                         stage,
                         "/GUI/card_recensione.fxml",
                         (controller, _) -> {
-                            // ((CardRecensioneController) controller).setRistorante(null); // Necessario se si vuole fare in modo di aprire la pagina ristorante dalla card recensione
+                            // ((CardRecensioneController) controller).setRistorante(null); // Necessario se
+                            // si vuole fare in modo di aprire la pagina ristorante dalla card recensione
                             ((CardRecensioneController) controller).setPrincipale(false);
                         });
             }
