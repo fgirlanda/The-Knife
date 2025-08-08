@@ -78,9 +78,9 @@ public class AggiungiRistoranteController extends Controller{
         comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtNomeRistorante.textProperty().addListener((_, _, _) -> checkFields());
-        txtIndirizzo.textProperty().addListener((_, _, _) -> checkFields());
-        comboCucina.valueProperty().addListener((_, _, _) -> checkFields());
+        txtNomeRistorante.textProperty().addListener((_, _, _) -> controllaCampi());
+        txtIndirizzo.textProperty().addListener((_, _, _) -> controllaCampi());
+        comboCucina.valueProperty().addListener((_, _, _) -> controllaCampi());
 
         // Imposta una lunghezza massima per il popup della ComboBox e abilita lo scroll
         comboCucina.setVisibleRowCount(4); // Limita il numero di voci visibili nel dropdown
@@ -90,12 +90,9 @@ public class AggiungiRistoranteController extends Controller{
         TextFields.<String>bindAutoCompletion(txtIndirizzo, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
-
-        checkFields();
-
     }
 
-    private void checkFields() {
+    private void controllaCampi() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtNomeRistorante.getText().isEmpty() &&
                 !txtIndirizzo.getText().isEmpty() &&

@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class CardRecensioneController extends Controller implements CardController<Recensione> {
+public class CardRecensioneController extends Controller implements InterfacciaCard<Recensione> {
 
     private Recensione recensione;
 

@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class CardRistoranteController extends Controller implements CardController<Ristorante> {
+public class CardRistoranteController extends Controller implements InterfacciaCard<Ristorante> {
 
     public Ristorante ristorante;
 

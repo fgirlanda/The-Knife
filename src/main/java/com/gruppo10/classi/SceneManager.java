@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import com.gruppo10.TheKnife;
-import com.gruppo10.controller.CardController;
+import com.gruppo10.controller.InterfacciaCard;
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
@@ -85,14 +85,14 @@ public class SceneManager {
     }
 
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath,
-            BiConsumer<CardController<T>, T> extraConfig) {
+            BiConsumer<InterfacciaCard<T>, T> extraConfig) {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
                 FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(fxmlPath));
                 HBox card = loader.load();
 
-                CardController<T> controller = loader.getController();
+                InterfacciaCard<T> controller = loader.getController();
                 controller.setStage(stage);
                 
                 if (extraConfig != null) {

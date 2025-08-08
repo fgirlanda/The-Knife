@@ -44,7 +44,6 @@ public class AggiungiRecensioneController extends Controller {
 
     @FXML
     private void initialize() {
-
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtTesto.textProperty().addListener((_, _, _) -> controllaCampi());
     }

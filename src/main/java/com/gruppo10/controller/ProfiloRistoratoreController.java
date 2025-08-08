@@ -9,8 +9,6 @@ import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
 public class ProfiloRistoratoreController extends Controller{
@@ -22,48 +20,16 @@ public class ProfiloRistoratoreController extends Controller{
     private List<Ristorante> listaFiltrata;
 
     @FXML
-    private TabPane tabPane;
-    @FXML
     private VBox contenitoreTessere;
-    @FXML
-    private Label labelNome;
-    @FXML
-    private Label labelCognome;
-    @FXML
-    private Label labelUsername;
-    @FXML
-    private Label labelIndirizzo;
-    @FXML
-    private Label labelData;
-    @FXML
-    private Label labelRuolo;
-    @FXML
-    private Label labelPassword;
-    String labelPasswordText = "********";
-
 
     public void caricaDati(){
-        caricaDatiUtente();
+        caricaDatiUtente(utenteloggato);
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
             listaFiltrata = filtraProprietario(ristoranti);
             aggiornaContenitore(listaFiltrata);
         }
-    }
-
-    public void setTab(int tab) {
-        tabPane.getSelectionModel().select(tab);
-    }
-
-    private void caricaDatiUtente() {
-        labelNome.setText(utenteloggato.getNome());
-        labelCognome.setText(utenteloggato.getCognome());
-        labelUsername.setText(utenteloggato.getUsername());
-        labelIndirizzo.setText(utenteloggato.getIndirizzo());
-        labelData.setText(utenteloggato.getDataDiNascita().toString());
-        labelRuolo.setText(utenteloggato.getRuolo().toString());
-        labelPassword.setText(labelPasswordText);
     }
 
     private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti) {
