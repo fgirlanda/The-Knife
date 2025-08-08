@@ -20,15 +20,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class PaginaPrincipaleController {
+public class PaginaPrincipaleController extends Controller{
 
     public static List<Ristorante> ristoranti;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
-
-    private Stage stage;
 
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
@@ -75,11 +72,6 @@ public class PaginaPrincipaleController {
         comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
         comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
         comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
-    }
-
-    // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     // Lista ristoranti, calcolo distanze e caricamento card

@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 
-public class ProfiloClienteController {
+public class ProfiloClienteController extends Controller{
 
     private Stage stage;
 
@@ -49,9 +49,11 @@ public class ProfiloClienteController {
     @FXML
     private Label labelPassword;
 
-    // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setTab(int tab) {
+        tabPane.getSelectionModel().select(tab);
+    }
+
+    public void caricaDati(){
         caricaDatiUtente();
 
         // Carica ristoranti preferiti
@@ -87,11 +89,6 @@ public class ProfiloClienteController {
                         });
             }
         }
-
-    }
-
-    public void setTab(int tab) {
-        tabPane.getSelectionModel().select(tab);
     }
 
     private void caricaDatiUtente() {

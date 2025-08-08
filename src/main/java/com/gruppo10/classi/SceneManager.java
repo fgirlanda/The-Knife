@@ -137,6 +137,7 @@ public class SceneManager {
         SceneManager.cambioScena(stage, "/GUI/profilo_cliente.fxml", "The Knife - Profilo",
                 (ProfiloClienteController controller) -> {
                     controller.setStage(stage);
+                    controller.caricaDati();
                     controller.setTab(tab);
                 });
     }
@@ -145,6 +146,7 @@ public class SceneManager {
         SceneManager.cambioScena(stage, "/GUI/profilo_ristoratore.fxml", "The Knife - Profilo",
                 (ProfiloRistoratoreController controller) -> {
                     controller.setStage(stage);
+                    controller.caricaDati();
                     controller.setTab(tab);
                 });
     }

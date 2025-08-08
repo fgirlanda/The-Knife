@@ -11,15 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 
 public class AggiungiRecensioneController extends Controller {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private Ristorante ristorante;
-
-    private Stage stage;
 
     @FXML
     private TextArea txtTesto;
@@ -53,10 +50,6 @@ public class AggiungiRecensioneController extends Controller {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtTesto.textProperty().addListener((_, _, _) -> controllaCampi());
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
 

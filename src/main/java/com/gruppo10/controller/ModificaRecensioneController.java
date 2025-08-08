@@ -14,13 +14,10 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class ModificaRecensioneController extends Controller {
 
     private Recensione recensione;
-
-    private Stage stage;
 
     private Ristorante ristorante;
 
@@ -71,10 +68,6 @@ public class ModificaRecensioneController extends Controller {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtTestoModificato.textProperty().addListener((_, _, _) -> controllaCampi());
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     public void setRistorante(Ristorante ristorante) {

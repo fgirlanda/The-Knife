@@ -9,11 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class CardRistoranteController extends Controller implements CardController<Ristorante> {
-
-    private Stage stage;
 
     public Ristorante ristorante;
 
@@ -35,11 +32,6 @@ public class CardRistoranteController extends Controller implements CardControll
     @FXML
     private Text txtTipoCucina;
 
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    
     public void setOnClick(){
         card.setOnMouseClicked(_ -> { // _ = event
             SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);

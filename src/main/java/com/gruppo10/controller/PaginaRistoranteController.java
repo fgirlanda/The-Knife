@@ -17,11 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class PaginaRistoranteController extends Controller {
-
-    private Stage stage;
 
     private Ristorante ristorante;
 
@@ -64,9 +61,6 @@ public class PaginaRistoranteController extends Controller {
     @FXML
     private VBox contenitoreTessere;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;

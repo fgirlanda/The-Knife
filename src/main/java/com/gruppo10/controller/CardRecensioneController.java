@@ -13,11 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class CardRecensioneController extends Controller implements CardController<Recensione> {
-
-    private Stage stage;
 
     private Recensione recensione;
 
@@ -52,11 +49,7 @@ public class CardRecensioneController extends Controller implements CardControll
     @FXML
     private Button btnModifica;
 
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
+ 
     @Override
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;

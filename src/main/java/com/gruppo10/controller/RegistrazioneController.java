@@ -16,13 +16,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
-
 import org.controlsfx.control.textfield.TextFields;
 
 public class RegistrazioneController extends Controller {
-
-    private Stage stage;
 
     @FXML
     private RadioButton clienteRadioButton;
@@ -73,11 +69,6 @@ public class RegistrazioneController extends Controller {
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
-    }
-
-    // Imposta il riferimento alla finestra principale (Stage)
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     private void controllaCampi() {

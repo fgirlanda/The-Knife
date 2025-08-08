@@ -24,11 +24,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class LoginController {
+public class LoginController extends Controller{
 
     public static Utente utenteLoggato = null;
-
-    private Stage stage;
 
     @FXML
     private TextField indirizzoField;
@@ -68,11 +66,6 @@ public class LoginController {
 
         btnLogin.setDisable(userPassword);
         btnContinua.setDisable(indirizzo);
-    }
-
-    // Imposta il riferimento alla finestra principale
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     @FXML

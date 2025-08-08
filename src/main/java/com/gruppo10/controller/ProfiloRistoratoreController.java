@@ -12,11 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class ProfiloRistoratoreController {
-
-    private Stage stage;
+public class ProfiloRistoratoreController extends Controller{
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 
@@ -44,9 +41,8 @@ public class ProfiloRistoratoreController {
     private Label labelPassword;
     String labelPasswordText = "********";
 
-    // Imposta il riferimento alla finestra principale (Stage)
-    public void setStage(Stage stage) {
-        this.stage = stage;
+
+    public void caricaDati(){
         caricaDatiUtente();
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();

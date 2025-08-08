@@ -51,4 +51,5 @@ public class Ristorante {
     public int getNumeroRecensioni() {
         return this.recensioni.size();
     }
+
 }
