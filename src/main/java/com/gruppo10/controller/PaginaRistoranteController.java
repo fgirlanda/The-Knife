@@ -27,8 +27,6 @@ public class PaginaRistoranteController extends Controller {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
-    private boolean paginaPrincipale; // true -> arrivo dalla pagina principale, false -> arrivo dal profilo
-
     private List<Recensione> recensioni;
 
     private boolean presente = false;
@@ -69,10 +67,6 @@ public class PaginaRistoranteController extends Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
 
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;

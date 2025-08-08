@@ -23,7 +23,6 @@ public class CardRecensioneController extends Controller implements CardControll
 
     private Ristorante ristorante;
 
-    // private boolean paginaPrincipale;
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -84,10 +83,6 @@ public class CardRecensioneController extends Controller implements CardControll
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
-
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
 
     @FXML
     private void rispondi() {

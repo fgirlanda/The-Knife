@@ -17,8 +17,6 @@ public class CardRistoranteController extends Controller implements CardControll
 
     public Ristorante ristorante;
 
-    // private boolean paginaPrincipale;
-
     @FXML
     private HBox card;
 
@@ -41,10 +39,6 @@ public class CardRistoranteController extends Controller implements CardControll
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
     
     public void setOnClick(){
         card.setOnMouseClicked(_ -> { // _ = event

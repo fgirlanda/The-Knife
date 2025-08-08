@@ -24,8 +24,6 @@ public class ModificaRecensioneController extends Controller {
 
     private Ristorante ristorante;
 
-    // private boolean paginaPrincipale;
-
     private String testoOriginale;
 
     private String username;
@@ -82,10 +80,6 @@ public class ModificaRecensioneController extends Controller {
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
-
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
 
     public void setRecensione(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;

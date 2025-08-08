@@ -24,8 +24,6 @@ public class RegistrazioneController extends Controller {
 
     private Stage stage;
 
-    // private boolean paginaPrincipale;
-
     @FXML
     private RadioButton clienteRadioButton;
 
@@ -81,10 +79,6 @@ public class RegistrazioneController extends Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
 
     private void controllaCampi() {
         boolean allFieldsFilled = nomeField.getText().isBlank() ||

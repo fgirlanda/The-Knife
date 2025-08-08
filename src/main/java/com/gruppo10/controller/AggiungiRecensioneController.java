@@ -21,8 +21,6 @@ public class AggiungiRecensioneController extends Controller {
 
     private Stage stage;
 
-    // private boolean paginaPrincipale;
-
     @FXML
     private TextArea txtTesto;
 
@@ -61,9 +59,6 @@ public class AggiungiRecensioneController extends Controller {
         this.stage = stage;
     }
 
-    // public void setPrincipale(boolean paginaPrincipale) {
-    //     this.paginaPrincipale = paginaPrincipale;
-    // }
 
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
