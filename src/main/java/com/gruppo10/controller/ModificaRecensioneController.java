@@ -73,9 +73,7 @@ public class ModificaRecensioneController {
     private void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtTestoModificato.textProperty().addListener((_, _, _) -> checkFields());
-
-        checkFields();
+        txtTestoModificato.textProperty().addListener((_, _, _) -> controllaCampi());
     }
 
     public void setStage(Stage stage) {
@@ -106,7 +104,7 @@ public class ModificaRecensioneController {
         stelleGroup.selectToggle(toggle);
     }
 
-    private void checkFields() {
+    private void controllaCampi() {
         // Controlla se tutti i campi sono riempiti
         boolean allFieldsFilled = !txtTestoModificato.getText().isEmpty() &&
                 stelleGroup.getSelectedToggle() != null;
