@@ -28,7 +28,7 @@ public class ProfiloClienteController extends Controller{
 
 
     public void caricaDati(){
-        caricaDatiUtente(utenteLoggato);
+        caricaDatiUtente();
 
         // Carica ristoranti preferiti
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
@@ -92,12 +92,5 @@ public class ProfiloClienteController extends Controller{
     @FXML
     private void tornaIndietro() {
         SceneManager.apriPaginaPrincipale(stage);
-    }
-
-    @FXML
-    private void logOut() {
-        LoginController.utenteLoggato = null;
-        this.utenteLoggato = null;
-        SceneManager.logOut(stage);
     }
 }

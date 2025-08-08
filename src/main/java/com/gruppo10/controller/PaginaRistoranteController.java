@@ -128,7 +128,6 @@ public class PaginaRistoranteController extends Controller {
             } else {
                 SceneManager.apriProfiloRistoratore(stage, 1);
             }
-
         }
     }
 

@@ -23,7 +23,7 @@ public class ProfiloRistoratoreController extends Controller{
     private VBox contenitoreTessere;
 
     public void caricaDati(){
-        caricaDatiUtente(utenteloggato);
+        caricaDatiUtente();
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
@@ -60,13 +60,6 @@ public class ProfiloRistoratoreController extends Controller{
     @FXML
     public void tornaIndietro() {
         SceneManager.apriPaginaPrincipale(stage);
-    }
-
-    @FXML
-    private void logOut() {
-        LoginController.utenteLoggato = null;
-        this.utenteloggato = null;
-        SceneManager.logOut(stage);
     }
 
     private void aggiornaContenitore(List<Ristorante> lista) {

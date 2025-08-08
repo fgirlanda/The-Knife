@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
-public abstract class Controller {
+public class Controller {
+
+    private Utente utenteLoggato = LoginController.utenteLoggato;
     protected Stage stage;
 
     protected boolean paginaPrincipale;
@@ -46,7 +48,9 @@ public abstract class Controller {
         SceneManager.chiudi(btnAnnulla);
     }
 
-    public void caricaDatiUtente(Utente utenteLoggato) {
+
+    // Profilo cliente/ristoratore
+    public void caricaDatiUtente() {
         String labelPasswordText = "********";
         labelNome.setText(utenteLoggato.getNome());
         labelCognome.setText(utenteLoggato.getCognome());
@@ -59,5 +63,12 @@ public abstract class Controller {
 
     public void setTab(int tab) {
         tabPane.getSelectionModel().select(tab);
+    }
+
+    @FXML
+    public void logOut() {
+        LoginController.utenteLoggato = null;
+        utenteLoggato = null;
+        SceneManager.logOut(stage);
     }
 }
