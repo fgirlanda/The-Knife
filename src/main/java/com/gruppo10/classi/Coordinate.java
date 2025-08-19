@@ -1,3 +1,8 @@
+/* 
+Francesco Girlanda  760616 VA
+Gabriele Gallon 761125 VA
+Mattia Lambertoni 762595 VA
+ */
 package com.gruppo10.classi;
 
 import java.io.IOException;
@@ -26,7 +31,7 @@ public class Coordinate {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header("User-Agent", "JavaFXApp/1.0") // importante per Nominatim
+                .header("User-Agent", "JavaFXApp/1.0")
                 .build();
 
         try {
