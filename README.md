@@ -177,7 +177,6 @@ Pulizia codice:
 Issues:
 
 - L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario)
-- I file csv hanno due righe vuote in fondo
 
 
 Extra:
