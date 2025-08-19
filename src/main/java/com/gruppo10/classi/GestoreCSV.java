@@ -92,7 +92,9 @@ public abstract class GestoreCSV<T> {
                 contaID++;
             }
         } catch (IOException e) {
-            if (!(e instanceof FileNotFoundException))
+            if (e instanceof FileNotFoundException)
+                contaID++;
+            else
                 GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
                         nuovoFile -> file = nuovoFile);
         }

@@ -111,6 +111,7 @@ public class RegistrazioneController extends Controller {
             return;
 
         Utente utente = new Utente();
+        utente.setId(utenteCSV.ultimoID());
         utente.setNome(nome);
         utente.setCognome(cognome);
         utente.setUsername(username);
@@ -120,8 +121,8 @@ public class RegistrazioneController extends Controller {
         utente.setRuolo(ruolo);
         utente.setCords(coordinate);
 
-        utenteCSV.aggiungiUtente(utente);
         try {
+            utenteCSV.aggiungiUtente(utente);
             utenteCSV.scrivi(utente);
         } catch (Exception e) {
             GestioneEccezioni.errore("Errore di registrazione", e.getMessage(), false, null);

@@ -89,9 +89,3 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
         }
     }
 }
-
-// r1 1
-// r2 1
-// r3 2
-// r4 3
-// r5 2

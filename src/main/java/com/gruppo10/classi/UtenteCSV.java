@@ -31,7 +31,7 @@ public class UtenteCSV extends GestoreCSV<Utente> {
     @Override
     protected String[] estraiDati(Utente u) {
         String[] dati = new String[10];
-        dati[0] = String.valueOf(ultimoID());
+        dati[0] = String.valueOf(u.getId());
         dati[1] = u.getNome();
         dati[2] = u.getCognome();
         dati[3] = u.getUsername();
@@ -49,8 +49,8 @@ public class UtenteCSV extends GestoreCSV<Utente> {
 
     @Override
     protected String[] getHeader() {
-        String[] header = { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
-                "Risposta" };
+        String[] header = { "ID", "Nome", "Cognome", "Username", "Password", "Data di nascita",
+                "Indirizzo", "Ruolo", "Latitudine", "Longitudine" };
 
         return header;
     }

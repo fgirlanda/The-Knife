@@ -130,7 +130,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Sistemare tipo cucina csv (FATTO)
 - Sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
 - Funzione filtro distanza (FATTO)
-- Fixare abilita/disabilita pulsanti
+- Fixare abilita/disabilita pulsanti  (FATTO)
 
 ### Generale
 
@@ -169,12 +169,15 @@ Grafica:
 Pulizia codice:
 
 - Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) (FATTO)
-- Classe astratta Controller (?)
+- Classe astratta Controller (FATTO)
 - Classe astratta CSVHandler (FATTO)
 - Gestione eccezioni (FATTO)
 - Generalizzazione dei percorsi file (FATTO)
 
+Issues:
 
+- L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario)
+- I file csv hanno due righe vuote in fondo
 
 
 Extra:
