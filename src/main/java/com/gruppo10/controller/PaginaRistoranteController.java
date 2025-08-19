@@ -80,9 +80,10 @@ public class PaginaRistoranteController extends Controller {
         imgRistorante.setImage(immagine);
 
         if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
-            imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
+            path = Paths.get("images","cuore_pieno.png").toString();
+            imagePreferiti.setImage(new ImageView(path).getImage());
         } else {
-            imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
+            imagePreferiti.setImage(new ImageView(path).getImage());
         }
 
         RecensioneCSV recensioneCSV = new RecensioneCSV();
@@ -94,7 +95,7 @@ public class PaginaRistoranteController extends Controller {
                     listaFiltrata,
                     contenitoreTessere,
                     stage,
-                    "/GUI/card_recensione.fxml",
+                    "card_recensione.fxml",
                     (controller, _) -> {
                         ((CardRecensioneController) controller).setRistorante(this.ristorante);
                         ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
@@ -124,7 +125,7 @@ public class PaginaRistoranteController extends Controller {
 
     @FXML
     private void aggiungiRecensione() {
-        SceneManager.finestraDialogo("/GUI/aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
+        SceneManager.finestraDialogo("aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
                 (AggiungiRecensioneController controller) -> {
                     controller.setRistorante(this.ristorante);
                     controller.setStage(stage);
@@ -148,10 +149,12 @@ public class PaginaRistoranteController extends Controller {
     @FXML
     private void gestisciPreferiti() {
         if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-            imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
+            String path = Paths.get("images","cuore_pieno.png").toString();
+            imagePreferiti.setImage(new ImageView(path).getImage());
             aggiungiPreferito();
         } else {
-            imagePreferiti.setImage(new ImageView("/images/cuore_vuoto.png").getImage());
+            String path = Paths.get("images","cuore_pieno.png").toString();
+            imagePreferiti.setImage(new ImageView(path).getImage());
             rimuoviPreferito();
         }
 

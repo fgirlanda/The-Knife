@@ -168,7 +168,7 @@ public class PaginaPrincipaleController extends Controller {
                 lista,
                 contenitoreTessere,
                 stage,
-                "/GUI/card_ristorante.fxml",
+                "card_ristorante.fxml",
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(true);
                     ((CardRistoranteController) controller).setStage(stage);
