@@ -21,7 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class PaginaPrincipaleController extends Controller{
+public class PaginaPrincipaleController extends Controller {
 
     public static List<Ristorante> ristoranti;
 
@@ -127,29 +127,23 @@ public class PaginaPrincipaleController extends Controller{
         // Separare estrazione dati da controlli
 
         return ristoranti.stream().filter(
-                ristorante -> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) && // filtro
-                                                                                                                       // nome
-                        (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) && // filtro prezzo
-                        (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) && // filtro
-                                                                                                              // cucina
-                        (filtroRecensioni.isEmpty() || ristorante.getMediaRec() >= filtroRecensioni.length()) && // filtro
-                                                                                                                 // recensioni
-                        (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") && // filtro
-                                                                                                       // delivery
-                                                                                                       // disponibile
+                ristorante -> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) &&
+                        (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) &&
+                        (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) &&
+                        (filtroRecensioni.isEmpty() || ristorante.getMediaRec() >= filtroRecensioni.length()) &&
+                        (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") &&
+
                                 ristorante.isDelivery())
                                 || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery()))
-                        && // filtro delivery non disponibile
+                        &&
                         (filtroPrenotazione.isEmpty()
-                                || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE") && // filtro
-                                                                                                    // prenotazione
-                                                                                                    // disponibile
-                                        ristorante.isPrenotazioneOnline())
+                                || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE")
+                                        && ristorante.isPrenotazioneOnline())
                                 || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE")
                                         && !ristorante.isPrenotazioneOnline()))
-                        && // filtro prenotazione non disponibile
+                        &&
                         (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza))
-                .toList(); // filtro distanza
+                .toList();
     }
 
     @FXML
