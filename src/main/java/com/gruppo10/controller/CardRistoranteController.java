@@ -5,10 +5,14 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -49,10 +53,14 @@ public class CardRistoranteController extends Controller implements InterfacciaC
 
     @Override
     public void setDati() {
+        String cucina = this.ristorante.getTipoCucina().toString();
+        String path = Paths.get("images",cucina+".png").toString();
+        Image immagine = new Image(path);
+        imgRistorante.setImage(immagine);
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtRecensioni.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " ★" + " ("
                 + this.ristorante.getNumeroRecensioni() + " Recensione/i)");
         txtPrezzo.setText(this.ristorante.getPrezzo());
-        txtTipoCucina.setText(this.ristorante.getTipoCucina().toString());
+        txtTipoCucina.setText(cucina);
     }
 }
