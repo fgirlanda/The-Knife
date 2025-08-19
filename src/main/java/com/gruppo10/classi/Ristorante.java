@@ -18,10 +18,10 @@ public class Ristorante {
     private Coordinate cords;
     private String nomeRistorante;
     private String indirizzo;
-    private boolean delivery;
-    private boolean prenotazioneOnline;
+    private Delivery delivery;
+    private Prenotazione prenotazione;
     private TipoCucina tipoCucina;
-    private String prezzo;
+    private Prezzo prezzo;
     private String descrizione;
     private Double mediaRec = 0.0;
 
@@ -55,6 +55,43 @@ public class Ristorante {
 
     public int getNumeroRecensioni() {
         return this.recensioni.size();
+    }
+
+    public void setDelivery(boolean delivery){
+        this.delivery = delivery ? Delivery.DELIVERY_DISPONIBILE : Delivery.DELIVERY_NON_DISPONIBILE;
+    }
+
+    public void setDelivery(Delivery delivery){
+        this.delivery = delivery;
+    }
+
+    public void setPrenotazioneOnline(boolean prenotazione){
+        this.prenotazione = prenotazione ? Prenotazione.PRENOTAZIONE_ONLINE_DISPONIBILE : Prenotazione.PRENOTAZIONE_ONLINE_NON_DISPONIBILE;
+    }
+
+    public void setPrenotazioneOnline(Prenotazione prenotazione){
+        this.prenotazione = prenotazione;
+    }
+
+    public void setPrezzo(int prezzo){
+        switch (prezzo){
+            case(1):
+                this.prezzo = Prezzo.€;
+                break;
+            case(2):
+                this.prezzo = Prezzo.€€;
+                break;
+            case(3):
+                this.prezzo = Prezzo.€€€;
+                break;
+            case(4):
+                this.prezzo = Prezzo.€€€€;
+                break;
+        }
+    }
+
+    public void setPrezzo(Prezzo prezzo){
+        this.prezzo = prezzo;
     }
 
 }

@@ -85,17 +85,17 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
                         listaTemp.add(dati);
 
                     } catch (NumberFormatException e) {
-                        GestioneEccezioni.errore("Errore parsing ID", "Riga: " + Arrays.toString(dati), false, null);
+                        GestioneEccezioni.errore("Errore parsing ID\nRiga: " + Arrays.toString(dati), e, false, null);
                     }
                 }
 
             } catch (CsvValidationException e) {
-                GestioneEccezioni.errore("Errore formato csv", e.getMessage(), false, null);
+                GestioneEccezioni.errore("Errore formato csv: " + file, e, false, null);
             }
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + file, e, true,
                         nuovoFile -> file = nuovoFile);
                 return;
             }
@@ -124,17 +124,17 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
                     listaTemp.add(dati);
 
                 } catch (NumberFormatException e) {
-                    GestioneEccezioni.errore("Errore parsing ID", "Riga: " + Arrays.toString(dati), false, null);
+                    GestioneEccezioni.errore("Errore parsing ID\nRiga: " + Arrays.toString(dati), e, false, null);
                     return;
                 }
 
             }
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+            GestioneEccezioni.errore("Errore caricamento file: " + file, e, true, nuovoFile -> file = nuovoFile);
             return;
 
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore di validazione CSV", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+            GestioneEccezioni.errore("Errore di validazione CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
             return;
         }
         sovrascrivi(listaTemp);
@@ -158,16 +158,16 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
                         listaTemp.add(dati);
                     }
                 } catch (NumberFormatException e) {
-                    GestioneEccezioni.errore("Errore parsing ID", "Riga: " + Arrays.toString(dati), false, null);
+                    GestioneEccezioni.errore("Errore parsing ID\nRiga: " + Arrays.toString(dati), e,false, null);
                 }
             }
 
         } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+            GestioneEccezioni.errore("Errore caricamento file: " + file, e, true, nuovoFile -> file = nuovoFile);
             return;
 
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore di validazione CSV", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+            GestioneEccezioni.errore("Errore di validazione CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
             return;
         }
 

@@ -130,7 +130,7 @@ public class LoginController extends Controller{
                 try {
                     SceneManager.apriPaginaPrincipale(stage);
                 } catch (Exception e) {
-                    GestioneEccezioni.errore("Errore caricamento pagina", e.getMessage(), false, null);
+                    GestioneEccezioni.errore("Errore caricamento pagina principale", e, false, null);
                 } finally {
                     popup.close();
                 }

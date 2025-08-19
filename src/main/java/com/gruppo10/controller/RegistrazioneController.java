@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import java.time.format.DateTimeFormatter;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
-import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -130,7 +129,6 @@ public class RegistrazioneController extends Controller {
             utenteCSV.aggiungiUtente(utente);
             utenteCSV.scrivi(utente);
         } catch (Exception e) {
-            GestioneEccezioni.errore("Errore di registrazione", e.getMessage(), false, null);
             return;
         }
         apriLogin();

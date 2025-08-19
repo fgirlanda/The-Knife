@@ -6,6 +6,7 @@ Mattia Lambertoni 762595 VA
 package com.gruppo10.classi;
 
 public enum TipoCucina {
+    TUTTO,
     ITALIANA,
     CINESE,
     GIAPPONESE,

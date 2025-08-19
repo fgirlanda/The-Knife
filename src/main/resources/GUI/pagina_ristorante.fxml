@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="653.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaRistoranteController">
+<VBox alignment="CENTER" prefHeight="653.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaRistoranteController">
    <children>
       <HBox>
          <children>
@@ -52,10 +52,16 @@
                               <Font size="1.0" />
                            </font>
                         </Label>
-                        <Label fx:id="txtMediaRec" text="(*media*)" />
+                        <Label fx:id="txtMediaRec" text="(*media*)">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                      </children>
                   </HBox>
-                  <Label fx:id="txtPrezzo" text="*fascia di prezzo*" />
+                  <Label fx:id="txtPrezzo" text="*fascia di prezzo*">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -96,6 +102,9 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Button>
                      </children>
                   </HBox>
@@ -104,7 +113,7 @@
                      <content>
                         <Text fx:id="txtDescrizione" lineSpacing="4.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Situated away from the main road and the main shopping centre, the fabulous Le Calandre is run by the Alajmo family. The soft lighting (even during the day) perfectly complements the decor in the minimalist-style dining room designed by brothers Massimiliano and Raffaele (as is most of the tableware used in the restaurant). The cuisine is presented on three tasting menus (Classico, Max and Raf), with the option of reducing the number of courses and choosing dishes from different menus, almost à la carte style. With its combination of familiar flavours and imaginative twists, Max’s cuisine celebrates the restaurant’s signature dishes such as the “passi d’oro” 2.0 risotto and the famous cuttlefish cappuccino in black ink, as well as creative dishes inspired by the passing seasons. The restaurant also has its own delicatessen for anyone keen to purchase a gourmet souvenir." wrappingWidth="450.0">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                      </content>
@@ -113,7 +122,6 @@
             </VBox>
          </children>
       </HBox>
-      <Line endX="638.6261596679688" opacity="0.26" startX="-100.0" />
       <HBox alignment="CENTER_RIGHT">
          <children>
             <Region prefHeight="27.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -127,6 +135,9 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Button>
          </children>
          <VBox.margin>
@@ -136,7 +147,8 @@
             <Insets bottom="5.0" top="20.0" />
          </padding>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="760.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 0.5; -fx-border-width: 1 0 0 0;">
+      <Line endX="638.6261596679688" opacity="0.26" startX="-100.0" />
+      <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="760.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="contenitoreTessere" />
          </content>

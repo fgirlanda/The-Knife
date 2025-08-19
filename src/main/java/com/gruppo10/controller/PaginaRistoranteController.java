@@ -118,7 +118,7 @@ public class PaginaRistoranteController extends Controller {
         txtIndirizzo.setText(indirizzo[0]);
         txtPaese.setText(indirizzo[1]);
         txtMediaRec.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " (" + numRecensioni + " Recensione/i)");
-        txtPrezzo.setText(this.ristorante.getPrezzo());
+        txtPrezzo.setText(this.ristorante.getPrezzo().toString());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
     }

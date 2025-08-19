@@ -59,7 +59,7 @@ public class CardRistoranteController extends Controller implements InterfacciaC
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtRecensioni.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " ★" + " ("
                 + this.ristorante.getNumeroRecensioni() + " Recensione/i)");
-        txtPrezzo.setText(this.ristorante.getPrezzo());
+        txtPrezzo.setText(this.ristorante.getPrezzo().toString());
         txtTipoCucina.setText(cucina);
     }
 }

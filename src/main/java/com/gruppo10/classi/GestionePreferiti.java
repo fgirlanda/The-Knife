@@ -45,7 +45,7 @@ public class GestionePreferiti {
             csvWriter.writeNext(dati);
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e, true,
                         file -> filePreferiti = file);
             }
         }
@@ -78,12 +78,12 @@ public class GestionePreferiti {
             }
 
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e.getMessage(), true,
+            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e, true,
                     file -> filePreferiti = file);
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e, true,
                         file -> filePreferiti = file);
             }
         }
@@ -102,12 +102,12 @@ public class GestionePreferiti {
                 }
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, file -> filePreferiti = file);
+            GestioneEccezioni.errore("Errore format csv in: " + filePreferiti, e, true, file -> filePreferiti = file);
             return false;
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + filePreferiti, e, true,
                         file -> filePreferiti = file);
                 return false;
             }

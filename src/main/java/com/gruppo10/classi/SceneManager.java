@@ -46,7 +46,8 @@ public class SceneManager {
             }
 
         } catch (IOException e) {
-            System.err.println("Errore caricamento file fxml: " + fxmlPath + "\nEccezioni: " + e);
+            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
+            // e.printStackTrace();
         }
     }
 
@@ -72,7 +73,7 @@ public class SceneManager {
             dialogStage.showAndWait();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
         }
 
         return dialogStage;
@@ -108,7 +109,8 @@ public class SceneManager {
 
                 contenitoreTessere.getChildren().add(card);
             } catch (IOException e) {
-                System.err.println("Errore nel caricamento della scheda: " + fxmlPath);
+                GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
+                return;
             }
         }
     }

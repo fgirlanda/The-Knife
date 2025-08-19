@@ -8,7 +8,10 @@ package com.gruppo10.controller;
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Delivery;
 import com.gruppo10.classi.Indirizzi;
+import com.gruppo10.classi.Prenotazione;
+import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.TipoCucina;
@@ -81,6 +84,17 @@ public class AggiungiRistoranteController extends Controller{
         // Inizializza il ComboBox con i valori dell'enum TipoCucina
         comboCucina.getItems().setAll(TipoCucina.values());
         comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
+        
+        radioPrezzo1.setUserData(Prezzo.€);
+        radioPrezzo2.setUserData(Prezzo.€€);
+        radioPrezzo3.setUserData(Prezzo.€€€);
+        radioPrezzo4.setUserData(Prezzo.€€€€);
+
+        radioDeliverySi.setUserData(Delivery.DELIVERY_DISPONIBILE);
+        radioDeliveryNo.setUserData(Delivery.DELIVERY_NON_DISPONIBILE);
+
+        radioPrenotazioneSi.setUserData(Prenotazione.PRENOTAZIONE_ONLINE_DISPONIBILE);
+        radioPrenotazioneNo.setUserData(Prenotazione.PRENOTAZIONE_ONLINE_NON_DISPONIBILE);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
         txtNomeRistorante.textProperty().addListener((_, _, _) -> controllaCampi());
@@ -115,25 +129,29 @@ public class AggiungiRistoranteController extends Controller{
         if (cords.getLat() == null)
             return;
         // Recupera i dati dai campi
-        RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
-        RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
-        RadioButton selectedPrezzo = (RadioButton) prezzoGroup.getSelectedToggle();
-        String tempDelivery = selectedDelivery.getText();
-        String tempPrenotazione = selectedPrenotazione.getText();
+        // RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
+        // RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
+        // RadioButton selectedPrezzo = (RadioButton) prezzoGroup.getSelectedToggle();
+        // String tempDelivery = selectedDelivery.getText();
+        // String tempPrenotazione = selectedPrenotazione.getText();
+
+        Delivery selectedDelivery = (Delivery) deliveryGroup.getSelectedToggle().getUserData();
+        Prenotazione selectedPrenotazione = (Prenotazione) prenotazioneGroup.getSelectedToggle().getUserData();
+        Prezzo selectedPrezzo = (Prezzo) prezzoGroup.getSelectedToggle().getUserData();
 
         String nomeRistorante = txtNomeRistorante.getText();
-        boolean delivery;
-        boolean prenotazioneOnline;
-        if (tempDelivery.equals("Sì")) {
-            delivery = true;
-        } else {
-            delivery = false;
-        }
-        if (tempPrenotazione.equals("Sì")) {
-            prenotazioneOnline = true;
-        } else {
-            prenotazioneOnline = false;
-        }
+        // boolean delivery;
+        // boolean prenotazioneOnline;
+        // if (tempDelivery.equals("Sì")) {
+        //     delivery = true;
+        // } else {
+        //     delivery = false;
+        // }
+        // if (tempPrenotazione.equals("Sì")) {
+        //     prenotazioneOnline = true;
+        // } else {
+        //     prenotazioneOnline = false;
+        // }
 
         // Crea un oggetto Ristorante
         int idProprietario = utenteLoggato.getId();
@@ -141,9 +159,12 @@ public class AggiungiRistoranteController extends Controller{
         ristorante.setIdproprietario(idProprietario);
         ristorante.setNomeRistorante(nomeRistorante);
         ristorante.setIndirizzo(indirizzo);
-        ristorante.setDelivery(delivery);
-        ristorante.setPrenotazioneOnline(prenotazioneOnline);
-        ristorante.setPrezzo(selectedPrezzo.getText());
+        // ristorante.setDelivery(delivery);
+        ristorante.setDelivery(selectedDelivery);
+        // ristorante.setPrenotazioneOnline(prenotazioneOnline);
+        ristorante.setPrenotazioneOnline(selectedPrenotazione);
+        // ristorante.setPrezzo(selectedPrezzo.getText());
+        ristorante.setPrezzo(selectedPrezzo);
         ristorante.setTipoCucina(comboCucina.getValue());
         ristorante.setDescrizione(txtDescrizione.getText());
 

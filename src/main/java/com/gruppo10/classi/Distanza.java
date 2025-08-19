@@ -5,25 +5,25 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
 
-public enum FiltroDistanza {
+public enum Distanza {
     DIECI_KM(10.0),
 
     VENTI_KM(20.0),
 
     TRENTA_KM(30.0),
 
-    OLTRE(1000.0);
+    OLTRE(Double.MAX_VALUE);
 
-    private final double km;
+    private final Double km;
 
-    FiltroDistanza(double km) {
+    Distanza(Double km) {
         this.km = km;
     }
 
     @Override
     public String toString() {
         String chilometri = "";
-        switch ((int) this.km) {
+        switch ((int)this.km.doubleValue()) {
             case 10:
                 chilometri = "10 km";
                 break;
@@ -33,7 +33,7 @@ public enum FiltroDistanza {
             case 30:
                 chilometri = "30 km";
                 break;
-            case 1000:
+            default:
                 chilometri = "50+ km";
         }
 

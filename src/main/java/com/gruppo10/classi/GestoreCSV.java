@@ -39,12 +39,12 @@ public abstract class GestoreCSV<T> {
                 lista.add(obj);
             }
         } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore format csv", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+            GestioneEccezioni.errore("Errore format csv in: " + file, e, true, nuovoFile -> file = nuovoFile);
             return null;
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + file, e, true,
                         nuovoFile -> file = nuovoFile);
                 return null;
             }
@@ -78,15 +78,15 @@ public abstract class GestoreCSV<T> {
 
         } catch (IOException e) {
             if (!(e instanceof FileNotFoundException)) {
-                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + file, e, true,
                         nuovoFile -> file = nuovoFile);
             }
         } catch (SecurityException e) {
-            GestioneEccezioni.errore("Permesso negato per la scrittura del file", e.getMessage(), true,
+            GestioneEccezioni.errore("Permesso negato per la scrittura del file: " + file, e, true,
                     nuovoFile -> file = nuovoFile);
 
         } catch (IllegalArgumentException e) {
-            GestioneEccezioni.errore("Errore nei dati della recensione", e.getMessage(), false, null);
+            GestioneEccezioni.errore("Errore nei dati della recensione", e, false, null);
         }
     }
 
@@ -100,7 +100,7 @@ public abstract class GestoreCSV<T> {
             if (e instanceof FileNotFoundException)
                 contaID++;
             else
-                GestioneEccezioni.errore("Errore caricamento file", e.getMessage(), true,
+                GestioneEccezioni.errore("Errore caricamento file: " + file, e, true,
                         nuovoFile -> file = nuovoFile);
         }
         return contaID;
@@ -113,7 +113,7 @@ public abstract class GestoreCSV<T> {
                 writer.writeNext(riga);
             }
         } catch (IOException e) {
-           GestioneEccezioni.errore("Errore di scrittura nel file CSV", e.getMessage(), true, nuovoFile -> file = nuovoFile);
+           GestioneEccezioni.errore("Errore di scrittura nel file CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
         }
     }
 

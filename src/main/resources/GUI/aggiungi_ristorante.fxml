@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ToggleGroup?> 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.AggiungiRistoranteController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.AggiungiRistoranteController">
    <children>
-      <fx:define>
-         <ToggleGroup fx:id="prenotazioneGroup"/>
-      </fx:define>
-      <fx:define>
-         <ToggleGroup fx:id="deliveryGroup"/>
-      </fx:define>
-      <fx:define>
-         <ToggleGroup fx:id="prezzoGroup"/>
-      </fx:define>
-      <Label layoutX="100.0" layoutY="14.0" text="CREAZIONE RISTORANTE">
+
+      <Label text="CREAZIONE RISTORANTE">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Label>
 
-      <GridPane layoutX="53.0" layoutY="67.0" prefHeight="235.0" prefWidth="497.0">
+            <GridPane vgap="10.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="193.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="80.0" />
@@ -74,24 +68,38 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtNomeRistorante" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4" />
-            <TextField fx:id="txtIndirizzo" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" />
-            <RadioButton fx:id="radioDeliverySi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" toggleGroup="${deliveryGroup}">
+            <TextField fx:id="txtNomeRistorante" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtIndirizzo" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <RadioButton fx:id="radioDeliverySi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="deliveryGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioDeliveryNo" mnemonicParsing="false" text="No" toggleGroup="$deliveryGroup" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioDeliveryNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="2" toggleGroup="${deliveryGroup}">
+            <RadioButton fx:id="radioPrenotazioneSi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="prenotazioneGroup" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="radioPrenotazioneSi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" selected="true" text="SÌ" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" toggleGroup="${prenotazioneGroup}">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="radioPrenotazioneNo" mnemonicParsing="false" text="No" GridPane.columnIndex="2" GridPane.rowIndex="3" toggleGroup="${prenotazioneGroup}">
+            <RadioButton fx:id="radioPrenotazioneNo" mnemonicParsing="false" text="No" toggleGroup="$prenotazioneGroup" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -107,34 +115,52 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <RadioButton fx:id="radioPrezzo1" mnemonicParsing="false" selected="true" text="€" GridPane.columnIndex="1" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
+            <RadioButton fx:id="radioPrezzo1" mnemonicParsing="false" selected="true" text="€" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="prezzoGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioPrezzo2" mnemonicParsing="false" text="€€" toggleGroup="$prezzoGroup" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo2" mnemonicParsing="false" text="€€" GridPane.columnIndex="2" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
+            <RadioButton fx:id="radioPrezzo3" mnemonicParsing="false" text="€€€" toggleGroup="$prezzoGroup" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo3" mnemonicParsing="false" text="€€€" GridPane.columnIndex="3" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
+            <RadioButton fx:id="radioPrezzo4" mnemonicParsing="false" text="€€€€" toggleGroup="$prezzoGroup" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="radioPrezzo4" mnemonicParsing="false" text="€€€€" GridPane.columnIndex="4" GridPane.rowIndex="5" toggleGroup="${prezzoGroup}">
+            <TextArea fx:id="txtDescrizione" prefHeight="200.0" prefWidth="200.0" promptText="descrivi il tuo ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <font>
                   <Font size="14.0" />
                </font>
-            </RadioButton>
-            <TextArea fx:id="txtDescrizione" prefHeight="200.0" prefWidth="200.0" promptText="descrivi il tuo ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6" GridPane.rowSpan="2" />
+            </TextArea>
          </children>
       </GridPane>
-      <Button fx:id="btnAnnulla" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#chiudi" text="Annulla" />
-      <Button fx:id="btnAggiungiRistorante" disable="true" layoutX="194.0" layoutY="322.0" mnemonicParsing="false" onAction="#aggiungiRistorante" text="AGGIUNGI RISTORANTE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <HBox alignment="CENTER" spacing="50.0">
+         <children>
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" onAction="#chiudi" text="Annulla">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnAggiungiRistorante" disable="true" mnemonicParsing="false" onAction="#aggiungiRistorante" text="Aggiungi Ristorante">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+   </padding>
+</VBox>

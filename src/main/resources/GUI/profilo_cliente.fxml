@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloClienteController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloClienteController">
    <tabs>
-      <Tab text="Dati personali">
+      <Tab style="-fx-font-size: 14px;" text="Dati personali">
          <content>
             <AnchorPane prefHeight="531.0">
                <children>
@@ -148,17 +148,20 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="btnIndietro" layoutX="14.0" layoutY="416.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="25.0" prefWidth="77.0" text="Indietro">
+                  <Button fx:id="btnIndietro" layoutX="14.0" layoutY="416.0" mnemonicParsing="false" onAction="#tornaIndietro" text="Indietro">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnLogout" layoutX="695.0" layoutY="20.0" mnemonicParsing="false" onAction="#logOut" prefHeight="25.0" prefWidth="61.0" text="Logout" textAlignment="CENTER" />
+                  <Button fx:id="btnLogout" layoutX="669.0" layoutY="20.0" mnemonicParsing="false" onAction="#logOut" text="Logout" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="Risotranti preferiti">
+      <Tab style="-fx-font-size: 14px;" text="Risotranti preferiti">
          <content>
             <AnchorPane>
                <children>
@@ -175,7 +178,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="Le mie recensioni">
+      <Tab style="-fx-font-size: 14px;" text="Le mie recensioni">
         <content>
           <AnchorPane>
             <children>

@@ -38,7 +38,7 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
         ristorante.setDelivery(delivery);
         ristorante.setPrenotazioneOnline(prenotazione);
         ristorante.setCucina(cucina);
-        ristorante.setPrezzo(prezzo);
+        ristorante.setPrezzo(prezzo.length());
         ristorante.setDescrizione(descrizione);
         ristorante.setCords(new Coordinate(lat, lon));
         ristorante.setIdproprietario(idproprietario);
@@ -57,10 +57,12 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
         dati[0] = String.valueOf(ultimoID());
         dati[1] = ristorante.getNomeRistorante();
         dati[2] = ristorante.getIndirizzo();
-        dati[3] = String.valueOf(ristorante.isDelivery());
-        dati[4] = String.valueOf(ristorante.isPrenotazioneOnline());
+        // dati[3] = String.valueOf(ristorante.isDelivery());
+        dati[3] = ristorante.getDelivery().toString();
+        // dati[4] = String.valueOf(ristorante.isPrenotazioneOnline());
+        dati[4] = ristorante.getPrenotazione().toString();
         dati[5] = ristorante.getTipoCucina().toString();
-        dati[6] = ristorante.getPrezzo();
+        dati[6] = ristorante.getPrezzo().toString();
         dati[7] = ristorante.getDescrizione();
         Double lat = ristorante.getCords().getLat();
         Double lon = ristorante.getCords().getLon();

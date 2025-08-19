@@ -8,17 +8,17 @@ package com.gruppo10.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gruppo10.classi.FiltroPrezzo;
-import com.gruppo10.classi.FiltroTipoCucina;
+import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.FiltroDelivery;
-import com.gruppo10.classi.FiltroDistanza;
-import com.gruppo10.classi.FiltroPrenotazione;
-import com.gruppo10.classi.FiltroMediaRecensioni;
+import com.gruppo10.classi.Delivery;
+import com.gruppo10.classi.Distanza;
+import com.gruppo10.classi.Prenotazione;
+import com.gruppo10.classi.MediaRecensioni;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,22 +47,22 @@ public class PaginaPrincipaleController extends Controller {
     private Button btnCerca;
 
     @FXML
-    private ComboBox<FiltroTipoCucina> comboFiltroCucina;
+    private ComboBox<TipoCucina> comboFiltroCucina;
 
     @FXML
-    private ComboBox<FiltroPrezzo> comboFiltroPrezzo;
+    private ComboBox<Prezzo> comboFiltroPrezzo;
 
     @FXML
-    private ComboBox<FiltroMediaRecensioni> comboFiltroRecensioni;
+    private ComboBox<MediaRecensioni> comboFiltroRecensioni;
 
     @FXML
-    private ComboBox<FiltroDelivery> comboFiltroDelivery;
+    private ComboBox<Delivery> comboFiltroDelivery;
 
     @FXML
-    private ComboBox<FiltroPrenotazione> comboFiltroPrenotazione;
+    private ComboBox<Prenotazione> comboFiltroPrenotazione;
 
     @FXML
-    private ComboBox<FiltroDistanza> comboFiltroDistanza;
+    private ComboBox<Distanza> comboFiltroDistanza;
 
     public void initialize() {
         if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
@@ -71,12 +71,20 @@ public class PaginaPrincipaleController extends Controller {
             bottoneRegistratiProfilo.setText("Profilo");
         }
 
-        comboFiltroCucina.getItems().setAll(FiltroTipoCucina.values());
-        comboFiltroPrezzo.getItems().setAll(FiltroPrezzo.values());
-        comboFiltroRecensioni.getItems().setAll(FiltroMediaRecensioni.values());
-        comboFiltroDistanza.getItems().setAll(FiltroDistanza.values());
-        comboFiltroDelivery.getItems().setAll(FiltroDelivery.values());
-        comboFiltroPrenotazione.getItems().setAll(FiltroPrenotazione.values());
+        comboFiltroCucina.getItems().setAll(TipoCucina.values());
+        comboFiltroPrezzo.getItems().setAll(Prezzo.values());
+        comboFiltroRecensioni.getItems().setAll(MediaRecensioni.values());
+        comboFiltroDistanza.getItems().setAll(Distanza.values());
+        comboFiltroDelivery.getItems().setAll(Delivery.values());
+        comboFiltroPrenotazione.getItems().setAll(Prenotazione.values());
+
+        comboFiltroCucina.getSelectionModel().select(TipoCucina.TUTTO);
+        comboFiltroPrezzo.getSelectionModel().select(Prezzo.TUTTO);
+        comboFiltroRecensioni.getSelectionModel().select(MediaRecensioni.TUTTO);
+        comboFiltroDelivery.getSelectionModel().select(Delivery.TUTTO);
+        comboFiltroPrenotazione.getSelectionModel().select(Prenotazione.TUTTO);
+
+        comboFiltroDistanza.getSelectionModel().select(Distanza.DIECI_KM);
     }
 
     // Lista ristoranti, calcolo distanze e caricamento card
@@ -106,48 +114,25 @@ public class PaginaPrincipaleController extends Controller {
 
     private List<Ristorante> filtra(List<Ristorante> ristoranti) {
         String ricerca = txtRicerca.getText().toLowerCase();
-        String filtroCucina = comboFiltroCucina.getValue() != null
-                && !comboFiltroCucina.getValue().toString().equals("TUTTO") ? comboFiltroCucina.getValue().toString()
-                        : "";
-        String filtroPrezzo = comboFiltroPrezzo.getValue() != null
-                && !comboFiltroPrezzo.getValue().toString().equals("TUTTO") ? comboFiltroPrezzo.getValue().toString()
-                        : "";
-        String filtroRecensioni = comboFiltroRecensioni.getValue() != null
-                && !comboFiltroRecensioni.getValue().toString().equals("TUTTO")
-                        ? comboFiltroRecensioni.getValue().toString()
-                        : "";
-        String filtroDelivery = comboFiltroDelivery.getValue() != null
-                && !comboFiltroDelivery.getValue().toString().equals("TUTTO")
-                        ? comboFiltroDelivery.getValue().toString()
-                        : "";
-        String filtroPrenotazione = comboFiltroPrenotazione.getValue() != null
-                && !comboFiltroPrenotazione.getValue().toString().equals("TUTTO")
-                        ? comboFiltroPrenotazione.getValue().toString()
-                        : "";
+        TipoCucina filtroCucina = comboFiltroCucina.getValue();
+        Prezzo filtroPrezzo = comboFiltroPrezzo.getValue();
+        MediaRecensioni filtroRecensioni = comboFiltroRecensioni.getValue();
+        Delivery filtroDelivery = comboFiltroDelivery.getValue();
+        Prenotazione filtroPrenotazione = comboFiltroPrenotazione.getValue();
+        Distanza filtroDistanza = comboFiltroDistanza.getValue();
 
-        Double filtroDistanza = comboFiltroDistanza.getValue() != null
-                && !comboFiltroDistanza.getValue().toString().equals("50+ km") ? comboFiltroDistanza.getValue().getKM()
-                        : Double.MAX_VALUE;
-
-        // Separare estrazione dati da controlli
-
-        return ristoranti.stream().filter(
-                ristorante -> (ricerca.isEmpty() || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) &&
-                        (filtroPrezzo.isEmpty() || ristorante.getPrezzo().equals(filtroPrezzo)) &&
-                        (filtroCucina.isEmpty() || ristorante.getTipoCucina().name().equals(filtroCucina)) &&
-                        (filtroRecensioni.isEmpty() || ristorante.getMediaRec() >= filtroRecensioni.length()) &&
-                        (filtroDelivery.isEmpty() || (filtroDelivery.equals("DELIVERY_DISPONIBILE") &&
-
-                                ristorante.isDelivery())
-                                || (filtroDelivery.equals("DELIVERY_NON_DISPONIBILE") && !ristorante.isDelivery()))
+        return ristoranti.stream()
+                .filter(ristorante -> (ricerca.isBlank()
+                        || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) &&
+                        (filtroCucina == TipoCucina.TUTTO || ristorante.getTipoCucina() == filtroCucina) &&
+                        (filtroPrezzo == Prezzo.TUTTO || ristorante.getPrezzo() == filtroPrezzo) &&
+                        (filtroRecensioni == MediaRecensioni.TUTTO
+                                || ristorante.getMediaRec() >= filtroRecensioni.getSoglia())
                         &&
-                        (filtroPrenotazione.isEmpty()
-                                || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_DISPONIBILE")
-                                        && ristorante.isPrenotazioneOnline())
-                                || (filtroPrenotazione.equals("PRENOTAZIONE_ONLINE_NON_DISPONIBILE")
-                                        && !ristorante.isPrenotazioneOnline()))
+                        (filtroDelivery == Delivery.TUTTO || ristorante.getDelivery() == filtroDelivery) &&
+                        (filtroPrenotazione == Prenotazione.TUTTO || ristorante.getPrenotazione() == filtroPrenotazione)
                         &&
-                        (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza))
+                        (mappaDistanze.get(ristorante.getNomeRistorante()) <= filtroDistanza.getKM()))
                 .toList();
     }
 

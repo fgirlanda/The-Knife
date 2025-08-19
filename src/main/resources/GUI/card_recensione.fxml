@@ -14,12 +14,12 @@
          <children>
             <Text fx:id="txtCliente" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="151.004150390625">
                <font>
-                  <Font size="18.0" />
+                  <Font size="24.0" />
                </font>
             </Text>
             <Text fx:id="txtStelle" fill="#efdf00" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.2" text="Stelle" textAlignment="CENTER" wrappingWidth="151.004150390625">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
             </Text>
          </children>
@@ -41,6 +41,9 @@
                <VBox.margin>
                   <Insets left="30.0" top="15.0" />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Text>
             <Separator prefWidth="200.0">
                <VBox.margin>
@@ -60,7 +63,10 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="txtRisposta" strokeType="OUTSIDE" strokeWidth="0.0" text="risposta" wrappingWidth="433.51953125" />
+                  <Text fx:id="txtRisposta" strokeType="OUTSIDE" strokeWidth="0.0" text="risposta" wrappingWidth="433.51953125">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Text>
                </children>
             </VBox>
          </children>
@@ -76,9 +82,18 @@
             <Insets bottom="10.0" right="10.0" top="10.0" />
          </HBox.margin>
          <children>
-            <Button fx:id="btnModifica" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#apriModifica" text="Modifica" textAlignment="CENTER" />
-            <Button fx:id="btnRimuovi" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#rimuovi" text="Rimuovi" textAlignment="CENTER" />
-            <Button fx:id="btnRispondi" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#rispondi" text="Rispondi" textAlignment="CENTER" />
+            <Button fx:id="btnModifica" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#apriModifica" text="Modifica" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="btnRimuovi" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#rimuovi" text="Rimuovi" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="btnRispondi" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#rispondi" text="Rispondi" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
          </children>
       </VBox>
    </children>
