@@ -107,7 +107,7 @@ public class PaginaRistoranteController extends Controller {
         String[] indirizzo = this.ristorante.getIndirizzo().split(",");
         txtIndirizzo.setText(indirizzo[0]);
         txtPaese.setText(indirizzo[1]);
-        txtMediaRec.setText(this.ristorante.getMediaRec().toString() + " (" + numRecensioni + " Recensione/i)");
+        txtMediaRec.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " (" + numRecensioni + " Recensione/i)");
         txtPrezzo.setText(this.ristorante.getPrezzo());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
