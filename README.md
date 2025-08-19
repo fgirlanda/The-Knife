@@ -162,12 +162,12 @@ Generale:
 
 Grafica:
 
-- Fix dimensione finestra profilo
+- Fix dimensione finestra profilo (FATTO)
 - Fix login status (popup al posto di label?) 
 - Modificare filtri ricerca ristoranti
 - Immagini ristoranti legate a tipo cucina
 - Nomi ristoranti in le mie recensioni (al posto di username)
-- Fix spazio vuoto in le mie recensioni
+- Fix spazio vuoto in le mie recensioni (FATTO)
 - Fix bordo recensioni (FATTO)
 
 
