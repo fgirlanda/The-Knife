@@ -25,8 +25,8 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="bottoneApplicaFiltri" mnemonicParsing="false" onAction="#applicaFiltri" prefHeight="25.0" prefWidth="137.0" text="Applica Filtri" />
-            <Separator prefHeight="3.0" prefWidth="161.0" visible="false" />
+            <Button fx:id="bottoneApplicaFiltri" mnemonicParsing="false" onAction="#applicaFiltri" prefHeight="25.0" prefWidth="97.0" text="Applica Filtri" />
+            <Separator prefHeight="6.0" prefWidth="201.0" visible="false" />
             <Button fx:id="bottoneRegistratiProfilo" mnemonicParsing="false" onAction="#gestisciBottoneUtente" prefHeight="25.0" prefWidth="69.0" text="Registrati" />
          </children>
          <opaqueInsets>

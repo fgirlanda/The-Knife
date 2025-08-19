@@ -68,7 +68,7 @@ public class CardRecensioneController extends Controller implements InterfacciaC
     public void setDati() {
         txtCliente.setText(this.recensione.getUsername());
         txtTesto.setText(this.recensione.getTesto());
-        txtStelle.setText(String.format("%d", this.recensione.getStelle()) + " ★");
+        txtStelle.setText("★".repeat(this.recensione.getStelle()));
         txtRisposta.setText(this.recensione.getRisposta());
     }
 

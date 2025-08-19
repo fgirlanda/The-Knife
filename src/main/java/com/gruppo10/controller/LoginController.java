@@ -82,7 +82,7 @@ public class LoginController extends Controller{
         Utente utente = utenteCSV.cercaUtente(username);
         if (utente == null) {
             loginStatus.setVisible(true);
-            loginStatus.setText("Login status: UTENTE NON REGISTRATO");
+            loginStatus.setText("UTENTE NON REGISTRATO");
             return;
         }
 
@@ -92,7 +92,7 @@ public class LoginController extends Controller{
 
         } else {
             loginStatus.setVisible(true);
-            loginStatus.setText("Login status: PASSWORD ERRATA");
+            loginStatus.setText("PASSWORD ERRATA");
         }
     }
 

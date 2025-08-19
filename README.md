@@ -162,6 +162,10 @@ Grafica:
 - Fix dimensione finestra profilo
 - Fix login status (popup al posto di label?) 
 - Modificare filtri ricerca ristoranti
+- Immagini ristoranti legate a tipo cucina
+- Nomi ristoranti in le mie recensioni (al posto di username)
+- Fix spazio vuoto in le mie recensioni
+- Fix bordo recensioni (FATTO)
 
 
 
@@ -177,6 +181,7 @@ Pulizia codice:
 Issues:
 
 - L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario)
+- Non aggiorna la recensione se si modifica solo il voto
 
 
 Extra:
