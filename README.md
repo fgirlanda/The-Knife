@@ -105,7 +105,8 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Visualizzazione del profilo (FATTO)
 - Login senza registrazione (+disabilita tasto preferiti) (FATTO)
 - Visualizza miei ristoranti (FATTO)
-- Ottimizzazione
+- Ottimizzazione (FATTO)
+- Immagini ristoranti
 
 ### matlmbe:
 
@@ -120,6 +121,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Tasto-pagina aggiungi recensione (FATTO)
 - Card apribile (FATTO)
 - Card recensione (FATTO)
+- Documentazione
 
 ### fgirlanda:
 
@@ -131,6 +133,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
 - Funzione filtro distanza (FATTO)
 - Fixare abilita/disabilita pulsanti  (FATTO)
+- Ultimi fix
 
 ### Generale
 
