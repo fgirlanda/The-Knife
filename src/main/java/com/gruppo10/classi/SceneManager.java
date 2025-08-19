@@ -79,7 +79,7 @@ public class SceneManager {
         dialogue.close();
     }
 
-    public static void logOut(Stage stage) {
+    public static void apriLogin(Stage stage) {
         SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login",
                 (LoginController controller) -> controller.setStage(stage));
     }

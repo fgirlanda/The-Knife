@@ -73,6 +73,6 @@ public class Controller {
     public void logOut() {
         LoginController.utenteLoggato = null;
         utenteLoggato = null;
-        SceneManager.logOut(stage);
+        SceneManager.apriLogin(stage);
     }
 }

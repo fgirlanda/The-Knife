@@ -56,8 +56,7 @@ public class RegistrazioneController extends Controller {
     public void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); // (_, _, _) = (observable, oldValue,
-                                                                             // newValue)
+        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); 
         cognomeField.textProperty().addListener((_, _, _) -> controllaCampi());
         usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
@@ -111,7 +110,6 @@ public class RegistrazioneController extends Controller {
         if (coordinate.getLat() == null)
             return;
 
-        // Crea un oggetto Utente e imposta i valori
         Utente utente = new Utente();
         utente.setNome(nome);
         utente.setCognome(cognome);
@@ -135,14 +133,13 @@ public class RegistrazioneController extends Controller {
     @FXML
     private void annulla() {
         if (paginaPrincipale) {
-            SceneManager.cambioScena(stage, "/GUI/pagina_principale.fxml", "The Knife - Login", (PaginaPrincipaleController controller) -> controller.setStage(stage));
+            SceneManager.apriPaginaPrincipale(stage);
         } else {
             apriLogin();
         }
     }
 
     private void apriLogin() {
-        SceneManager.cambioScena(stage, "/GUI/login.fxml", "The Knife - Login",
-                (LoginController controller) -> controller.setStage(stage));
+        SceneManager.apriLogin(stage);
     }
 }
