@@ -5,7 +5,6 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
-import java.io.File;
 import java.nio.file.Paths;
 
 import com.gruppo10.classi.Ristorante;
