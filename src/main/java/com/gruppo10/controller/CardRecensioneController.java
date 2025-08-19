@@ -83,7 +83,7 @@ public class CardRecensioneController extends Controller implements InterfacciaC
 
     @FXML
     private void rispondi() {
-        SceneManager.finestraDialogo("/GUI/rispondi_recensione.fxml", "Rispondi", stage,
+        SceneManager.finestraDialogo("rispondi_recensione.fxml", "Rispondi", stage,
                 (RispostaRecensioneController controller) -> {
                     controller.setRecensione(this.recensione);
                     controller.setOnCloseCallBack(() -> {
@@ -99,7 +99,7 @@ public class CardRecensioneController extends Controller implements InterfacciaC
 
     @FXML
     private void apriModifica() {
-        SceneManager.finestraDialogo("/GUI/modifica_recensione.fxml", "Modifica", stage,
+        SceneManager.finestraDialogo("modifica_recensione.fxml", "Modifica", stage,
                 (ModificaRecensioneController controller) -> {
                     controller.setStage(stage);
                     controller.setPrincipale(paginaPrincipale);

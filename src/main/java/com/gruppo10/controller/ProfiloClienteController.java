@@ -44,7 +44,7 @@ public class ProfiloClienteController extends Controller{
                     listaRisFiltrata,
                     contenitoreTessereRis,
                     stage,
-                    "/GUI/card_ristorante.fxml",
+                    "card_ristorante.fxml",
                     (controller, _) -> {
                         ((CardRistoranteController) controller).setPrincipale(false);
                         ((CardRistoranteController) controller).setStage(stage);
@@ -60,7 +60,7 @@ public class ProfiloClienteController extends Controller{
                         listaRecFiltrata,
                         contenitoreTessereRec,
                         stage,
-                        "/GUI/card_recensione.fxml",
+                        "card_recensione.fxml",
                         (controller, _) -> {
                             // ((CardRecensioneController) controller).setRistorante(null); // Necessario se
                             // si vuole fare in modo di aprire la pagina ristorante dalla card recensione
