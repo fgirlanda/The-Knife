@@ -155,7 +155,7 @@ Generale:
 - Rimozione recensione (FATTO)
 - Modifica recensione (FATTO)
 - Numero di recensioni (FATTO)
-- Modificare filtri ricerca ristoranti
+- Modificare filtri ricerca ristoranti (FATTO)
 - Calcolo media recensioni modificate (FATTO)
 - Disabilitare bottone risposta recensione dopo aver risposto (FATTO)
 - Rendere visibile la risposta (FATTO)
@@ -164,7 +164,7 @@ Grafica:
 
 - Fix dimensione finestra profilo (FATTO)
 - Fix login status (popup al posto di label?) 
-- Modificare filtri ricerca ristoranti
+- Modificare filtri ricerca ristoranti (FATTO)
 - Immagini ristoranti legate a tipo cucina
 - Nomi ristoranti in le mie recensioni (al posto di username)
 - Fix spazio vuoto in le mie recensioni (FATTO)
