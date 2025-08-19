@@ -5,6 +5,7 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -55,6 +57,9 @@ public class PaginaRistoranteController extends Controller {
     private ImageView imagePreferiti;
 
     @FXML
+    private ImageView imgRistorante;
+
+    @FXML
     private Button btnIndietro;
 
     @FXML
@@ -66,9 +71,13 @@ public class PaginaRistoranteController extends Controller {
     @FXML
     private VBox contenitoreTessere;
 
-
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
+
+        String cucina = this.ristorante.getTipoCucina().toString();
+        String path = Paths.get("images",cucina+".png").toString();
+        Image immagine = new Image(path);
+        imgRistorante.setImage(immagine);
 
         if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
             imagePreferiti.setImage(new ImageView("/images/cuore_pieno.png").getImage());
