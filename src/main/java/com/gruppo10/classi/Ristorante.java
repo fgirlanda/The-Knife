@@ -11,7 +11,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class Ristorante {
+public class Ristorante implements InterfacciaIdentificabile{
 
     private int id;
     private int idproprietario;
@@ -27,6 +27,16 @@ public class Ristorante {
 
     private List<Recensione> recensioni = new ArrayList<>();
 
+    @Override
+    public int getIdUtente(){
+        return idproprietario;
+    }
+
+    @Override
+    public int getIdRistorante(){
+        return id;
+    }
+    
     public void setCucina(String value) {
         try {
             this.tipoCucina = TipoCucina.valueOf(value.toUpperCase()); // Conversione sicura

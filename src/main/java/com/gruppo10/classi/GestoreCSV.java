@@ -19,19 +19,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public abstract class GestoreCSV<T> {
+public abstract class GestoreCSV<T extends InterfacciaIdentificabile> {
     protected File dir = new File("fileCSV");
     protected File file;
-
+    
     public GestoreCSV(String f) {
         this.file = new File(dir, f);
     }
+    
+    protected abstract String[] getHeader();
+
+    protected abstract String[] estraiDati(T obj);
+
+    protected abstract T parseRiga(String[] dati);
 
     public List<T> caricaCSV() {
         List<T> lista = new ArrayList<>();
         caricamentoExtra();
-        try (CSVReader reader = new CSVReader(new FileReader(file))){
+        try (CSVReader reader = new CSVReader(new FileReader(file))) {
             String[] dati;
             reader.readNext(); // Salta header
             while ((dati = reader.readNext()) != null) {
@@ -52,7 +59,8 @@ public abstract class GestoreCSV<T> {
         return lista;
     }
 
-    public void caricamentoExtra(){}
+    public void caricamentoExtra() {
+    }
 
     public void scrivi(T obj) {
         if (!dir.exists()) {
@@ -90,6 +98,52 @@ public abstract class GestoreCSV<T> {
         }
     }
 
+    public void sovrascrivi(List<String[]> nuovaLista) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(this.file))) {
+            writer.writeNext(getHeader());
+            for (String[] riga : nuovaLista) {
+                writer.writeNext(riga);
+            }
+        } catch (IOException e) {
+            GestioneEccezioni.errore("Errore di scrittura nel file CSV: " + file, e, true,
+                    nuovoFile -> file = nuovoFile);
+        }
+    }
+
+    public void rimuovi(T obj) {
+        List<String[]> listaTemp = new ArrayList<>();
+
+        // Lettura del CSV
+        try (CSVReader reader = new CSVReader(new FileReader(file))) {
+            String[] dati;
+            reader.readNext(); // Salta l'header
+
+            while ((dati = reader.readNext()) != null) {
+                try {
+                    int idUt = Integer.parseInt(dati[0]);
+                    int idRis = Integer.parseInt(dati[1]);
+
+                    // Aggiungi tutte le righe tranne quella da rimuovere
+                    if (!(idUt == obj.getIdUtente() && idRis == obj.getIdRistorante())) {
+                        listaTemp.add(dati);
+                    }
+                } catch (NumberFormatException e) {
+                    GestioneEccezioni.errore("Errore parsing ID\nRiga: " + Arrays.toString(dati), e, false, null);
+                }
+            }
+
+        } catch (IOException e) {
+            GestioneEccezioni.errore("Errore caricamento file: " + file, e, true, nuovoFile -> file = nuovoFile);
+            return;
+
+        } catch (CsvValidationException e) {
+            GestioneEccezioni.errore("Errore di validazione CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
+            return;
+        }
+
+        sovrascrivi(listaTemp);
+    }
+
     public int ultimoID() {
         int contaID = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -106,20 +160,4 @@ public abstract class GestoreCSV<T> {
         return contaID;
     }
 
-    public void sovrascrivi(List<String[]> nuovaLista){
-        try (CSVWriter writer = new CSVWriter(new FileWriter(this.file))) {
-            writer.writeNext(getHeader());
-            for (String[] riga : nuovaLista) {
-                writer.writeNext(riga);
-            }
-        } catch (IOException e) {
-           GestioneEccezioni.errore("Errore di scrittura nel file CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
-        }
-    }
-
-    protected abstract String[] getHeader();
-
-    protected abstract String[] estraiDati(T obj);
-
-    protected abstract T parseRiga(String[] dati);
 }

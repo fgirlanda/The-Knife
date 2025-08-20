@@ -30,20 +30,35 @@ package com.gruppo10.classi;
  * @version 1.0
  */
 public enum Distanza {
+    /** Raggio di 10 km. */
     DIECI_KM(10.0),
 
+    /** Raggio di 20 km. */
     VENTI_KM(20.0),
 
+    /** Raggio di 30 km. */
     TRENTA_KM(30.0),
 
+    /** Oltre 30 km (valore interno {@code Double.MAX_VALUE}). */
     OLTRE(Double.MAX_VALUE);
 
     private final Double km;
 
+    /**
+     * Costruttore dell'enum.
+     *
+     * @param km valore della distanza in chilometri.
+     */
     Distanza(Double km) {
         this.km = km;
     }
 
+    /**
+     * Restituisce una rappresentazione testuale leggibile della distanza.
+     *
+     * @return stringa contenente la distanza formattata
+     *         ({@code "10 km"}, {@code "20 km"}, {@code "30 km"} o {@code "50+ km"}).
+     */
     @Override
     public String toString() {
         String chilometri = "";

@@ -33,16 +33,34 @@ package com.gruppo10.classi;
  * @version 1.0
  */
 public enum Delivery {
+    /** Nessun filtro: accetta sia disponibile che non disponibile. */
     TUTTO (null),
+
+    /** Filtro: delivery disponibile. */
     DELIVERY_DISPONIBILE(true),
+
+    /** Filtro: delivery non disponibile. */
     DELIVERY_NON_DISPONIBILE(false);
 
     private Boolean delivery;
 
+    /**
+     * Costruttore dell'enum.
+     *
+     * @param delivery valore booleano che rappresenta la disponibilità del delivery,
+     *                 oppure {@code null} per indicare "nessun filtro".
+     */
     Delivery(Boolean delivery){
         this.delivery = delivery;
     }
 
+    /**
+     * Restituisce una rappresentazione testuale leggibile del valore dell'enum.
+     *
+     * @return {@code "TUTTO"} se il valore interno è {@code null},
+     *         {@code "Si"} se è {@code true},
+     *         {@code "No"} se è {@code false}.
+     */
     @Override
     public String toString(){
         if(this.delivery == null) return "TUTTO";

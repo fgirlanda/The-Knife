@@ -81,7 +81,7 @@ public class ModificaRecensioneController extends Controller {
 
         username = recensione.getUsername();
         idUt = recensione.getIdUtente();
-        idRis = recensione.getIdRis();
+        idRis = recensione.getIdRistorante();
         vecchioVoto = recensione.getStelle();
         testoOriginale = recensione.getTesto();
         risposta = recensione.getRisposta();
@@ -108,7 +108,7 @@ public class ModificaRecensioneController extends Controller {
 
         if ((testoModificato != null && !testoModificato.isBlank() && !testoModificato.equals(testoOriginale)) || nuovoVoto != vecchioVoto) {
             Recensione nuovaRecensione = new Recensione();
-            nuovaRecensione.setIdRis(idRis);
+            nuovaRecensione.setIdRistorante(idRis);
             nuovaRecensione.setIdUtente(idUt);
             nuovaRecensione.setUsername(username);
             nuovaRecensione.setRisposta(risposta);

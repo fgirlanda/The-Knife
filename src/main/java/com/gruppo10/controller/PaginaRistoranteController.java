@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gruppo10.classi.GestionePreferiti;
+import com.gruppo10.classi.PreferitiCSV;
+import com.gruppo10.classi.Preferito;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
@@ -34,6 +35,12 @@ public class PaginaRistoranteController extends Controller {
     private List<Recensione> recensioni;
 
     private boolean presente = false;
+
+    private PreferitiCSV preferitiCSV = new PreferitiCSV();
+
+    private String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
+
+    private String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
 
     @FXML
     private Label txtIndirizzo;
@@ -79,11 +86,12 @@ public class PaginaRistoranteController extends Controller {
         Image immagine = new Image(path);
         imgRistorante.setImage(immagine);
 
-        if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), ristorante.getId())) {
-            path = Paths.get("images","cuore_pieno.png").toString();
-            imagePreferiti.setImage(new ImageView(path).getImage());
+        if (preferitiCSV.controlloPreferito(utenteLoggato.getIdUtente(), ristorante.getIdRistorante())) {
+            // String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
+            imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
         } else {
-            imagePreferiti.setImage(new ImageView(path).getImage());
+            // String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
+            imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
         }
 
         RecensioneCSV recensioneCSV = new RecensioneCSV();
@@ -149,31 +157,35 @@ public class PaginaRistoranteController extends Controller {
     @FXML
     private void gestisciPreferiti() {
         if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-            String path = Paths.get("images","cuore_pieno.png").toString();
-            imagePreferiti.setImage(new ImageView(path).getImage());
+            // String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
+            imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
             aggiungiPreferito();
         } else {
-            String path = Paths.get("images","cuore_pieno.png").toString();
-            imagePreferiti.setImage(new ImageView(path).getImage());
+            // String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
+            imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
             rimuoviPreferito();
         }
 
     }
 
     private void aggiungiPreferito() {
-        if (!GestionePreferiti.controlloPreferito(utenteLoggato.getId(), this.ristorante.getId())) {
-            GestionePreferiti.aggiungiPreferito(utenteLoggato.getId(), this.ristorante.getId());
+        int idUt = utenteLoggato.getIdUtente();
+        int idRis = this.ristorante.getIdRistorante();
+        if (!preferitiCSV.controlloPreferito(idUt, idRis)) {
+            Preferito preferito = new Preferito(idUt, idRis);
+            preferitiCSV.scrivi(preferito);
         }
     }
 
     private void rimuoviPreferito() {
-        GestionePreferiti.rimuoviPreferito(utenteLoggato.getId(), this.ristorante.getId());
+        Preferito preferito = new Preferito(utenteLoggato.getIdUtente(), this.ristorante.getIdRistorante());
+        preferitiCSV.rimuovi(preferito);
     }
 
     private List<Recensione> filtraRecensioni(List<Recensione> recensioni) {
         List<Recensione> listaTemp = new ArrayList<>();
         for (Recensione r : recensioni) {
-            if (r.getIdRis() == this.ristorante.getId()) {
+            if (r.getIdRistorante() == this.ristorante.getId()) {
                 listaTemp.add(r);
             }
         }

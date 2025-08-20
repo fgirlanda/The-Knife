@@ -22,9 +22,9 @@
                   <HBox alignment="TOP_RIGHT" spacing="5.0">
                      <children>
                         <ImageView fx:id="imgRistorante" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
+                           <!-- <image>
                               <Image url="@/images/esempio_ristorante.png" />
-                           </image>
+                           </image> -->
                         </ImageView>
                      </children>
                   </HBox>

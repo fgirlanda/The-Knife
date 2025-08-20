@@ -77,7 +77,7 @@ public class AggiungiRecensioneController extends Controller {
         Recensione recensione = new Recensione();
         recensione.setUsername(utenteLoggato.getUsername());
         recensione.setIdUtente(utenteLoggato.getId());
-        recensione.setIdRis(ristorante.getId());
+        recensione.setIdRistorante(ristorante.getId());
         recensione.setStelle(stelle);
         recensione.setTesto(testo);
         recensione.setRisposta("");

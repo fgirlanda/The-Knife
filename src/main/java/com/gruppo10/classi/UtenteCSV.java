@@ -18,19 +18,11 @@ public class UtenteCSV extends GestoreCSV<Utente> {
     }
 
     @Override
-    protected Utente parseRiga(String[] dati) {
-        Utente utente = new Utente();
-        utente.setId(Integer.parseInt(dati[0]));
-        utente.setNome(dati[1]);
-        utente.setCognome(dati[2]);
-        utente.setUsername(dati[3]);
-        utente.setPassword(dati[4]);
-        utente.setDataDiNascita(dati[5]);
-        utente.setIndirizzo(dati[6]);
-        utente.setRuolo(dati[7]);
-        utente.setCords(Double.parseDouble(dati[8]), Double.parseDouble(dati[9]));
+    protected String[] getHeader() {
+        String[] header = { "ID", "Nome", "Cognome", "Username", "Password", "Data di nascita",
+                "Indirizzo", "Ruolo", "Latitudine", "Longitudine" };
 
-        return utente;
+        return header;
     }
 
     @Override
@@ -53,11 +45,19 @@ public class UtenteCSV extends GestoreCSV<Utente> {
     }
 
     @Override
-    protected String[] getHeader() {
-        String[] header = { "ID", "Nome", "Cognome", "Username", "Password", "Data di nascita",
-                "Indirizzo", "Ruolo", "Latitudine", "Longitudine" };
+    protected Utente parseRiga(String[] dati) {
+        Utente utente = new Utente();
+        utente.setId(Integer.parseInt(dati[0]));
+        utente.setNome(dati[1]);
+        utente.setCognome(dati[2]);
+        utente.setUsername(dati[3]);
+        utente.setPassword(dati[4]);
+        utente.setDataDiNascita(dati[5]);
+        utente.setIndirizzo(dati[6]);
+        utente.setRuolo(dati[7]);
+        utente.setCords(Double.parseDouble(dati[8]), Double.parseDouble(dati[9]));
 
-        return header;
+        return utente;
     }
 
     public void aggiungiUtente(Utente utente) {
@@ -68,8 +68,8 @@ public class UtenteCSV extends GestoreCSV<Utente> {
         return utentiMap.get(username);
     }
 
-    public void creaMappa(List<Utente> lista){
-        for(Utente u: lista){
+    public void creaMappa(List<Utente> lista) {
+        for (Utente u : lista) {
             aggiungiUtente(u);
         }
     }

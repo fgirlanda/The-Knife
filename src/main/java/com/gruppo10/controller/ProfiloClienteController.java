@@ -8,7 +8,7 @@ package com.gruppo10.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gruppo10.classi.GestionePreferiti;
+import com.gruppo10.classi.PreferitiCSV;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
@@ -25,6 +25,8 @@ public class ProfiloClienteController extends Controller{
     private List<Ristorante> ristoranti;
 
     private List<Recensione> recensioni;
+
+    private PreferitiCSV preferitiCSV = new PreferitiCSV();
 
     @FXML
     private VBox contenitoreTessereRis;
@@ -75,7 +77,7 @@ public class ProfiloClienteController extends Controller{
         List<Ristorante> nuovaLista = new ArrayList<>();
 
         for (Ristorante r : listaRistoranti) {
-            if (GestionePreferiti.controlloPreferito(utenteLoggato.getId(), r.getId())) {
+            if (preferitiCSV.controlloPreferito(utenteLoggato.getIdUtente(), r.getIdRistorante())) {
                 nuovaLista.add(r);
             }
         }

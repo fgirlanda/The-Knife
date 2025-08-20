@@ -24,32 +24,21 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
     }
 
     @Override
-    protected Recensione parseRiga(String[] dati) {
-        String nomeUtente = dati[1];
-        int idUtente = Integer.parseInt(dati[2]);
-        int idRis = Integer.parseInt(dati[3]);
-        int stelle = Integer.parseInt(dati[4]);
-        String testo = dati[5];
-        String risposta = dati[6];
-        Recensione r = new Recensione();
-        r.setUsername(nomeUtente);
-        r.setIdUtente(idUtente);
-        r.setIdRis(idRis);
-        r.setStelle(stelle);
-        r.setTesto(testo);
-        r.setRisposta(risposta);
+    protected String[] getHeader() {
+        String[] header = { "ID Cliente", "ID Ristorante", "ID Recensione", "Username", "Voto", "Testo",
+                "Risposta" };
 
-        return r;
+        return header;
     }
 
     @Override
     protected String[] estraiDati(Recensione r) {
         String[] dati = new String[7];
 
-        dati[0] = Integer.toString(ultimoID());
-        dati[1] = r.getUsername();
-        dati[2] = Integer.toString(r.getIdUtente());
-        dati[3] = Integer.toString(r.getIdRis());
+        dati[0] = Integer.toString(r.getIdUtente());
+        dati[1] = Integer.toString(r.getIdRistorante());
+        dati[2] = Integer.toString(ultimoID());
+        dati[3] = r.getUsername();
         dati[4] = Integer.toString(r.getStelle());
         dati[5] = r.getTesto();
         dati[6] = r.getRisposta();
@@ -58,11 +47,24 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
     }
 
     @Override
-    protected String[] getHeader() {
-        String[] header = { "ID Recensione", "Username", "ID Cliente", "ID Ristorante", "Voto", "Testo",
-                "Risposta" };
+    protected Recensione parseRiga(String[] dati) {
+        int idUtente = Integer.parseInt(dati[0]);
+        int idRis = Integer.parseInt(dati[1]);
+        int idRec = Integer.parseInt(dati[2]);
+        String nomeUtente = dati[3];
+        int stelle = Integer.parseInt(dati[4]);
+        String testo = dati[5];
+        String risposta = dati[6];
+        Recensione r = new Recensione();
+        r.setIdRec(idRec);
+        r.setUsername(nomeUtente);
+        r.setIdUtente(idUtente);
+        r.setIdRistorante(idRis);
+        r.setStelle(stelle);
+        r.setTesto(testo);
+        r.setRisposta(risposta);
 
-        return header;
+        return r;
     }
 
     public void aggiungiRisposta(Recensione recensione, String risposta) {
@@ -75,10 +77,10 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
 
                 while ((dati = reader.readNext()) != null) {
                     try {
-                        int idUt = Integer.parseInt(dati[2]);
-                        int idRis = Integer.parseInt(dati[3]);
+                        int idUt = Integer.parseInt(dati[0]);
+                        int idRis = Integer.parseInt(dati[1]);
 
-                        if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
+                        if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRistorante()) {
                             dati[6] = risposta;
                         }
 
@@ -113,10 +115,10 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
 
             while ((dati = reader.readNext()) != null) {
                 try {
-                    int idUt = Integer.parseInt(dati[2]);
-                    int idRis = Integer.parseInt(dati[3]);
+                    int idUt = Integer.parseInt(dati[0]);
+                    int idRis = Integer.parseInt(dati[1]);
 
-                    if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRis()) {
+                    if (idUt == recensione.getIdUtente() && idRis == recensione.getIdRistorante()) {
                         dati[4] = Integer.toString(nuovoVoto);
                         dati[5] = testoModificato;
                     }
@@ -140,37 +142,4 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         sovrascrivi(listaTemp);
     }
 
-    public void rimuoviRecensione(Recensione recensione) {
-        List<String[]> listaTemp = new ArrayList<>();
-
-        // Lettura del CSV
-        try (CSVReader reader = new CSVReader(new FileReader(file))) {
-            String[] dati;
-            reader.readNext(); // Salta l'header
-
-            while ((dati = reader.readNext()) != null) {
-                try {
-                    int idUt = Integer.parseInt(dati[2]);
-                    int idRis = Integer.parseInt(dati[3]);
-
-                    // Aggiungi tutte le righe tranne quella da rimuovere
-                    if (!(idUt == recensione.getIdUtente() && idRis == recensione.getIdRis())) {
-                        listaTemp.add(dati);
-                    }
-                } catch (NumberFormatException e) {
-                    GestioneEccezioni.errore("Errore parsing ID\nRiga: " + Arrays.toString(dati), e,false, null);
-                }
-            }
-
-        } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + file, e, true, nuovoFile -> file = nuovoFile);
-            return;
-
-        } catch (CsvValidationException e) {
-            GestioneEccezioni.errore("Errore di validazione CSV: " + file, e, true, nuovoFile -> file = nuovoFile);
-            return;
-        }
-
-        sovrascrivi(listaTemp);
-    }
 }

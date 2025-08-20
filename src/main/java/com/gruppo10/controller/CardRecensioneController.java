@@ -113,7 +113,7 @@ public class CardRecensioneController extends Controller implements InterfacciaC
         this.ristorante.rimuoviRecensione(this.recensione);
         // RecensioneWriter.rimuoviRecensione(this.recensione);
         RecensioneCSV recensioneCSV = new RecensioneCSV();
-        recensioneCSV.rimuoviRecensione(recensione);
+        recensioneCSV.rimuovi(recensione);
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class Utente {
+public class Utente implements InterfacciaIdentificabile{
     private int id;
     private String nome;
     private String cognome;
@@ -20,6 +20,16 @@ public class Utente {
     private Ruolo ruolo;
 
     private Coordinate cords;
+
+    @Override
+    public int getIdUtente(){
+        return id;
+    }
+
+    @Override
+    public int getIdRistorante(){
+        return -1;
+    }
 
     public void setCords(double lat, double lon) {
         this.cords = new Coordinate(lat, lon);

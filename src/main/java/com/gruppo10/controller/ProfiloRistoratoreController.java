@@ -50,7 +50,7 @@ public class ProfiloRistoratoreController extends Controller{
 
     @FXML
     private void apriAggiungiRistorante() {
-        SceneManager.finestraDialogo("/GUI/aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
+        SceneManager.finestraDialogo("aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
                 (AggiungiRistoranteController controller) -> {
                     controller.setOnCloseCallback(() -> {
                         Ristorante r = controller.getNuovoRistorante();
@@ -72,7 +72,7 @@ public class ProfiloRistoratoreController extends Controller{
                 lista,
                 contenitoreTessere,
                 stage,
-                "/GUI/card_ristorante.fxml",
+                "card_ristorante.fxml",
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(false);
                     ((CardRistoranteController) controller).setStage(stage);

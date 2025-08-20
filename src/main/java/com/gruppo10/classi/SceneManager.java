@@ -29,90 +29,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SceneManager {
-    public static <T> void cambioScena(Stage stage, String fxmlPath, String title, Consumer<T> controllerConsumer) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Paths.get("src","main","resources","GUI",fxmlPath).toUri().toURL());
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.show();
-
-            // Applica azioni personalizzate sul controller, se richieste
-            T controller = loader.getController();
-            if (controllerConsumer != null) {
-                controllerConsumer.accept(controller);
-            }
-
-        } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
-            // e.printStackTrace();
-        }
-    }
-
-    public static <T> Stage finestraDialogo(String fxmlPath, String title, Stage owner,
-            Consumer<T> controllerConsumer) {
-        Stage dialogStage = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(Paths.get("src","main","resources","GUI",fxmlPath).toUri().toURL());
-            Parent root = loader.load();
-
-            dialogStage = new Stage();
-            dialogStage.setTitle(title);
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            if (owner != null)
-                dialogStage.initOwner(owner);
-            dialogStage.setScene(new Scene(root));
-
-            T controller = loader.getController();
-            if (controllerConsumer != null) {
-                controllerConsumer.accept(controller);
-            }
-
-            dialogStage.showAndWait();
-
-        } catch (IOException e) {
-            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
-        }
-
-        return dialogStage;
-    }
-
-    public static void chiudi(Button annulla) {
-        Stage dialogue = (Stage) annulla.getScene().getWindow();
-        dialogue.close();
-    }
 
     public static void apriLogin(Stage stage) {
 
         SceneManager.cambioScena(stage, "login.fxml", "The Knife - Login",
                 (LoginController controller) -> controller.setStage(stage));
-    }
-
-    public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath,
-            BiConsumer<InterfacciaCard<T>, T> extraConfig) {
-        contenitoreTessere.getChildren().clear();
-        for (T r : lista) {
-            try {
-                FXMLLoader loader = new FXMLLoader(Paths.get("src","main","resources","GUI",fxmlPath).toUri().toURL());
-                HBox card = loader.load();
-
-                InterfacciaCard<T> controller = loader.getController();
-                controller.setStage(stage);
-                
-                if (extraConfig != null) {
-                    extraConfig.accept(controller, r);
-                }
-                controller.setItem(r, contenitoreTessere);
-                controller.setDati();
-
-                contenitoreTessere.getChildren().add(card);
-            } catch (IOException e) {
-                GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
-                return;
-            }
-        }
     }
 
     public static void apriPaginaPrincipale(Stage stage) {
@@ -157,5 +78,86 @@ public class SceneManager {
                     controller.caricaDati();
                     controller.setTab(tab);
                 });
+    }
+
+    public static void chiudi(Button annulla) {
+        Stage dialogue = (Stage) annulla.getScene().getWindow();
+        dialogue.close();
+    }
+
+    public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath,
+            BiConsumer<InterfacciaCard<T>, T> extraConfig) {
+        contenitoreTessere.getChildren().clear();
+        for (T r : lista) {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        Paths.get("src", "main", "resources", "GUI", fxmlPath).toUri().toURL());
+                HBox card = loader.load();
+
+                InterfacciaCard<T> controller = loader.getController();
+                controller.setStage(stage);
+
+                if (extraConfig != null) {
+                    extraConfig.accept(controller, r);
+                }
+                controller.setItem(r, contenitoreTessere);
+                controller.setDati();
+
+                contenitoreTessere.getChildren().add(card);
+            } catch (IOException e) {
+                GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
+                return;
+            }
+        }
+    }
+
+    public static <T> void cambioScena(Stage stage, String fxmlPath, String title, Consumer<T> controllerConsumer) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Paths.get("src", "main", "resources", "GUI", fxmlPath).toUri().toURL());
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+
+            // Applica azioni personalizzate sul controller, se richieste
+            T controller = loader.getController();
+            if (controllerConsumer != null) {
+                controllerConsumer.accept(controller);
+            }
+
+        } catch (IOException e) {
+            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
+            // e.printStackTrace();
+        }
+    }
+
+    public static <T> Stage finestraDialogo(String fxmlPath, String title, Stage owner,
+            Consumer<T> controllerConsumer) {
+        Stage dialogStage = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(Paths.get("src", "main", "resources", "GUI", fxmlPath).toUri().toURL());
+            Parent root = loader.load();
+
+            dialogStage = new Stage();
+            dialogStage.setTitle(title);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            if (owner != null)
+                dialogStage.initOwner(owner);
+            dialogStage.setScene(new Scene(root));
+
+            T controller = loader.getController();
+            if (controllerConsumer != null) {
+                controllerConsumer.accept(controller);
+            }
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            GestioneEccezioni.errore("Errore caricamento file: " + fxmlPath, e, false, null);
+        }
+
+        return dialogStage;
     }
 }

@@ -1,7 +1,1 @@
-"ID Recensione","Username","ID Cliente","ID Ristorante","Voto","Testo","Risposta"
-"1","carlo","4","7","5","test","test"
-"4","carlo","4","2","1","test",""
-"5","carlo","4","4","5","test",""
-"4","test","7","2","5","boph",""
-"5","usernameTest","404","2","4","test",""
-"6","carlo","4","1","5","afdgadfg",""
+"ID Cliente","ID Ristorante","ID Recensione","Username","Voto","Testo","Risposta"
