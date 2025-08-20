@@ -83,8 +83,7 @@ public class PaginaPrincipaleController extends Controller {
         comboFiltroRecensioni.getSelectionModel().select(MediaRecensioni.TUTTO);
         comboFiltroDelivery.getSelectionModel().select(Delivery.TUTTO);
         comboFiltroPrenotazione.getSelectionModel().select(Prenotazione.TUTTO);
-
-        comboFiltroDistanza.getSelectionModel().select(Distanza.DIECI_KM);
+        comboFiltroDistanza.getSelectionModel().select(Distanza.OLTRE);
     }
 
     // Lista ristoranti, calcolo distanze e caricamento card
