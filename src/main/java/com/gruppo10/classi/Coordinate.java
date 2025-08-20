@@ -18,22 +18,28 @@ import lombok.Data;
 
 /**
  * La classe {@code Coordinate} rappresenta un punto geografico espresso tramite
- * latitudine e longitudine. 
+ * latitudine e longitudine.
  *
- * <p>Offre due modalità di costruzione:</p>
+ * <p>
+ * Offre due modalità di costruzione:
+ * </p>
  * <ul>
- *   <li>Creazione a partire da un indirizzo testuale, utilizzando il servizio
- *       di geocodifica <a href="https://nominatim.openstreetmap.org/">
- *       Nominatim di OpenStreetMap</a>.</li>
- *   <li>Creazione diretta specificando latitudine e longitudine.</li>
+ * <li>Creazione a partire da un indirizzo testuale, utilizzando il servizio
+ * di geocodifica <a href="https://nominatim.openstreetmap.org/">
+ * Nominatim di OpenStreetMap</a>.</li>
+ * <li>Creazione diretta specificando latitudine e longitudine.</li>
  * </ul>
  *
- * <p>Fornisce inoltre un metodo per calcolare la distanza tra due coordinate
- * utilizzando la formula dell'Haversine.</p>
+ * <p>
+ * Fornisce inoltre un metodo per calcolare la distanza tra due coordinate
+ * utilizzando la formula dell'Haversine.
+ * </p>
  *
- * <p><b>Nota:</b> il costruttore che accetta un indirizzo esegue una chiamata
+ * <p>
+ * <b>Nota:</b> il costruttore che accetta un indirizzo esegue una chiamata
  * di rete sincrona e può generare errori di connessione o parsing. In caso di
- * errore, il campo {@code lat} viene impostato a {@code null}.</p>
+ * errore, il campo {@code lat} viene impostato a {@code null}.
+ * </p>
  *
  * @author Francesco Girlanda
  * @author Mattia Lambertoni
@@ -42,30 +48,41 @@ import lombok.Data;
  */
 @Data
 public class Coordinate {
-
-    final static int R = 6371; // Raggio della Terra in km
-
+    /** Raggio della Terra in km */
+    final static int R = 6371;
+    /** Latitudine e Longitudine */
     private Double lat, lon;
 
     /**
-     * Costruttore della classe {@code Coordinate} che, dato un indirizzo sotto forma di stringa,
-     * esegue una richiesta HTTP al servizio di geocodifica <a href="https://nominatim.openstreetmap.org/">
-     * Nominatim di OpenStreetMap</a> per ricavare le coordinate geografiche (latitudine e longitudine).
+     * Costruttore della classe {@code Coordinate} che, dato un indirizzo sotto
+     * forma di stringa,
+     * esegue una richiesta HTTP al servizio di geocodifica
+     * <a href="https://nominatim.openstreetmap.org/">
+     * Nominatim di OpenStreetMap</a> per ricavare le coordinate geografiche
+     * (latitudine e longitudine).
      *
-     * <p>Funzionamento:</p>
+     * <p>
+     * Funzionamento:
+     * </p>
      * <ul>
-     *   <li>Viene creata una richiesta HTTP al servizio Nominatim con il formato JSON.</li>
-     *   <li>Se la richiesta ha successo (HTTP 200) e viene trovato almeno un risultato, 
-     *       la latitudine e la longitudine vengono estratte e salvate negli attributi {@code lat} e {@code lon}.</li>
-     *   <li>In caso di errore (HTTP diverso da 200, nessun risultato, errori di rete o parsing JSON), 
-     *       viene invocata la classe {@code GestioneEccezioni} per notificare l'errore e 
-     *       il campo {@code lat} viene impostato a {@code null}.</li>
+     * <li>Viene creata una richiesta HTTP al servizio Nominatim con il formato
+     * JSON.</li>
+     * <li>Se la richiesta ha successo (HTTP 200) e viene trovato almeno un
+     * risultato,
+     * la latitudine e la longitudine vengono estratte e salvate negli attributi
+     * {@code lat} e {@code lon}.</li>
+     * <li>In caso di errore (HTTP diverso da 200, nessun risultato, errori di rete
+     * o parsing JSON),
+     * viene invocata la classe {@code GestioneEccezioni} per notificare l'errore e
+     * il campo {@code lat} viene impostato a {@code null}.</li>
      * </ul>
      *
-     * @param indirizzo l'indirizzo in formato testuale di cui calcolare le coordinate geografiche.
+     * @param indirizzo l'indirizzo in formato testuale di cui calcolare le
+     *                  coordinate geografiche.
      *
-     * @implNote Questo costruttore effettua una chiamata sincrona alla rete. 
-     *           Potrebbe bloccare il thread chiamante fino alla ricezione della risposta.
+     * @implNote Questo costruttore effettua una chiamata sincrona alla rete.
+     *           Potrebbe bloccare il thread chiamante fino alla ricezione della
+     *           risposta.
      *
      */
     public Coordinate(String indirizzo) {
@@ -117,6 +134,7 @@ public class Coordinate {
             this.lat = null;
         }
     }
+
     /**
      * Costruttore della classe {@code Coordinate} che inizializza direttamente
      * latitudine e longitudine con i valori forniti.
@@ -130,17 +148,22 @@ public class Coordinate {
     }
 
     /**
-     * Calcola la distanza in chilometri tra questa coordinata geografica e un'altra.
+     * Calcola la distanza in chilometri tra questa coordinata geografica e
+     * un'altra.
      * L'algoritmo utilizzato è la formula dell' {@code Haversine}, che tiene conto
      * della curvatura terrestre.
      *
      * @param c2 l'altra coordinata con cui calcolare la distanza.
-     * @return la distanza approssimativa tra le due coordinate, espressa in chilometri.
+     * @return la distanza approssimativa tra le due coordinate, espressa in
+     *         chilometri.
      *
      *
-     * @implNote La costante {@code R} rappresenta il raggio medio della Terra in chilometri.
-     *           L'accuratezza è generalmente sufficiente per distanze di scala geografica,
-     *           ma non tiene conto di ellissoidi geodetici o variazioni locali del raggio terrestre.
+     * @implNote La costante {@code R} rappresenta il raggio medio della Terra in
+     *           chilometri.
+     *           L'accuratezza è generalmente sufficiente per distanze di scala
+     *           geografica,
+     *           ma non tiene conto di ellissoidi geodetici o variazioni locali del
+     *           raggio terrestre.
      */
     public double calcolaDistanza(Coordinate c2) {
         double deltaLat = Math.toRadians(c2.getLat() - this.getLat());

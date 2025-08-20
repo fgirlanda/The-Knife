@@ -14,11 +14,11 @@ package com.gruppo10.classi;
  * </p>
  * <ul>
  * <li>{@link #TUTTO} → nessun filtro, considera tutte le recensioni.</li>
- * <li>{@link #UNO} → filtra solo le entità con almeno 1 stella.</li>
- * <li>{@link #DUE} → filtra solo le entità con almeno 2 stelle.</li>
- * <li>{@link #TRE} → filtra solo le entità con almeno 3 stelle.</li>
- * <li>{@link #QUATTRO} → filtra solo le entità con almeno 4 stelle.</li>
- * <li>{@link #CINQUE} → filtra solo le entità con almeno 5 stelle.</li>
+ * <li>{@link #UNO} → filtra solo i ristoranti con almeno 1 stella.</li>
+ * <li>{@link #DUE} → filtra solo i ristoranti con almeno 2 stelle.</li>
+ * <li>{@link #TRE} → filtra solo i ristoranti con almeno 3 stelle.</li>
+ * <li>{@link #QUATTRO} → filtra solo i ristoranti con almeno 4 stelle.</li>
+ * <li>{@link #CINQUE} → filtra solo i ristoranti con 5 stelle.</li>
  * </ul>
  *
  * <p>
@@ -29,11 +29,12 @@ package com.gruppo10.classi;
  *
  * <p>
  * Il metodo {@link #toString()} restituisce una rappresentazione leggibile
- * della soglia, utile per settare la combo box nell'interfaccia grafica:
+ * per l’utente della soglia, utile per settare la combo box nell'interfaccia
+ * grafica:
  * </p>
  * <ul>
  * <li>{@code "TUTTO"} se non è applicato alcun filtro.</li>
- * <li>{@code "★+"}, {@code "★★+"}, ... fino a {@code "★★★★★+"} a seconda della
+ * <li>{@code "★+"}, {@code "★★+"}, ... fino a {@code "★★★★★"} a seconda della
  * soglia.</li>
  * </ul>
  * 
@@ -80,9 +81,15 @@ public enum MediaRecensioni {
      */
     @Override
     public String toString() {
+        String stelleString = "";
         if (this.valore == 0)
             return "TUTTO";
-        return "★".repeat(this.valore) + "+";
+
+        stelleString += "★".repeat(this.valore);
+        if (this.valore < 5)
+            stelleString += "+";
+
+        return stelleString;
     }
 
     /**

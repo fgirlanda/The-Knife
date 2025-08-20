@@ -16,9 +16,9 @@ package com.gruppo10.classi;
  * <ul>
  * <li>{@link #TUTTO} → nessun filtro applicato (accetta sia disponibile che non
  * disponibile).</li>
- * <li>{@link #DELIVERY_DISPONIBILE} → filtra solo le entità con delivery
+ * <li>{@link #DELIVERY_DISPONIBILE} → filtra solo i ristoranti con delivery
  * disponibile.</li>
- * <li>{@link #DELIVERY_NON_DISPONIBILE} → filtra solo le entità con delivery
+ * <li>{@link #DELIVERY_NON_DISPONIBILE} → filtra solo i ristoranti con delivery
  * non disponibile.</li>
  * </ul>
  *

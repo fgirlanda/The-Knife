@@ -124,7 +124,8 @@ public class PaginaPrincipaleController extends BasicController {
                 .filter(ristorante -> (ricerca.isBlank()
                         || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) &&
                         (filtroCucina == TipoCucina.TUTTO || ristorante.getTipoCucina() == filtroCucina) &&
-                        (filtroPrezzo == Prezzo.TUTTO || ristorante.getPrezzo() == filtroPrezzo) &&
+                        (filtroPrezzo == Prezzo.TUTTO || ristorante.getPrezzo().getSoglia() <= filtroPrezzo.getSoglia())
+                        &&
                         (filtroRecensioni == MediaRecensioni.TUTTO
                                 || ristorante.getMediaRec() >= filtroRecensioni.getSoglia())
                         &&

@@ -6,7 +6,7 @@ Mattia Lambertoni 762595 VA
 package com.gruppo10.classi;
 
 /**
- * Enumerazione che rappresenta i possibili ruoli degli utenti nel sistema.
+ * Enumerazione che rappresenta i possibili ruoli degli utenti.
  *
  * <p>
  * I valori disponibili sono:
@@ -14,7 +14,7 @@ package com.gruppo10.classi;
  * <ul>
  * <li>{@link #CLIENTE} → utente registrato come cliente.</li>
  * <li>{@link #RISTORATORE} → utente registrato come ristoratore.</li>
- * <li>{@link #NON_REGISTRATO} → utente non registrato o ospite.</li>
+ * <li>{@link #NON_REGISTRATO} → utente non registrato.</li>
  * </ul>
  * 
  * <p>

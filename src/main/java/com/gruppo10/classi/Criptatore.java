@@ -7,14 +7,20 @@ package com.gruppo10.classi;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 /**
- * La classe {@code Criptatore} fornisce un metodo di utilità per l' hashing (non decrittabile) di stringhe utilizzando l'algoritmo
+ * La classe {@code Criptatore} fornisce un metodo di utilità per l' hashing
+ * (non decrittabile) di stringhe, utilizzando l'algoritmo
  * crittografico {@code SHA-256}.
  *
- * <p>L'algoritmo SHA-256 genera un hash univoco a 256 bit (64 caratteri esadecimali)
- * a partire da una stringa di input. 
+ * <p>
+ * L'algoritmo SHA-256 genera un hash univoco a 256 bit (64 caratteri
+ * esadecimali)
+ * a partire da una stringa di input.
  *
- * <p>Questa classe non è istanziabile, in quanto fornisce solo un metodo statico.</p>
+ * <p>
+ * Questa classe non è istanziabile, in quanto fornisce solo un metodo statico.
+ * </p>
  *
  * @author Francesco Girlanda
  * @author Mattia Lambertoni

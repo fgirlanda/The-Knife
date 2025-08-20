@@ -49,9 +49,12 @@ public class Indirizzi {
      *
      *
      *         <p>
-     *         Nota: In caso di errore oppure se il risultato restituito è vuoto, la
+     *         Nota: In caso di errore oppure se non sono stati trovati risultati,
+     *         la
      *         gestione viene delegata alla classe
-     *         {@link GestioneEccezioni}.
+     *         {@link GestioneEccezioni}. Il chiamante utilizzerà poi il valore null
+     *         per notificare l'utente e interrompere, ad esempio, l'instanziamento
+     *         di un oggetto.
      */
     public static List<String> getRisultati(String query) {
         String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)

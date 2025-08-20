@@ -74,12 +74,12 @@ public enum TipoCucina {
     /**
      * Restituisce una rappresentazione testuale leggibile del tipo di cucina.
      *
-     * @return nome dell'enum formattato per l’utente
+     * @return valore dell'enum formattato
      */
     @Override
     public String toString() {
         // Sostituisce underscore con spazio e rende la prima lettera maiuscola
-        String name = this.name().toLowerCase().replace('_', ' ');
-        return name.substring(0, 1).toUpperCase() + name.substring(1);
+        String cucina = this.toString().toLowerCase().replace('_', ' ');
+        return cucina.substring(0, 1).toUpperCase() + cucina.substring(1);
     }
 }

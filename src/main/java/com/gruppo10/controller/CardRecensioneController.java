@@ -67,7 +67,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
             btnModifica.setVisible(false);
         }
 
-        this.contenitore = contenitore;
+            this.contenitore = contenitore;
     }
 
     @Override

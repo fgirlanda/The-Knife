@@ -12,9 +12,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class PreferitiCSV extends GestoreCSV<Preferito> {
-    
+
     static String f = "preferiti.csv";
-    
+
     public PreferitiCSV() {
         super(f);
     }
@@ -24,22 +24,22 @@ public class PreferitiCSV extends GestoreCSV<Preferito> {
         String[] header = { "ID Utente", "ID Ristorante" };
         return header;
     }
-    
+
     @Override
     public String[] estraiDati(Preferito preferito) {
         String[] dati = new String[2];
-    
+
         dati[0] = Integer.toString(preferito.getIdUtente());
         dati[1] = Integer.toString(preferito.getIdRistorante());
-    
+
         return dati;
     }
-    
+
     @Override
     public Preferito parseRiga(String[] dati) {
         int idUtente = Integer.parseInt(dati[0]);
         int idRistorante = Integer.parseInt(dati[1]);
-    
+
         return new Preferito(idUtente, idRistorante);
     }
 

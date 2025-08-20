@@ -14,14 +14,15 @@ package com.gruppo10.classi;
  * </p>
  * <ul>
  * <li>{@link #TUTTO} → nessun filtro sul prezzo.</li>
- * <li>{@link #€} → prezzo basso (una moneta).</li>
- * <li>{@link #€€} → prezzo medio-basso (due monete).</li>
- * <li>{@link #€€€} → prezzo medio-alto (tre monete).</li>
- * <li>{@link #€€€€} → prezzo alto (quattro monete).</li>
+ * <li>{@link #€} → prezzo basso.</li>
+ * <li>{@link #€€} → prezzo medio-basso.</li>
+ * <li>{@link #€€€} → prezzo medio-alto.</li>
+ * <li>{@link #€€€€} → prezzo alto.</li>
  * </ul>
  *
  * <p>
- * Il campo {@code prezzo} interno rappresenta un valore numerico per la soglia.
+ * Il campo {@code prezzo} interno rappresenta un valore numerico per la soglia
+ * massima.
  * </p>
  *
  * <p>
@@ -43,25 +44,25 @@ public enum Prezzo {
     /** Nessun filtro sul prezzo. */
     TUTTO(0),
 
-    /** Prezzo basso (una moneta). */
+    /** Prezzo basso. */
     €(1),
 
-    /** Prezzo medio-basso (due monete). */
+    /** Prezzo medio-basso. */
     €€(2),
 
-    /** Prezzo medio-alto (tre monete). */
+    /** Prezzo medio-alto. */
     €€€(3),
 
-    /** Prezzo alto (quattro monete). */
+    /** Prezzo alto. */
     €€€€(4);
 
-    /** Valore numerico associato alla soglia di prezzo. */
+    /** Valore numerico associato alla soglia massima di prezzo. */
     private final int prezzo;
 
     /**
      * Costruttore dell'enum.
      *
-     * @param prezzo valore numerico che rappresenta la soglia di prezzo
+     * @param prezzo valore numerico che rappresenta la soglia massima di prezzo
      */
     Prezzo(int prezzo) {
         this.prezzo = prezzo;
@@ -82,7 +83,7 @@ public enum Prezzo {
     }
 
     /**
-     * Restituisce il valore numerico della soglia di prezzo.
+     * Restituisce il valore numerico della soglia massima di prezzo.
      *
      * @return valore intero della soglia
      */

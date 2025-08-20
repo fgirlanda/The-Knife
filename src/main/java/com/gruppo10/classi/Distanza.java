@@ -92,6 +92,11 @@ public enum Distanza {
         return chilometri;
     }
 
+    /**
+     * Restituisce il valore numerico della distanza associata all'enum.
+     *
+     * @return distanza in chilometri come {@link Double}
+     */
     public Double getKM() {
         return this.km;
     }
