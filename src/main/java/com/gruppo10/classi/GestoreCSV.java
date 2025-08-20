@@ -20,10 +20,12 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public abstract class GestoreCSV<T extends Identificabile> {
     protected File dir = new File("fileCSV");
     protected File file;
+    protected HashMap<T, T> mappa = new HashMap<T, T>();
     
     public GestoreCSV(String f) {
         this.file = new File(dir, f);
@@ -159,5 +161,4 @@ public abstract class GestoreCSV<T extends Identificabile> {
         }
         return contaID;
     }
-
 }

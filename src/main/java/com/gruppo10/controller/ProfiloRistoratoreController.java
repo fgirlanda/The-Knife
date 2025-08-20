@@ -77,6 +77,7 @@ public class ProfiloRistoratoreController extends BasicController{
                     ((CardRistoranteController) controller).setPrincipale(false);
                     ((CardRistoranteController) controller).setStage(stage);
                     ((CardRistoranteController) controller).setOnClick();
+                    ((CardRistoranteController) controller).setIndiceTab(1);
                 });
     }
 }

@@ -123,7 +123,8 @@ public class AggiungiRistoranteController extends BasicController{
 
     @FXML
     private void aggiungiRistorante() throws Exception {
-
+        
+        RistoranteCSV ristoranteCSV = new RistoranteCSV();
         String indirizzo = indirizzoField.getText();
         Coordinate cords = new Coordinate(indirizzo);
         if (cords.getLat() == null)
@@ -152,7 +153,7 @@ public class AggiungiRistoranteController extends BasicController{
         ristorante.setCords(cords);
 
         try {
-            RistoranteCSV ristoranteCSV = new RistoranteCSV();
+            ristoranteCSV.aggiungiRistorante(ristorante);
             ristoranteCSV.scrivi(ristorante);
         } catch (Exception e) {
             return;

@@ -90,7 +90,7 @@ public class AggiungiRecensioneController extends BasicController {
         } catch (Exception e) {
             return;
         }
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
         chiudi();
     }
 }

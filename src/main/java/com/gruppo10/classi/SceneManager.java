@@ -43,13 +43,14 @@ public class SceneManager {
                 });
     }
 
-    public static void apriPaginaRistorante(Stage stage, Ristorante ristorante, boolean paginaPrincipale) {
+    public static void apriPaginaRistorante(Stage stage, Ristorante ristorante, boolean paginaPrincipale, int indiceTab) {
         SceneManager.cambioScena(stage, "pagina_ristorante.fxml", "The Knife",
                 (PaginaRistoranteController controller) -> {
                     controller.setStage(stage);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setRistorante(ristorante);
                     controller.setDati();
+                    controller.setIndiceTab(indiceTab);
                 });
     }
 

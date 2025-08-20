@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RistoranteCSV extends GestoreCSV<Ristorante> {
-    static String f = "ristoranti_test.csv";
+    static String f = "ristoranti.csv";
     private HashMap<Integer, List<Recensione>> mappaRecensioni = new HashMap<>();
+    private HashMap<Integer, Ristorante> mappaRistoranti = new HashMap<Integer, Ristorante>();
 
     public RistoranteCSV() {
         super(f);
@@ -90,6 +91,20 @@ public class RistoranteCSV extends GestoreCSV<Ristorante> {
             } else {
                 mappaRecensioni.get(idRis).add(recensione);
             }
+        }
+    }
+
+    public void aggiungiRistorante(Ristorante ristorante) {
+        mappaRistoranti.put(ristorante.getId(), ristorante);
+    }
+
+    public Ristorante cercaRistorante(int idRistorante) {
+        return mappaRistoranti.get(idRistorante);
+    }
+
+    public void creaMappa(List<Ristorante> ristoranti) {
+        for (Ristorante ristorante : ristoranti) {
+            mappaRistoranti.put(ristorante.getId(), ristorante);
         }
     }
 }

@@ -27,7 +27,8 @@ public class ProfiloClienteController extends BasicController{
     private List<Recensione> recensioni;
 
     private PreferitiCSV preferitiCSV = new PreferitiCSV();
-
+    
+    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
     @FXML
     private VBox contenitoreTessereRis;
     @FXML
@@ -38,8 +39,8 @@ public class ProfiloClienteController extends BasicController{
         caricaDatiUtente();
 
         // Carica ristoranti preferiti
-        RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
+        ristoranteCSV.creaMappa(ristoranti);
         if (ristoranti != null) {
             List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
             SceneManager.caricaTessere(
@@ -51,6 +52,7 @@ public class ProfiloClienteController extends BasicController{
                         ((CardRistoranteController) controller).setPrincipale(false);
                         ((CardRistoranteController) controller).setStage(stage);
                         ((CardRistoranteController) controller).setOnClick();
+                        ((CardRistoranteController) controller).setIndiceTab(1);
                     });
 
             // Carica recensioni utente
@@ -64,9 +66,8 @@ public class ProfiloClienteController extends BasicController{
                         stage,
                         "card_recensione.fxml",
                         (controller, _) -> {
-                            // ((CardRecensioneController) controller).setRistorante(null); // Necessario se
-                            // si vuole fare in modo di aprire la pagina ristorante dalla card recensione
                             ((CardRecensioneController) controller).setPrincipale(false);
+                            ((CardRecensioneController) controller).setIndiceTab(2);
                         });
             }
         }
@@ -89,6 +90,9 @@ public class ProfiloClienteController extends BasicController{
 
         for (Recensione r : listaRecensioni) {
             if (r.getIdUtente() == utenteLoggato.getId()) {
+                Integer idRistorante = r.getIdRistorante();
+                Ristorante ristorante = ristoranteCSV.cercaRistorante(idRistorante);
+                r.setRistorante(ristorante);
                 nuovaLista.add(r);
             }
         }

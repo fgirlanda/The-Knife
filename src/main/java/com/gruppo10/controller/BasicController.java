@@ -22,6 +22,8 @@ public class BasicController {
 
     protected boolean paginaPrincipale;
 
+    protected int indiceTab;
+
     @FXML
     protected Button btnAnnulla;
     @FXML
@@ -47,6 +49,10 @@ public class BasicController {
 
     public void setPrincipale(boolean paginaPrincipale) {
         this.paginaPrincipale = paginaPrincipale;
+    }
+
+    public void setIndiceTab(int indiceTab){
+        this.indiceTab = indiceTab;
     }
 
     @FXML

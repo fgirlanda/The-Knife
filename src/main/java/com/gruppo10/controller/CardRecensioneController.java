@@ -25,10 +25,13 @@ public class CardRecensioneController extends BasicController implements Card<Re
 
     private Ristorante ristorante;
 
-
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
     private VBox contenitore;
+
+    private String titolo;
+
+    private boolean profilo;
 
     @FXML
     private HBox card;
@@ -54,25 +57,32 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private Button btnModifica;
 
- 
     @Override
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
-        String titolo = stage.getTitle().toLowerCase();
-        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario() || !txtRisposta.getText().isBlank()) {
+        this.ristorante = recensione.getRistorante();
+        titolo = stage.getTitle().toLowerCase();
+        profilo = titolo.equals("the knife - profilo");
+        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario()
+                || !txtRisposta.getText().isBlank()) {
             btnRispondi.setVisible(false);
         }
-        if (utenteLoggato.getId() != this.recensione.getIdUtente() || titolo.equals("the knife - profilo")) {
+        if (utenteLoggato.getId() != this.recensione.getIdUtente() || profilo) {
             btnRimuovi.setVisible(false);
             btnModifica.setVisible(false);
         }
 
-            this.contenitore = contenitore;
+        this.contenitore = contenitore;
     }
 
     @Override
     public void setDati() {
-        txtCliente.setText(this.recensione.getUsername());
+        if (profilo){
+            txtCliente.setText(ristorante.getNomeRistorante());
+            txtCliente.setOnMouseClicked(_ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab));
+        }
+        else
+            txtCliente.setText(this.recensione.getUsername());
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText("★".repeat(this.recensione.getStelle()));
         txtRisposta.setText(this.recensione.getRisposta());
@@ -90,9 +100,9 @@ public class CardRecensioneController extends BasicController implements Card<Re
                     controller.setOnCloseCallBack(() -> {
 
                         String nuovaRisposta = controller.getRisposta();
-                        if(nuovaRisposta != null){
+                        if (nuovaRisposta != null) {
                             txtRisposta.setText(nuovaRisposta);
-                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
                         }
                     });
                 });
@@ -115,6 +125,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
         // RecensioneWriter.rimuoviRecensione(this.recensione);
         RecensioneCSV recensioneCSV = new RecensioneCSV();
         recensioneCSV.rimuovi(recensione);
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
     }
 }

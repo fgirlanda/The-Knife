@@ -42,6 +42,8 @@ public class PaginaRistoranteController extends BasicController {
 
     private String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
 
+    private int indiceTab;
+
     @FXML
     private Label txtIndirizzo;
 
@@ -78,6 +80,9 @@ public class PaginaRistoranteController extends BasicController {
     @FXML
     private VBox contenitoreTessere;
 
+    public void setIndiceTab(int indiceTab){
+        this.indiceTab = indiceTab;
+    }
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
 
@@ -87,10 +92,8 @@ public class PaginaRistoranteController extends BasicController {
         imgRistorante.setImage(immagine);
 
         if (preferitiCSV.controlloPreferito(utenteLoggato.getIdUtente(), ristorante.getIdRistorante())) {
-            // String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
             imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
         } else {
-            // String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
             imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
         }
 
@@ -147,9 +150,9 @@ public class PaginaRistoranteController extends BasicController {
             SceneManager.apriPaginaPrincipale(stage);
         } else {
             if (utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)) {
-                SceneManager.apriProfilo(stage, 1);
+                SceneManager.apriProfilo(stage, indiceTab);
             } else {
-                SceneManager.apriProfiloRistoratore(stage, 1);
+                SceneManager.apriProfiloRistoratore(stage, indiceTab);
             }
         }
     }
@@ -157,11 +160,9 @@ public class PaginaRistoranteController extends BasicController {
     @FXML
     private void gestisciPreferiti() {
         if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-            // String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
             imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
             aggiungiPreferito();
         } else {
-            // String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
             imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
             rimuoviPreferito();
         }

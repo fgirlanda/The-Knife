@@ -124,7 +124,7 @@ public class ModificaRecensioneController extends BasicController {
             recensioneCSV.modificaRecensione(nuovaRecensione, nuovoTesto, nuovoVoto);
         }
 
-        SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
+        SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale, indiceTab);
         chiudi();
     }
 }

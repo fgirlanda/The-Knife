@@ -42,7 +42,7 @@ public class CardRistoranteController extends BasicController implements Card<Ri
 
     public void setOnClick(){
         card.setOnMouseClicked(_ -> { // _ = event
-            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale);
+            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
         });
     }
 
@@ -53,7 +53,7 @@ public class CardRistoranteController extends BasicController implements Card<Ri
 
     @Override
     public void setDati() {
-        String cucina = this.ristorante.getTipoCucina().toString();
+        String cucina = this.ristorante.getTipoCucina().name();
         String path = Paths.get("images",cucina+".png").toString();
         Image immagine = new Image(path);
         imgRistorante.setImage(immagine);

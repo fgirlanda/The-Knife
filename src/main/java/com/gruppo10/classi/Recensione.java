@@ -13,6 +13,7 @@ public class Recensione implements Identificabile{
     private String username;
     private int idUtente;
     private int idRistorante;
+    private Ristorante ristorante;
     private int stelle;
     private String testo;
     private String risposta;
