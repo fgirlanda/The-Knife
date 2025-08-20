@@ -189,7 +189,7 @@ Issues:
 
 Extra:
 
-- Whitelist caratteri
+- Whitelist caratteri (opzionale)
 - Soluzione per ripetizione metodo caricaTessere (FATTO)
 - Pulizia grafica (FATTO)
 - Aggiungere controllo indirizzo (FATTO)
