@@ -106,7 +106,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Login senza registrazione (+disabilita tasto preferiti) (FATTO)
 - Visualizza miei ristoranti (FATTO)
 - Ottimizzazione (FATTO)
-- Immagini ristoranti
+- Immagini ristoranti (FATTO)
 
 ### matlmbe:
 
@@ -165,7 +165,7 @@ Grafica:
 - Fix dimensione finestra profilo (FATTO)
 - Fix login status (popup al posto di label?) 
 - Modificare filtri ricerca ristoranti (FATTO)
-- Immagini ristoranti legate a tipo cucina
+- Immagini ristoranti legate a tipo cucina (FATTO)
 - Nomi ristoranti in le mie recensioni (al posto di username)
 - Fix spazio vuoto in le mie recensioni (FATTO)
 - Fix bordo recensioni (FATTO)
