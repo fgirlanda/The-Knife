@@ -106,24 +106,24 @@ public class ModificaRecensioneController extends Controller {
 
         int nuovoVoto = selectedStella.getText().length();
 
-        if (testoModificato != null && !testoModificato.isBlank()) {
+        if ((testoModificato != null && !testoModificato.isBlank() && !testoModificato.equals(testoOriginale)) || nuovoVoto != vecchioVoto) {
             Recensione nuovaRecensione = new Recensione();
             nuovaRecensione.setIdRis(idRis);
             nuovaRecensione.setIdUtente(idUt);
             nuovaRecensione.setUsername(username);
             nuovaRecensione.setRisposta(risposta);
-            nuovaRecensione.setTesto(testoModificato);
             nuovaRecensione.setStelle(nuovoVoto);
+            
+            String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
+            nuovaRecensione.setTesto(nuovoTesto);
 
             ristorante.rimuoviRecensione(recensione);
             ristorante.aggiungiRecensione(nuovaRecensione);
 
             RecensioneCSV recensioneCSV = new RecensioneCSV();
-            recensioneCSV.modificaRecensione(nuovaRecensione, testoModificato, nuovoVoto);
-            // RecensioneWriter.modificaRecensione(this.recensione, testoModificato, nuovoVoto);
+            recensioneCSV.modificaRecensione(nuovaRecensione, nuovoTesto, nuovoVoto);
         }
 
-        // ristorante.aggiornaMedia(vecchioVoto, nuovoVoto);
         SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale);
         chiudi();
     }
