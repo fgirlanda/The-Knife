@@ -184,12 +184,12 @@ Pulizia codice:
 Issues:
 
 - L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario)
-- Non aggiorna la recensione se si modifica solo il voto
+- Non aggiorna la recensione se si modifica solo il voto (RISOLTO)
 
 
 Extra:
 
 - Whitelist caratteri
 - Soluzione per ripetizione metodo caricaTessere (FATTO)
-- Pulizia grafica
+- Pulizia grafica (FATTO)
 - Aggiungere controllo indirizzo (FATTO)
