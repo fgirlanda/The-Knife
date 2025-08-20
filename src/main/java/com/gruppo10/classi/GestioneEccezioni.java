@@ -33,7 +33,9 @@ import javafx.stage.FileChooser;
  * <p>Questa classe non è istanziabile in quanto pensata come contenitore di
  * metodi statici.</p>
  *
- * @author Francesco Girlanda, Mattia Lambertoni, Gabriele Gallon 
+ * @author Francesco Girlanda
+ * @author Mattia Lambertoni
+ * @author Gabriele Gallon
  * @version 1.0
  */
 public class GestioneEccezioni {

@@ -16,7 +16,9 @@ import java.security.NoSuchAlgorithmException;
  *
  * <p>Questa classe non è istanziabile, in quanto fornisce solo un metodo statico.</p>
  *
- * @author Francesco Girlanda, Mattia Lambertoni, Gabriele Gallon 
+ * @author Francesco Girlanda
+ * @author Mattia Lambertoni
+ * @author Gabriele Gallon
  * @version 1.0
  */
 public class Criptatore {

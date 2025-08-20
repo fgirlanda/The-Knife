@@ -35,7 +35,9 @@ import lombok.Data;
  * di rete sincrona e può generare errori di connessione o parsing. In caso di
  * errore, il campo {@code lat} viene impostato a {@code null}.</p>
  *
- * @author Francesco Girlanda, Mattia Lambertoni, Gabriele Gallon 
+ * @author Francesco Girlanda
+ * @author Mattia Lambertoni
+ * @author Gabriele Gallon
  * @version 1.0
  */
 @Data

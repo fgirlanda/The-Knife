@@ -21,7 +21,38 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+/**
+ * La classe {@code Indirizzi} fornisce un metodo per ottenere suggerimenti di
+ * indirizzi
+ * utilizzando il servizio di geocoding {@code Nominatim} di OpenStreetMap.
+ * <p>
+ * Viene effettuata una richiesta HTTP alla API di Nominatim con una query
+ * e i risultati vengono restituiti sotto forma di lista di stringhe
+ * contenenti gli indirizzi trovati.
+ * </p>
+ *
+ * @author Francesco Girlanda
+ * @author Mattia Lambertoni
+ * @author Gabriele Gallon
+ */
 public class Indirizzi {
+
+    /**
+     * Effettua una ricerca di indirizzi tramite il servizio OpenStreetMap
+     * Nominatim.
+     *
+     * @param query la stringa di ricerca (ad esempio nome di una via, una città o
+     *              anche un singolo carattere)
+     * @return una lista di stringhe contenenti i risultati degli indirizzi
+     *         suggeriti;
+     *         {@code null} se si verifica un errore di rete, parsing o HTTP
+     *
+     *
+     *         <p>
+     *         Nota: In caso di errore oppure se il risultato restituito è vuoto, la
+     *         gestione viene delegata alla classe
+     *         {@link GestioneEccezioni}.
+     */
     public static List<String> getRisultati(String query) {
         String url = "https://nominatim.openstreetmap.org/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
                 + "&format=json&addressdetails=1&limit=5";
@@ -38,7 +69,7 @@ public class Indirizzi {
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
-                GestioneEccezioni.errore("Errore HTTP\nStatus code: " + response.statusCode(), null,  false, null);
+                GestioneEccezioni.errore("Errore HTTP\nStatus code: " + response.statusCode(), null, false, null);
                 return null;
             }
 
