@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda 760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -19,6 +19,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Controller per la card che visualizza una singola recensione. Implementa
+ * l'interfaccia {@link Card} per gestire i dati di una recensione e visualizzarli
+ * nell'interfaccia utente. Gestisce anche le azioni di risposta, modifica e rimozione
+ * della recensione in base al ruolo dell'utente e al contesto.
+ */
 public class CardRecensioneController extends BasicController implements Card<Recensione> {
 
     private Recensione recensione;
@@ -57,6 +63,14 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private Button btnModifica;
 
+    /**
+     * Imposta la recensione e il contenitore associati a questa card.
+     * Configura la visibilità dei pulsanti di "Rispondi", "Rimuovi" e "Modifica"
+     * in base al ruolo dell'utente loggato e al proprietario del ristorante.
+     *
+     * @param recensione  l'oggetto {@link Recensione} da visualizzare.
+     * @param contenitore il {@link VBox} che contiene la card.
+     */
     @Override
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
@@ -75,6 +89,12 @@ public class CardRecensioneController extends BasicController implements Card<Re
         this.contenitore = contenitore;
     }
 
+    /**
+     * Imposta i dati della recensione sulle etichette della card.
+     * I dati includono il nome del cliente, il testo, il voto in stelle
+     * e l'eventuale risposta. Gestisce anche il caso in cui la card
+     * si trovi all'interno della pagina del profilo.
+     */
     @Override
     public void setDati() {
         if (profilo){
@@ -88,10 +108,21 @@ public class CardRecensioneController extends BasicController implements Card<Re
         txtRisposta.setText(this.recensione.getRisposta());
     }
 
+    /**
+     * Imposta il ristorante associato a questa recensione.
+     *
+     * @param ristorante l'oggetto {@link Ristorante} della recensione.
+     */
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Rispondi".
+     * Apre una finestra di dialogo per permettere al proprietario di un ristorante
+     * di scrivere una risposta alla recensione. Aggiorna la card una volta che la
+     * risposta è stata salvata.
+     */
     @FXML
     private void rispondi() {
         SceneManager.finestraDialogo("rispondi_recensione.fxml", "Rispondi", stage,
@@ -108,6 +139,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
                 });
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Modifica".
+     * Apre una finestra di dialogo per permettere al cliente di modificare
+     * il testo e il voto della recensione.
+     */
     @FXML
     private void apriModifica() {
         SceneManager.finestraDialogo("modifica_recensione.fxml", "Modifica", stage,
@@ -119,6 +155,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
                 });
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Rimuovi".
+     * Rimuove la recensione dall'oggetto {@link Ristorante} e dal file CSV,
+     * quindi aggiorna la pagina del ristorante per riflettere la modifica.
+     */
     @FXML
     private void rimuovi() {
         this.ristorante.rimuoviRecensione(this.recensione);

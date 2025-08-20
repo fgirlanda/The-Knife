@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda  760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -20,6 +20,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Controller per la vista che permette agli utenti di modificare una recensione esistente.
+ * Gestisce l'interazione con gli elementi dell'interfaccia utente per l'aggiornamento
+ * del testo e del voto della recensione, e si occupa del salvataggio delle modifiche
+ * su file CSV.
+ */
 public class ModificaRecensioneController extends BasicController {
 
     private Recensione recensione;
@@ -65,6 +71,12 @@ public class ModificaRecensioneController extends BasicController {
     @FXML
     private ToggleGroup stelleGroup;
 
+    /**
+     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
+     * dopo che tutti gli elementi FXML sono stati iniettati.
+     * Aggiunge un listener al campo di testo per controllare lo stato dei campi
+     * e abilitare/disabilitare il pulsante di invio.
+     */
     @FXML
     private void initialize() {
 
@@ -72,10 +84,22 @@ public class ModificaRecensioneController extends BasicController {
         txtTestoModificato.textProperty().addListener((_, _, _) -> controllaCampi());
     }
 
+    /**
+     * Imposta il ristorante a cui appartiene la recensione.
+     *
+     * @param ristorante l'oggetto {@link Ristorante} della recensione.
+     */
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
     }
 
+    /**
+     * Imposta la recensione da modificare e popola i campi dell'interfaccia utente
+     * con i dati esistenti.
+     *
+     * @param recensione  l'oggetto {@link Recensione} da modificare.
+     * @param contenitore il {@link VBox} che contiene la card della recensione, se applicabile.
+     */
     public void setRecensione(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
 
@@ -92,6 +116,10 @@ public class ModificaRecensioneController extends BasicController {
         stelleGroup.selectToggle(toggle);
     }
 
+    /**
+     * Controlla se i campi necessari (testo e voto) sono stati compilati.
+     * Abilita o disabilita il pulsante di invio di conseguenza.
+     */
     private void controllaCampi() {
         boolean campiVuoti = txtTestoModificato.getText().isEmpty() ||
                 stelleGroup.getSelectedToggle() == null;
@@ -99,6 +127,12 @@ public class ModificaRecensioneController extends BasicController {
         disabilitaBottone(btnInvia, campiVuoti);
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Modifica".
+     * Recupera il testo e il voto modificati, crea un nuovo oggetto {@link Recensione}
+     * con i dati aggiornati, rimuove la vecchia recensione e aggiunge quella nuova
+     * all'oggetto ristorante. Salva infine le modifiche nel file CSV.
+     */
     @FXML
     private void modificaRecensione() {
         String testoModificato = txtTestoModificato.getText();

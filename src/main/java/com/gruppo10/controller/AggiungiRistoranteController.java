@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda 760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -25,6 +25,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ComboBox;
 
+/**
+ * Controller per la vista che permette ai proprietari di aggiungere un nuovo ristorante.
+ * Gestisce l'interazione con i campi del modulo per l'inserimento dei dati del ristorante,
+ * la validazione degli input e il salvataggio dei dati su file CSV.
+ */
 public class AggiungiRistoranteController extends BasicController{
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
@@ -80,6 +85,12 @@ public class AggiungiRistoranteController extends BasicController{
     @FXML
     private ToggleGroup prezzoGroup;
 
+    /**
+     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
+     * dopo che tutti gli elementi FXML sono stati iniettati.
+     * Imposta i valori per i ComboBox e i RadioButton, e configura l'autocompletamento
+     * per il campo dell'indirizzo. Aggiunge anche dei listener per la validazione dei campi.
+     */
     public void initialize() {
         // Inizializza il ComboBox con i valori dell'enum TipoCucina
         comboCucina.getItems().setAll(TipoCucina.values());
@@ -111,6 +122,10 @@ public class AggiungiRistoranteController extends BasicController{
         });
     }
 
+    /**
+     * Controlla se i campi necessari sono stati compilati.
+     * Abilita o disabilita il pulsante di aggiunta del ristorante di conseguenza.
+     */
     private void controllaCampi() {
         boolean campiVuoti = nomeRistoranteField.getText().isEmpty() ||
                 indirizzoField.getText().isEmpty() ||
@@ -121,6 +136,13 @@ public class AggiungiRistoranteController extends BasicController{
         disabilitaBottone(btnAggiungiRistorante, campiVuoti);
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante di aggiunta del ristorante.
+     * Recupera i dati dai campi, crea un nuovo oggetto {@link Ristorante},
+     * lo salva su file CSV e lo aggiunge alla mappa interna.
+     *
+     * @throws Exception se si verifica un errore durante il salvataggio dei dati.
+     */
     @FXML
     private void aggiungiRistorante() throws Exception {
         
@@ -166,10 +188,21 @@ public class AggiungiRistoranteController extends BasicController{
         chiudi();
     }
 
+    /**
+     * Restituisce il nuovo ristorante creato dal controller.
+     *
+     * @return l'oggetto {@link Ristorante} appena creato.
+     */
     public Ristorante getNuovoRistorante() {
         return nuovoRistorante;
     }
 
+    /**
+     * Imposta una callback da eseguire alla chiusura della finestra del controller.
+     * Utile per notificare il controller chiamante che è stato aggiunto un nuovo ristorante.
+     *
+     * @param callback il Runnable da eseguire.
+     */
     public void setOnCloseCallback(Runnable callback) {
         this.onCloseCallback = callback;
     }

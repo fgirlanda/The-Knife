@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda 760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
 
@@ -15,14 +15,29 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+/**
+ * Gestisce le operazioni di lettura, scrittura e modifica per il file CSV
+ * che contiene le recensioni dei ristoranti.
+ * Estende la classe {@link GestoreCSV} per fornire un'implementazione specifica
+ * per gli oggetti di tipo {@link Recensione}.
+ */
 public class RecensioneCSV extends GestoreCSV<Recensione> {
 
     static String f = "recensioni.csv";
 
+    /**
+     * Costruttore della classe. Inizializza il nome del file CSV da gestire.
+     */
     public RecensioneCSV() {
         super(f);
     }
 
+    /**
+     * Restituisce l'array di stringhe che rappresenta l'header del file CSV.
+     * L'header definisce i nomi delle colonne per i dati delle recensioni.
+     *
+     * @return un array di stringhe contenente i nomi delle colonne.
+     */
     @Override
     protected String[] getHeader() {
         String[] header = { "ID Cliente", "ID Ristorante", "ID Recensione", "Username", "Voto", "Testo",
@@ -31,6 +46,12 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         return header;
     }
 
+    /**
+     * Estrae i dati da un oggetto {@link Recensione} per scriverli su una riga del file CSV.
+     *
+     * @param r l'oggetto {@link Recensione} da cui estrarre i dati.
+     * @return un array di stringhe contenente i dati dell'oggetto.
+     */
     @Override
     protected String[] estraiDati(Recensione r) {
         String[] dati = new String[7];
@@ -46,6 +67,12 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         return dati;
     }
 
+    /**
+     * Parsifica una riga di dati dal file CSV e crea un nuovo oggetto {@link Recensione}.
+     *
+     * @param dati l'array di stringhe che rappresenta una riga del file CSV.
+     * @return un nuovo oggetto {@link Recensione} con i dati parsificati.
+     */
     @Override
     protected Recensione parseRiga(String[] dati) {
         int idUtente = Integer.parseInt(dati[0]);
@@ -67,6 +94,14 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         return r;
     }
 
+    /**
+     * Aggiunge una risposta a una recensione esistente nel file CSV.
+     * Legge il file, trova la recensione corrispondente a {@code recensione},
+     * aggiorna il campo della risposta e riscrive il file.
+     *
+     * @param recensione l'oggetto {@link Recensione} da aggiornare.
+     * @param risposta la stringa di risposta da aggiungere.
+     */
     public void aggiungiRisposta(Recensione recensione, String risposta) {
         List<String[]> listaTemp = new ArrayList<>();
 
@@ -105,6 +140,15 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         sovrascrivi(listaTemp);
     }
 
+    /**
+     * Modifica il testo e il voto di una recensione esistente nel file CSV.
+     * Legge il file, trova la recensione corrispondente a {@code recensione},
+     * aggiorna il testo e le stelle e riscrive il file.
+     *
+     * @param recensione l'oggetto {@link Recensione} da modificare.
+     * @param testoModificato il nuovo testo della recensione.
+     * @param nuovoVoto il nuovo voto (numero di stelle) della recensione.
+     */
     public void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto) {
         List<String[]> listaTemp = new ArrayList<>();
 
@@ -141,5 +185,4 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         }
         sovrascrivi(listaTemp);
     }
-
 }

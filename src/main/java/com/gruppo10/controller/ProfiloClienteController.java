@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda  760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -18,6 +18,11 @@ import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller per la vista del profilo cliente. Estende {@link BasicController}
+ * e gestisce il caricamento e la visualizzazione dei dati utente, dei ristoranti
+ * preferiti e delle recensioni inserite dal cliente.
+ */
 public class ProfiloClienteController extends BasicController{
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
@@ -35,6 +40,11 @@ public class ProfiloClienteController extends BasicController{
     private VBox contenitoreTessereRec;
 
 
+    /**
+     * Carica i dati del profilo dell'utente loggato.
+     * Recupera e visualizza la lista dei ristoranti preferiti e le recensioni
+     * scritte dall'utente, popolando i rispettivi contenitori.
+     */
     public void caricaDati(){
         caricaDatiUtente();
 
@@ -74,6 +84,13 @@ public class ProfiloClienteController extends BasicController{
     }
 
 
+    /**
+     * Filtra la lista di tutti i ristoranti per trovare solo quelli
+     * che sono stati aggiunti ai preferiti dall'utente loggato.
+     *
+     * @param listaRistoranti la lista completa dei ristoranti.
+     * @return una nuova lista contenente solo i ristoranti preferiti.
+     */
     private List<Ristorante> filtraPreferiti(List<Ristorante> listaRistoranti) {
         List<Ristorante> nuovaLista = new ArrayList<>();
 
@@ -85,6 +102,13 @@ public class ProfiloClienteController extends BasicController{
         return nuovaLista;
     }
 
+    /**
+     * Filtra la lista di tutte le recensioni per trovare solo quelle
+     * scritte dall'utente loggato.
+     *
+     * @param listaRecensioni la lista completa delle recensioni.
+     * @return una nuova lista contenente solo le recensioni dell'utente.
+     */
     private List<Recensione> filtraRecensioni(List<Recensione> listaRecensioni) {
         List<Recensione> nuovaLista = new ArrayList<>();
 
@@ -100,6 +124,10 @@ public class ProfiloClienteController extends BasicController{
         return nuovaLista;
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Indietro".
+     * Torna alla pagina principale dell'applicazione.
+     */
     @FXML
     private void tornaIndietro() {
         SceneManager.apriPaginaPrincipale(stage);

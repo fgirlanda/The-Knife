@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda 760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -18,6 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Controller per la card che visualizza un singolo ristorante. Implementa
+ * l'interfaccia {@link Card} per gestire i dati di un ristorante e visualizzarli
+ * in un formato di card nell'interfaccia utente. Gestisce anche l'azione di
+ * clic sulla card per aprire la pagina dettagliata del ristorante.
+ */
 public class CardRistoranteController extends BasicController implements Card<Ristorante> {
 
     public Ristorante ristorante;
@@ -40,17 +46,34 @@ public class CardRistoranteController extends BasicController implements Card<Ri
     @FXML
     private Text txtTipoCucina;
 
+    /**
+     * Imposta un gestore di eventi per il clic sulla card.
+     * Quando l'utente clicca sulla card, viene aperta la pagina dettagliata
+     * del ristorante corrispondente.
+     */
     public void setOnClick(){
         card.setOnMouseClicked(_ -> { // _ = event
             SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
         });
     }
 
+    /**
+     * Imposta l'oggetto ristorante e il contenitore associati a questa card.
+     * Questo metodo è un'implementazione dell'interfaccia {@link Card}.
+     *
+     * @param ristorante il {@link Ristorante} da visualizzare nella card.
+     * @param contenitore il {@link VBox} che contiene la card.
+     */
     @Override
     public void setItem(Ristorante ristorante, VBox contenitore) {
         this.ristorante = ristorante;
     }
 
+    /**
+     * Imposta i dati dell'oggetto ristorante sulle etichette della card.
+     * I dati includono l'immagine, il nome, la media delle recensioni,
+     * il livello di prezzo e il tipo di cucina.
+     */
     @Override
     public void setDati() {
         String cucina = this.ristorante.getTipoCucina().name();

@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda  760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -14,10 +14,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * Controller di test per l'accesso rapido all'applicazione.
+ * Permette di creare un utente di prova con dati predefiniti e di accedere
+ * alla pagina principale senza passare per la procedura di login standard,
+ * scegliendo un ruolo tra quelli disponibili.
+ */
 public class TestController extends BasicController{
     @FXML
     private ToggleGroup ruoloGroup;
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Accedi".
+     * Crea un utente di test, lo imposta come utente loggato e naviga
+     * alla pagina principale dell'applicazione.
+     */
     @FXML
     public void accedi() {
         Utente utente = creaUtenteTest();
@@ -29,6 +40,12 @@ public class TestController extends BasicController{
         }
     }
 
+    /**
+     * Crea un oggetto {@link Utente} con dati predefiniti a scopo di test.
+     * I dati sono fissi, tranne il ruolo che viene selezionato tramite l'interfaccia.
+     *
+     * @return un oggetto {@link Utente} di test.
+     */
     private Utente creaUtenteTest() {
         Utente utente = new Utente();
         utente.setNome("Mario");
@@ -44,6 +61,12 @@ public class TestController extends BasicController{
         return utente;
     }
 
+    /**
+     * Determina il ruolo dell'utente di test in base alla selezione
+     * del RadioButton.
+     *
+     * @return il {@link Ruolo} selezionato dall'utente.
+     */
     private Ruolo getRuolo() {
         RadioButton select = (RadioButton) ruoloGroup.getSelectedToggle();
         Ruolo ruolo;

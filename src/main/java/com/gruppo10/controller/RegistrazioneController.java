@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda  760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -22,6 +22,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import org.controlsfx.control.textfield.TextFields;
 
+/**
+ * Controller per la schermata di registrazione. Gestisce l'interazione
+ * con i campi di registrazione, la validazione dei dati inseriti e la
+ * creazione di un nuovo utente nel sistema.
+ */
 public class RegistrazioneController extends BasicController {
 
     @FXML
@@ -57,6 +62,12 @@ public class RegistrazioneController extends BasicController {
     @FXML
     private ToggleGroup ruoloGroup;
 
+    /**
+     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
+     * dopo che tutti gli elementi FXML sono stati iniettati.
+     * Aggiunge listener a tutti i campi di input per controllare lo stato
+     * di validità e abilita l'autocompletamento per il campo indirizzo.
+     */
     public void initialize() {
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
@@ -74,6 +85,10 @@ public class RegistrazioneController extends BasicController {
         });
     }
 
+    /**
+     * Controlla se tutti i campi di input sono stati compilati.
+     * Abilita o disabilita il pulsante di registrazione in base allo stato dei campi.
+     */
     private void controllaCampi() {
         boolean campiVuoti = nomeField.getText().isBlank() ||
                 cognomeField.getText().isBlank() ||
@@ -86,6 +101,12 @@ public class RegistrazioneController extends BasicController {
         disabilitaBottone(btnRegistrati, campiVuoti);
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Registrati".
+     * Acquisisce i dati dai campi, esegue le validazioni necessarie (indirizzo,
+     * username esistente), cripta la password e crea un nuovo oggetto Utente.
+     * Salva quindi il nuovo utente nel file CSV e naviga alla pagina di login.
+     */
     @FXML
     public void registrati() {
         UtenteCSV utenteCSV = new UtenteCSV();
@@ -139,6 +160,11 @@ public class RegistrazioneController extends BasicController {
         apriLogin();
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Annulla".
+     * A seconda della pagina precedente (pagina principale o login),
+     * naviga alla schermata appropriata.
+     */
     @FXML
     private void annulla() {
         if (paginaPrincipale) {
@@ -148,6 +174,9 @@ public class RegistrazioneController extends BasicController {
         }
     }
 
+    /**
+     * Apre la schermata di login.
+     */
     private void apriLogin() {
         SceneManager.apriLogin(stage);
     }

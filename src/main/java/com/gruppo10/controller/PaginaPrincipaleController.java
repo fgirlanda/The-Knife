@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda  760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -26,6 +26,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller per la pagina principale dell'applicazione, che visualizza
+ * l'elenco dei ristoranti disponibili. Gestisce il caricamento dei dati,
+ * l'applicazione di filtri di ricerca e la navigazione verso altre schermate
+ * come il profilo o la pagina di registrazione.
+ */
 public class PaginaPrincipaleController extends BasicController {
 
     public static List<Ristorante> ristoranti;
@@ -64,6 +70,12 @@ public class PaginaPrincipaleController extends BasicController {
     @FXML
     private ComboBox<Distanza> comboFiltroDistanza;
 
+    /**
+     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
+     * dopo che tutti gli elementi FXML sono stati iniettati.
+     * Configura il testo del pulsante "Profilo/Registrati" in base al ruolo
+     * dell'utente e popola i ComboBox con i valori dei filtri.
+     */
     public void initialize() {
         if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             btnRegistratiProfilo.setText("Registrati");
@@ -86,7 +98,10 @@ public class PaginaPrincipaleController extends BasicController {
         comboFiltroDistanza.getSelectionModel().select(Distanza.OLTRE);
     }
 
-    // Lista ristoranti, calcolo distanze e caricamento card
+    /**
+     * Carica tutti i ristoranti dal file CSV e li visualizza nell'interfaccia.
+     * Calcola anche la distanza di ogni ristorante dall'utente loggato.
+     */
     public void setRistoranti() {
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
@@ -96,7 +111,12 @@ public class PaginaPrincipaleController extends BasicController {
         }
     }
 
-    // Calcola distanze per ogni ristorante
+    /**
+     * Calcola la distanza tra l'utente loggato e ogni ristorante nella lista,
+     * e memorizza i risultati in una mappa.
+     *
+     * @param listaRistoranti la lista di tutti i ristoranti.
+     */
     private void mappaDistanze(List<Ristorante> listaRistoranti) {
         for (Ristorante r : listaRistoranti) {
             Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
@@ -104,6 +124,10 @@ public class PaginaPrincipaleController extends BasicController {
         }
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Cerca". Applica i filtri
+     * selezionati dall'utente e aggiorna la visualizzazione delle card dei ristoranti.
+     */
     @FXML
     public void applicaFiltri() {
         List<Ristorante> listaFiltrata = filtra(ristoranti);
@@ -111,6 +135,13 @@ public class PaginaPrincipaleController extends BasicController {
         caricaTessere(listaFiltrata);
     }
 
+    /**
+     * Filtra la lista di ristoranti in base ai criteri di ricerca e filtro
+     * selezionati dall'utente.
+     *
+     * @param ristoranti la lista di ristoranti da filtrare.
+     * @return una nuova lista contenente solo i ristoranti che soddisfano i criteri.
+     */
     private List<Ristorante> filtra(List<Ristorante> ristoranti) {
         String ricerca = ricercaField.getText().toLowerCase();
         TipoCucina filtroCucina = comboFiltroCucina.getValue();
@@ -136,6 +167,11 @@ public class PaginaPrincipaleController extends BasicController {
                 .toList();
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Profilo/Registrati".
+     * In base al ruolo dell'utente, apre la pagina del profilo cliente, del profilo
+     * ristoratore o la pagina di registrazione.
+     */
     @FXML
     private void gestisciBottoneUtente() {
         Ruolo ruolo = utenteLoggato.getRuolo();
@@ -148,6 +184,12 @@ public class PaginaPrincipaleController extends BasicController {
         }
     }
 
+    /**
+     * Carica le card dei ristoranti nella vista, visualizzandole
+     * nel contenitore apposito.
+     *
+     * @param lista la lista di ristoranti da visualizzare.
+     */
     private void caricaTessere(List<Ristorante> lista) {
         SceneManager.caricaTessere(
                 lista,

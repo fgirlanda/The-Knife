@@ -1,7 +1,7 @@
-/* 
-Francesco Girlanda  760616 VA
-Gabriele Gallon 761125 VA
-Mattia Lambertoni 762595 VA
+/*
+ * Francesco Girlanda 760616 VA
+ * Gabriele Gallon 761125 VA
+ * Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
@@ -29,6 +29,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Controller per la schermata di login. Gestisce l'interazione con i campi
+ * di username, password e indirizzo, la validazione dei dati di login
+ * e la navigazione verso la pagina principale o di registrazione.
+ * Si occupa anche di gestire l'accesso per gli utenti non registrati.
+ */
 public class LoginController extends BasicController{
 
     public static Utente utenteLoggato = null;
@@ -51,7 +57,12 @@ public class LoginController extends BasicController{
     @FXML
     private Label loginStatus;
 
-    // Aggiungere controllaCampi
+    /**
+     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
+     * dopo che tutti gli elementi FXML sono stati iniettati.
+     * Aggiunge listener ai campi di testo per abilitare/disabilitare i pulsanti
+     * e configura l'autocompletamento per il campo dell'indirizzo.
+     */
     public void initialize() {
         usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
@@ -65,6 +76,10 @@ public class LoginController extends BasicController{
         loginStatus.setVisible(false);
     }
 
+    /**
+     * Controlla lo stato dei campi di testo per abilitare o disabilitare
+     * i pulsanti di login e "Continua senza registrarti".
+     */
     private void controllaCampi() {
         boolean userPassword = usernameField.getText().isBlank() || passwordField.getText().isBlank();
         boolean indirizzo = indirizzoField.getText().isBlank();
@@ -73,6 +88,12 @@ public class LoginController extends BasicController{
         btnContinua.setDisable(indirizzo);
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante di login.
+     * Cripta la password, cerca l'utente nel file CSV e verifica le credenziali.
+     * In caso di successo, imposta l'utente come utente loggato e apre la pagina principale.
+     * In caso di errore, mostra un messaggio di stato appropriato.
+     */
     @FXML
     public void provaLogin() {
         String username = usernameField.getText();
@@ -101,11 +122,20 @@ public class LoginController extends BasicController{
         }
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Registrati".
+     * Apre la schermata di registrazione.
+     */
     @FXML
     private void apriRegistrazione() {
         SceneManager.apriRegistrati(stage, false);
     }
 
+    /**
+     * Gestisce l'evento di clic sul pulsante "Continua senza registrarti".
+     * Crea un utente temporaneo con ruolo "NON_REGISTRATO" e le coordinate
+     * dell'indirizzo inserito, quindi apre la pagina principale.
+     */
     @FXML
     public void continuaSenzaRegistrarti() {
         String indirizzo = indirizzoField.getText();
@@ -120,6 +150,10 @@ public class LoginController extends BasicController{
         apriPaginaPrincipale();
     }
 
+    /**
+     * Apre la pagina principale dell'applicazione, mostrando un popup di caricamento
+     * per un breve periodo di tempo prima della transizione.
+     */
     private void apriPaginaPrincipale() {
         Stage popup = creaPopupLoading();
 
@@ -139,6 +173,11 @@ public class LoginController extends BasicController{
         pause.play();
     }
 
+    /**
+     * Crea e visualizza un popup di caricamento modale.
+     *
+     * @return lo {@link Stage} del popup di caricamento.
+     */
     private Stage creaPopupLoading() {
         Stage loadingStage = new Stage();
         loadingStage.initModality(Modality.APPLICATION_MODAL);
