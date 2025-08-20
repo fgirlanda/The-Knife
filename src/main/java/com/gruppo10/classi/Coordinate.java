@@ -16,6 +16,28 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 
+/**
+ * La classe {@code Coordinate} rappresenta un punto geografico espresso tramite
+ * latitudine e longitudine. 
+ *
+ * <p>Offre due modalità di costruzione:</p>
+ * <ul>
+ *   <li>Creazione a partire da un indirizzo testuale, utilizzando il servizio
+ *       di geocodifica <a href="https://nominatim.openstreetmap.org/">
+ *       Nominatim di OpenStreetMap</a>.</li>
+ *   <li>Creazione diretta specificando latitudine e longitudine.</li>
+ * </ul>
+ *
+ * <p>Fornisce inoltre un metodo per calcolare la distanza tra due coordinate
+ * utilizzando la formula dell'Haversine.</p>
+ *
+ * <p><b>Nota:</b> il costruttore che accetta un indirizzo esegue una chiamata
+ * di rete sincrona e può generare errori di connessione o parsing. In caso di
+ * errore, il campo {@code lat} viene impostato a {@code null}.</p>
+ *
+ * @author Francesco Girlanda, Mattia Lambertoni, Gabriele Gallon 
+ * @version 1.0
+ */
 @Data
 public class Coordinate {
 
