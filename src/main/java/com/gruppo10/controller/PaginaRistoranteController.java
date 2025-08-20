@@ -26,7 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class PaginaRistoranteController extends Controller {
+public class PaginaRistoranteController extends BasicController {
 
     private Ristorante ristorante;
 

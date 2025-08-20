@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
-public class Controller {
+public class BasicController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
     

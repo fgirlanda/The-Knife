@@ -7,6 +7,7 @@ package com.gruppo10.controller;
 
 import java.nio.file.Paths;
 
+import com.gruppo10.classi.Card;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 
@@ -17,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class CardRistoranteController extends Controller implements InterfacciaCard<Ristorante> {
+public class CardRistoranteController extends BasicController implements Card<Ristorante> {
 
     public Ristorante ristorante;
 

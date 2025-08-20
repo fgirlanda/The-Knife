@@ -102,7 +102,7 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <RadioButton fx:id="clienteRadioButton" mnemonicParsing="false" selected="true" text="cliente" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <RadioButton fx:id="radioCliente" mnemonicParsing="false" selected="true" text="cliente" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
                </font>
@@ -110,7 +110,7 @@
                   <ToggleGroup fx:id="ruoloGrouptest" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="ristoratoreRadioButton" mnemonicParsing="false" text="ristoratore" toggleGroup="$ruoloGroup" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <RadioButton fx:id="radioRistoratore" mnemonicParsing="false" text="ristoratore" toggleGroup="$ruoloGroup" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
                </font>

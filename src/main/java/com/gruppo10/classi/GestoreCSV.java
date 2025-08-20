@@ -21,14 +21,14 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class GestoreCSV<T extends InterfacciaIdentificabile> {
+public abstract class GestoreCSV<T extends Identificabile> {
     protected File dir = new File("fileCSV");
     protected File file;
     
     public GestoreCSV(String f) {
         this.file = new File(dir, f);
     }
-    
+
     protected abstract String[] getHeader();
 
     protected abstract String[] estraiDati(T obj);

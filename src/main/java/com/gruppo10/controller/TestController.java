@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
-public class TestController extends Controller{
+public class TestController extends BasicController{
     @FXML
     private ToggleGroup ruoloGroup;
 

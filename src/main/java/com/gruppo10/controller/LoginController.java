@@ -29,7 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class LoginController extends Controller{
+public class LoginController extends BasicController{
 
     public static Utente utenteLoggato = null;
 

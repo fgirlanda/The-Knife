@@ -20,7 +20,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class ModificaRecensioneController extends Controller {
+public class ModificaRecensioneController extends BasicController {
 
     private Recensione recensione;
 

@@ -8,7 +8,7 @@ package com.gruppo10.classi;
 import lombok.Data;
 
 @Data
-public class Recensione implements InterfacciaIdentificabile{
+public class Recensione implements Identificabile{
     private int idRec;
     private String username;
     private int idUtente;

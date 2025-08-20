@@ -11,7 +11,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class Ristorante implements InterfacciaIdentificabile{
+public class Ristorante implements Identificabile{
 
     private int id;
     private int idproprietario;
@@ -36,7 +36,7 @@ public class Ristorante implements InterfacciaIdentificabile{
     public int getIdRistorante(){
         return id;
     }
-    
+
     public void setCucina(String value) {
         try {
             this.tipoCucina = TipoCucina.valueOf(value.toUpperCase()); // Conversione sicura

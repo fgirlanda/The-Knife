@@ -5,6 +5,7 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
+import com.gruppo10.classi.Card;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
@@ -18,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class CardRecensioneController extends Controller implements InterfacciaCard<Recensione> {
+public class CardRecensioneController extends BasicController implements Card<Recensione> {
 
     private Recensione recensione;
 

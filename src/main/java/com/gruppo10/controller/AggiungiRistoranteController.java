@@ -25,7 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ComboBox;
 
-public class AggiungiRistoranteController extends Controller{
+public class AggiungiRistoranteController extends BasicController{
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
@@ -34,10 +34,10 @@ public class AggiungiRistoranteController extends Controller{
     private Ristorante nuovoRistorante = null;
 
     @FXML
-    private TextField txtNomeRistorante;
+    private TextField nomeRistoranteField;
 
     @FXML
-    private TextField txtIndirizzo;
+    private TextField indirizzoField;
 
     @FXML
     private RadioButton radioDeliverySi;
@@ -97,8 +97,8 @@ public class AggiungiRistoranteController extends Controller{
         radioPrenotazioneNo.setUserData(Prenotazione.PRENOTAZIONE_ONLINE_NON_DISPONIBILE);
 
         // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtNomeRistorante.textProperty().addListener((_, _, _) -> controllaCampi());
-        txtIndirizzo.textProperty().addListener((_, _, _) -> controllaCampi());
+        nomeRistoranteField.textProperty().addListener((_, _, _) -> controllaCampi());
+        indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
         comboCucina.valueProperty().addListener((_, _, _) -> controllaCampi());
 
         // Imposta una lunghezza massima per il popup della ComboBox e abilita lo scroll
@@ -106,14 +106,14 @@ public class AggiungiRistoranteController extends Controller{
         comboCucina.setMaxHeight(200); // Imposta un'altezza massima per la lista
 
         // Autocompletamento con Nominatim
-        TextFields.<String>bindAutoCompletion(txtIndirizzo, request -> {
+        TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
     }
 
     private void controllaCampi() {
-        boolean campiVuoti = txtNomeRistorante.getText().isEmpty() ||
-                txtIndirizzo.getText().isEmpty() ||
+        boolean campiVuoti = nomeRistoranteField.getText().isEmpty() ||
+                indirizzoField.getText().isEmpty() ||
                 deliveryGroup.getSelectedToggle() == null ||
                 prenotazioneGroup.getSelectedToggle() == null ||
                 comboCucina.getValue() == null;
@@ -124,34 +124,16 @@ public class AggiungiRistoranteController extends Controller{
     @FXML
     private void aggiungiRistorante() throws Exception {
 
-        String indirizzo = txtIndirizzo.getText();
+        String indirizzo = indirizzoField.getText();
         Coordinate cords = new Coordinate(indirizzo);
         if (cords.getLat() == null)
             return;
-        // Recupera i dati dai campi
-        // RadioButton selectedDelivery = (RadioButton) deliveryGroup.getSelectedToggle();
-        // RadioButton selectedPrenotazione = (RadioButton) prenotazioneGroup.getSelectedToggle();
-        // RadioButton selectedPrezzo = (RadioButton) prezzoGroup.getSelectedToggle();
-        // String tempDelivery = selectedDelivery.getText();
-        // String tempPrenotazione = selectedPrenotazione.getText();
 
         Delivery selectedDelivery = (Delivery) deliveryGroup.getSelectedToggle().getUserData();
         Prenotazione selectedPrenotazione = (Prenotazione) prenotazioneGroup.getSelectedToggle().getUserData();
         Prezzo selectedPrezzo = (Prezzo) prezzoGroup.getSelectedToggle().getUserData();
 
-        String nomeRistorante = txtNomeRistorante.getText();
-        // boolean delivery;
-        // boolean prenotazioneOnline;
-        // if (tempDelivery.equals("Sì")) {
-        //     delivery = true;
-        // } else {
-        //     delivery = false;
-        // }
-        // if (tempPrenotazione.equals("Sì")) {
-        //     prenotazioneOnline = true;
-        // } else {
-        //     prenotazioneOnline = false;
-        // }
+        String nomeRistorante = nomeRistoranteField.getText();
 
         // Crea un oggetto Ristorante
         int idProprietario = utenteLoggato.getId();
@@ -159,11 +141,8 @@ public class AggiungiRistoranteController extends Controller{
         ristorante.setIdproprietario(idProprietario);
         ristorante.setNomeRistorante(nomeRistorante);
         ristorante.setIndirizzo(indirizzo);
-        // ristorante.setDelivery(delivery);
         ristorante.setDelivery(selectedDelivery);
-        // ristorante.setPrenotazioneOnline(prenotazioneOnline);
         ristorante.setPrenotazioneOnline(selectedPrenotazione);
-        // ristorante.setPrezzo(selectedPrezzo.getText());
         ristorante.setPrezzo(selectedPrezzo);
         ristorante.setTipoCucina(comboCucina.getValue());
         ristorante.setDescrizione(txtDescrizione.getText());

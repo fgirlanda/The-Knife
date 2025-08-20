@@ -1,6 +1,6 @@
 package com.gruppo10.classi;
 
-public class Preferito implements InterfacciaIdentificabile{
+public class Preferito implements Identificabile{
     private int idUtente;
     private int idRistorante;
 

@@ -1,6 +1,6 @@
 package com.gruppo10.classi;
 
-public interface InterfacciaIdentificabile {
+public interface Identificabile {
     int getIdUtente();
     int getIdRistorante();
 }

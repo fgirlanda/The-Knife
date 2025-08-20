@@ -11,7 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
-public class RispostaRecensioneController extends Controller{
+public class RispostaRecensioneController extends BasicController{
 
     private Recensione recensione;
 

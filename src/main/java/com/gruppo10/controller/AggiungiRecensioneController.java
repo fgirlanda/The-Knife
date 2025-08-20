@@ -17,7 +17,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 
-public class AggiungiRecensioneController extends Controller {
+public class AggiungiRecensioneController extends BasicController {
 
     private Utente utenteLoggato = LoginController.utenteLoggato;
 

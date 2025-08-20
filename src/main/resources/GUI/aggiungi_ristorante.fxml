@@ -68,12 +68,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtNomeRistorante" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4">
+            <TextField fx:id="nomeRistoranteField" promptText="nome ristorante" GridPane.columnIndex="1" GridPane.columnSpan="4">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtIndirizzo" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
+            <TextField fx:id="indirizzoField" promptText="indirizzo" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>

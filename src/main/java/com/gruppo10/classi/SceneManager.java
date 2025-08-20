@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import com.gruppo10.controller.InterfacciaCard;
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
@@ -86,7 +85,7 @@ public class SceneManager {
     }
 
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere, Stage stage, String fxmlPath,
-            BiConsumer<InterfacciaCard<T>, T> extraConfig) {
+            BiConsumer<Card<T>, T> extraConfig) {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
@@ -94,7 +93,7 @@ public class SceneManager {
                         Paths.get("src", "main", "resources", "GUI", fxmlPath).toUri().toURL());
                 HBox card = loader.load();
 
-                InterfacciaCard<T> controller = loader.getController();
+                Card<T> controller = loader.getController();
                 controller.setStage(stage);
 
                 if (extraConfig != null) {

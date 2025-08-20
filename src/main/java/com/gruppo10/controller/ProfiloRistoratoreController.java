@@ -16,7 +16,7 @@ import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
-public class ProfiloRistoratoreController extends Controller{
+public class ProfiloRistoratoreController extends BasicController{
 
     private Utente utenteloggato = LoginController.utenteLoggato;
 

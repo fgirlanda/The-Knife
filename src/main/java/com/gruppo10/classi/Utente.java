@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class Utente implements InterfacciaIdentificabile{
+public class Utente implements Identificabile{
     private int id;
     private String nome;
     private String cognome;

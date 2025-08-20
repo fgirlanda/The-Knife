@@ -26,7 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class PaginaPrincipaleController extends Controller {
+public class PaginaPrincipaleController extends BasicController {
 
     public static List<Ristorante> ristoranti;
 
@@ -35,13 +35,13 @@ public class PaginaPrincipaleController extends Controller {
     private HashMap<String, Double> mappaDistanze = new HashMap<>();
 
     @FXML
-    private Button bottoneRegistratiProfilo;
+    private Button btnRegistratiProfilo;
 
     @FXML
     private VBox contenitoreTessere;
 
     @FXML
-    private TextField txtRicerca;
+    private TextField ricercaField;
 
     @FXML
     private Button btnCerca;
@@ -66,9 +66,9 @@ public class PaginaPrincipaleController extends Controller {
 
     public void initialize() {
         if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
-            bottoneRegistratiProfilo.setText("Registrati");
+            btnRegistratiProfilo.setText("Registrati");
         } else {
-            bottoneRegistratiProfilo.setText("Profilo");
+            btnRegistratiProfilo.setText("Profilo");
         }
 
         comboFiltroCucina.getItems().setAll(TipoCucina.values());
@@ -112,7 +112,7 @@ public class PaginaPrincipaleController extends Controller {
     }
 
     private List<Ristorante> filtra(List<Ristorante> ristoranti) {
-        String ricerca = txtRicerca.getText().toLowerCase();
+        String ricerca = ricercaField.getText().toLowerCase();
         TipoCucina filtroCucina = comboFiltroCucina.getValue();
         Prezzo filtroPrezzo = comboFiltroPrezzo.getValue();
         MediaRecensioni filtroRecensioni = comboFiltroRecensioni.getValue();

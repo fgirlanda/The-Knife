@@ -22,13 +22,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import org.controlsfx.control.textfield.TextFields;
 
-public class RegistrazioneController extends Controller {
+public class RegistrazioneController extends BasicController {
 
     @FXML
-    private RadioButton clienteRadioButton;
+    private RadioButton radioCliente;
 
     @FXML
-    private RadioButton ristoratoreRadioButton;
+    private RadioButton radioRistoratore;
 
     @FXML
     private TextField nomeField;
