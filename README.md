@@ -166,7 +166,7 @@ Grafica:
 - Fix login status (popup al posto di label?) 
 - Modificare filtri ricerca ristoranti (FATTO)
 - Immagini ristoranti legate a tipo cucina (FATTO)
-- Nomi ristoranti in le mie recensioni (al posto di username)
+- Nomi ristoranti in le mie recensioni (al posto di username) (FATTO)
 - Fix spazio vuoto in le mie recensioni (FATTO)
 - Fix bordo recensioni (FATTO)
 

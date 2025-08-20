@@ -97,6 +97,11 @@ public class RegistrazioneController extends BasicController {
         String password = passwordField.getText();
         String indirizzo = indirizzoField.getText();
 
+        if(indirizzo.length() < 20){
+            statusRegistrazione.setText("Seleziona un indirizzo valido");
+            return;
+        }
+
         if (utenteCSV.cercaUtente(username) != null) {
             statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;

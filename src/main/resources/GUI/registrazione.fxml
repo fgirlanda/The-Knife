@@ -107,7 +107,7 @@
                   <Font size="14.0" />
                </font>
                <toggleGroup>
-                  <ToggleGroup fx:id="ruoloGrouptest" />
+                  <ToggleGroup fx:id="ruoloGroup" />
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="radioRistoratore" mnemonicParsing="false" text="ristoratore" toggleGroup="$ruoloGroup" GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -117,7 +117,7 @@
             </RadioButton>
          </children>
       </GridPane>
-      <Label fx:id="statusRegistrazione" prefHeight="17.0" prefWidth="321.0" textFill="RED">
+      <Label fx:id="statusRegistrazione" alignment="CENTER" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
@@ -141,6 +141,6 @@
       </HBox>
    </children>
    <padding>
-      <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+      <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
    </padding>
 </VBox>
