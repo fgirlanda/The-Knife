@@ -19,7 +19,7 @@ import java.util.List;
 public class RistoranteCSV extends GestoreCSV<Ristorante> {
     static String f = "ristoranti.csv";
     private HashMap<Integer, List<Recensione>> mappaRecensioni = new HashMap<>();
-    private HashMap<Integer, Ristorante> mappaRistoranti = new HashMap<Integer, Ristorante>();
+    private static HashMap<Integer, Ristorante> mappaRistoranti = new HashMap<Integer, Ristorante>();
 
     /**
      * Costruttore della classe. Inizializza il nome del file CSV da gestire.

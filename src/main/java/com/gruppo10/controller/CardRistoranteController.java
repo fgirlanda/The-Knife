@@ -5,8 +5,8 @@
  */
 package com.gruppo10.controller;
 
-import java.nio.file.Paths;
-
+import java.net.URL;
+import com.gruppo10.TheKnife;
 import com.gruppo10.classi.Card;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
@@ -86,8 +86,8 @@ public class CardRistoranteController extends BasicController implements Card<Ri
     @Override
     public void setDati() {
         String cucina = this.ristorante.getTipoCucina().name();
-        String path = Paths.get("images", cucina + ".png").toString();
-        Image immagine = new Image(path);
+        URL imgURL = TheKnife.class.getResource("/images/"+cucina+".png");
+        Image immagine = new Image(imgURL.toExternalForm());
         imgRistorante.setImage(immagine);
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtRecensioni.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " ★" + " ("

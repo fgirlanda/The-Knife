@@ -5,15 +5,17 @@
  */
 package com.gruppo10.controller;
 
-import java.nio.file.Paths;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gruppo10.TheKnife;
 import com.gruppo10.classi.PreferitiCSV;
 import com.gruppo10.classi.Preferito;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -51,21 +53,15 @@ public class PaginaRistoranteController extends BasicController {
 
     /** Gestore dei preferiti tramite file CSV. */
     private PreferitiCSV preferitiCSV = new PreferitiCSV();
+    
+    /** Gestore dei ristoranti tramite file CSV. */
+    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
 
     /** Percorso dell'immagine del cuore pieno per i preferiti. */
-    private String pathCuorePieno = Paths.get("images", "cuore_pieno.png").toString();
+    private URL cuorePienoURL = TheKnife.class.getResource("/images/cuore_pieno.png");
 
     /** Percorso dell'immagine del cuore vuoto per i preferiti. */
-    private String pathCuoreVuoto = Paths.get("images", "cuore_vuoto.png").toString();
-
-    /**
-     * Indice della tab da cui si è arrivati alla pagina del ristorante dal profilo.
-     * <ul>
-     * <li>1 → ristoranti preferiti/i miei ristoranti
-     * <li>2 → le mie recensioni
-     * </ul>
-     */
-    private int indiceTab;
+    private URL cuoreVuotoURL = TheKnife.class.getResource("/images/cuore_vuoto.png");
 
     /** Label che mostra l'indirizzo del ristorante. */
     @FXML
@@ -119,15 +115,6 @@ public class PaginaRistoranteController extends BasicController {
     private VBox contenitoreTessere;
 
     /**
-     * Imposta l'indice della tab da cui si è arrivati a questa pagina.
-     *
-     * @param indiceTab l'indice della tab.
-     */
-    public void setIndiceTab(int indiceTab) {
-        this.indiceTab = indiceTab;
-    }
-
-    /**
      * Imposta il ristorante da visualizzare nella pagina.
      * Carica l'immagine del ristorante, controlla se è tra i preferiti
      * dell'utente e carica le recensioni associate, nascondendo i pulsanti
@@ -139,15 +126,15 @@ public class PaginaRistoranteController extends BasicController {
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
 
-        String cucina = this.ristorante.getTipoCucina().toString();
-        String path = Paths.get("images", cucina + ".png").toString();
-        Image immagine = new Image(path);
+        String cucina = this.ristorante.getTipoCucina().name();
+        URL imgURL = TheKnife.class.getResource("/images/"+cucina+".png");
+        Image immagine = new Image(imgURL.toExternalForm());
         imgRistorante.setImage(immagine);
 
         if (preferitiCSV.controlloPreferito(utenteLoggato.getIdUtente(), ristorante.getIdRistorante())) {
-            imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
+            imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
         } else {
-            imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
+            imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
         }
 
         RecensioneCSV recensioneCSV = new RecensioneCSV();
@@ -161,8 +148,8 @@ public class PaginaRistoranteController extends BasicController {
                     stage,
                     "card_recensione.fxml",
                     (controller, _) -> {
-                        ((CardRecensioneController) controller).setRistorante(this.ristorante);
                         ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
+                        ((CardRecensioneController) controller).setIndiceTab(indiceTab);
                     });
         }
 
@@ -235,10 +222,10 @@ public class PaginaRistoranteController extends BasicController {
     @FXML
     private void gestisciPreferiti() {
         if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-            imagePreferiti.setImage(new ImageView(pathCuorePieno).getImage());
+            imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
             aggiungiPreferito();
         } else {
-            imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
+            imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
             rimuoviPreferito();
         }
     }
@@ -274,6 +261,9 @@ public class PaginaRistoranteController extends BasicController {
         List<Recensione> listaTemp = new ArrayList<>();
         for (Recensione r : recensioni) {
             if (r.getIdRistorante() == this.ristorante.getId()) {
+                Integer idRistorante = r.getIdRistorante();
+                Ristorante ristorante = ristoranteCSV.cercaRistorante(idRistorante);
+                r.setRistorante(ristorante);
                 listaTemp.add(r);
             }
         }

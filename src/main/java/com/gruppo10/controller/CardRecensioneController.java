@@ -136,9 +136,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
      *
      * @param ristorante l'oggetto {@link Ristorante} della recensione.
      */
-    public void setRistorante(Ristorante ristorante) {
-        this.ristorante = ristorante;
-    }
 
     /**
      * Gestisce l'evento di clic sul pulsante "Rispondi".

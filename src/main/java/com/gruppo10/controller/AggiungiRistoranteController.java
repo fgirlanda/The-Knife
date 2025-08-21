@@ -132,7 +132,6 @@ public class AggiungiRistoranteController extends BasicController {
         comboCucina.setVisibleRowCount(4);
         comboCucina.setMaxHeight(200);
 
-        // Autocompletamento per il campo indirizzo
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
@@ -173,8 +172,7 @@ public class AggiungiRistoranteController extends BasicController {
         Prezzo selectedPrezzo = (Prezzo) prezzoGroup.getSelectedToggle().getUserData();
 
         String nomeRistorante = nomeRistoranteField.getText();
-
-        // Crea un oggetto Ristorante
+        
         int idProprietario = utenteLoggato.getId();
         Ristorante ristorante = new Ristorante();
         ristorante.setIdproprietario(idProprietario);

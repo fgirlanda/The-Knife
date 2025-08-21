@@ -75,7 +75,6 @@ public class LoginController extends BasicController {
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
         indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
 
-        // Autocompletamento con Nominatim
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });

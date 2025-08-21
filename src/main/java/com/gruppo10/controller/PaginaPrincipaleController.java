@@ -49,6 +49,9 @@ public class PaginaPrincipaleController extends BasicController {
     /** Mappa che associa il ristorante alla sua distanza dall'utente loggato. */
     private HashMap<Ristorante, Double> mappaDistanze = new HashMap<>();
 
+    /** Gestore dei ristoranti tramite file CSV. */
+    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
+    
     /**
      * Pulsante per registrarsi o accedere al profilo, il cui testo cambia in base
      * al ruolo dell'utente.
@@ -134,14 +137,16 @@ public class PaginaPrincipaleController extends BasicController {
      * </p>
      * <p>
      * Nota: se il caricamento genera errore, a {@code ristoranti} viene assegnato
-     * {@code null}, {@link #caricaTessere(java.util.List)} e {@link #mappaDistanze(java.util.List)} non vengono
-     * eseguiti. L'errore è gestito da {@link com.gruppo10.classi.GestioneEccezioni}, che notifica
+     * {@code null}, {@link #caricaTessere(java.util.List)} e
+     * {@link #mappaDistanze(java.util.List)} non vengono
+     * eseguiti. L'errore è gestito da
+     * {@link com.gruppo10.classi.GestioneEccezioni}, che notifica
      * l'utente con un popup.
      */
     public void setRistoranti() {
-        RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
+            ristoranteCSV.creaMappa(ristoranti);
             caricaTessere(ristoranti);
             mappaDistanze(ristoranti);
         }

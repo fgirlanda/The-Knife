@@ -108,7 +108,7 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
         try (CSVReader reader = new CSVReader(new FileReader(file))) {
             String[] dati;
             try {
-                reader.readNext(); // Salta header
+                reader.readNext();
 
                 while ((dati = reader.readNext()) != null) {
                     try {
@@ -152,10 +152,9 @@ public class RecensioneCSV extends GestoreCSV<Recensione> {
     public void modificaRecensione(Recensione recensione, String testoModificato, int nuovoVoto) {
         List<String[]> listaTemp = new ArrayList<>();
 
-        // Lettura del CSV
         try (CSVReader reader = new CSVReader(new FileReader(file))) {
             String[] dati;
-            reader.readNext(); // Salta l'header
+            reader.readNext();
 
             while ((dati = reader.readNext()) != null) {
                 try {

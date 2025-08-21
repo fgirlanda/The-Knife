@@ -83,7 +83,7 @@ public class PreferitiCSV extends GestoreCSV<Preferito> {
     public boolean controlloPreferito(int idUtente, int idRistorante) {
         try (CSVReader reader = new CSVReader(new FileReader(file))) {
             String[] dati;
-            reader.readNext(); // Salta header
+            reader.readNext();
             while ((dati = reader.readNext()) != null) {
                 int idUt = Integer.parseInt(dati[0]);
                 int idRis = Integer.parseInt(dati[1]);

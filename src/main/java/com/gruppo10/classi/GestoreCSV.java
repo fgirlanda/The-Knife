@@ -32,7 +32,7 @@ import java.util.Arrays;
 public abstract class GestoreCSV<T extends Identificabile> {
 
     /** Directory principale dei file CSV. */
-    protected File dir = new File("fileCSV");
+    protected File dir = new File("../data/fileCSV");
 
     /** File CSV specifico gestito dall'istanza. */
     protected File file;
@@ -183,7 +183,7 @@ public abstract class GestoreCSV<T extends Identificabile> {
 
         try (CSVReader reader = new CSVReader(new FileReader(file))) {
             String[] dati;
-            reader.readNext(); // Salta l'header
+            reader.readNext();
 
             while ((dati = reader.readNext()) != null) {
                 try {

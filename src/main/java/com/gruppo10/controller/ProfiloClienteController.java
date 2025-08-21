@@ -61,7 +61,6 @@ public class ProfiloClienteController extends BasicController {
         caricaDatiUtente();
 
         ristoranti = ristoranteCSV.caricaCSV();
-        ristoranteCSV.creaMappa(ristoranti);
         if (ristoranti != null) {
             List<Ristorante> listaRisFiltrata = filtraPreferiti(ristoranti);
             SceneManager.caricaTessere(
