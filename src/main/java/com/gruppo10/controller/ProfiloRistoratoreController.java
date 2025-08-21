@@ -17,19 +17,29 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller per la vista del profilo del ristoratore. Estende {@link BasicController}
- * e gestisce il caricamento e la visualizzazione dei dati utente e dei ristoranti
- * di proprietà del ristoratore loggato. Permette inoltre di aggiungere nuovi ristoranti
+ * Controller per la vista del profilo del ristoratore. Estende
+ * {@link BasicController}
+ * e gestisce il caricamento e la visualizzazione dei dati utente e dei
+ * ristoranti
+ * di proprietà del ristoratore loggato. Permette inoltre di aggiungere nuovi
+ * ristoranti
  * e di tornare alla pagina principale.
  */
-public class ProfiloRistoratoreController extends BasicController{
+public class ProfiloRistoratoreController extends BasicController {
 
+    /** Utente ristoratore attualmente loggato */
     private Utente utenteloggato = LoginController.utenteLoggato;
 
+    /** Lista di tutti i ristoranti caricati dal CSV */
     private List<Ristorante> ristoranti;
 
+    /** Gestore dei ristoranti tramite CSV */
+    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
+
+    /** Lista filtrata dei ristoranti di proprietà dell'utente */
     private List<Ristorante> listaFiltrata;
 
+    /** Contenitore per le tessere dei ristoranti */
     @FXML
     private VBox contenitoreTessere;
 
@@ -38,9 +48,8 @@ public class ProfiloRistoratoreController extends BasicController{
      * Recupera e visualizza la lista dei ristoranti posseduti dall'utente,
      * aggiornando il contenitore delle tessere.
      */
-    public void caricaDati(){
+    public void caricaDati() {
         caricaDatiUtente();
-        RistoranteCSV ristoranteCSV = new RistoranteCSV();
         ristoranti = ristoranteCSV.caricaCSV();
         if (ristoranti != null) {
             listaFiltrata = filtraProprietario(ristoranti);
@@ -53,7 +62,8 @@ public class ProfiloRistoratoreController extends BasicController{
      * che sono di proprietà del ristoratore loggato.
      *
      * @param listaRistoranti la lista completa dei ristoranti.
-     * @return una nuova lista contenente solo i ristoranti di proprietà dell'utente.
+     * @return una nuova lista contenente solo i ristoranti di proprietà
+     *         dell'utente.
      */
     private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti) {
         List<Ristorante> nuovaLista = new ArrayList<>();
@@ -95,7 +105,8 @@ public class ProfiloRistoratoreController extends BasicController{
     }
 
     /**
-     * Aggiorna la vista del contenitore delle tessere con la lista di ristoranti fornita.
+     * Aggiorna la vista del contenitore delle tessere con la lista di ristoranti
+     * fornita.
      *
      * @param lista la lista di {@link Ristorante} da visualizzare.
      */

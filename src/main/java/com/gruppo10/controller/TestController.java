@@ -20,7 +20,10 @@ import javafx.scene.control.ToggleGroup;
  * alla pagina principale senza passare per la procedura di login standard,
  * scegliendo un ruolo tra quelli disponibili.
  */
-public class TestController extends BasicController{
+public class TestController extends BasicController {
+    /**
+     * Gruppo di toggle che gestisce la selezione tra i ruoli disponibili.
+     */
     @FXML
     private ToggleGroup ruoloGroup;
 
@@ -42,7 +45,8 @@ public class TestController extends BasicController{
 
     /**
      * Crea un oggetto {@link Utente} con dati predefiniti a scopo di test.
-     * I dati sono fissi, tranne il ruolo che viene selezionato tramite l'interfaccia.
+     * I dati sono fissi, tranne il ruolo che viene selezionato tramite
+     * l'interfaccia.
      *
      * @return un oggetto {@link Utente} di test.
      */

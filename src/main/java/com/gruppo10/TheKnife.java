@@ -5,39 +5,45 @@
  */
 package com.gruppo10;
 
-import java.util.List;
-
-import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteCSV;
-import com.gruppo10.fileJava.Login;
+import com.gruppo10.controller.MainController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Classe principale dell'applicazione "The Knife".
- * Questa classe contiene il metodo {@code main} che funge da punto di ingresso
- * per l'applicazione. È responsabile del caricamento iniziale dei dati degli
- * utenti e dell'avvio dell'interfaccia grafica di login.
+ * <p>
+ * Questa classe estende {@link javafx.application.Application} e rappresenta
+ * il punto di ingresso dell'applicazione JavaFX. Si occupa di caricare
+ * la schermata principale e avviare la GUI.
+ * </p>
  */
-public class TheKnife {
+public class TheKnife extends Application {
+
     /**
-     * Il metodo principale che avvia l'applicazione.
+     * Avvia la GUI dell'applicazione.
      * <p>
-     * Carica gli utenti da un file CSV all'avvio. Se il caricamento ha successo,
-     * avvia l'applicazione JavaFX, partendo dalla schermata di login.
-     * Se il caricamento fallisce, stampa un messaggio di errore e l'applicazione
-     * non viene avviata.
+     * Questo metodo viene chiamato automaticamente dal framework JavaFX
+     * dopo {@link #main(String[])}. Carica il file FXML della schermata
+     * principale, imposta il controller e mostra la finestra principale.
      * </p>
-     * @param args gli argomenti della riga di comando passati all'applicazione.
+     *
+     * @param stage il {@link Stage} principale su cui costruire la scena
+     * @throws Exception se si verifica un errore durante il caricamento del FXML
      */
-    public static void main(String[] args) {
-        // Carica gli utenti dal file CSV
-        UtenteCSV utenteCSV = new UtenteCSV();
-        List<Utente> listaUtenti = utenteCSV.caricaCSV();
-        utenteCSV.creaMappa(listaUtenti);
-        if(listaUtenti == null){
-            System.err.println("Errore caricamento utenti");
-        }else{
-            Application.launch(Login.class, args);
-        }
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/main.fxml"));
+        Parent root = loader.load();
+
+        MainController controller = loader.getController();
+        controller.setStage(stage);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("The Knife - Login");
+        stage.show();
     }
 }

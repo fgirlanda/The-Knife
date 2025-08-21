@@ -30,72 +30,90 @@ import javafx.scene.control.ComboBox;
  * Gestisce l'interazione con i campi del modulo per l'inserimento dei dati del ristorante,
  * la validazione degli input e il salvataggio dei dati su file CSV.
  */
-public class AggiungiRistoranteController extends BasicController{
+public class AggiungiRistoranteController extends BasicController {
 
+    /** L'utente attualmente loggato nell'applicazione. */
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
+    /** Callback da eseguire alla chiusura della finestra del controller. */
     private Runnable onCloseCallback;
 
+    /** Il ristorante appena creato tramite il modulo. */
     private Ristorante nuovoRistorante = null;
 
+    /** Campo di testo per inserire il nome del ristorante. */
     @FXML
     private TextField nomeRistoranteField;
 
+    /** Campo di testo per inserire l'indirizzo del ristorante. */
     @FXML
     private TextField indirizzoField;
 
+    /** RadioButton per selezionare "Delivery disponibile". */
     @FXML
     private RadioButton radioDeliverySi;
 
+    /** RadioButton per selezionare "Delivery non disponibile". */
     @FXML
     private RadioButton radioDeliveryNo;
 
+    /** RadioButton per selezionare "Prenotazione online disponibile". */
     @FXML
     private RadioButton radioPrenotazioneSi;
 
+    /** RadioButton per selezionare "Prenotazione online non disponibile". */
     @FXML
     private RadioButton radioPrenotazioneNo;
 
+    /** RadioButton per selezionare prezzo livello 1 (€). */
     @FXML
     private RadioButton radioPrezzo1;
 
+    /** RadioButton per selezionare prezzo livello 2 (€€). */
     @FXML
     private RadioButton radioPrezzo2;
 
+    /** RadioButton per selezionare prezzo livello 3 (€€€). */
     @FXML
     private RadioButton radioPrezzo3;
 
+    /** RadioButton per selezionare prezzo livello 4 (€€€€). */
     @FXML
     private RadioButton radioPrezzo4;
 
+    /** ComboBox per selezionare il tipo di cucina del ristorante. */
     @FXML
     private ComboBox<TipoCucina> comboCucina;
 
+    /** Area di testo per inserire una descrizione del ristorante. */
     @FXML
     private TextArea txtDescrizione;
 
+    /** Pulsante per confermare l'aggiunta del ristorante. */
     @FXML
     private Button btnAggiungiRistorante;
 
-    // Radio buttons groups
+    /** Gruppo di RadioButton per la scelta del delivery (si/no). */
     @FXML
     private ToggleGroup deliveryGroup;
+
+    /** Gruppo di RadioButton per la scelta della prenotazione online (si/no). */
     @FXML
     private ToggleGroup prenotazioneGroup;
+
+    /** Gruppo di RadioButton per la scelta del prezzo (1-4). */
     @FXML
     private ToggleGroup prezzoGroup;
 
     /**
-     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
-     * dopo che tutti gli elementi FXML sono stati iniettati.
-     * Imposta i valori per i ComboBox e i RadioButton, e configura l'autocompletamento
-     * per il campo dell'indirizzo. Aggiunge anche dei listener per la validazione dei campi.
+     * Metodo di inizializzazione chiamato automaticamente da JavaFX dopo l'iniezione degli elementi FXML.
+     * Imposta i valori per i ComboBox e i RadioButton, configura l'autocompletamento per l'indirizzo
+     * e aggiunge listener per la validazione dei campi.
      */
     public void initialize() {
-        // Inizializza il ComboBox con i valori dell'enum TipoCucina
         comboCucina.getItems().setAll(TipoCucina.values());
-        comboCucina.setValue(TipoCucina.INTERNAZIONALE); // Imposta un valore di default
-        
+        comboCucina.setValue(TipoCucina.INTERNAZIONALE);
+
         radioPrezzo1.setUserData(Prezzo.€);
         radioPrezzo2.setUserData(Prezzo.€€);
         radioPrezzo3.setUserData(Prezzo.€€€);
@@ -107,24 +125,22 @@ public class AggiungiRistoranteController extends BasicController{
         radioPrenotazioneSi.setUserData(Prenotazione.PRENOTAZIONE_ONLINE_DISPONIBILE);
         radioPrenotazioneNo.setUserData(Prenotazione.PRENOTAZIONE_ONLINE_NON_DISPONIBILE);
 
-        // Aggiungi listener per abilitare/disabilitare il pulsante
         nomeRistoranteField.textProperty().addListener((_, _, _) -> controllaCampi());
         indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
         comboCucina.valueProperty().addListener((_, _, _) -> controllaCampi());
 
-        // Imposta una lunghezza massima per il popup della ComboBox e abilita lo scroll
-        comboCucina.setVisibleRowCount(4); // Limita il numero di voci visibili nel dropdown
-        comboCucina.setMaxHeight(200); // Imposta un'altezza massima per la lista
+        comboCucina.setVisibleRowCount(4);
+        comboCucina.setMaxHeight(200);
 
-        // Autocompletamento con Nominatim
+        // Autocompletamento per il campo indirizzo
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
     }
 
     /**
-     * Controlla se i campi necessari sono stati compilati.
-     * Abilita o disabilita il pulsante di aggiunta del ristorante di conseguenza.
+     * Controlla se i campi necessari sono stati compilati e abilita o disabilita
+     * il pulsante di aggiunta del ristorante di conseguenza.
      */
     private void controllaCampi() {
         boolean campiVuoti = nomeRistoranteField.getText().isEmpty() ||
@@ -137,15 +153,15 @@ public class AggiungiRistoranteController extends BasicController{
     }
 
     /**
-     * Gestisce l'evento di clic sul pulsante di aggiunta del ristorante.
+     * Gestisce l'aggiunta del ristorante.
      * Recupera i dati dai campi, crea un nuovo oggetto {@link Ristorante},
      * lo salva su file CSV e lo aggiunge alla mappa interna.
      *
-     * @throws Exception se si verifica un errore durante il salvataggio dei dati.
+     * @throws Exception se si verifica un errore durante il salvataggio dei dati, in modo da notificare l'utente e mantenere la finestra di dialogo aperta.
      */
     @FXML
     private void aggiungiRistorante() throws Exception {
-        
+
         RistoranteCSV ristoranteCSV = new RistoranteCSV();
         String indirizzo = indirizzoField.getText();
         Coordinate cords = new Coordinate(indirizzo);
@@ -191,7 +207,7 @@ public class AggiungiRistoranteController extends BasicController{
     /**
      * Restituisce il nuovo ristorante creato dal controller.
      *
-     * @return l'oggetto {@link Ristorante} appena creato.
+     * @return l'oggetto {@link com.gruppo10.classi.Ristorante} appena creato.
      */
     public Ristorante getNuovoRistorante() {
         return nuovoRistorante;
@@ -199,9 +215,9 @@ public class AggiungiRistoranteController extends BasicController{
 
     /**
      * Imposta una callback da eseguire alla chiusura della finestra del controller.
-     * Utile per notificare il controller chiamante che è stato aggiunto un nuovo ristorante.
+     * Notifica il controller chiamante che è stato aggiunto un nuovo ristorante, in modo da aggiornare direttamente il contenitore card.
      *
-     * @param callback il Runnable da eseguire.
+     * @param callback il {@link Runnable} da eseguire.
      */
     public void setOnCloseCallback(Runnable callback) {
         this.onCloseCallback = callback;

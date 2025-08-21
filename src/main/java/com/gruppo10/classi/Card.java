@@ -17,6 +17,7 @@ import javafx.stage.Stage;
  * della loro visualizzazione e dell’integrazione con la scena JavaFX tramite
  * uno {@link Stage}.
  * </p>
+ * @param <T> il tipo di oggetto di riferimento per la card: {@link Ristorante} oppure {@link Recensione}
  *
  */
 public interface Card<T> {

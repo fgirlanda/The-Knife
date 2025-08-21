@@ -21,45 +21,66 @@ import javafx.scene.text.Text;
 
 /**
  * Controller per la card che visualizza una singola recensione. Implementa
- * l'interfaccia {@link Card} per gestire i dati di una recensione e visualizzarli
- * nell'interfaccia utente. Gestisce anche le azioni di risposta, modifica e rimozione
+ * l'interfaccia {@link Card} per gestire i dati di una recensione e
+ * visualizzarli
+ * nell'interfaccia grafica. Gestisce anche i bottoni di risposta, modifica e
+ * rimozione
  * della recensione in base al ruolo dell'utente e al contesto.
  */
 public class CardRecensioneController extends BasicController implements Card<Recensione> {
 
-    private Recensione recensione;
-
-    private Ristorante ristorante;
-
+    /** L'utente attualmente loggato nell'applicazione. */
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
+    /** La recensione associata a questa card. */
+    private Recensione recensione;
+
+    /** Il ristorante a cui appartiene la recensione. */
+    private Ristorante ristorante;
+
+    /** Il contenitore {@link VBox} in cui la card è inserita. */
     private VBox contenitore;
 
+    /**
+     * Il titolo della finestra principale per determinare il contesto della card.
+     */
     private String titolo;
 
+    /** Flag che indica se la card è visualizzata nella pagina del profilo. */
     private boolean profilo;
 
+    /** Contenitore principale della card (HBox). */
     @FXML
     private HBox card;
 
+    /**
+     * Testo che mostra il nome del cliente o del ristorante (a seconda del
+     * contesto).
+     */
     @FXML
     private Text txtCliente;
 
+    /** Testo che mostra il contenuto della recensione. */
     @FXML
     private Text txtTesto;
 
+    /** Testo che mostra il numero di stelle della recensione. */
     @FXML
     private Text txtStelle;
 
+    /** Testo che mostra la risposta del proprietario alla recensione. */
     @FXML
     private Text txtRisposta;
 
+    /** Pulsante per rispondere alla recensione. */
     @FXML
     private Button btnRispondi;
 
+    /** Pulsante per rimuovere la recensione. */
     @FXML
     private Button btnRimuovi;
 
+    /** Pulsante per modificare la recensione. */
     @FXML
     private Button btnModifica;
 
@@ -93,15 +114,17 @@ public class CardRecensioneController extends BasicController implements Card<Re
      * Imposta i dati della recensione sulle etichette della card.
      * I dati includono il nome del cliente, il testo, il voto in stelle
      * e l'eventuale risposta. Gestisce anche il caso in cui la card
-     * si trovi all'interno della pagina del profilo.
+     * si trovi all'interno della pagina del profilo, per cui il Text
+     * {@link #txtCliente} diventa il nome del ristorante, cliccabile per aprire la
+     * pagina ristorante associata.
      */
     @Override
     public void setDati() {
-        if (profilo){
+        if (profilo) {
             txtCliente.setText(ristorante.getNomeRistorante());
-            txtCliente.setOnMouseClicked(_ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab));
-        }
-        else
+            txtCliente.setOnMouseClicked(
+                    _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab));
+        } else
             txtCliente.setText(this.recensione.getUsername());
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText("★".repeat(this.recensione.getStelle()));
@@ -142,7 +165,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
     /**
      * Gestisce l'evento di clic sul pulsante "Modifica".
      * Apre una finestra di dialogo per permettere al cliente di modificare
-     * il testo e il voto della recensione.
+     * il testo e/o il voto della recensione.
      */
     @FXML
     private void apriModifica() {
@@ -163,7 +186,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private void rimuovi() {
         this.ristorante.rimuoviRecensione(this.recensione);
-        // RecensioneWriter.rimuoviRecensione(this.recensione);
         RecensioneCSV recensioneCSV = new RecensioneCSV();
         recensioneCSV.rimuovi(recensione);
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);

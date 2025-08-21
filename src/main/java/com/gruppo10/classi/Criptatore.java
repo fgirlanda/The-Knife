@@ -36,7 +36,7 @@ public class Criptatore {
      *         oppure {@code null} se l'algoritmo SHA-256 non è disponibile.
      *
      *
-     * @implNote L'output non è reversibile. Una volta generato l'hash, non è
+     * Nota: L'output non è reversibile. Una volta generato l'hash, non è
      *           possibile risalire alla stringa originale.
      *
      * @see java.security.MessageDigest

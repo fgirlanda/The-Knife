@@ -61,7 +61,7 @@ public class GestioneEccezioni {
      *                {@code bottone}
      *                è {@code false}.
      *
-     * @implNote L’uso di questo metodo blocca il thread corrente fino alla chiusura
+     * Nota: L’uso di questo metodo blocca il thread corrente fino alla chiusura
      *           della finestra di dialogo, poiché si basa su
      *           {@link Alert#showAndWait()}.
      */

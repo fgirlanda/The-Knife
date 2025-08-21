@@ -86,7 +86,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnInvia" mnemonicParsing="false" onAction="#modificaRecensione" prefHeight="25.0" prefWidth="92.0" text="Invia" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Button fx:id="btnInvia" disable="true" mnemonicParsing="false" onAction="#modificaRecensione" prefHeight="25.0" prefWidth="92.0" text="Invia" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>

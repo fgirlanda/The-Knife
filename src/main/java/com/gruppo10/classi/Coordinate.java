@@ -80,7 +80,7 @@ public class Coordinate {
      * @param indirizzo l'indirizzo in formato testuale di cui calcolare le
      *                  coordinate geografiche.
      *
-     * @implNote Questo costruttore effettua una chiamata sincrona alla rete.
+     * Nota: Questo costruttore effettua una chiamata sincrona alla rete.
      *           Potrebbe bloccare il thread chiamante fino alla ricezione della
      *           risposta.
      *
@@ -158,7 +158,7 @@ public class Coordinate {
      *         chilometri.
      *
      *
-     * @implNote La costante {@code R} rappresenta il raggio medio della Terra in
+     * Nota: La costante {@code R} rappresenta il raggio medio della Terra in
      *           chilometri.
      *           L'accuratezza è generalmente sufficiente per distanze di scala
      *           geografica,

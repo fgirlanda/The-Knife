@@ -35,25 +35,32 @@ import javafx.util.Duration;
  * e la navigazione verso la pagina principale o di registrazione.
  * Si occupa anche di gestire l'accesso per gli utenti non registrati.
  */
-public class LoginController extends BasicController{
+public class LoginController extends BasicController {
 
+    /** Oggetto {@link Utente}, inizializzato a null, a cui assegnare l'utente che effettua il login con successo. */
     public static Utente utenteLoggato = null;
 
+    /** Campo di testo per l'inserimento dell'indirizzo, in caso di accesso senza registrazione. */
     @FXML
     private TextField indirizzoField;
 
+    /** Campo di testo per l'inserimento dello username. */
     @FXML
     private TextField usernameField;
 
+    /** Campo di testo per l'inserimento della password. */
     @FXML
     private TextField passwordField;
 
+    /** Pulsante per effettuare il login. */
     @FXML
     private Button btnLogin;
 
+    /** Pulsante per continuare senza registrarsi. */
     @FXML
     private Button btnContinua;
 
+    /** Etichetta per mostrare lo stato del login (errore o successo). */
     @FXML
     private Label loginStatus;
 
@@ -103,7 +110,6 @@ public class LoginController extends BasicController{
         if (hashedPassword == null)
             return;
 
-        // Verifica se l'utente esiste nel file CSV
         UtenteCSV utenteCSV = new UtenteCSV();
         Utente utente = utenteCSV.cercaUtente(username);
         if (utente == null) {
@@ -115,7 +121,6 @@ public class LoginController extends BasicController{
         if (hashedPassword.equals(utente.getPassword())) {
             utenteLoggato = utente;
             apriPaginaPrincipale();
-
         } else {
             loginStatus.setVisible(true);
             loginStatus.setText("PASSWORD ERRATA");
@@ -142,6 +147,7 @@ public class LoginController extends BasicController{
         Coordinate coordinate = new Coordinate(indirizzo);
         if (coordinate.getLat() == null)
             return;
+
         utenteLoggato = new Utente();
         utenteLoggato.setRuolo("NON_REGISTRATO");
         utenteLoggato.setIndirizzo(indirizzo);
@@ -157,7 +163,6 @@ public class LoginController extends BasicController{
     private void apriPaginaPrincipale() {
         Stage popup = creaPopupLoading();
 
-        // 2. Attendi mezzo secondo prima di aprire la pagina principale
         PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
         pause.setOnFinished(_ -> {
             Platform.runLater(() -> {

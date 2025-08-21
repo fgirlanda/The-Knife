@@ -27,62 +27,94 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * Controller per la vista della pagina di un singolo ristorante.
+ * Controller per la pagina del singolo ristorante.
  * Gestisce la visualizzazione dei dettagli del ristorante, delle recensioni,
- * l'aggiunta e la gestione delle recensioni e dei preferiti.
- * Controlla inoltre la navigazione tra le diverse schermate.
+ * l'aggiunta e la gestione delle recensioni e l'aggiunta del ristorante ai
+ * preferiti.
  */
 public class PaginaRistoranteController extends BasicController {
 
+    /** Ristorante corrente visualizzato nella pagina. */
     private Ristorante ristorante;
 
+    /** Utente attualmente loggato. */
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
+    /** Lista di recensioni associate al ristorante corrente. */
     private List<Recensione> recensioni;
 
-    private boolean presente = false;
+    /**
+     * Flag che indica se l'utente ha già inserito una recensione per questo
+     * ristorante.
+     */
+    private boolean recPresente = false;
 
+    /** Gestore dei preferiti tramite file CSV. */
     private PreferitiCSV preferitiCSV = new PreferitiCSV();
 
-    private String pathCuorePieno = Paths.get("images","cuore_pieno.png").toString();
+    /** Percorso dell'immagine del cuore pieno per i preferiti. */
+    private String pathCuorePieno = Paths.get("images", "cuore_pieno.png").toString();
 
-    private String pathCuoreVuoto = Paths.get("images","cuore_vuoto.png").toString();
+    /** Percorso dell'immagine del cuore vuoto per i preferiti. */
+    private String pathCuoreVuoto = Paths.get("images", "cuore_vuoto.png").toString();
 
+    /**
+     * Indice della tab da cui si è arrivati alla pagina del ristorante dal profilo.
+     * <ul>
+     * <li>1 → ristoranti preferiti/i miei ristoranti
+     * <li>2 → le mie recensioni
+     * </ul>
+     */
     private int indiceTab;
 
+    /** Label che mostra l'indirizzo del ristorante. */
     @FXML
     private Label txtIndirizzo;
 
+    /** Label che mostra il paese del ristorante. */
     @FXML
     private Label txtPaese;
 
+    /** Label che mostra la media delle recensioni del ristorante. */
     @FXML
     private Label txtMediaRec;
 
+    /** Label che mostra la fascia di prezzo del ristorante. */
     @FXML
     private Label txtPrezzo;
 
+    /** Label che mostra il nome del ristorante. */
     @FXML
     private Label txtNomeRistorante;
 
+    /** Testo che mostra la descrizione del ristorante. */
     @FXML
     private Text txtDescrizione;
 
+    /**
+     * Immagine che indica se il ristorante è tra i preferiti dell'utente loggato o meno (cuore pieno o
+     * vuoto).
+     */
     @FXML
     private ImageView imagePreferiti;
 
+    /** Immagine del ristorante. */
     @FXML
     private ImageView imgRistorante;
 
+    /** Pulsante per tornare alla schermata precedente. */
     @FXML
     private Button btnIndietro;
 
+    /** Pulsante per aggiungere una nuova recensione. */
     @FXML
     private Button btnAggiungiRecensione;
 
+    /** Pulsante per aggiungere o rimuovere il ristorante dai preferiti. */
     @FXML
     private Button btnPreferiti;
 
+    /** Contenitore per le tessere delle recensioni. */
     @FXML
     private VBox contenitoreTessere;
 
@@ -91,7 +123,7 @@ public class PaginaRistoranteController extends BasicController {
      *
      * @param indiceTab l'indice della tab.
      */
-    public void setIndiceTab(int indiceTab){
+    public void setIndiceTab(int indiceTab) {
         this.indiceTab = indiceTab;
     }
 
@@ -99,7 +131,8 @@ public class PaginaRistoranteController extends BasicController {
      * Imposta il ristorante da visualizzare nella pagina.
      * Carica l'immagine del ristorante, controlla se è tra i preferiti
      * dell'utente e carica le recensioni associate, nascondendo i pulsanti
-     * non pertinenti in base al ruolo dell'utente e alla presenza di una recensione.
+     * non pertinenti in base al ruolo dell'utente e alla presenza di una
+     * recensione.
      *
      * @param ristorante l'oggetto {@link Ristorante} da visualizzare.
      */
@@ -107,7 +140,7 @@ public class PaginaRistoranteController extends BasicController {
         this.ristorante = ristorante;
 
         String cucina = this.ristorante.getTipoCucina().toString();
-        String path = Paths.get("images",cucina+".png").toString();
+        String path = Paths.get("images", cucina + ".png").toString();
         Image immagine = new Image(path);
         imgRistorante.setImage(immagine);
 
@@ -121,7 +154,7 @@ public class PaginaRistoranteController extends BasicController {
         recensioni = recensioneCSV.caricaCSV();
         if (recensioni != null) {
             List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
-            presente = recensioneInserita(listaFiltrata);
+            recPresente = recensioneInserita(listaFiltrata);
             SceneManager.caricaTessere(
                     listaFiltrata,
                     contenitoreTessere,
@@ -138,21 +171,23 @@ public class PaginaRistoranteController extends BasicController {
             btnPreferiti.setVisible(false);
         }
 
-        if (presente) {
+        if (recPresente) {
             btnAggiungiRecensione.setVisible(false);
         }
     }
 
     /**
      * Imposta i dati del ristorante nelle etichette dell'interfaccia utente.
-     * I dati includono nome, indirizzo, media delle recensioni, prezzo e descrizione.
+     * I dati includono nome, indirizzo, media delle recensioni, prezzo e
+     * descrizione.
      */
     public void setDati() {
         int numRecensioni = this.ristorante.getNumeroRecensioni();
         String[] indirizzo = this.ristorante.getIndirizzo().split(",");
         txtIndirizzo.setText(indirizzo[0]);
         txtPaese.setText(indirizzo[1]);
-        txtMediaRec.setText(String.format("%.1f", this.ristorante.getMediaRec()) + " (" + numRecensioni + " Recensione/i)");
+        txtMediaRec.setText(
+                String.format("%.1f", this.ristorante.getMediaRec()) + " (" + numRecensioni + " Recensione/i)");
         txtPrezzo.setText(this.ristorante.getPrezzo().toString());
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());
         txtDescrizione.setText(this.ristorante.getDescrizione());
@@ -175,7 +210,8 @@ public class PaginaRistoranteController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante "Indietro".
-     * Torna alla pagina precedente (pagina principale, profilo cliente o profilo ristoratore)
+     * Torna alla pagina precedente (pagina principale, profilo cliente o profilo
+     * ristoratore)
      * in base al flag {@code paginaPrincipale} e al ruolo dell'utente.
      */
     @FXML
@@ -205,11 +241,10 @@ public class PaginaRistoranteController extends BasicController {
             imagePreferiti.setImage(new ImageView(pathCuoreVuoto).getImage());
             rimuoviPreferito();
         }
-
     }
 
     /**
-     * Aggiunge il ristorante alla lista dei preferiti dell'utente.
+     * Aggiunge il ristorante ai preferiti dell'utente.
      */
     private void aggiungiPreferito() {
         int idUt = utenteLoggato.getIdUtente();
@@ -221,7 +256,7 @@ public class PaginaRistoranteController extends BasicController {
     }
 
     /**
-     * Rimuove il ristorante dalla lista dei preferiti dell'utente.
+     * Rimuove il ristorante dai preferiti dell'utente.
      */
     private void rimuoviPreferito() {
         Preferito preferito = new Preferito(utenteLoggato.getIdUtente(), this.ristorante.getIdRistorante());
@@ -229,7 +264,8 @@ public class PaginaRistoranteController extends BasicController {
     }
 
     /**
-     * Filtra una lista di recensioni, restituendo solo quelle relative al ristorante corrente.
+     * Filtra una lista di recensioni, restituendo solo quelle relative al
+     * ristorante corrente.
      *
      * @param recensioni la lista di tutte le recensioni.
      * @return una lista di recensioni filtrate.
@@ -241,12 +277,12 @@ public class PaginaRistoranteController extends BasicController {
                 listaTemp.add(r);
             }
         }
-
         return listaTemp;
     }
 
     /**
-     * Verifica se l'utente loggato ha già inserito una recensione per questo ristorante.
+     * Verifica se l'utente loggato ha già inserito una recensione per questo
+     * ristorante.
      *
      * @param recensioni la lista delle recensioni del ristorante.
      * @return {@code true} se l'utente ha già recensito, {@code false} altrimenti.

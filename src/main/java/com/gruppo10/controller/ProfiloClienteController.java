@@ -20,35 +20,46 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller per la vista del profilo cliente. Estende {@link BasicController}
- * e gestisce il caricamento e la visualizzazione dei dati utente, dei ristoranti
+ * e gestisce il caricamento e la visualizzazione dei dati utente, dei
+ * ristoranti
  * preferiti e delle recensioni inserite dal cliente.
  */
-public class ProfiloClienteController extends BasicController{
+public class ProfiloClienteController extends BasicController {
 
+    /** Utente attualmente loggato */
     private Utente utenteLoggato = LoginController.utenteLoggato;
-
+    
+    /** Lista dei ristoranti caricati dal CSV */
     private List<Ristorante> ristoranti;
-
+    
+    /** Lista delle recensioni caricate dal CSV */
     private List<Recensione> recensioni;
 
-    private PreferitiCSV preferitiCSV = new PreferitiCSV();
-    
+    /** Gestore dei ristoranti tramite CSV */
     private RistoranteCSV ristoranteCSV = new RistoranteCSV();
+    
+    /** Gestore delle receensioni tramite CSV */
+    private RecensioneCSV recensioneCSV = new RecensioneCSV();
+
+    /** Gestore dei preferiti tramite CSV */
+    private PreferitiCSV preferitiCSV = new PreferitiCSV();
+
+    /** Contenitore per le tessere dei ristoranti preferiti */
     @FXML
     private VBox contenitoreTessereRis;
+
+    /** Contenitore per le tessere delle recensioni dell'utente */
     @FXML
     private VBox contenitoreTessereRec;
 
-
     /**
      * Carica i dati del profilo dell'utente loggato.
-     * Recupera e visualizza la lista dei ristoranti preferiti e le recensioni
-     * scritte dall'utente, popolando i rispettivi contenitori.
+     * Recupera e visualizza la lista dei ristoranti preferiti e delle recensioni
+     * scritte dall'utente, popolando i rispettivi contenitori nella GUI.
      */
-    public void caricaDati(){
+    public void caricaDati() {
         caricaDatiUtente();
 
-        // Carica ristoranti preferiti
         ristoranti = ristoranteCSV.caricaCSV();
         ristoranteCSV.creaMappa(ristoranti);
         if (ristoranti != null) {
@@ -65,8 +76,6 @@ public class ProfiloClienteController extends BasicController{
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
 
-            // Carica recensioni utente
-            RecensioneCSV recensioneCSV = new RecensioneCSV();
             recensioni = recensioneCSV.caricaCSV();
             if (recensioni != null) {
                 List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
@@ -82,7 +91,6 @@ public class ProfiloClienteController extends BasicController{
             }
         }
     }
-
 
     /**
      * Filtra la lista di tutti i ristoranti per trovare solo quelli

@@ -29,36 +29,47 @@ import org.controlsfx.control.textfield.TextFields;
  */
 public class RegistrazioneController extends BasicController {
 
+    /** RadioButton per la selezione del ruolo Cliente */
     @FXML
     private RadioButton radioCliente;
 
+    /** RadioButton per la selezione del ruolo Ristoratore */
     @FXML
     private RadioButton radioRistoratore;
 
+    /** Campo di input per il nome */
     @FXML
     private TextField nomeField;
 
+    /** Campo di input per il cognome */
     @FXML
     private TextField cognomeField;
 
+    /** Campo di input per lo username */
     @FXML
     private TextField usernameField;
 
+    /** Campo di input per l'indirizzo */
     @FXML
     private TextField indirizzoField;
 
+    /** Campo di input per la password */
     @FXML
     private PasswordField passwordField;
 
+    /** Selettore per la data di nascita */
     @FXML
     private DatePicker dataNascitaPicker;
 
+    /** Pulsante per confermare la registrazione */
     @FXML
     private Button btnRegistrati;
 
+    /** Label per mostrare lo stato della registrazione o messaggi di errore */
     @FXML
     private Label statusRegistrazione;
 
+    /** Gruppo di Toggle per selezionare il ruolo */
     @FXML
     private ToggleGroup ruoloGroup;
 
@@ -70,8 +81,7 @@ public class RegistrazioneController extends BasicController {
      */
     public void initialize() {
 
-        // Aggiungi listener per abilitare/disabilitare il pulsante
-        nomeField.textProperty().addListener((_, _, _) -> controllaCampi()); 
+        nomeField.textProperty().addListener((_, _, _) -> controllaCampi());
         cognomeField.textProperty().addListener((_, _, _) -> controllaCampi());
         usernameField.textProperty().addListener((_, _, _) -> controllaCampi());
         passwordField.textProperty().addListener((_, _, _) -> controllaCampi());
@@ -79,15 +89,13 @@ public class RegistrazioneController extends BasicController {
         dataNascitaPicker.valueProperty().addListener((_, _, _) -> controllaCampi());
         ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
 
-        // Autocompletamento con Nominatim
-        TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
-            return Indirizzi.getRisultati(request.getUserText());
-        });
+        TextFields.<String>bindAutoCompletion(indirizzoField, request -> Indirizzi.getRisultati(request.getUserText()));
     }
 
     /**
      * Controlla se tutti i campi di input sono stati compilati.
-     * Abilita o disabilita il pulsante di registrazione in base allo stato dei campi.
+     * Abilita o disabilita il pulsante di registrazione in base allo stato dei
+     * campi.
      */
     private void controllaCampi() {
         boolean campiVuoti = nomeField.getText().isBlank() ||
@@ -97,7 +105,7 @@ public class RegistrazioneController extends BasicController {
                 indirizzoField.getText().isBlank() ||
                 dataNascitaPicker.getValue() == null ||
                 ruoloGroup.getSelectedToggle() == null;
-                
+
         disabilitaBottone(btnRegistrati, campiVuoti);
     }
 
@@ -106,6 +114,20 @@ public class RegistrazioneController extends BasicController {
      * Acquisisce i dati dai campi, esegue le validazioni necessarie (indirizzo,
      * username esistente), cripta la password e crea un nuovo oggetto Utente.
      * Salva quindi il nuovo utente nel file CSV e naviga alla pagina di login.
+     * <p>
+     * Gestione errori:
+     * </p>
+     * <ul>
+     * <li>Coordinate: a {@code lat} viene assegnato null, il nuovo {@link Utente}
+     * non viene creato e la pagina di registrazione rimane aperta per permettere
+     * eventualmente il reinserimento dei dati.
+     * <li>Criptatore: a {@code password} viene assegnato null, poi la gestione è
+     * analoga a Coordinate.
+     * <li>Scrittura su csv: se viene sollevata un'eccezione viene gestita in
+     * {@link com.gruppo10.classi.GestoreCSV} e {@link com.gruppo10.classi.GestioneEccezioni}, l'utente viene notificato e
+     * la pagina di registrazione rimane aperta per permettere eventualmente il
+     * reinserimento dei dati
+     * </ul>
      */
     @FXML
     public void registrati() {
@@ -118,7 +140,7 @@ public class RegistrazioneController extends BasicController {
         String password = passwordField.getText();
         String indirizzo = indirizzoField.getText();
 
-        if(indirizzo.length() < 20){
+        if (indirizzo.length() < 20) {
             statusRegistrazione.setText("Seleziona un indirizzo valido");
             return;
         }
@@ -132,7 +154,6 @@ public class RegistrazioneController extends BasicController {
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
 
         password = Criptatore.cripta(password);
-
         if (password == null)
             return;
 

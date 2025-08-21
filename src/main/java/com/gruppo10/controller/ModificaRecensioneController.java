@@ -21,68 +21,73 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * Controller per la vista che permette agli utenti di modificare una recensione esistente.
+ * Controller per la finestra di dialogo che permette agli utenti di modificare una recensione esistente.
  * Gestisce l'interazione con gli elementi dell'interfaccia utente per l'aggiornamento
  * del testo e del voto della recensione, e si occupa del salvataggio delle modifiche
  * su file CSV.
  */
 public class ModificaRecensioneController extends BasicController {
 
+    /** La recensione da modificare. */
     private Recensione recensione;
 
+    /** Il ristorante a cui appartiene la recensione. */
     private Ristorante ristorante;
 
+    /** Testo originale della recensione prima della modifica. */
     private String testoOriginale;
 
+    /** Username dell'autore della recensione. */
     private String username;
 
+    /** Voto precedente della recensione (numero di stelle). */
     private int vecchioVoto;
 
+    /** ID del ristorante associato alla recensione. */
     private int idRis;
 
+    /** ID dell'utente che ha scritto la recensione. */
     private int idUt;
 
+    /** Risposta eventualmente associata alla recensione. */
     private String risposta;
 
+    /** Campo di testo per mostrare il testo originale della recensione. */
     @FXML
     private Text txtOriginale;
 
+    /** Area di testo per inserire il testo modificato della recensione. */
     @FXML
     private TextArea txtTestoModificato;
 
+    /** Pulsante per inviare le modifiche della recensione. */
     @FXML
     private Button btnInvia;
 
+    /** Radio button per selezionare 1 stella. */
     @FXML
     private RadioButton radioStella1;
 
+    /** Radio button per selezionare 2 stelle. */
     @FXML
     private RadioButton radioStella2;
 
+    /** Radio button per selezionare 3 stelle. */
     @FXML
     private RadioButton radioStella3;
 
+    /** Radio button per selezionare 4 stelle. */
     @FXML
     private RadioButton radioStella4;
 
+    /** Radio button per selezionare 5 stelle. */
     @FXML
     private RadioButton radioStella5;
 
+    /** ToggleGroup per gestire la selezione delle stelle. */
     @FXML
     private ToggleGroup stelleGroup;
 
-    /**
-     * Metodo di inizializzazione chiamato automaticamente dal framework JavaFX
-     * dopo che tutti gli elementi FXML sono stati iniettati.
-     * Aggiunge un listener al campo di testo per controllare lo stato dei campi
-     * e abilitare/disabilitare il pulsante di invio.
-     */
-    @FXML
-    private void initialize() {
-
-        // Aggiungi listener per abilitare/disabilitare il pulsante
-        txtTestoModificato.textProperty().addListener((_, _, _) -> controllaCampi());
-    }
 
     /**
      * Imposta il ristorante a cui appartiene la recensione.
@@ -114,15 +119,22 @@ public class ModificaRecensioneController extends BasicController {
         ObservableList<Toggle> toggles = stelleGroup.getToggles();
         Toggle toggle = toggles.get(vecchioVoto - 1);
         stelleGroup.selectToggle(toggle);
+
+        stelleGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
+        txtTestoModificato.textProperty().addListener((_, _, _) -> controllaCampi());
+
+        controllaCampi();
     }
 
     /**
-     * Controlla se i campi necessari (testo e voto) sono stati compilati.
+     * Controlla se i campi necessari (testo e/o voto) sono stati modificati.
      * Abilita o disabilita il pulsante di invio di conseguenza.
      */
     private void controllaCampi() {
-        boolean campiVuoti = txtTestoModificato.getText().isEmpty() ||
-                stelleGroup.getSelectedToggle() == null;
+        RadioButton selectedStelle = (RadioButton) stelleGroup.getSelectedToggle();
+        int nuovoVoto = selectedStelle.getText().length();
+        boolean campiVuoti = txtTestoModificato.getText().isEmpty() &&
+                nuovoVoto == vecchioVoto;
 
         disabilitaBottone(btnInvia, campiVuoti);
     }
@@ -131,7 +143,7 @@ public class ModificaRecensioneController extends BasicController {
      * Gestisce l'evento di clic sul pulsante "Modifica".
      * Recupera il testo e il voto modificati, crea un nuovo oggetto {@link Recensione}
      * con i dati aggiornati, rimuove la vecchia recensione e aggiunge quella nuova
-     * all'oggetto ristorante. Salva infine le modifiche nel file CSV.
+     * all'oggetto ristorante, per il ricalcolo della media. Salva infine le modifiche nel file CSV.
      */
     @FXML
     private void modificaRecensione() {
@@ -140,7 +152,8 @@ public class ModificaRecensioneController extends BasicController {
 
         int nuovoVoto = selectedStella.getText().length();
 
-        if ((testoModificato != null && !testoModificato.isBlank() && !testoModificato.equals(testoOriginale)) || nuovoVoto != vecchioVoto) {
+        if ((testoModificato != null && !testoModificato.isBlank() && !testoModificato.equals(testoOriginale)) 
+                || nuovoVoto != vecchioVoto) {
             Recensione nuovaRecensione = new Recensione();
             nuovaRecensione.setIdRistorante(idRis);
             nuovaRecensione.setIdUtente(idUt);
