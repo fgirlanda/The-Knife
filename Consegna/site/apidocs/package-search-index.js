@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.gruppo10"},{"l":"com.gruppo10.classi"},{"l":"com.gruppo10.controller"}];updateSearchResults();
