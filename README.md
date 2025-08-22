@@ -193,3 +193,7 @@ Extra:
 - Soluzione per ripetizione metodo caricaTessere (FATTO)
 - Pulizia grafica (FATTO)
 - Aggiungere controllo indirizzo (FATTO)
+
+Ottimizzazioni:
+
+- Calcolo media per un ristorante quando viene rimossa una recensione prevede .remove da Lista, che ha complessità O(n), si potrebbe usare un contatore(?)
