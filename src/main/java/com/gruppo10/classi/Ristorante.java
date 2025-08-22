@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Rappresenta un ristorante.
@@ -27,6 +28,7 @@ import lombok.Data;
 @Data
 public class Ristorante implements Identificabile {
 
+    
     /** ID univoco del ristorante. */
     private int id;
 
@@ -60,6 +62,7 @@ public class Ristorante implements Identificabile {
     /** Media delle recensioni ricevute. */
     private Double mediaRec = 0.0;
 
+    @EqualsAndHashCode.Exclude
     /** Lista delle recensioni associate al ristorante. */
     private List<Recensione> recensioni = new ArrayList<>();
 

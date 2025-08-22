@@ -18,6 +18,14 @@ public class Main {
      * @param args gli argomenti della riga di comando passati all'applicazione
      */
     public static void main(String[] args) {
-        Application.launch(TheKnife.class, args);
+        try {
+            // reindirizza stdout e stderr su file
+            System.setOut(new java.io.PrintStream(new java.io.FileOutputStream("data/log/log.log", true)));
+            System.setErr(new java.io.PrintStream(new java.io.FileOutputStream("data/log/log.log", true)));
+            Application.launch(TheKnife.class, args);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

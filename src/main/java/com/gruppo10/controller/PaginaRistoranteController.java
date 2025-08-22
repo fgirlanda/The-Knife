@@ -6,16 +6,13 @@
 package com.gruppo10.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.gruppo10.TheKnife;
 import com.gruppo10.classi.PreferitiCSV;
 import com.gruppo10.classi.Preferito;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
@@ -53,9 +50,6 @@ public class PaginaRistoranteController extends BasicController {
 
     /** Gestore dei preferiti tramite file CSV. */
     private PreferitiCSV preferitiCSV = new PreferitiCSV();
-    
-    /** Gestore dei ristoranti tramite file CSV. */
-    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
 
     /** Percorso dell'immagine del cuore pieno per i preferiti. */
     private URL cuorePienoURL = TheKnife.class.getResource("/images/cuore_pieno.png");
@@ -137,13 +131,11 @@ public class PaginaRistoranteController extends BasicController {
             imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
         }
 
-        RecensioneCSV recensioneCSV = new RecensioneCSV();
-        recensioni = recensioneCSV.caricaCSV();
+        recensioni = ristorante.getRecensioni();
         if (recensioni != null) {
-            List<Recensione> listaFiltrata = filtraRecensioni(recensioni);
-            recPresente = recensioneInserita(listaFiltrata);
+            recPresente = recensioneInserita(recensioni);
             SceneManager.caricaTessere(
-                    listaFiltrata,
+                    recensioni,
                     contenitoreTessere,
                     stage,
                     "card_recensione.fxml",
@@ -248,26 +240,6 @@ public class PaginaRistoranteController extends BasicController {
     private void rimuoviPreferito() {
         Preferito preferito = new Preferito(utenteLoggato.getIdUtente(), this.ristorante.getIdRistorante());
         preferitiCSV.rimuovi(preferito);
-    }
-
-    /**
-     * Filtra una lista di recensioni, restituendo solo quelle relative al
-     * ristorante corrente.
-     *
-     * @param recensioni la lista di tutte le recensioni.
-     * @return una lista di recensioni filtrate.
-     */
-    private List<Recensione> filtraRecensioni(List<Recensione> recensioni) {
-        List<Recensione> listaTemp = new ArrayList<>();
-        for (Recensione r : recensioni) {
-            if (r.getIdRistorante() == this.ristorante.getId()) {
-                Integer idRistorante = r.getIdRistorante();
-                Ristorante ristorante = ristoranteCSV.cercaRistorante(idRistorante);
-                r.setRistorante(ristorante);
-                listaTemp.add(r);
-            }
-        }
-        return listaTemp;
     }
 
     /**

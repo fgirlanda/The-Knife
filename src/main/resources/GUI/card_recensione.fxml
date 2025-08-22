@@ -63,7 +63,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="txtRisposta" strokeType="OUTSIDE" strokeWidth="0.0" text="risposta" wrappingWidth="433.51953125">
+                  <Text fx:id="txtRisposta" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="433.51953125">
                      <font>
                         <Font size="14.0" />
                      </font></Text>

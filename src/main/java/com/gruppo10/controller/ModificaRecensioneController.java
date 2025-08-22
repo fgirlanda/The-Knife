@@ -163,6 +163,7 @@ public class ModificaRecensioneController extends BasicController {
         nuovaRecensione.setUsername(username);
         nuovaRecensione.setRisposta(risposta);
         nuovaRecensione.setStelle(nuovoVoto);
+        nuovaRecensione.setRistorante(ristorante);
 
         String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
         nuovaRecensione.setTesto(nuovoTesto);

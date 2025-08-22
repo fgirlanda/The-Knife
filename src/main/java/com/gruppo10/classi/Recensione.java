@@ -6,6 +6,7 @@ Mattia Lambertoni 762595 VA
 package com.gruppo10.classi;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Rappresenta una recensione lasciata da un utente per un ristorante.
@@ -23,6 +24,7 @@ import lombok.Data;
  */
 @Data
 public class Recensione implements Identificabile {
+    
 
     /** ID univoco della recensione. */
     private int idRec;
@@ -36,6 +38,7 @@ public class Recensione implements Identificabile {
     /** ID del ristorante recensito. */
     private int idRistorante;
 
+    @EqualsAndHashCode.Exclude
     /** Oggetto ristorante associato alla recensione. */
     private Ristorante ristorante;
 

@@ -96,10 +96,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
     public void setItem(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
         this.ristorante = recensione.getRistorante();
+        this.contenitore = contenitore;
         titolo = stage.getTitle().toLowerCase();
         profilo = titolo.equals("the knife - profilo");
-        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != this.ristorante.getIdproprietario()
-                || !txtRisposta.getText().isBlank()) {
+        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != ristorante.getIdproprietario()
+                || !recensione.getRisposta().equals("")) {
             btnRispondi.setVisible(false);
         }
         if (utenteLoggato.getId() != this.recensione.getIdUtente() || profilo) {
@@ -107,7 +108,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
             btnModifica.setVisible(false);
         }
 
-        this.contenitore = contenitore;
     }
 
     /**
@@ -128,7 +128,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
             txtCliente.setText(this.recensione.getUsername());
         txtTesto.setText(this.recensione.getTesto());
         txtStelle.setText("★".repeat(this.recensione.getStelle()));
-        txtRisposta.setText(this.recensione.getRisposta());
     }
 
     /**
@@ -147,7 +146,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
     private void rispondi() {
         SceneManager.finestraDialogo("rispondi_recensione.fxml", "Rispondi", stage,
                 (RispostaRecensioneController controller) -> {
-                    controller.setRecensione(this.recensione);
+                    controller.setRecensione(recensione);
                     controller.setOnCloseCallBack(() -> {
 
                         String nuovaRisposta = controller.getRisposta();
@@ -170,7 +169,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
                 (ModificaRecensioneController controller) -> {
                     controller.setStage(stage);
                     controller.setPrincipale(paginaPrincipale);
-                    controller.setRecensione(this.recensione, this.contenitore);
+                    controller.setRecensione(recensione, contenitore);
                     controller.setRistorante(ristorante);
                 });
     }
