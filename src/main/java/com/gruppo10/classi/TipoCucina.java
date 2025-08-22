@@ -78,7 +78,6 @@ public enum TipoCucina {
      */
     @Override
     public String toString() {
-        // Sostituisce underscore con spazio e rende la prima lettera maiuscola
         if(this == TipoCucina.TUTTO) return this.name();
         String cucina = this.name().toLowerCase().replace('_', ' ');
         return cucina.substring(0, 1).toUpperCase() + cucina.substring(1);
