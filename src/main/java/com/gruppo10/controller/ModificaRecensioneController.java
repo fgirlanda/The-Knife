@@ -21,9 +21,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * Controller per la finestra di dialogo che permette agli utenti di modificare una recensione esistente.
- * Gestisce l'interazione con gli elementi dell'interfaccia utente per l'aggiornamento
- * del testo e del voto della recensione, e si occupa del salvataggio delle modifiche
+ * Controller per la finestra di dialogo che permette agli utenti di modificare
+ * una recensione esistente.
+ * Gestisce l'interazione con gli elementi dell'interfaccia utente per
+ * l'aggiornamento
+ * del testo e del voto della recensione, e si occupa del salvataggio delle
+ * modifiche
  * su file CSV.
  */
 public class ModificaRecensioneController extends BasicController {
@@ -88,7 +91,6 @@ public class ModificaRecensioneController extends BasicController {
     @FXML
     private ToggleGroup stelleGroup;
 
-
     /**
      * Imposta il ristorante a cui appartiene la recensione.
      *
@@ -103,7 +105,8 @@ public class ModificaRecensioneController extends BasicController {
      * con i dati esistenti.
      *
      * @param recensione  l'oggetto {@link Recensione} da modificare.
-     * @param contenitore il {@link VBox} che contiene la card della recensione, se applicabile.
+     * @param contenitore il {@link VBox} che contiene la card della recensione, se
+     *                    applicabile.
      */
     public void setRecensione(Recensione recensione, VBox contenitore) {
         this.recensione = recensione;
@@ -141,9 +144,11 @@ public class ModificaRecensioneController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante "Modifica".
-     * Recupera il testo e il voto modificati, crea un nuovo oggetto {@link Recensione}
+     * Recupera il testo e il voto modificati, crea un nuovo oggetto
+     * {@link Recensione}
      * con i dati aggiornati, rimuove la vecchia recensione e aggiunge quella nuova
-     * all'oggetto ristorante, per il ricalcolo della media. Salva infine le modifiche nel file CSV.
+     * all'oggetto ristorante, per il ricalcolo della media. Salva infine le
+     * modifiche nel file CSV.
      */
     @FXML
     private void modificaRecensione() {
@@ -152,26 +157,23 @@ public class ModificaRecensioneController extends BasicController {
 
         int nuovoVoto = selectedStella.getText().length();
 
-        if ((testoModificato != null && !testoModificato.isBlank() && !testoModificato.equals(testoOriginale)) 
-                || nuovoVoto != vecchioVoto) {
-            Recensione nuovaRecensione = new Recensione();
-            nuovaRecensione.setIdRistorante(idRis);
-            nuovaRecensione.setIdUtente(idUt);
-            nuovaRecensione.setUsername(username);
-            nuovaRecensione.setRisposta(risposta);
-            nuovaRecensione.setStelle(nuovoVoto);
-            
-            String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
-            nuovaRecensione.setTesto(nuovoTesto);
+        Recensione nuovaRecensione = new Recensione();
+        nuovaRecensione.setIdRistorante(idRis);
+        nuovaRecensione.setIdUtente(idUt);
+        nuovaRecensione.setUsername(username);
+        nuovaRecensione.setRisposta(risposta);
+        nuovaRecensione.setStelle(nuovoVoto);
 
-            ristorante.rimuoviRecensione(recensione);
-            ristorante.aggiungiRecensione(nuovaRecensione);
+        String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
+        nuovaRecensione.setTesto(nuovoTesto);
 
-            RecensioneCSV recensioneCSV = new RecensioneCSV();
-            recensioneCSV.modificaRecensione(nuovaRecensione, nuovoTesto, nuovoVoto);
-        }
+        ristorante.rimuoviRecensione(recensione);
+        ristorante.aggiungiRecensione(nuovaRecensione);
 
-        SceneManager.apriPaginaRistorante(stage, this.ristorante, paginaPrincipale, indiceTab);
+        RecensioneCSV recensioneCSV = new RecensioneCSV();
+        recensioneCSV.modificaRecensione(nuovaRecensione, nuovoTesto, nuovoVoto);
+
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
         chiudi();
     }
 }

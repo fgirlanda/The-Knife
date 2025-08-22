@@ -185,7 +185,7 @@ Issues:
 
 - L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario) (RISOLTO)
 - Non aggiorna la recensione se si modifica solo il voto (RISOLTO)
-- Rotta la modifica/rimozioni di recensioni per il calcolo media
+- Rotta la modifica/rimozioni di recensioni per il calcolo media - probabile causa: manca l'assegnazione del ristorante alla recensione in alcuni punti
 
 
 Extra:
