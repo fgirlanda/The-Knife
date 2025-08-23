@@ -119,6 +119,7 @@ public class AggiungiRecensioneController extends BasicController {
         recensione.setStelle(stelle);
         recensione.setTesto(testo);
         recensione.setRisposta("");
+        recensione.setRistorante(ristorante);
 
         ristorante.aggiungiRecensione(recensione);
 

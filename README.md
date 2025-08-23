@@ -188,6 +188,7 @@ Issues:
 - Rotta la modifica/rimozioni di recensioni per il calcolo media - probabile causa: manca l'assegnazione del ristorante alla recensione in alcuni punti (RISOLTO)
 - Stesso problema di modifica recensioni, ma solo dopo la prima modifica, che funziona correttamente (RISOLTO)
 - Non funziona rispondere a una recensione, il tasto non si disabilita e la risposta non appare (RISOLTO)
+- Se aggiungo una recensione, non la posso modificare (RISOLTO)
 
 
 Extra:

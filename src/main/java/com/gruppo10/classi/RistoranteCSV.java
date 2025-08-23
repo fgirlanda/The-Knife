@@ -17,7 +17,7 @@ import java.util.List;
  * Carica anche le recensioni associate a ciascun ristorante.
  */
 public class RistoranteCSV extends GestoreCSV<Ristorante> {
-    static String f = "ristoranti_test.csv";
+    static String f = "ristoranti.csv";
     private HashMap<Integer, List<Recensione>> mappaRecensioni = new HashMap<>();
     private static HashMap<Integer, Ristorante> mappaRistoranti = new HashMap<Integer, Ristorante>();
 
