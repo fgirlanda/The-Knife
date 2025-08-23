@@ -70,7 +70,7 @@ public class ProfiloClienteController extends BasicController {
                         ((CardRistoranteController) controller).setOnClick();
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
-            // recensioni = filtraRecensioni(ristoranti);
+            recensioni = filtraRecensioni(ristoranti);
             SceneManager.caricaTessere(
                     recensioni,
                     contenitoreTessereRec,
