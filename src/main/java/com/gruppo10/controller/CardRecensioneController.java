@@ -125,9 +125,10 @@ public class CardRecensioneController extends BasicController implements Card<Re
             txtCliente.setOnMouseClicked(
                     _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab));
         } else
-            txtCliente.setText(this.recensione.getUsername());
-        txtTesto.setText(this.recensione.getTesto());
-        txtStelle.setText("★".repeat(this.recensione.getStelle()));
+            txtCliente.setText(recensione.getUsername());
+        txtTesto.setText(recensione.getTesto());
+        txtStelle.setText("★".repeat(recensione.getStelle()));
+        txtRisposta.setText(recensione.getRisposta());
     }
 
     /**
@@ -151,7 +152,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
 
                         String nuovaRisposta = controller.getRisposta();
                         if (nuovaRisposta != null) {
-                            txtRisposta.setText(nuovaRisposta);
+                            recensione.setRisposta(nuovaRisposta);
                             SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
                         }
                     });
