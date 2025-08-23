@@ -45,6 +45,7 @@ public class RispostaRecensioneController extends BasicController {
     @FXML
     private void initialize() {
         txtRisposta.textProperty().addListener((_, _, _) -> controllaCampi());
+        btnInvia.setDefaultButton(true);
     }
 
     /**

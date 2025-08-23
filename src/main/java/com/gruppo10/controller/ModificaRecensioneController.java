@@ -91,6 +91,10 @@ public class ModificaRecensioneController extends BasicController {
     @FXML
     private ToggleGroup stelleGroup;
 
+    @FXML
+    private void initialize() {
+        btnInvia.setDefaultButton(true);
+    }
     /**
      * Imposta il ristorante a cui appartiene la recensione.
      *

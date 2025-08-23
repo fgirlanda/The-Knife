@@ -88,7 +88,7 @@ public class RegistrazioneController extends BasicController {
         indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
         dataNascitaPicker.valueProperty().addListener((_, _, _) -> controllaCampi());
         ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
-
+        btnRegistrati.setDefaultButton(true);
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> Indirizzi.getRisultati(request.getUserText()));
     }
 

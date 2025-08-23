@@ -113,6 +113,8 @@ public class PaginaPrincipaleController extends BasicController {
             btnRegistratiProfilo.setText("Profilo");
         }
 
+        btnCerca.setDefaultButton(true);
+
         comboFiltroCucina.getItems().setAll(TipoCucina.values());
         comboFiltroPrezzo.getItems().setAll(Prezzo.values());
         comboFiltroRecensioni.getItems().setAll(MediaRecensioni.values());

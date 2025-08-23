@@ -78,7 +78,7 @@ public class LoginController extends BasicController {
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });
-
+        btnLogin.setDefaultButton(true);
         loginStatus.setVisible(false);
     }
 

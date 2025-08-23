@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.gruppo10.classi.PreferitiCSV;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
@@ -28,18 +27,15 @@ public class ProfiloClienteController extends BasicController {
 
     /** Utente attualmente loggato */
     private Utente utenteLoggato = LoginController.utenteLoggato;
-    
+
     /** Lista dei ristoranti caricati dal CSV */
     private List<Ristorante> ristoranti;
-    
+
     /** Lista delle recensioni caricate dal CSV */
     private List<Recensione> recensioni;
 
     /** Gestore dei ristoranti tramite CSV */
     private RistoranteCSV ristoranteCSV = new RistoranteCSV();
-    
-    /** Gestore delle receensioni tramite CSV */
-    private RecensioneCSV recensioneCSV = new RecensioneCSV();
 
     /** Gestore dei preferiti tramite CSV */
     private PreferitiCSV preferitiCSV = new PreferitiCSV();
@@ -74,20 +70,17 @@ public class ProfiloClienteController extends BasicController {
                         ((CardRistoranteController) controller).setOnClick();
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
+            // recensioni = filtraRecensioni(ristoranti);
+            SceneManager.caricaTessere(
+                    recensioni,
+                    contenitoreTessereRec,
+                    stage,
+                    "card_recensione.fxml",
+                    (controller, _) -> {
+                        ((CardRecensioneController) controller).setPrincipale(false);
+                        ((CardRecensioneController) controller).setIndiceTab(2);
+                    });
 
-            recensioni = recensioneCSV.caricaCSV();
-            if (recensioni != null) {
-                List<Recensione> listaRecFiltrata = filtraRecensioni(recensioni);
-                SceneManager.caricaTessere(
-                        listaRecFiltrata,
-                        contenitoreTessereRec,
-                        stage,
-                        "card_recensione.fxml",
-                        (controller, _) -> {
-                            ((CardRecensioneController) controller).setPrincipale(false);
-                            ((CardRecensioneController) controller).setIndiceTab(2);
-                        });
-            }
         }
     }
 
@@ -110,21 +103,20 @@ public class ProfiloClienteController extends BasicController {
     }
 
     /**
-     * Filtra la lista di tutte le recensioni per trovare solo quelle
+     * Filtra le liste di tutte le recensioni di ogni ristorante per trovare solo quelle
      * scritte dall'utente loggato.
      *
      * @param listaRecensioni la lista completa delle recensioni.
      * @return una nuova lista contenente solo le recensioni dell'utente.
      */
-    private List<Recensione> filtraRecensioni(List<Recensione> listaRecensioni) {
+    private List<Recensione> filtraRecensioni(List<Ristorante> listaRistoranti) {
         List<Recensione> nuovaLista = new ArrayList<>();
 
-        for (Recensione r : listaRecensioni) {
-            if (r.getIdUtente() == utenteLoggato.getId()) {
-                Integer idRistorante = r.getIdRistorante();
-                Ristorante ristorante = ristoranteCSV.cercaRistorante(idRistorante);
-                r.setRistorante(ristorante);
-                nuovaLista.add(r);
+        for (Ristorante ris : listaRistoranti) {
+            for (Recensione rec : ris.getRecensioni()) {
+                if (rec.getIdUtente() == utenteLoggato.getId()) {
+                    nuovaLista.add(rec);
+                }
             }
         }
 

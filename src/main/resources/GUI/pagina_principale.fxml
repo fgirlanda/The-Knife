@@ -24,7 +24,7 @@
                <font>
                   <Font size="14.0" />
                </font></TextField>
-            <Button fx:id="btnRicerca" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#applicaFiltri" text="cerca">
+            <Button fx:id="btnCerca" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#applicaFiltri" text="cerca">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>

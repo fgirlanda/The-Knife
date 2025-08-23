@@ -132,6 +132,8 @@ public class AggiungiRistoranteController extends BasicController {
         comboCucina.setVisibleRowCount(4);
         comboCucina.setMaxHeight(200);
 
+        btnAggiungiRistorante.setDefaultButton(true);
+
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
             return Indirizzi.getRisultati(request.getUserText());
         });

@@ -11,6 +11,7 @@ import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
@@ -27,6 +28,16 @@ public class TestController extends BasicController {
     @FXML
     private ToggleGroup ruoloGroup;
 
+    /**
+     * Pulsante per accedere al programma una volta scelto il ruolo.
+     */
+    @FXML
+    private Button btnAccedi;
+
+    @FXML
+    private void initialize() {
+        btnAccedi.setDefaultButton(true);
+    }
     /**
      * Gestisce l'evento di clic sul pulsante "Accedi".
      * Crea un utente di test, lo imposta come utente loggato e naviga

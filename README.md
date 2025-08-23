@@ -189,6 +189,7 @@ Issues:
 - Stesso problema di modifica recensioni, ma solo dopo la prima modifica, che funziona correttamente (RISOLTO)
 - Non funziona rispondere a una recensione, il tasto non si disabilita e la risposta non appare (RISOLTO)
 - Se aggiungo una recensione, non la posso modificare (RISOLTO)
+- Errore caricamento card recensioni in profilo cliente, perchè le recensioni caricate non hanno il ristorante settato
 
 
 Extra:
