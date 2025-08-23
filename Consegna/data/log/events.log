@@ -1,9 +1,0 @@
-[2025-08-23 10:12:29] === Avvio applicazione ===
-[2025-08-23 10:12:29] ago 23, 2025 10:12:29 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @1e71a0f'
-[2025-08-23 10:15:10] === Avvio applicazione ===
-[2025-08-23 10:15:10] ago 23, 2025 10:15:10 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @1e71a0f'
-[2025-08-23 16:32:30] === Avvio applicazione ===
-[2025-08-23 16:32:30] ago 23, 2025 4:32:30 PM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @1e71a0f'
