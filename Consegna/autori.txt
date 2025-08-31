@@ -3,3 +3,6 @@ Gabriele Gallon 761125 VA
 Mattia Lambertoni 762595 VA
 
 https://github.com/fgirlanda/The-Knife.git
+
+
+Comando per Mac:  java  --add-exports javafx.base/com.sun.javafx.event=ALL-UNNAMED -jar TheKnife.jar
