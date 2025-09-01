@@ -1,13 +1,6 @@
 # The Knife
 
-Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco e Lambertoni Mattia.
-
-Il progetto è ancora in fase di progettazione, è disponibile il documento relativo, in lavorazione, scritto in Latex (formato tex)
-
-Link per visualizzare e modificare il documento di progettazione: https://it.overleaf.com/6875229844vtytrbxfcyzc#8e5919
-
-Link per visualizzare e modificare il manuale tecnico: https://it.overleaf.com/6394637564zmtgkwntyvtd#5ab025
-
+Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco, Lambertoni Mattia e Gallon Gabriele.
 
 ## CONFIGURAZIONE INIZIALE
 
@@ -39,17 +32,8 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
 2) Tramite comando da terminale:
 
-- Configurare nel file pom il file da eseguire (ex: com.gruppo10.fileJava.Login) 
-- Assicurarsi di essere nella cartella the_knife all'interno del terminale
+- Assicurarsi di essere nella cartella principale (The-Knife) all'interno del terminale
 - lanciare il comando "mvn javafx:run -f pom.xml"
-
-3) Test tramite comandi di vscode:
-
-- Andare in basso a sinistra nella sezione MAVEN (sotto JAVA PROJECTS)
-- The Knife
-- LifeCycle
-- clean
-- test
 
 ## PASSAGGI PER CONTRIBUIRE:
 
@@ -59,7 +43,7 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 ...
 modifiche
 ...
-4) git add -A (a fine modifiche)
+4) git add -A (a fine modifiche, -A = aggiungi tutto, in alternativa aggiungere solo i file modificati)
 5) git commit -m "messaggio" (ex: "aggiunta schermata principale")
 6) git push origin nome_branch (aggiunge il branch creato a github)
 
@@ -133,7 +117,7 @@ nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch d
 - Sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
 - Funzione filtro distanza (FATTO)
 - Fixare abilita/disabilita pulsanti  (FATTO)
-- Ultimi fix
+- Ultimi fix (FATTO)
 
 ### Generale
 
