@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 
 /**
  * Controller per la gestione della finestra di aggiunta recensione di un ristorante.
@@ -39,6 +40,10 @@ public class AggiungiRecensioneController extends BasicController {
     /** Campo di testo per l'inserimento della recensione. */
     @FXML
     private TextArea txtTesto;
+
+    /** Testo per indicare il nome del ristorante. */
+    @FXML
+    private Text txtNomeRistorante;
 
     /** Pulsante per inviare la recensione. */
     @FXML
@@ -86,6 +91,7 @@ public class AggiungiRecensioneController extends BasicController {
      */
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
+        txtNomeRistorante.setText(ristorante.getNomeRistorante());
     }
 
     /**
