@@ -32,7 +32,7 @@ import java.util.Arrays;
 public abstract class GestoreCSV<T extends Identificabile> {
 
     /** Directory principale dei file CSV. */
-    protected File dir = new File("data/fileCSV");
+    protected File dir = new File("../data/fileCSV");
 
     /** File CSV specifico gestito dall'istanza. */
     protected File file;

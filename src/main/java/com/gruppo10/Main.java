@@ -31,7 +31,7 @@ import javafx.application.Application;
 public class Main {
     public static void main(String[] args) {
         try {
-            FileOutputStream fos = new FileOutputStream("data/log/events.log", true);
+            FileOutputStream fos = new FileOutputStream("../data/log/events.log", true);
 
             PrintStream logOut = new PrintStream(new BlockTeeStream(System.out, fos), true);
             PrintStream logErr = new PrintStream(new BlockTeeStream(System.err, fos), true);
