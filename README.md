@@ -22,7 +22,7 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 - creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
 - verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
 
-### Avvio applicazione/interfacce
+### Avvio applicazione
 
 1) Tramite launch.json:
 
@@ -34,6 +34,11 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
 - Assicurarsi di essere nella cartella principale (The-Knife) all'interno del terminale
 - lanciare il comando "mvn javafx:run -f pom.xml"
+
+### Compilazione e generazione jar+javadoc
+
+1) Eseguire il comando "mvn clean compile"
+2) Eseguire il comando "mvn package"
 
 ## PASSAGGI PER CONTRIBUIRE:
 
