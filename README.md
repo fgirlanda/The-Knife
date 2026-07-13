@@ -191,3 +191,25 @@ Extra:
 Ottimizzazioni:
 
 - Calcolo media per un ristorante quando viene rimossa una recensione prevede .remove da Lista, che ha complessità O(n), si potrebbe usare un contatore(?)
+
+---
+
+## LAB-B
+
+### TODO
+
+diagrammi:
+
+- interaction(?)
+- package(?)
+
+### matlambe
+- er
+- class
+
+### fgirlanda
+- use-case
+- state
+
+### ggallon
+- activity
