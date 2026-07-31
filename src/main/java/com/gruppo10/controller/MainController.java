@@ -5,11 +5,11 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
-import java.util.List;
+import java.sql.SQLException;
 
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.SceneManager;
-import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteCSV;
+import com.gruppo10.database.UtenteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -42,18 +42,15 @@ public class MainController extends BasicController {
     /**
      * Avvia l'applicazione in modalità "The Knife".
      * <p>
-     * Carica la lista degli utenti dal file CSV e, se il caricamento è
-     * riuscito, apre la schermata di login.
+     * Verifica l'accesso al database e, se è riuscito, apre la schermata di login.
      * </p>
      */
     private void theKnife() {
-        UtenteCSV utenteCSV = new UtenteCSV();
-        List<Utente> listaUtenti = utenteCSV.caricaCSV();
-        utenteCSV.creaMappa(listaUtenti);
-        if (listaUtenti == null) {
-            System.err.println("Errore caricamento utenti");
-        } else {
+        try {
+            new UtenteDAO().trovaTutti();
             SceneManager.apriLogin(stage);
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Impossibile accedere al database", e, false, null);
         }
     }
 

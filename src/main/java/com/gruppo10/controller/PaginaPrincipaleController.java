@@ -5,12 +5,12 @@
  */
 package com.gruppo10.controller;
 
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.TipoCucina;
@@ -19,6 +19,7 @@ import com.gruppo10.classi.Delivery;
 import com.gruppo10.classi.Distanza;
 import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.MediaRecensioni;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,11 +47,8 @@ public class PaginaPrincipaleController extends BasicController {
     /** Utente attualmente loggato nell'applicazione. */
     private Utente utenteLoggato = LoginController.utenteLoggato;
 
-    /** Mappa che associa il ristorante alla sua distanza dall'utente loggato. */
-    private HashMap<Ristorante, Double> mappaDistanze = new HashMap<>();
-
-    /** Gestore dei ristoranti tramite file CSV. */
-    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
+    /** Gestore dei ristoranti persistiti nel database. */
+    private final RistoranteDAO ristoranteDAO = new RistoranteDAO();
     
     /**
      * Pulsante per registrarsi o accedere al profilo, il cui testo cambia in base
@@ -131,38 +129,14 @@ public class PaginaPrincipaleController extends BasicController {
     }
 
     /**
-     * Carica tutti i ristoranti dal CSV e li visualizza nella pagina.
-     * <p>
-     * Aggiorna anche la mappa delle distanze dei ristoranti rispetto all'utente
-     * loggato
-     * e genera le card dei ristoranti nella vista.
-     * </p>
-     * <p>
-     * Nota: se il caricamento genera errore, a {@code ristoranti} viene assegnato
-     * {@code null}, {@link #caricaTessere(java.util.List)} e
-     * {@link #mappaDistanze(java.util.List)} non vengono
-     * eseguiti. L'errore è gestito da
-     * {@link com.gruppo10.classi.GestioneEccezioni}, che notifica
-     * l'utente con un popup.
+     * Carica tutti i ristoranti dal database e li visualizza nella pagina.
      */
     public void setRistoranti() {
-        ristoranti = ristoranteCSV.caricaCSV();
-        if (ristoranti != null) {
-            ristoranteCSV.creaMappa(ristoranti);
+        try {
+            ristoranti = ristoranteDAO.trovaTutti();
             caricaTessere(ristoranti);
-            mappaDistanze(ristoranti);
-        }
-    }
-
-    /**
-     * Calcola la distanza tra l'utente loggato e ciascun ristorante.
-     *
-     * @param listaRistoranti Lista dei ristoranti di cui calcolare la distanza.
-     */
-    private void mappaDistanze(List<Ristorante> listaRistoranti) {
-        for (Ristorante r : listaRistoranti) {
-            Double dist = utenteLoggato.getCords().calcolaDistanza(r.getCords());
-            mappaDistanze.put(r, dist);
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         }
     }
 
@@ -172,41 +146,21 @@ public class PaginaPrincipaleController extends BasicController {
      */
     @FXML
     public void applicaFiltri() {
-        List<Ristorante> listaFiltrata = filtra(ristoranti);
-        contenitoreTessere.getChildren().clear();
-        caricaTessere(listaFiltrata);
-    }
-
-    /**
-     * Filtra la lista di ristoranti in base ai criteri impostati nei ComboBox
-     * e nel campo di ricerca.
-     *
-     * @param ristoranti Lista dei ristoranti da filtrare.
-     * @return Lista filtrata dei ristoranti che soddisfano i criteri impostati.
-     */
-    private List<Ristorante> filtra(List<Ristorante> ristoranti) {
-        String ricerca = ricercaField.getText().toLowerCase();
-        TipoCucina filtroCucina = comboFiltroCucina.getValue();
-        Prezzo filtroPrezzo = comboFiltroPrezzo.getValue();
-        MediaRecensioni filtroRecensioni = comboFiltroRecensioni.getValue();
-        Delivery filtroDelivery = comboFiltroDelivery.getValue();
-        Prenotazione filtroPrenotazione = comboFiltroPrenotazione.getValue();
-        Distanza filtroDistanza = comboFiltroDistanza.getValue();
-
-        return ristoranti.stream()
-                .filter(ristorante -> (ricerca.isBlank()
-                        || ristorante.getNomeRistorante().toLowerCase().contains(ricerca)) &&
-                        (filtroCucina == TipoCucina.TUTTO || ristorante.getTipoCucina() == filtroCucina) &&
-                        (filtroPrezzo == Prezzo.TUTTO || ristorante.getPrezzo().getSoglia() <= filtroPrezzo.getSoglia())
-                        &&
-                        (filtroRecensioni == MediaRecensioni.TUTTO
-                                || ristorante.getMediaRec() >= filtroRecensioni.getSoglia())
-                        &&
-                        (filtroDelivery == Delivery.TUTTO || ristorante.getDelivery() == filtroDelivery) &&
-                        (filtroPrenotazione == Prenotazione.TUTTO || ristorante.getPrenotazione() == filtroPrenotazione)
-                        &&
-                        (mappaDistanze.get(ristorante) <= filtroDistanza.getKM()))
-                .toList();
+        try {
+            ristoranti = ristoranteDAO.cercaConFiltri(
+                    ricercaField.getText(),
+                    comboFiltroCucina.getValue(),
+                    comboFiltroPrezzo.getValue(),
+                    comboFiltroRecensioni.getValue(),
+                    comboFiltroDelivery.getValue(),
+                    comboFiltroPrenotazione.getValue(),
+                    utenteLoggato.getCords(),
+                    comboFiltroDistanza.getValue());
+            contenitoreTessere.getChildren().clear();
+            caricaTessere(ristoranti);
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante la ricerca dei ristoranti", e, false, null);
+        }
     }
 
     /**

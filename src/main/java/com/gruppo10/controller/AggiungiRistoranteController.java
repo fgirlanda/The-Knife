@@ -5,17 +5,20 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Delivery;
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +31,7 @@ import javafx.scene.control.ComboBox;
 /**
  * Controller per la vista che permette ai proprietari di aggiungere un nuovo ristorante.
  * Gestisce l'interazione con i campi del modulo per l'inserimento dei dati del ristorante,
- * la validazione degli input e il salvataggio dei dati su file CSV.
+ * la validazione degli input e il salvataggio dei dati nel database.
  */
 public class AggiungiRistoranteController extends BasicController {
 
@@ -148,6 +151,7 @@ public class AggiungiRistoranteController extends BasicController {
                 indirizzoField.getText().isEmpty() ||
                 deliveryGroup.getSelectedToggle() == null ||
                 prenotazioneGroup.getSelectedToggle() == null ||
+                prezzoGroup.getSelectedToggle() == null ||
                 comboCucina.getValue() == null;
 
         disabilitaBottone(btnAggiungiRistorante, campiVuoti);
@@ -156,14 +160,10 @@ public class AggiungiRistoranteController extends BasicController {
     /**
      * Gestisce l'aggiunta del ristorante.
      * Recupera i dati dai campi, crea un nuovo oggetto {@link Ristorante},
-     * lo salva su file CSV e lo aggiunge alla mappa interna.
-     *
-     * @throws Exception se si verifica un errore durante il salvataggio dei dati, in modo da notificare l'utente e mantenere la finestra di dialogo aperta.
+     * lo salva nel database e aggiorna la finestra chiamante solo dopo il successo.
      */
     @FXML
-    private void aggiungiRistorante() throws Exception {
-
-        RistoranteCSV ristoranteCSV = new RistoranteCSV();
+    private void aggiungiRistorante() {
         String indirizzo = indirizzoField.getText();
         Coordinate cords = new Coordinate(indirizzo);
         if (cords.getLat() == null)
@@ -186,14 +186,12 @@ public class AggiungiRistoranteController extends BasicController {
         ristorante.setTipoCucina(comboCucina.getValue());
         ristorante.setDescrizione(txtDescrizione.getText());
 
-        this.nuovoRistorante = ristorante;
-
         ristorante.setCords(cords);
 
         try {
-            ristoranteCSV.aggiungiRistorante(ristorante);
-            ristoranteCSV.scrivi(ristorante);
-        } catch (Exception e) {
+            this.nuovoRistorante = new RistoranteDAO().aggiungiRistorante(ristorante);
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
             return;
         }
 

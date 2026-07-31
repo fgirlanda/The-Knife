@@ -34,6 +34,10 @@ public class RistoranteDAO {
             SELECT r.id_ristorante, r.nome, r.indirizzo, r.delivery,
                    r.prenotazione_online, r.tipo_cucina, r.prezzo,
                    r.descrizione, r.latitudine, r.longitudine, r.proprietario,
+                   COALESCE((SELECT AVG(media.voto)
+                             FROM recensioni media
+                             WHERE media.id_ristorante = r.id_ristorante), 0)
+                       AS media_recensioni,
                    rec.id_cliente, rec.id_recensione, rec.username,
                    rec.voto, rec.testo, rec.risposta
             FROM ristoranti r
@@ -274,6 +278,47 @@ public class RistoranteDAO {
         }
     }
 
+    /**
+     * Calcola nel database la media delle recensioni di un ristorante.
+     *
+     * @param idRistorante ID del ristorante
+     * @return media dei voti, oppure {@code 0.0} se non ci sono recensioni
+     * @throws SQLException             se il calcolo nel database non riesce
+     * @throws IllegalArgumentException se l'ID non è valido
+     */
+    public double calcolaMediaRecensioni(int idRistorante) throws SQLException {
+        if (idRistorante <= 0) {
+            throw new IllegalArgumentException("Per calcolare la media serve un ID ristorante valido");
+        }
+
+        String sql = """
+                SELECT COALESCE(AVG(voto), 0) AS media_recensioni
+                FROM recensioni
+                WHERE id_ristorante = ?
+                """;
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, idRistorante);
+            try (ResultSet result = statement.executeQuery()) {
+                result.next();
+                return result.getDouble("media_recensioni");
+            }
+        }
+    }
+
+    /**
+     * Ricalcola nel database la media e la assegna all'oggetto ristorante.
+     *
+     * @param ristorante ristorante da aggiornare
+     * @throws SQLException             se il calcolo nel database non riesce
+     * @throws IllegalArgumentException se il ristorante non è valido
+     */
+    public void aggiornaMediaRecensioni(Ristorante ristorante) throws SQLException {
+        richiediNonNull(ristorante, "Il ristorante non può essere null");
+        ristorante.setMediaRec(calcolaMediaRecensioni(ristorante.getId()));
+    }
+
     List<Ristorante> estraiRistoranti(ResultSet result) throws SQLException {
         Map<Integer, Ristorante> ristoranti = new LinkedHashMap<>();
 
@@ -308,6 +353,7 @@ public class RistoranteDAO {
         ristorante.setCords(new Coordinate(
                 result.getDouble("latitudine"), result.getDouble("longitudine")));
         ristorante.setIdproprietario(result.getInt("proprietario"));
+        ristorante.setMediaRec(result.getDouble("media_recensioni"));
         return ristorante;
     }
 

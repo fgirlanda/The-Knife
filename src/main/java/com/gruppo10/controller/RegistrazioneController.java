@@ -6,13 +6,16 @@
 package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteCSV;
+import com.gruppo10.database.UsernameGiaEsistenteException;
+import com.gruppo10.database.UtenteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -113,7 +116,7 @@ public class RegistrazioneController extends BasicController {
      * Gestisce l'evento di clic sul pulsante "Registrati".
      * Acquisisce i dati dai campi, esegue le validazioni necessarie (indirizzo,
      * username esistente), cripta la password e crea un nuovo oggetto Utente.
-     * Salva quindi il nuovo utente nel file CSV e naviga alla pagina di login.
+     * Salva quindi il nuovo utente nel database e naviga alla pagina di login.
      * <p>
      * Gestione errori:
      * </p>
@@ -123,15 +126,14 @@ public class RegistrazioneController extends BasicController {
      * eventualmente il reinserimento dei dati.
      * <li>Criptatore: a {@code password} viene assegnato null, poi la gestione è
      * analoga a Coordinate.
-     * <li>Scrittura su csv: se viene sollevata un'eccezione viene gestita in
-     * {@link com.gruppo10.classi.GestoreCSV} e {@link com.gruppo10.classi.GestioneEccezioni}, l'utente viene notificato e
+     * <li>Scrittura sul database: se viene sollevata un'eccezione viene gestita
+     * tramite {@link com.gruppo10.classi.GestioneEccezioni}, l'utente viene notificato e
      * la pagina di registrazione rimane aperta per permettere eventualmente il
      * reinserimento dei dati
      * </ul>
      */
     @FXML
     public void registrati() {
-        UtenteCSV utenteCSV = new UtenteCSV();
         RadioButton selectedRadioButton = (RadioButton) ruoloGroup.getSelectedToggle();
         String ruolo = selectedRadioButton.getText();
         String nome = nomeField.getText();
@@ -142,11 +144,6 @@ public class RegistrazioneController extends BasicController {
 
         if (indirizzo.length() < 20) {
             statusRegistrazione.setText("Seleziona un indirizzo valido");
-            return;
-        }
-
-        if (utenteCSV.cercaUtente(username) != null) {
-            statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
             return;
         }
 
@@ -162,7 +159,6 @@ public class RegistrazioneController extends BasicController {
             return;
 
         Utente utente = new Utente();
-        utente.setId(utenteCSV.ultimoID());
         utente.setNome(nome);
         utente.setCognome(cognome);
         utente.setUsername(username);
@@ -173,12 +169,13 @@ public class RegistrazioneController extends BasicController {
         utente.setCords(coordinate);
 
         try {
-            utenteCSV.aggiungiUtente(utente);
-            utenteCSV.scrivi(utente);
-        } catch (Exception e) {
-            return;
+            new UtenteDAO().aggiungiUtente(utente);
+            apriLogin();
+        } catch (UsernameGiaEsistenteException e) {
+            statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante la registrazione", e, false, null);
         }
-        apriLogin();
     }
 
     /**

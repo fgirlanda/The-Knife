@@ -5,13 +5,14 @@
  */
 package com.gruppo10.controller;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.RistoranteCSV;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -30,11 +31,8 @@ public class ProfiloRistoratoreController extends BasicController {
     /** Utente ristoratore attualmente loggato */
     private Utente utenteloggato = LoginController.utenteLoggato;
 
-    /** Lista di tutti i ristoranti caricati dal CSV */
-    private List<Ristorante> ristoranti;
-
-    /** Gestore dei ristoranti tramite CSV */
-    private RistoranteCSV ristoranteCSV = new RistoranteCSV();
+    /** Gestore dei ristoranti persistiti nel database. */
+    private final RistoranteDAO ristoranteDAO = new RistoranteDAO();
 
     /** Lista filtrata dei ristoranti di proprietà dell'utente */
     private List<Ristorante> listaFiltrata;
@@ -50,30 +48,12 @@ public class ProfiloRistoratoreController extends BasicController {
      */
     public void caricaDati() {
         caricaDatiUtente();
-        ristoranti = ristoranteCSV.caricaCSV();
-        if (ristoranti != null) {
-            listaFiltrata = filtraProprietario(ristoranti);
+        try {
+            listaFiltrata = ristoranteDAO.trovaPerProprietario(utenteloggato.getId());
             aggiornaContenitore(listaFiltrata);
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         }
-    }
-
-    /**
-     * Filtra la lista di tutti i ristoranti per trovare solo quelli
-     * che sono di proprietà del ristoratore loggato.
-     *
-     * @param listaRistoranti la lista completa dei ristoranti.
-     * @return una nuova lista contenente solo i ristoranti di proprietà
-     *         dell'utente.
-     */
-    private List<Ristorante> filtraProprietario(List<Ristorante> listaRistoranti) {
-        List<Ristorante> nuovaLista = new ArrayList<>();
-
-        for (Ristorante r : listaRistoranti) {
-            if (r.getIdproprietario() == utenteloggato.getId()) {
-                nuovaLista.add(r);
-            }
-        }
-        return nuovaLista;
     }
 
     /**

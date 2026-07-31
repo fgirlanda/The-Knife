@@ -69,6 +69,10 @@ public class RecensioneDAO {
                 SELECT r.id_ristorante, r.nome, r.indirizzo, r.delivery,
                        r.prenotazione_online, r.tipo_cucina, r.prezzo,
                        r.descrizione, r.latitudine, r.longitudine, r.proprietario,
+                       COALESCE((SELECT AVG(media.voto)
+                                 FROM recensioni media
+                                 WHERE media.id_ristorante = r.id_ristorante), 0)
+                           AS media_recensioni,
                        rec.id_cliente, rec.id_recensione, rec.username,
                        rec.voto, rec.testo, rec.risposta
                 FROM ristoranti r

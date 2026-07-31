@@ -5,11 +5,16 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.database.RecensioneDAO;
+import com.gruppo10.database.RecensioneDuplicataException;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +29,7 @@ import javafx.scene.text.Text;
  * <p>Questo controller gestisce l'interazione dell'utente con gli elementi
  * dell'interfaccia grafica per l'inserimento del testo della recensione e la
  * selezione del voto in stelle. Si occupa anche di creare un oggetto {@link Recensione},
- * salvarlo tramite {@link RecensioneCSV} e aggiornare la vista della pagina del ristorante.</p>
+ * salvarlo nel database e aggiornare la vista della pagina del ristorante.</p>
  * 
  * <p>Estende {@link BasicController} per ereditare funzionalità comuni come
  * la gestione dell'utente loggato, dei pulsanti e delle finestre.</p>
@@ -108,8 +113,8 @@ public class AggiungiRecensioneController extends BasicController {
 
     /**
      * Gestisce l'invio della recensione. Recupera i dati inseriti dall'utente,
-     * crea un nuovo oggetto {@link Recensione}, lo aggiunge al ristorante per il calcolo della media
-     * e lo salva nel file CSV tramite {@link RecensioneCSV}.
+     * crea un nuovo oggetto {@link Recensione}, lo salva nel database e aggiorna
+     * tramite DAO la media del ristorante.
      * Dopo il salvataggio, torna alla pagina del ristorante e chiude la finestra corrente.
      */
     @FXML
@@ -127,12 +132,15 @@ public class AggiungiRecensioneController extends BasicController {
         recensione.setRisposta("");
         recensione.setRistorante(ristorante);
 
-        ristorante.aggiungiRecensione(recensione);
-
         try {
-            RecensioneCSV recensioneCSV = new RecensioneCSV();
-            recensioneCSV.scrivi(recensione);
-        } catch (Exception e) {
+            new RecensioneDAO().aggiungiRecensione(recensione);
+            ristorante.aggiungiRecensione(recensione);
+            new RistoranteDAO().aggiornaMediaRecensioni(ristorante);
+        } catch (RecensioneDuplicataException e) {
+            GestioneEccezioni.errore("Hai già recensito questo ristorante", e, false, null);
+            return;
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante l'aggiunta della recensione", e, false, null);
             return;
         }
 

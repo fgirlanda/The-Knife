@@ -5,8 +5,11 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
+import com.gruppo10.database.RecensioneDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -19,8 +22,8 @@ import javafx.scene.control.TextArea;
  */
 public class RispostaRecensioneController extends BasicController {
 
-    /** Gestore delle receensioni tramite CSV */
-    private RecensioneCSV recensioneCSV = new RecensioneCSV();
+    /** Gestore delle recensioni persistite nel database. */
+    private final RecensioneDAO recensioneDAO = new RecensioneDAO();
 
     /** La recensione a cui il ristoratore sta rispondendo */
     private Recensione recensione;
@@ -68,13 +71,13 @@ public class RispostaRecensioneController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante "Invia".
-     * Aggiorna la recensione con la nuova risposta nel file CSV e chiude la
+     * Aggiorna la recensione con la nuova risposta nel database e chiude la
      * finestra di dialogo.
      *
      * <p>
      * Nota: in caso di errore la finestra di risposta rimane aperta per l'eventuale
-     * reinserimento dei dati e l'eccezione viene gestita da {@link com.gruppo10.classi.GestoreCSV} e
-     * {@link com.gruppo10.classi.GestioneEccezioni}
+     * reinserimento dei dati e l'eccezione viene mostrata tramite
+     * {@link com.gruppo10.classi.GestioneEccezioni}.
      * </p>
      */
     @FXML
@@ -82,8 +85,13 @@ public class RispostaRecensioneController extends BasicController {
         String risposta = txtRisposta.getText();
 
         try {
-            recensioneCSV.aggiungiRisposta(recensione, risposta);
-        } catch (Exception e) {
+            if (!recensioneDAO.aggiungiRisposta(recensione, risposta)) {
+                GestioneEccezioni.errore("Recensione non trovata",
+                        new SQLException("La recensione non esiste più nel database"), false, null);
+                return;
+            }
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante l'aggiunta della risposta", e, false, null);
             return;
         }
 

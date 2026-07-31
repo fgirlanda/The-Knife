@@ -5,13 +5,17 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+
 import com.gruppo10.classi.Card;
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.database.RecensioneDAO;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -177,14 +181,23 @@ public class CardRecensioneController extends BasicController implements Card<Re
 
     /**
      * Gestisce l'evento di clic sul pulsante "Rimuovi".
-     * Rimuove la recensione dall'oggetto {@link Ristorante} e dal file CSV,
+     * Rimuove la recensione dal database e poi dall'oggetto {@link Ristorante},
      * quindi aggiorna la pagina del ristorante per riflettere la modifica.
      */
     @FXML
     private void rimuovi() {
-        this.ristorante.rimuoviRecensione(this.recensione);
-        RecensioneCSV recensioneCSV = new RecensioneCSV();
-        recensioneCSV.rimuovi(recensione);
+        try {
+            if (!new RecensioneDAO().rimuoviRecensione(recensione)) {
+                GestioneEccezioni.errore("Recensione non trovata",
+                        new SQLException("La recensione non esiste più nel database"), false, null);
+                return;
+            }
+            this.ristorante.rimuoviRecensione(this.recensione);
+            new RistoranteDAO().aggiornaMediaRecensioni(this.ristorante);
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante la rimozione della recensione", e, false, null);
+            return;
+        }
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
     }
 }

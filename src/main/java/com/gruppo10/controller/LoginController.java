@@ -5,6 +5,9 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+import java.util.Optional;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +20,7 @@ import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.classi.UtenteCSV;
+import com.gruppo10.database.UtenteDAO;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -96,7 +99,7 @@ public class LoginController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante di login.
-     * Cripta la password, cerca l'utente nel file CSV e verifica le credenziali.
+     * Cripta la password, cerca l'utente nel database e verifica le credenziali.
      * In caso di successo, imposta l'utente come utente loggato e apre la pagina principale.
      * In caso di errore, mostra un messaggio di stato appropriato.
      */
@@ -109,20 +112,24 @@ public class LoginController extends BasicController {
         if (hashedPassword == null)
             return;
 
-        UtenteCSV utenteCSV = new UtenteCSV();
-        Utente utente = utenteCSV.cercaUtente(username);
-        if (utente == null) {
-            loginStatus.setVisible(true);
-            loginStatus.setText("UTENTE NON REGISTRATO");
-            return;
-        }
+        try {
+            Optional<Utente> risultato = new UtenteDAO().cercaUtente(username);
+            if (risultato.isEmpty()) {
+                loginStatus.setVisible(true);
+                loginStatus.setText("UTENTE NON REGISTRATO");
+                return;
+            }
 
-        if (hashedPassword.equals(utente.getPassword())) {
-            utenteLoggato = utente;
-            apriPaginaPrincipale();
-        } else {
-            loginStatus.setVisible(true);
-            loginStatus.setText("PASSWORD ERRATA");
+            Utente utente = risultato.get();
+            if (hashedPassword.equals(utente.getPassword())) {
+                utenteLoggato = utente;
+                apriPaginaPrincipale();
+            } else {
+                loginStatus.setVisible(true);
+                loginStatus.setText("PASSWORD ERRATA");
+            }
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante il login", e, false, null);
         }
     }
 

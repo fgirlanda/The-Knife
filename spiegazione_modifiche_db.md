@@ -9,9 +9,9 @@ Lo scopo delle modifiche effettuate è stato preparare il livello di accesso ai
 dati tramite classi DAO (Data Access Object), mantenendo il più possibile lo
 stesso comportamento che il programma aveva con i CSV.
 
-Al momento i DAO sono pronti e funzionanti, ma i controller utilizzano ancora
-le classi CSV. La sostituzione nei controller dovrà essere effettuata in un
-passaggio successivo.
+I DAO sono pronti e i controller dell'applicazione sono stati migrati: i normali
+flussi della GUI ora leggono e modificano PostgreSQL. Le vecchie classi CSV sono
+ancora presenti nel progetto, ma non sono più referenziate dai controller.
 
 ## Struttura PostgreSQL rilevata
 
@@ -177,7 +177,7 @@ Per modificare o rimuovere una recensione era necessario:
 Anche i preferiti venivano controllati scorrendo tutte le righe del relativo
 file.
 
-## Come funzionerà con i DAO
+## Come funziona ora con i DAO
 
 Le nuove classi si trovano nel package `com.gruppo10.database`:
 
@@ -239,9 +239,9 @@ le coordinate geografiche e la formula della distanza sulla superficie
 terrestre.
 
 Il DAO restituisce una nuova `List<Ristorante>` con i risultati aggiornati del
-database. Il controller dovrà quindi raccogliere le selezioni della GUI, chiamare
-`cercaConFiltri()` e mostrare la lista ricevuta, invece di filtrare la lista
-precedentemente caricata.
+database. `PaginaPrincipaleController` raccoglie le selezioni della GUI, chiama
+`cercaConFiltri()` e mostra la lista ricevuta, invece di filtrare in Java la
+lista precedentemente caricata.
 
 Il caricamento usa un `LEFT JOIN` tra `ristoranti` e `recensioni`. In questo
 modo vengono restituiti anche i ristoranti che non hanno recensioni.
@@ -302,8 +302,8 @@ per mantenere la compatibilità con la GUI esistente.
 
 Se un inserimento viola il vincolo sulla coppia cliente-ristorante, il DAO
 genera `RecensioneDuplicataException` con il messaggio "Hai già recensito questo
-ristorante". La futura integrazione con i controller o con il server potrà
-intercettare questa eccezione e mostrare il messaggio all'utente.
+ristorante". Il controller intercetta questa eccezione e mostra il messaggio
+all'utente senza aggiornare la GUI.
 
 Modifiche, risposte e cancellazioni richiedono sempre un `id_recensione` valido.
 Non vengono più eseguiti aggiornamenti usando soltanto la coppia
@@ -353,37 +353,29 @@ genera una seconda riga.
 
 ## Stato attuale del programma
 
-I DAO sono stati compilati e verificati in lettura sul database PostgreSQL
-locale. La verifica ha caricato correttamente utenti, ristoranti, recensioni e
-preferiti senza modificare i dati.
+I DAO e tutti i controller sono stati compilati con successo. La verifica in
+sola lettura ha caricato utenti, ristoranti, recensioni e preferiti senza
+modificare i dati.
 
-I controller, tuttavia, importano e utilizzano ancora le classi CSV. Di
-conseguenza, allo stato attuale il programma continua a usare i file CSV nei
-normali flussi dell'interfaccia.
+La migrazione dei controller comprende:
 
-## Passaggio successivo consigliato
+- login e registrazione tramite `UtenteDAO`;
+- caricamento, ricerca con filtri e inserimento dei ristoranti tramite
+  `RistoranteDAO`;
+- caricamento mirato dei ristoranti del proprietario e del profilo cliente;
+- controllo, inserimento e rimozione dei preferiti tramite `PreferitoDAO`;
+- controllo dell'unicità, inserimento, modifica, risposta e cancellazione delle
+  recensioni tramite `RecensioneDAO`.
 
-Il passo successivo sarà sostituire progressivamente nei controller:
+Le scritture seguono sempre questo ordine: prima viene modificato PostgreSQL e
+solo in caso di successo vengono aggiornati gli oggetti e la GUI. Le
+`SQLException`, gli argomenti non validi, gli username duplicati e le recensioni
+duplicate vengono intercettati dai controller. Anche un `UPDATE` o `DELETE` che
+non trova più il record viene segnalato all'utente.
 
-```text
-UtenteCSV      -> UtenteDAO
-RistoranteCSV  -> RistoranteDAO
-RecensioneCSV  -> RecensioneDAO
-PreferitiCSV   -> PreferitoDAO
-```
-
-Durante la migrazione bisognerà:
-
-1. gestire le `SQLException` nei controller;
-2. eseguire prima l'operazione sul database e aggiornare la GUI solo dopo il
-   successo;
-3. eliminare la creazione delle mappe statiche non più necessarie;
-4. usare query specifiche, come `trovaPerProprietario()`, invece di caricare e
-   filtrare sempre tutti i dati;
-5. verificare registrazione, login, ristoranti, recensioni e preferiti;
-6. rimuovere le classi CSV soltanto quando non saranno più referenziate;
-7. conservare eventualmente i CSV come backup o sorgente di importazione, non
-   come archivio operativo principale.
+Le classi CSV possono essere conservate come sorgente di importazione o backup.
+La loro rimozione definitiva è facoltativa e potrà essere fatta dopo i test
+manuali completi dell'interfaccia.
 
 ## Configurazione della connessione
 

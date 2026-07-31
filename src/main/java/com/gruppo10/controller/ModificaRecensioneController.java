@@ -5,10 +5,14 @@
  */
 package com.gruppo10.controller;
 
+import java.sql.SQLException;
+
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.classi.RecensioneCSV;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.SceneManager;
+import com.gruppo10.database.RecensioneDAO;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +31,7 @@ import javafx.scene.text.Text;
  * l'aggiornamento
  * del testo e del voto della recensione, e si occupa del salvataggio delle
  * modifiche
- * su file CSV.
+ * nel database.
  */
 public class ModificaRecensioneController extends BasicController {
 
@@ -150,9 +154,8 @@ public class ModificaRecensioneController extends BasicController {
      * Gestisce l'evento di clic sul pulsante "Modifica".
      * Recupera il testo e il voto modificati, crea un nuovo oggetto
      * {@link Recensione}
-     * con i dati aggiornati, rimuove la vecchia recensione e aggiunge quella nuova
-     * all'oggetto ristorante, per il ricalcolo della media. Salva infine le
-     * modifiche nel file CSV.
+     * con i dati aggiornati, aggiorna l'oggetto ristorante e affida al DAO il
+     * ricalcolo della media dopo aver salvato le modifiche nel database.
      */
     @FXML
     private void modificaRecensione() {
@@ -161,22 +164,30 @@ public class ModificaRecensioneController extends BasicController {
 
         int nuovoVoto = selectedStella.getText().length();
 
-        Recensione nuovaRecensione = new Recensione();
-        nuovaRecensione.setIdRistorante(idRis);
-        nuovaRecensione.setIdUtente(idUt);
-        nuovaRecensione.setUsername(username);
-        nuovaRecensione.setRisposta(risposta);
-        nuovaRecensione.setStelle(nuovoVoto);
-        nuovaRecensione.setRistorante(ristorante);
-
         String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
-        nuovaRecensione.setTesto(nuovoTesto);
+        try {
+            boolean modificata = new RecensioneDAO().modificaRecensione(
+                    recensione.getIdRec(), nuovoTesto, nuovoVoto);
+            if (!modificata) {
+                GestioneEccezioni.errore("Recensione non trovata",
+                        new SQLException("La recensione non esiste più nel database"), false, null);
+                return;
+            }
 
-        ristorante.rimuoviRecensione(recensione);
-        ristorante.aggiungiRecensione(nuovaRecensione);
-
-        RecensioneCSV recensioneCSV = new RecensioneCSV();
-        recensioneCSV.modificaRecensione(nuovaRecensione, nuovoTesto, nuovoVoto);
+            ristorante.rimuoviRecensione(recensione);
+            recensione.setTesto(nuovoTesto);
+            recensione.setStelle(nuovoVoto);
+            recensione.setIdRistorante(idRis);
+            recensione.setIdUtente(idUt);
+            recensione.setUsername(username);
+            recensione.setRisposta(risposta);
+            recensione.setRistorante(ristorante);
+            ristorante.aggiungiRecensione(recensione);
+            new RistoranteDAO().aggiornaMediaRecensioni(ristorante);
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante la modifica della recensione", e, false, null);
+            return;
+        }
 
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
         chiudi();

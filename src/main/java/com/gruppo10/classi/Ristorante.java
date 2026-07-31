@@ -103,31 +103,21 @@ public class Ristorante implements Identificabile {
     }
 
     /**
-     * Aggiunge una recensione al ristorante e aggiorna la media delle recensioni.
+     * Aggiunge una recensione al ristorante.
      *
      * @param recensione recensione da aggiungere
      */
     public void aggiungiRecensione(Recensione recensione) {
         this.recensioni.add(recensione);
-        int stelle = recensione.getStelle();
-        int tot = this.recensioni.size();
-        this.mediaRec = ((mediaRec * (tot - 1)) + stelle) / tot;
     }
 
     /**
-     * Rimuove una recensione dal ristorante e aggiorna la media delle recensioni.
+     * Rimuove una recensione dal ristorante.
      *
      * @param recensione recensione da rimuovere
      */
     public void rimuoviRecensione(Recensione recensione) {
         this.recensioni.remove(recensione);
-        int tot = this.recensioni.size();
-        int stelle = recensione.getStelle();
-        if (tot == 0) {
-            this.mediaRec = 0.0;
-        } else {
-            this.mediaRec = (mediaRec * (tot + 1) - stelle) / tot;
-        }
     }
 
     /**

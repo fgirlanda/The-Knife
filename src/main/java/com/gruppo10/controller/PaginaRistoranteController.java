@@ -6,16 +6,18 @@
 package com.gruppo10.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.TheKnife;
-import com.gruppo10.classi.PreferitiCSV;
-import com.gruppo10.classi.Preferito;
+import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.database.PreferitoDAO;
+import com.gruppo10.database.RecensioneDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,8 +50,8 @@ public class PaginaRistoranteController extends BasicController {
      */
     private boolean recPresente = false;
 
-    /** Gestore dei preferiti tramite file CSV. */
-    private PreferitiCSV preferitiCSV = new PreferitiCSV();
+    /** Gestore dei preferiti persistiti nel database. */
+    private final PreferitoDAO preferitoDAO = new PreferitoDAO();
 
     /** Percorso dell'immagine del cuore pieno per i preferiti. */
     private URL cuorePienoURL = TheKnife.class.getResource("/images/cuore_pieno.png");
@@ -125,15 +127,10 @@ public class PaginaRistoranteController extends BasicController {
         Image immagine = new Image(imgURL.toExternalForm());
         imgRistorante.setImage(immagine);
 
-        if (preferitiCSV.controlloPreferito(utenteLoggato.getIdUtente(), ristorante.getIdRistorante())) {
-            imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
-        } else {
-            imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
-        }
+        imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
 
         recensioni = ristorante.getRecensioni();
         if (recensioni != null) {
-            recPresente = recensioneInserita(recensioni);
             SceneManager.caricaTessere(
                     recensioni,
                     contenitoreTessere,
@@ -148,10 +145,20 @@ public class PaginaRistoranteController extends BasicController {
         if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
             btnAggiungiRecensione.setVisible(false);
             btnPreferiti.setVisible(false);
-        }
-
-        if (recPresente) {
-            btnAggiungiRecensione.setVisible(false);
+        } else {
+            try {
+                boolean preferito = preferitoDAO.controlloPreferito(
+                        utenteLoggato.getId(), ristorante.getId());
+                imagePreferiti.setImage(new ImageView((preferito ? cuorePienoURL : cuoreVuotoURL)
+                        .toExternalForm()).getImage());
+                recPresente = new RecensioneDAO().esisteRecensione(
+                        utenteLoggato.getId(), ristorante.getId());
+                if (recPresente) {
+                    btnAggiungiRecensione.setVisible(false);
+                }
+            } catch (IllegalArgumentException | SQLException e) {
+                GestioneEccezioni.errore("Errore durante il caricamento dei dati del ristorante", e, false, null);
+            }
         }
     }
 
@@ -213,48 +220,19 @@ public class PaginaRistoranteController extends BasicController {
      */
     @FXML
     private void gestisciPreferiti() {
-        if (imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png")) {
-            imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
-            aggiungiPreferito();
-        } else {
-            imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
-            rimuoviPreferito();
-        }
-    }
-
-    /**
-     * Aggiunge il ristorante ai preferiti dell'utente.
-     */
-    private void aggiungiPreferito() {
         int idUt = utenteLoggato.getIdUtente();
         int idRis = this.ristorante.getIdRistorante();
-        if (!preferitiCSV.controlloPreferito(idUt, idRis)) {
-            Preferito preferito = new Preferito(idUt, idRis);
-            preferitiCSV.scrivi(preferito);
-        }
-    }
-
-    /**
-     * Rimuove il ristorante dai preferiti dell'utente.
-     */
-    private void rimuoviPreferito() {
-        Preferito preferito = new Preferito(utenteLoggato.getIdUtente(), this.ristorante.getIdRistorante());
-        preferitiCSV.rimuovi(preferito);
-    }
-
-    /**
-     * Verifica se l'utente loggato ha già inserito una recensione per questo
-     * ristorante.
-     *
-     * @param recensioni la lista delle recensioni del ristorante.
-     * @return {@code true} se l'utente ha già recensito, {@code false} altrimenti.
-     */
-    private boolean recensioneInserita(List<Recensione> recensioni) {
-        for (Recensione rec : recensioni) {
-            if (utenteLoggato.getId() == rec.getIdUtente()) {
-                return true;
+        boolean daAggiungere = imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png");
+        try {
+            if (daAggiungere) {
+                preferitoDAO.aggiungiPreferito(idUt, idRis);
+                imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
+            } else {
+                preferitoDAO.rimuoviPreferito(idUt, idRis);
+                imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
             }
+        } catch (IllegalArgumentException | SQLException e) {
+            GestioneEccezioni.errore("Errore durante l'aggiornamento dei preferiti", e, false, null);
         }
-        return false;
     }
 }
