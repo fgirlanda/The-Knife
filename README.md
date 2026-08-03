@@ -212,7 +212,9 @@ diagrammi:
 ### fgirlanda
 - use-case
 - sequence
-- ottimizzare gestione db
+- ottimizzare gestione db (FATTO)
+- organizzare cartelle client-server (FATTO)
+- implementare avvio server
 
 ### ggallon
 - activity
