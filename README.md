@@ -207,6 +207,7 @@ diagrammi:
 - er (FATTO)
 - class
 - implementare db (FATTO)
+- creare GUI pannello admin
 
 ### fgirlanda
 - use-case

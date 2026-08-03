@@ -1,7 +1,5 @@
 package com.gruppo10.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ import com.gruppo10.classi.TipoCucina;
  * comportamento che in precedenza era fornito da {@code RistoranteCSV}.
  * </p>
  */
-public class RistoranteDAO {
+public class RistoranteDAO extends ManagerDB {
 
     private static final String SELECT_COMPLETA = """
             SELECT r.id_ristorante, r.nome, r.indirizzo, r.delivery,
@@ -67,13 +65,8 @@ public class RistoranteDAO {
      * @throws SQLException se la lettura dal database non riesce
      */
     public List<Ristorante> trovaTutti() throws SQLException {
-        String sql = SELECT_COMPLETA + " ORDER BY r.id_ristorante, rec.id_recensione";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql);
-                ResultSet result = statement.executeQuery()) {
-            return estraiRistoranti(result);
-        }
+        return eseguiQuery(SELECT_COMPLETA + " ORDER BY r.id_ristorante, rec.id_recensione",
+                this::estraiRistoranti);
     }
 
     /**
@@ -161,13 +154,7 @@ public class RistoranteDAO {
 
         sql.append(" ORDER BY r.id_ristorante, rec.id_recensione");
 
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql.toString())) {
-            impostaParametri(statement, parametri);
-            try (ResultSet result = statement.executeQuery()) {
-                return estraiRistoranti(result);
-            }
-        }
+        return eseguiQuery(sql.toString(), this::estraiRistoranti, parametri.toArray());
     }
 
     /**
@@ -178,16 +165,10 @@ public class RistoranteDAO {
      * @throws SQLException se la lettura dal database non riesce
      */
     public Optional<Ristorante> cercaRistorante(int idRistorante) throws SQLException {
-        String sql = SELECT_COMPLETA
-                + " WHERE r.id_ristorante = ? ORDER BY rec.id_recensione";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, idRistorante);
-            try (ResultSet result = statement.executeQuery()) {
-                return estraiRistoranti(result).stream().findFirst();
-            }
-        }
+        List<Ristorante> risultati = eseguiQuery(
+                SELECT_COMPLETA + " WHERE r.id_ristorante = ? ORDER BY rec.id_recensione",
+                this::estraiRistoranti, idRistorante);
+        return risultati.stream().findFirst();
     }
 
     /**
@@ -198,16 +179,9 @@ public class RistoranteDAO {
      * @throws SQLException se la lettura dal database non riesce
      */
     public List<Ristorante> trovaPerProprietario(int idProprietario) throws SQLException {
-        String sql = SELECT_COMPLETA
-                + " WHERE r.proprietario = ? ORDER BY r.id_ristorante, rec.id_recensione";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, idProprietario);
-            try (ResultSet result = statement.executeQuery()) {
-                return estraiRistoranti(result);
-            }
-        }
+        return eseguiQuery(
+                SELECT_COMPLETA + " WHERE r.proprietario = ? ORDER BY r.id_ristorante, rec.id_recensione",
+                this::estraiRistoranti, idProprietario);
     }
 
     /**
@@ -224,14 +198,7 @@ public class RistoranteDAO {
                  WHERE p.id_cliente = ?
                  ORDER BY r.id_ristorante, rec.id_recensione
                 """;
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, idUtente);
-            try (ResultSet result = statement.executeQuery()) {
-                return estraiRistoranti(result);
-            }
-        }
+        return eseguiQuery(sql, this::estraiRistoranti, idUtente);
     }
 
     /**
@@ -254,28 +221,15 @@ public class RistoranteDAO {
                 RETURNING id_ristorante
                 """;
 
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(inserimentoSql)) {
-            statement.setString(1, ristorante.getNomeRistorante());
-            statement.setString(2, ristorante.getIndirizzo());
-            statement.setBoolean(3,
-                    ristorante.getDelivery() == Delivery.DELIVERY_DISPONIBILE);
-            statement.setBoolean(4,
-                    ristorante.getPrenotazione() == Prenotazione.PRENOTAZIONE_ONLINE_DISPONIBILE);
-            statement.setString(5, ristorante.getTipoCucina().name());
-            statement.setString(6, ristorante.getPrezzo().toString());
-            statement.setString(7, ristorante.getDescrizione());
-            statement.setDouble(8, ristorante.getCords().getLat());
-            statement.setDouble(9, ristorante.getCords().getLon());
-            statement.setInt(10, ristorante.getIdproprietario());
-
-            try (ResultSet result = statement.executeQuery()) {
-                result.next();
-                int nuovoId = result.getInt("id_ristorante");
-                ristorante.setId(nuovoId);
-                return ristorante;
-            }
-        }
+        int nuovoId = inserisciERitornaId(inserimentoSql,
+                ristorante.getNomeRistorante(), ristorante.getIndirizzo(),
+                ristorante.getDelivery() == Delivery.DELIVERY_DISPONIBILE,
+                ristorante.getPrenotazione() == Prenotazione.PRENOTAZIONE_ONLINE_DISPONIBILE,
+                ristorante.getTipoCucina().name(), ristorante.getPrezzo().toString(),
+                ristorante.getDescrizione(), ristorante.getCords().getLat(),
+                ristorante.getCords().getLon(), ristorante.getIdproprietario());
+        ristorante.setId(nuovoId);
+        return ristorante;
     }
 
     /**
@@ -290,21 +244,9 @@ public class RistoranteDAO {
         if (idRistorante <= 0) {
             throw new IllegalArgumentException("Per calcolare la media serve un ID ristorante valido");
         }
-
-        String sql = """
-                SELECT COALESCE(AVG(voto), 0) AS media_recensioni
-                FROM recensioni
-                WHERE id_ristorante = ?
-                """;
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, idRistorante);
-            try (ResultSet result = statement.executeQuery()) {
-                result.next();
-                return result.getDouble("media_recensioni");
-            }
-        }
+        return selezionaDouble(
+                "SELECT COALESCE(AVG(voto), 0) AS media_recensioni FROM recensioni WHERE id_ristorante = ?",
+                idRistorante);
     }
 
     /**
@@ -372,25 +314,6 @@ public class RistoranteDAO {
         return recensione;
     }
 
-    private void impostaParametri(PreparedStatement statement, List<Object> parametri)
-            throws SQLException {
-        for (int i = 0; i < parametri.size(); i++) {
-            Object parametro = parametri.get(i);
-            int indice = i + 1;
-            if (parametro instanceof String valore) {
-                statement.setString(indice, valore);
-            } else if (parametro instanceof Integer valore) {
-                statement.setInt(indice, valore);
-            } else if (parametro instanceof Boolean valore) {
-                statement.setBoolean(indice, valore);
-            } else if (parametro instanceof Double valore) {
-                statement.setDouble(indice, valore);
-            } else {
-                statement.setObject(indice, parametro);
-            }
-        }
-    }
-
     private void validaPosizionePerDistanza(Coordinate posizioneUtente) {
         if (posizioneUtente == null || posizioneUtente.getLat() == null
                 || posizioneUtente.getLon() == null) {
@@ -419,12 +342,5 @@ public class RistoranteDAO {
             throw new IllegalArgumentException(
                     "I valori di filtro TUTTO non possono essere salvati come dati del ristorante");
         }
-    }
-
-    private <T> T richiediNonNull(T valore, String messaggio) {
-        if (valore == null) {
-            throw new IllegalArgumentException(messaggio);
-        }
-        return valore;
     }
 }
