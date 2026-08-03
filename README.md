@@ -204,12 +204,16 @@ diagrammi:
 - package(?)
 
 ### matlambe
-- er
+- er (FATTO)
 - class
+- implementare db (FATTO)
 
 ### fgirlanda
 - use-case
-- state
+- sequence
+- ottimizzare gestione db
 
 ### ggallon
 - activity
+- aggiustare istruzioni readme
+- aggiungere istruzioni db
