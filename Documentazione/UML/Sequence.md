@@ -1,6 +1,6 @@
----
-id: 4ec1fda2-79e7-446a-b3f6-4f890187a5fd
----
+# Avvio server
+
+```mermaid
 sequenceDiagram
     actor Admin
     participant PA as PannelloAdmin
@@ -50,3 +50,44 @@ sequenceDiagram
 
     STK-->>-PA: server pronto
     PA-->>-Admin: server pronto
+```
+# Login
+```mermaid
+sequenceDiagram
+    actor Utente
+    participant PL as PannelloLogin
+    participant Client as ClientTK
+    participant Reg as Registry
+    participant Auth as AuthServiceImp
+    participant UDAO as UtenteDAO
+    participant DB@{ "type": "database" } as DatabaseTK
+
+
+    Utente->>+PL: avvia applicazione
+    PL->>+Client: avvia applicazione
+    Client-->>-PL: applicazione pronta
+    PL-->>Utente: applicazione pronta
+
+    Utente->>PL: inserisce username e password
+    PL->>+Client: login(username, password)
+
+    Client->>+Reg: lookup("AuthService")
+    Reg-->>-Client: stub remoto AuthServiceImp
+
+    Client->>+Auth: login(username, password)
+    Auth->>+UDAO: verificaCredenziali(username, password)
+    UDAO->>+DB: esegui query
+    DB-->>-UDAO: risultato query
+    UDAO-->>-Auth: esito verifica
+
+    alt Credenziali valide
+        Auth-->>Client: esito positivo (Utente autenticato)
+        Client-->>PL: accesso effettuato
+        PL-->>Utente: accesso effettuato
+    else Credenziali non valide
+        Auth-->>-Client: esito negativo (credenziali errate)
+        Client-->>-PL: errore di login
+        PL-->>-Utente: mostra errore di login
+    end
+```
+

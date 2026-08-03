@@ -1,35 +1,39 @@
+---
+id: 622b1e06-f4b0-40a3-9751-2a87a94928f5
+---
 sequenceDiagram
     actor Utente
-    participant PL as Pannello Login
-    participant Client
+    participant PL as PannelloLogin
+    participant Client as ClientTK
     participant Reg as Registry
     participant Auth as AuthServiceImp
-    participant MDB as ManagerDB
+    participant UDAO as UtenteDAO
     participant DB@{ "type": "database" } as DatabaseTK
 
-    Utente->>+PL: inserisce username e password
-    create participant Client as ClientTK
+
+    Utente->>+PL: avvia applicazione
+    PL->>+Client: avvia applicazione
+    Client-->>-PL: applicazione pronta
+    PL-->>Utente: applicazione pronta
+
+    Utente->>PL: inserisce username e password
     PL->>+Client: login(username, password)
 
     Client->>+Reg: lookup("AuthService")
     Reg-->>-Client: stub remoto AuthServiceImp
 
     Client->>+Auth: login(username, password)
-    Auth->>+MDB: verificaCredenziali(username, password)
-    MDB->>+DB: connetti
-    DB-->>-MDB: risultato query
-    MDB-->>-Auth: esito verifica
+    Auth->>+UDAO: verificaCredenziali(username, password)
+    UDAO->>+DB: esegui query
+    DB-->>-UDAO: risultato query
+    UDAO-->>-Auth: esito verifica
 
     alt Credenziali valide
         Auth-->>Client: esito positivo (Utente autenticato)
         Client-->>PL: accesso effettuato
         PL-->>Utente: accesso effettuato
     else Credenziali non valide
-        Auth-->>Client: esito negativo (credenziali errate)
-        Client-->>PL: errore di login
-        PL-->>Utente: mostra errore di login
+        Auth-->>-Client: esito negativo (credenziali errate)
+        Client-->>-PL: errore di login
+        PL-->>-Utente: mostra errore di login
     end
-
-    deactivate Auth
-    deactivate Client
-    deactivate PL
