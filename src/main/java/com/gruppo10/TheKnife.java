@@ -5,7 +5,8 @@
  */
 package com.gruppo10;
 
-import com.gruppo10.controller.MainController;
+import com.gruppo10.client.controller.MainController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

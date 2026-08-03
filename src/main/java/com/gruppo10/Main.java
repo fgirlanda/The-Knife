@@ -5,9 +5,11 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10;
 
-import com.gruppo10.classi.BlockTeeStream;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+
+import com.gruppo10.common.classi.BlockTeeStream;
+
 import javafx.application.Application;
 
 /** Classe di lancio dell'applicazione TheKnife. */
@@ -19,7 +21,7 @@ import javafx.application.Application;
  * l'applicazione JavaFX.
  * </p>
  * <p>
- * Crea anche un file log, tramite {@link com.gruppo10.classi.BlockTeeStream} in
+ * Crea anche un file log, tramite {@link com.gruppo10.common.classi.BlockTeeStream} in
  * cui scrive gli eventuali
  * messaggi di errore
  * sollevati durante l'esecuzione.
