@@ -40,6 +40,55 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 1) Eseguire il comando "mvn clean compile"
 2) Eseguire il comando "mvn package"
 
+## Procedura Operativa: Installazione di PostgreSQL e Configurazione del Database "TheKnife"
+
+### Download e Installazione di PostgreSQL
+
+1) Download:
+- Vai sul sito ufficiale di PostgreSQL: postgresql.org/download/windows.
+- Scarica il programma di installazione per la versione più recente (es. versione 18).
+
+2) Installazione:
+- Avvia l'eseguibile scaricato (.exe).
+- Procedi cliccando sempre su Next / Avanti, lasciando selezionati i componenti predefiniti (assicurati che pgAdmin 4 e SQL Shell siano spuntati).
+- Durante la configurazione, ti verrà chiesto di inserire una password per l'utente amministratore predefinito (postgres). Annotala, ti servirà in seguito.
+- Lascia la porta predefinita (5432) e il resto delle impostazioni standard fino al completamento dell'installazione.
+
+### IMPORTAZIONE DATABASE 
+
+Per questo passaggio abbiamo due possibilità:
+
+1) Interfaccia grafica.
+2) Tramite riga di comando.
+
+#### METODO 1
+
+1) Apri il file TheKnife.sql con un editor di testo come il Blocco Note.
+
+2) Cerca e rimuovi (o commenta aggiungendo -- all'inizio) le seguenti righe di controllo non supportate dagli editor grafici:
+- Le righe che iniziano con \restrict ...
+- Le righe che iniziano con \unrestrict ...
+- La riga \connect "TheKnife"
+
+3) Salva il file modificato.
+4) Apri pgAdmin 4 dal menu Start di Windows e inserisci la password dell'utente postgres.
+5) Nella barra laterale sinistra, espandi il server, clicca con il tasto destro su Databases > Create > Database.
+6) Come nome del database inserisci TheKnife e clicca su Save.
+7) Clicca con il tasto destro sul database appena creato (TheKnife) e seleziona Query Tool.
+8) Incolla tutto il codice ripulito del file SQL all'interno dell'editor e premi il tasto Play (F5) per eseguirlo.
+
+#### METODO 2
+
+1) Apri PowerShell come utente normale.
+
+2) Spostati nella cartella di installazione di PostgreSQL (se installata la versione 18 con configurazione standard il comando è il seguente):
+- cd "C:\Programmi\PostgreSQL\18\bin"
+
+3) Esegui il comando di importazione (inserendo il percorso corretto del tuo file .sql):
+- .\psql.exe -U postgres -f "C:\percorso\al\file\TheKnife.sql"
+
+4) Digita la password dell'utente postgres quando richiesto (durante la digitazione non appariranno caratteri a video per motivi di sicurezza; premi semplicemente Invio dopo averla scritta).
+
 ## PASSAGGI PER CONTRIBUIRE:
 
 1) git fetch -> git status (verificare il branch attuale e se ci sono modifiche da pullare)
@@ -79,6 +128,8 @@ Per lavorare su un branch specifico già esistente:
 3) git checkout nome_branch ("sposta" l'utente sul branch desiderato)
 
 nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch di default (origin/HEAD) è impostato sul branch main (origin/main)
+
+
 
 ## TO DO:
 
