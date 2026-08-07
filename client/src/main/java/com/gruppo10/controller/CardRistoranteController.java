@@ -3,13 +3,13 @@
  Gabriele Gallon 761125 VA
  Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.net.URL;
 import com.gruppo10.TheKnife;
-import com.gruppo10.common.classi.Card;
-import com.gruppo10.common.classi.Ristorante;
-import com.gruppo10.common.classi.SceneManager;
+import com.gruppo10.classi.Card;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.SceneManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;

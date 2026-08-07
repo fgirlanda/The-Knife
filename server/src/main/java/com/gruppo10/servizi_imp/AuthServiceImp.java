@@ -1,4 +1,5 @@
-public class AuthServiceImp implements AuthService {
-    
-    
+package com.gruppo10.servizi_imp;
+
+public class AuthServiceImp {
+
 }

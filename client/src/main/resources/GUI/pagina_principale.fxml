@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="680.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.client.controller.PaginaPrincipaleController">
+<VBox prefHeight="680.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="999.0" spacing="10.0">
          <children>

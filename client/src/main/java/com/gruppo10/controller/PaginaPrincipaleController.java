@@ -3,23 +3,23 @@
  * Gabriele Gallon 761125 VA
  * Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.gruppo10.common.classi.Delivery;
-import com.gruppo10.common.classi.Distanza;
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.MediaRecensioni;
-import com.gruppo10.common.classi.Prenotazione;
-import com.gruppo10.common.classi.Prezzo;
-import com.gruppo10.common.classi.Ristorante;
-import com.gruppo10.common.classi.Ruolo;
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.common.classi.TipoCucina;
-import com.gruppo10.common.classi.Utente;
-import com.gruppo10.server.database.RistoranteDAO;
+import com.gruppo10.classi.Delivery;
+import com.gruppo10.classi.Distanza;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.MediaRecensioni;
+import com.gruppo10.classi.Prenotazione;
+import com.gruppo10.classi.Prezzo;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.classi.Utente;
+import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

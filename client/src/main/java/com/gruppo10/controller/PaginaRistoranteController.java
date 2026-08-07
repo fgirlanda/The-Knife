@@ -3,21 +3,21 @@
  * Gabriele Gallon 761125 VA
  * Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.TheKnife;
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.Recensione;
-import com.gruppo10.common.classi.Ristorante;
-import com.gruppo10.common.classi.Ruolo;
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.common.classi.Utente;
-import com.gruppo10.server.database.PreferitoDAO;
-import com.gruppo10.server.database.RecensioneDAO;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.Utente;
+import com.gruppo10.database.PreferitoDAO;
+import com.gruppo10.database.RecensioneDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

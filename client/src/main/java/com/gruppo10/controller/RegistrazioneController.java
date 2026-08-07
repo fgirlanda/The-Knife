@@ -3,20 +3,20 @@
  * Gabriele Gallon 761125 VA
  * Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
-import com.gruppo10.common.classi.Coordinate;
-import com.gruppo10.common.classi.Criptatore;
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.Indirizzi;
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.common.classi.Utente;
-import com.gruppo10.server.database.UsernameGiaEsistenteException;
-import com.gruppo10.server.database.UtenteDAO;
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.Indirizzi;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.Utente;
+import com.gruppo10.database.UsernameGiaEsistenteException;
+import com.gruppo10.database.UtenteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -128,7 +128,7 @@ public class RegistrazioneController extends BasicController {
      * <li>Criptatore: a {@code password} viene assegnato null, poi la gestione è
      * analoga a Coordinate.
      * <li>Scrittura sul database: se viene sollevata un'eccezione viene gestita
-     * tramite {@link com.gruppo10.common.classi.GestioneEccezioni}, l'utente viene notificato e
+     * tramite {@link com.gruppo10.classi.GestioneEccezioni}, l'utente viene notificato e
      * la pagina di registrazione rimane aperta per permettere eventualmente il
      * reinserimento dei dati
      * </ul>

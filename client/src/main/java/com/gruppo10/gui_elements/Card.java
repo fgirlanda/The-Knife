@@ -3,7 +3,7 @@ Francesco Girlanda 760616 VA
 Gabriele Gallon 761125 VA
 Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.common.classi;
+package com.gruppo10.gui_elements;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

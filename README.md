@@ -214,6 +214,7 @@ diagrammi:
 - sequence
 - ottimizzare gestione db (FATTO)
 - organizzare cartelle client-server (FATTO)
+- fixare problemi dovuti a divisione in moduli separati
 - implementare avvio server
 
 ### ggallon

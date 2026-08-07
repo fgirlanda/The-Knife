@@ -3,7 +3,7 @@ Francesco Girlanda 760616 VA
 Gabriele Gallon 761125 VA
 Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.common.classi;
+package com.gruppo10.gui_elements;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,13 +11,13 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import com.gruppo10.TheKnife;
-import com.gruppo10.client.controller.LoginController;
-import com.gruppo10.client.controller.PaginaPrincipaleController;
-import com.gruppo10.client.controller.PaginaRistoranteController;
-import com.gruppo10.client.controller.ProfiloClienteController;
-import com.gruppo10.client.controller.ProfiloRistoratoreController;
-import com.gruppo10.client.controller.RegistrazioneController;
-import com.gruppo10.client.controller.TestController;
+import com.gruppo10.controller.LoginController;
+import com.gruppo10.controller.PaginaPrincipaleController;
+import com.gruppo10.controller.PaginaRistoranteController;
+import com.gruppo10.controller.ProfiloClienteController;
+import com.gruppo10.controller.ProfiloRistoratoreController;
+import com.gruppo10.controller.RegistrazioneController;
+import com.gruppo10.controller.TestController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

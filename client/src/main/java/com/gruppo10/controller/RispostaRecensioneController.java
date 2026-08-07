@@ -3,13 +3,13 @@
  * Gabriele Gallon 761125 VA
  * Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.sql.SQLException;
 
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.Recensione;
-import com.gruppo10.server.database.RecensioneDAO;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.database.RecensioneDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -77,7 +77,7 @@ public class RispostaRecensioneController extends BasicController {
      * <p>
      * Nota: in caso di errore la finestra di risposta rimane aperta per l'eventuale
      * reinserimento dei dati e l'eccezione viene mostrata tramite
-     * {@link com.gruppo10.common.classi.GestioneEccezioni}.
+     * {@link com.gruppo10.classi.GestioneEccezioni}.
      * </p>
      */
     @FXML

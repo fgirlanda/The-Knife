@@ -1,4 +1,4 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import com.gruppo10.common.classi.Coordinate;
-import com.gruppo10.common.classi.Ruolo;
-import com.gruppo10.common.classi.Utente;
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.Utente;
 
 /** Gestisce la persistenza PostgreSQL degli utenti. */
 public class UtenteDAO extends ManagerDB {

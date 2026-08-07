@@ -3,7 +3,7 @@ Francesco Girlanda 760616 VA
 Gabriele Gallon 761125 VA
 Mattia Lambertoni 762595 VA
 */
-package com.gruppo10.common.classi;
+package com.gruppo10.classi;
 
 /**
  * Rappresenta un ristorante aggiunto ai preferiti tramite una coppia id utente - id ristorante.

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ToggleGroup?>
 
-<VBox alignment="CENTER" prefHeight="235.0" prefWidth="294.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.client.controller.TestController">
+<VBox alignment="CENTER" prefHeight="235.0" prefWidth="294.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.TestController">
    <children>
       <fx:define>
          <ToggleGroup fx:id="ruoloGroup"/>

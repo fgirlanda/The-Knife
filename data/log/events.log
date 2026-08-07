@@ -33,7 +33,7 @@ Caused by: javafx.fxml.LoadException:
 
 
 	at javafx.fxml@24.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2692)
-com.gruppo10.client.controller
+com.gruppo10.controller
 	at javafx.fxml@24.0.1/javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:922)
 
 	at javafx.fxml@24.0.1/javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(FXMLLoader.java:970)
@@ -76,4 +76,5 @@ Caused by: java.lang.ClassNotFoundException: com.gruppo10.controller.MainControl
 
 	... 15 more
 
-[2026-08-03 14:19:48] === Avvio applicazione ===
+[2026-08-03 14:19:48] === Avvio applicazione ===
+

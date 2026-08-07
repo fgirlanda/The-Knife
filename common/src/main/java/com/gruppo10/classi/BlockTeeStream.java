@@ -1,4 +1,4 @@
-package com.gruppo10.common.classi;
+package com.gruppo10.classi;
 
 import java.io.IOException;
 import java.io.OutputStream;

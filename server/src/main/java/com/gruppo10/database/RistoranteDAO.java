@@ -1,4 +1,4 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.gruppo10.common.classi.Coordinate;
-import com.gruppo10.common.classi.Delivery;
-import com.gruppo10.common.classi.Distanza;
-import com.gruppo10.common.classi.MediaRecensioni;
-import com.gruppo10.common.classi.Prenotazione;
-import com.gruppo10.common.classi.Prezzo;
-import com.gruppo10.common.classi.Recensione;
-import com.gruppo10.common.classi.Ristorante;
-import com.gruppo10.common.classi.TipoCucina;
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Delivery;
+import com.gruppo10.classi.Distanza;
+import com.gruppo10.classi.MediaRecensioni;
+import com.gruppo10.classi.Prenotazione;
+import com.gruppo10.classi.Prezzo;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.TipoCucina;
 
 /**
  * Gestisce la persistenza PostgreSQL dei ristoranti.

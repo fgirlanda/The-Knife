@@ -3,10 +3,10 @@
  Gabriele Gallon 761125 VA
  Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.common.classi.Utente;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

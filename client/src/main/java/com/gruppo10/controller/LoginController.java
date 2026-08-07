@@ -3,7 +3,7 @@
  Gabriele Gallon 761125 VA
  Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -14,13 +14,13 @@ import javafx.scene.control.Label;
 
 import org.controlsfx.control.textfield.TextFields;
 
-import com.gruppo10.common.classi.Coordinate;
-import com.gruppo10.common.classi.Criptatore;
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.Indirizzi;
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.common.classi.Utente;
-import com.gruppo10.server.database.UtenteDAO;
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.Indirizzi;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.classi.Utente;
+import com.gruppo10.database.UtenteDAO;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

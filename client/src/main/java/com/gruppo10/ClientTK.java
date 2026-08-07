@@ -1,4 +1,4 @@
-package com.gruppo10.client;
+package com.gruppo10;
 
 public class ClientTK {
     

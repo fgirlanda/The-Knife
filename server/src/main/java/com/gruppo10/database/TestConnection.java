@@ -1,12 +1,12 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
-import com.gruppo10.common.classi.Coordinate;
-import com.gruppo10.common.classi.Delivery;
-import com.gruppo10.common.classi.Distanza;
-import com.gruppo10.common.classi.MediaRecensioni;
-import com.gruppo10.common.classi.Prenotazione;
-import com.gruppo10.common.classi.Prezzo;
-import com.gruppo10.common.classi.TipoCucina;
+import com.gruppo10.classi.Coordinate;
+import com.gruppo10.classi.Delivery;
+import com.gruppo10.classi.Distanza;
+import com.gruppo10.classi.MediaRecensioni;
+import com.gruppo10.classi.Prenotazione;
+import com.gruppo10.classi.Prezzo;
+import com.gruppo10.classi.TipoCucina;
 
 /** Semplice verifica in sola lettura della connessione e dei DAO. */
 public class TestConnection {

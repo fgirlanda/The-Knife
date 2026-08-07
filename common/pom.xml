@@ -13,9 +13,18 @@
     <artifactId>common</artifactId>
     <packaging>jar</packaging>
 
-    <!-- Deliberatamente senza dipendenze esterne: qui vivono solo le
-         classi di dominio (Serializable), le eccezioni applicative e le
-         interfacce Remote condivise da server e client. Se un giorno
-         serve una libreria qui, chiediti prima se non dovrebbe stare
-         solo in server o solo in client. -->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- Oltre a Lombok, deliberatamente senza altre dipendenze esterne:
+         qui vivono solo le classi di dominio (Serializable), le eccezioni
+         applicative e le interfacce Remote condivise da server e client. -->
 </project>

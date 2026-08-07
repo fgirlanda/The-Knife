@@ -1,4 +1,4 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

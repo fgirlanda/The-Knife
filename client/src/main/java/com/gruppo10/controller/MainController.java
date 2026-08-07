@@ -3,13 +3,13 @@ Francesco Girlanda 760616 VA
 Gabriele Gallon 761125 VA
 Mattia Lambertoni 762595 VA
  */
-package com.gruppo10.client.controller;
+package com.gruppo10.controller;
 
 import java.sql.SQLException;
 
-import com.gruppo10.common.classi.GestioneEccezioni;
-import com.gruppo10.common.classi.SceneManager;
-import com.gruppo10.server.database.UtenteDAO;
+import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.classi.SceneManager;
+import com.gruppo10.database.UtenteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;

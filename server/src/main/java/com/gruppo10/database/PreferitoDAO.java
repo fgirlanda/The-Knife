@@ -1,10 +1,10 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.gruppo10.common.classi.Preferito;
+import com.gruppo10.classi.Preferito;
 
 /** Gestisce la persistenza PostgreSQL dei ristoranti preferiti. */
 public class PreferitoDAO extends ManagerDB {

@@ -1,12 +1,12 @@
-package com.gruppo10.server.database;
+package com.gruppo10.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import com.gruppo10.common.classi.Recensione;
-import com.gruppo10.common.classi.Ristorante;
+import com.gruppo10.classi.Recensione;
+import com.gruppo10.classi.Ristorante;
 
 /** Gestisce la persistenza PostgreSQL delle recensioni. */
 public class RecensioneDAO extends ManagerDB {
