@@ -1,15 +1,17 @@
 # Avvio server
-
 ```mermaid
 sequenceDiagram
     actor Admin
-    participant PA as PannelloAdmin
+    participant STK as ServerTK
     participant DB@{ "type": "database" } as DatabaseTK
 
 
-    Admin->>+PA: avvia applicazione
+    Admin->>+STK: avvia applicazione
+    create participant SA as ServerApp
+    STK->>+SA: launch
+
     create participant SC as ServerContext
-    PA->>+SC: avvia applicazione
+    SA->>SC: create
 
     create participant MDB as ManagerDB
     SC->>MDB: create
@@ -24,11 +26,16 @@ sequenceDiagram
     SC->>profilo: create
     create participant preferiti as PreferitiServiceImp
     SC->>preferiti: create
+    create participant geo as GeoServiceImp
+    SC->>geo: create
 
-    SC-->>-PA: caricamento completato
-    PA-->>Admin: caricamento completato
+    create participant PA as PannelloAdmin
+    SA->>PA: mostra pannello
 
-    Admin->>PA: inserisce credenziali database
+    SA-->>-STK: caricamento completato
+    STK-->>-Admin: caricamento completato
+
+    Admin->>+PA: inserisce credenziali database
     PA->>+MDB: connetti(credenziali)
     MDB->>+DB: connetti
     DB-->>-MDB: connessione OK
@@ -36,19 +43,20 @@ sequenceDiagram
     PA-->>Admin: database connesso
 
     Admin->>PA: avvia server
-    create participant STK as ServerTK
-    PA->>+STK: avviaServer(serverContext)
+    create participant SRMI as ServerRMI
+    PA->>+SRMI: avvia(serverContext)
 
     create participant Registry
-    STK->>Registry: crea registro
+    SRMI->>Registry: crea registro
 
-    STK->>Registry: rebind(AuthServiceImp)
-    STK->>Registry: rebind(RecensioniServiceImp)
-    STK->>Registry: rebind(RistorantiServiceImp)
-    STK->>Registry: rebind(ProfiloServiceImp)
-    STK->>Registry: rebind(PreferitiServiceImp)
+    SRMI->>Registry: rebind(AuthServiceImp)
+    SRMI->>Registry: rebind(RecensioniServiceImp)
+    SRMI->>Registry: rebind(RistorantiServiceImp)
+    SRMI->>Registry: rebind(ProfiloServiceImp)
+    SRMI->>Registry: rebind(PreferitiServiceImp)
+    SRMI->>Registry: rebind(GeoServiceImp)
 
-    STK-->>-PA: server pronto
+    SRMI-->>-PA: server pronto
     PA-->>-Admin: server pronto
 ```
 # Login
