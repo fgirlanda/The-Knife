@@ -6,17 +6,19 @@
 package com.gruppo10.controller;
 
 import javafx.scene.control.Label;
-import java.sql.SQLException;
+
+import java.rmi.RemoteException;
+import java.security.NoSuchAlgorithmException;
 import java.time.format.DateTimeFormatter;
+
+import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.UsernameGiaEsistenteException;
-import com.gruppo10.database.UtenteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -24,7 +26,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import org.controlsfx.control.textfield.TextFields;
 
 /**
  * Controller per la schermata di registrazione. Gestisce l'interazione
@@ -151,13 +152,27 @@ public class RegistrazioneController extends BasicController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String dataNascita = dataNascitaPicker.getValue().format(formatter);
 
-        password = Criptatore.cripta(password);
+        try {
+            password = Criptatore.cripta(password);
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if (password == null)
             return;
 
-        Coordinate coordinate = new Coordinate(indirizzo);
-        if (coordinate.getLat() == null)
+        // Coordinate coordinate = new Coordinate(indirizzo);
+        // if (coordinate.getLat() == null)
+        //     return;
+
+        Coordinate coordinate;
+
+        try{
+            coordinate = clientContext.getGeoService().geocodifica(indirizzo);
+        } catch (Exception e) {
+            GestioneEccezioni.errore("Errore durante la geocodifica dell'indirizzo", e, false, null);
             return;
+        }
 
         Utente utente = new Utente();
         utente.setNome(nome);
@@ -170,11 +185,8 @@ public class RegistrazioneController extends BasicController {
         utente.setCords(coordinate);
 
         try {
-            new UtenteDAO().aggiungiUtente(utente);
-            apriLogin();
-        } catch (UsernameGiaEsistenteException e) {
-            statusRegistrazione.setText("Username già in uso. Scegli un altro username.");
-        } catch (IllegalArgumentException | SQLException e) {
+            clientContext.getAuthService().registrati(utente);
+        } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante la registrazione", e, false, null);
         }
     }

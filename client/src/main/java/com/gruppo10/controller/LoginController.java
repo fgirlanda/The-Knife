@@ -16,11 +16,8 @@ import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
-import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Indirizzi;
-import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.UtenteDAO;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -111,8 +108,9 @@ public class LoginController extends BasicController {
 
         if (hashedPassword == null)
             return;
-
+        
         try {
+            
             Optional<Utente> risultato = new UtenteDAO().cercaUtente(username);
             if (risultato.isEmpty()) {
                 loginStatus.setVisible(true);

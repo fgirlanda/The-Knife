@@ -5,6 +5,7 @@
  */
 package com.gruppo10.controller;
 
+import com.gruppo10.ClientContext;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.gui_elements.SceneManager;
 
@@ -69,6 +70,8 @@ public class BasicController {
     /** Label per la password (mostrata come asterischi). */
     @FXML
     private Label labelPassword;
+
+    protected ClientContext clientContext;
 
     /**
      * Imposta lo {@link Stage} associato a questo controller.
@@ -149,5 +152,9 @@ public class BasicController {
         LoginController.utenteLoggato = null;
         utenteLoggato = null;
         SceneManager.apriLogin(stage);
+    }
+
+    public void setContext(ClientContext context) {
+        this.clientContext = context;
     }
 }

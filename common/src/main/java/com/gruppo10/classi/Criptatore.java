@@ -38,22 +38,19 @@ public class Criptatore {
      *
      * Nota: L'output non è reversibile. Una volta generato l'hash, non è
      *           possibile risalire alla stringa originale.
+     * @throws NoSuchAlgorithmException 
      *
      * @see java.security.MessageDigest
      */
-    public static String cripta(String input) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(input.getBytes());
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hashBytes) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
+    public static String cripta(String input) throws NoSuchAlgorithmException {
 
-        } catch (NoSuchAlgorithmException e) {
-            GestioneEccezioni.errore("Algoritmo SHA-256 non disponibile", e, false, null);
-            return null;
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hashBytes = digest.digest(input.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hashBytes) {
+            hexString.append(String.format("%02x", b));
         }
+        return hexString.toString();
+
     }
 }

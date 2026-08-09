@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import com.gruppo10.TheKnife;
+import com.gruppo10.ClientTK;
+import com.gruppo10.classi.Ristorante;
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
@@ -165,7 +166,7 @@ public class SceneManager {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
             try {
-                FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(guiPath + fxmlFile));
+                FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
                 HBox card = loader.load();
 
                 Card<T> controller = loader.getController();
@@ -198,7 +199,7 @@ public class SceneManager {
     public static <T> void cambioScena(Stage stage, String fxmlFile, String title,
             Consumer<T> controllerConsumer) {
         try {
-            FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(guiPath + fxmlFile));
+            FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
@@ -231,7 +232,7 @@ public class SceneManager {
             Consumer<T> controllerConsumer) {
         Stage dialogStage = null;
         try {
-            FXMLLoader loader = new FXMLLoader(TheKnife.class.getResource(guiPath + fxmlFile));
+            FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
             Parent root = loader.load();
 
             dialogStage = new Stage();

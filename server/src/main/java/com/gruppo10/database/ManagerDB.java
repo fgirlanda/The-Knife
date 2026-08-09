@@ -30,4 +30,20 @@ public class ManagerDB {
     static Connection apri() throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
+
+    public PreferitoDAO getPreferitoDAO() {
+        return preferitoDAO;
+    }
+
+    public RecensioneDAO getRecensioneDAO() {
+        return recensioneDAO;
+    }
+
+    public RistoranteDAO getRistoranteDAO() {
+        return ristoranteDAO;
+    }
+
+    public UtenteDAO getUtenteDAO() {
+        return utenteDAO;
+    }
 }

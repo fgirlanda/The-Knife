@@ -15,7 +15,7 @@ public class ServerContext {
     ServerContext() throws RemoteException {
         managerDB = new ManagerDB();
         authServiceImp = new AuthServiceImp(managerDB);
-        geoServiceImp = new GeoServiceImp(managerDB);
+        geoServiceImp = new GeoServiceImp();
     }
     
     public ManagerDB getManagerDB() {
