@@ -26,7 +26,7 @@ import com.gruppo10.classi.TipoCucina;
  * comportamento che in precedenza era fornito da {@code RistoranteCSV}.
  * </p>
  */
-public class RistoranteDAO extends ManagerDB {
+public class RistoranteDAO extends BasicDAO {
 
     private static final String SELECT_COMPLETA = """
             SELECT r.id_ristorante, r.nome, r.indirizzo, r.delivery,

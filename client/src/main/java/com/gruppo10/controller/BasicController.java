@@ -5,8 +5,8 @@
  */
 package com.gruppo10.controller;
 
-import com.gruppo10.classi.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

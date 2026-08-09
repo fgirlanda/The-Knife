@@ -7,7 +7,7 @@ import java.util.List;
 import com.gruppo10.classi.Preferito;
 
 /** Gestisce la persistenza PostgreSQL dei ristoranti preferiti. */
-public class PreferitoDAO extends ManagerDB {
+public class PreferitoDAO extends BasicDAO {
 
     private static final String SELECT_BASE = "SELECT id_cliente, id_ristorante FROM preferiti";
 

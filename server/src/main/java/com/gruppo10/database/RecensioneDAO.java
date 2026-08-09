@@ -9,7 +9,7 @@ import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 
 /** Gestisce la persistenza PostgreSQL delle recensioni. */
-public class RecensioneDAO extends ManagerDB {
+public class RecensioneDAO extends BasicDAO {
 
     private static final String SELECT_BASE = """
             SELECT id_cliente, id_ristorante, id_recensione, username,

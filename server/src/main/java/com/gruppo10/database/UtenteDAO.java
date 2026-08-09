@@ -12,7 +12,7 @@ import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 
 /** Gestisce la persistenza PostgreSQL degli utenti. */
-public class UtenteDAO extends ManagerDB {
+public class UtenteDAO extends BasicDAO {
 
     private static final String SELECT_BASE = """
             SELECT id_utente, nome, cognome, username, password, data_nascita,
