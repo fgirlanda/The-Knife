@@ -5,21 +5,20 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Delivery;
-import com.gruppo10.classi.GestioneEccezioni;
-import com.gruppo10.classi.Indirizzi;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RistoranteDAO;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -138,7 +137,11 @@ public class AggiungiRistoranteController extends BasicController {
         btnAggiungiRistorante.setDefaultButton(true);
 
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
-            return Indirizzi.getRisultati(request.getUserText());
+            try {
+                return clientContext.getGeoService().suggerimenti(request.getUserText());
+            } catch (RemoteException e) {
+                return List.of();
+            }
         });
     }
 
@@ -189,7 +192,7 @@ public class AggiungiRistoranteController extends BasicController {
         ristorante.setCords(cords);
 
         try {
-            this.nuovoRistorante = new RistoranteDAO().aggiungiRistorante(ristorante);
+            clientContext.getRistoranteService().aggiungiRistorante(ristorante);
         } catch (IllegalArgumentException | SQLException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
             return;

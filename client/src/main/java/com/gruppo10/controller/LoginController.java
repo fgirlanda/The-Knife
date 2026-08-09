@@ -5,8 +5,9 @@
  */
 package com.gruppo10.controller;
 
-import java.sql.SQLException;
-import java.util.Optional;
+import java.rmi.RemoteException;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,10 +15,12 @@ import javafx.scene.control.Label;
 
 import org.controlsfx.control.textfield.TextFields;
 
+import com.gruppo10.gui_elements.GestioneEccezioni;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
-import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.eccezioni.GeocodingException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -32,8 +35,9 @@ import javafx.util.Duration;
 /**
  * Controller per la schermata di login. Gestisce l'interazione con i campi
  * di username, password e indirizzo, la validazione dei dati di login
- * e la navigazione verso la pagina principale o di registrazione.
- * Si occupa anche di gestire l'accesso per gli utenti non registrati.
+ * tramite {@code AuthService} e la navigazione verso la pagina principale o
+ * di registrazione. Si occupa anche di gestire l'accesso per gli utenti non
+ * registrati.
  */
 public class LoginController extends BasicController {
 
@@ -76,8 +80,13 @@ public class LoginController extends BasicController {
         indirizzoField.textProperty().addListener((_, _, _) -> controllaCampi());
 
         TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
-            return Indirizzi.getRisultati(request.getUserText());
+            try {
+                return clientContext.getGeoService().suggerimenti(request.getUserText());
+            } catch (RemoteException e) {
+                return List.of();
+            }
         });
+
         btnLogin.setDefaultButton(true);
         loginStatus.setVisible(false);
     }
@@ -96,37 +105,33 @@ public class LoginController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante di login.
-     * Cripta la password, cerca l'utente nel database e verifica le credenziali.
-     * In caso di successo, imposta l'utente come utente loggato e apre la pagina principale.
-     * In caso di errore, mostra un messaggio di stato appropriato.
+     * Cripta la password e chiede ad {@code AuthService} di verificare le
+     * credenziali sul server. In caso di successo, imposta l'utente come
+     * utente loggato e apre la pagina principale.
      */
     @FXML
     public void provaLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String hashedPassword = Criptatore.cripta(password);
-
-        if (hashedPassword == null)
-            return;
-        
+        String hashedPassword = "";
         try {
-            
-            Optional<Utente> risultato = new UtenteDAO().cercaUtente(username);
-            if (risultato.isEmpty()) {
+            hashedPassword = Criptatore.cripta(password);
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            Utente utente = clientContext.getAuthService().login(username, hashedPassword);
+            if (utente == null) {
                 loginStatus.setVisible(true);
-                loginStatus.setText("UTENTE NON REGISTRATO");
+                loginStatus.setText("CREDENZIALI NON VALIDE");
                 return;
             }
 
-            Utente utente = risultato.get();
-            if (hashedPassword.equals(utente.getPassword())) {
-                utenteLoggato = utente;
-                apriPaginaPrincipale();
-            } else {
-                loginStatus.setVisible(true);
-                loginStatus.setText("PASSWORD ERRATA");
-            }
-        } catch (IllegalArgumentException | SQLException e) {
+            utenteLoggato = utente;
+            apriPaginaPrincipale();
+        } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante il login", e, false, null);
         }
     }
@@ -142,15 +147,25 @@ public class LoginController extends BasicController {
 
     /**
      * Gestisce l'evento di clic sul pulsante "Continua senza registrarti".
-     * Crea un utente temporaneo con ruolo "NON_REGISTRATO" e le coordinate
-     * dell'indirizzo inserito, quindi apre la pagina principale.
+     * Geocodifica l'indirizzo tramite {@code GeoService}, crea un utente
+     * temporaneo con ruolo "NON_REGISTRATO", quindi apre la pagina
+     * principale.
      */
     @FXML
     public void continuaSenzaRegistrarti() {
         String indirizzo = indirizzoField.getText();
-        Coordinate coordinate = new Coordinate(indirizzo);
-        if (coordinate.getLat() == null)
+
+        Coordinate coordinate;
+        try {
+            coordinate = clientContext.getGeoService().geocodifica(indirizzo);
+        } catch (GeocodingException e) {
+            loginStatus.setVisible(true);
+            loginStatus.setText("INDIRIZZO NON TROVATO");
             return;
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Server non raggiungibile", e, false, null);
+            return;
+        }
 
         utenteLoggato = new Utente();
         utenteLoggato.setRuolo("NON_REGISTRATO");

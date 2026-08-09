@@ -10,6 +10,7 @@ import java.util.Optional;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.eccezioni.UsernameGiaEsistenteException;
 
 /** Gestisce la persistenza PostgreSQL degli utenti. */
 public class UtenteDAO extends BasicDAO {

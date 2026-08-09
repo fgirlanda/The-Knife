@@ -10,15 +10,17 @@ import javafx.scene.control.Label;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.controlsfx.control.textfield.TextFields;
 
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
 import com.gruppo10.gui_elements.GestioneEccezioni;
-import com.gruppo10.classi.Indirizzi;
 import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
+import com.gruppo10.eccezioni.UsernameGiaEsistenteException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -94,7 +96,13 @@ public class RegistrazioneController extends BasicController {
         dataNascitaPicker.valueProperty().addListener((_, _, _) -> controllaCampi());
         ruoloGroup.selectedToggleProperty().addListener((_, _, _) -> controllaCampi());
         btnRegistrati.setDefaultButton(true);
-        TextFields.<String>bindAutoCompletion(indirizzoField, request -> Indirizzi.getRisultati(request.getUserText()));
+        TextFields.<String>bindAutoCompletion(indirizzoField, request -> {
+            try {
+                return clientContext.getGeoService().suggerimenti(request.getUserText());
+            } catch (RemoteException e) {
+                return List.of();
+            }
+        });
     }
 
     /**
@@ -187,6 +195,8 @@ public class RegistrazioneController extends BasicController {
         try {
             clientContext.getAuthService().registrati(utente);
         } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore durante la registrazione", e, false, null);
+        } catch (UsernameGiaEsistenteException e) {
             GestioneEccezioni.errore("Errore durante la registrazione", e, false, null);
         }
     }
