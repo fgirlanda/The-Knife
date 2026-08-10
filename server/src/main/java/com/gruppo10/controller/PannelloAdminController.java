@@ -47,7 +47,7 @@ public class PannelloAdminController {
     }
 
     @FXML
-    public void connetti() {
+    public void connettiDB() {
         String host = hostField.getText();
         int porta = Integer.parseInt(portaField.getText());
         String database = dbField.getText();

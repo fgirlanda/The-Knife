@@ -5,16 +5,15 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RecensioneDAO;
-import com.gruppo10.database.RistoranteDAO;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -52,31 +51,37 @@ public class ProfiloClienteController extends BasicController {
         caricaDatiUtente();
 
         try {
-            ristoranti = new RistoranteDAO().trovaPreferitiPerUtente(utenteLoggato.getId());
+            ristoranti = clientContext.getRistorantiService().trovaPreferitiPerUtente(utenteLoggato.getId());
             SceneManager.caricaTessere(
                     ristoranti,
                     contenitoreTessereRis,
                     stage,
                     "card_ristorante.fxml",
+                    clientContext,
                     (controller, _) -> {
                         ((CardRistoranteController) controller).setPrincipale(false);
                         ((CardRistoranteController) controller).setStage(stage);
+                        ((CardRistoranteController) controller).setClientContext(clientContext);
                         ((CardRistoranteController) controller).setOnClick();
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
-            recensioni = new RecensioneDAO().trovaPerUtenteConRistorante(utenteLoggato.getId());
+            recensioni = clientContext.getRecensioniService().trovaPerUtenteConRistorante(utenteLoggato.getId());
             SceneManager.caricaTessere(
                     recensioni,
                     contenitoreTessereRec,
                     stage,
                     "card_recensione.fxml",
+                    clientContext,
                     (controller, _) -> {
                         ((CardRecensioneController) controller).setPrincipale(false);
+                        ((CardRecensioneController) controller).setClientContext(clientContext);
                         ((CardRecensioneController) controller).setIndiceTab(2);
                     });
 
         } catch (IllegalArgumentException | SQLException e) {
             GestioneEccezioni.errore("Errore durante il caricamento del profilo", e, false, null);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
         }
     }
 

@@ -54,4 +54,9 @@ public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceIn
             throw new RemoteException("Errore durante la registrazione", e);
         }
     }
+
+    @Override
+    public void trovaTutti() throws RemoteException, SQLException {
+        managerDB.getUtenteDAO().trovaTutti();
+    }
 }

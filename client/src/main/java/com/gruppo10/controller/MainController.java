@@ -5,11 +5,12 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import com.gruppo10.classi.GestioneEccezioni;
-import com.gruppo10.classi.SceneManager;
-import com.gruppo10.database.UtenteDAO;
+import com.gruppo10.gui_elements.GestioneEccezioni;
+import com.gruppo10.gui_elements.SceneManager;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -47,10 +48,12 @@ public class MainController extends BasicController {
      */
     private void theKnife() {
         try {
-            new UtenteDAO().trovaTutti();
+            clientContext.getAuthService().trovaTutti();
             SceneManager.apriLogin(stage);
         } catch (SQLException e) {
             GestioneEccezioni.errore("Impossibile accedere al database", e, false, null);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore durante l'accesso al database", e, false, null);
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import com.gruppo10.ClientContext;
 import com.gruppo10.ClientTK;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.controller.LoginController;
@@ -129,11 +130,13 @@ public class SceneManager {
      *
      * @param stage finestra principale
      * @param tab   indice della tab da aprire
+     * @param clientContext il contesto del client contenente le informazioni e i servizi condivisi
      */
-    public static void apriProfiloRistoratore(Stage stage, int tab) {
+    public static void apriProfiloRistoratore(Stage stage, int tab, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "profilo_ristoratore.fxml", "The Knife - Profilo",
                 (ProfiloRistoratoreController controller) -> {
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.caricaDati();
                     controller.setTab(tab);
                 });
@@ -161,7 +164,7 @@ public class SceneManager {
      * @param extraConfig        configurazione aggiuntiva, può essere null
      */
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere,
-            Stage stage, String fxmlFile,
+            Stage stage, String fxmlFile, ClientContext clientContext,
             BiConsumer<Card<T>, T> extraConfig) {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
@@ -171,6 +174,7 @@ public class SceneManager {
 
                 Card<T> controller = loader.getController();
                 controller.setStage(stage);
+                controller.setClientContext(clientContext);
 
                 if (extraConfig != null) {
                     extraConfig.accept(controller, r);

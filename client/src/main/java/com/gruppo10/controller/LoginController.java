@@ -7,6 +7,7 @@ package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.Scene;
@@ -133,6 +134,8 @@ public class LoginController extends BasicController {
             apriPaginaPrincipale();
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante il login", e, false, null);
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Errore durante la verifica delle credenziali", e, false, null);
         }
     }
 

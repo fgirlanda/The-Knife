@@ -6,6 +6,7 @@
 package com.gruppo10.controller;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 import com.gruppo10.gui_elements.GestioneEccezioni;
@@ -46,9 +47,6 @@ public class PaginaRistoranteController extends BasicController {
      * ristorante.
      */
     private boolean recPresente = false;
-
-    /** Gestore dei preferiti persistiti nel database. */
-    private final PreferitoDAO preferitoDAO = new PreferitoDAO();
 
     /** Percorso dell'immagine del cuore pieno per i preferiti. */
     private URL cuorePienoURL = ClientTK.class.getResource("/images/cuore_pieno.png");
@@ -133,8 +131,10 @@ public class PaginaRistoranteController extends BasicController {
                     contenitoreTessere,
                     stage,
                     "card_recensione.fxml",
+                    clientContext,
                     (controller, _) -> {
                         ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
+                        ((CardRecensioneController) controller).setClientContext(clientContext);
                         ((CardRecensioneController) controller).setIndiceTab(indiceTab);
                     });
         }
@@ -144,16 +144,16 @@ public class PaginaRistoranteController extends BasicController {
             btnPreferiti.setVisible(false);
         } else {
             try {
-                boolean preferito = preferitoDAO.controlloPreferito(
+                boolean preferito = clientContext.getPreferitiService().controlloPreferito(
                         utenteLoggato.getId(), ristorante.getId());
                 imagePreferiti.setImage(new ImageView((preferito ? cuorePienoURL : cuoreVuotoURL)
                         .toExternalForm()).getImage());
-                recPresente = new RecensioneDAO().esisteRecensione(
+                recPresente = clientContext.getRecensioniService().esisteRecensione(
                         utenteLoggato.getId(), ristorante.getId());
                 if (recPresente) {
                     btnAggiungiRecensione.setVisible(false);
                 }
-            } catch (IllegalArgumentException | SQLException e) {
+            } catch (IllegalArgumentException | SQLException | RemoteException e) {
                 GestioneEccezioni.errore("Errore durante il caricamento dei dati del ristorante", e, false, null);
             }
         }
@@ -205,7 +205,7 @@ public class PaginaRistoranteController extends BasicController {
             if (utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)) {
                 SceneManager.apriProfilo(stage, indiceTab);
             } else {
-                SceneManager.apriProfiloRistoratore(stage, indiceTab);
+                SceneManager.apriProfiloRistoratore(stage, indiceTab, clientContext);
             }
         }
     }
@@ -222,14 +222,16 @@ public class PaginaRistoranteController extends BasicController {
         boolean daAggiungere = imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png");
         try {
             if (daAggiungere) {
-                preferitoDAO.aggiungiPreferito(idUt, idRis);
+                clientContext.getPreferitiService().aggiungiPreferito(idUt, idRis);
                 imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
             } else {
-                preferitoDAO.rimuoviPreferito(idUt, idRis);
+                clientContext.getPreferitiService().rimuoviPreferito(idUt, idRis);
                 imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
             }
         } catch (IllegalArgumentException | SQLException e) {
             GestioneEccezioni.errore("Errore durante l'aggiornamento dei preferiti", e, false, null);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
         }
     }
 }

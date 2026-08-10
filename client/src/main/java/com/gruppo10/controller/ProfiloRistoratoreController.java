@@ -5,14 +5,14 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -31,9 +31,6 @@ public class ProfiloRistoratoreController extends BasicController {
     /** Utente ristoratore attualmente loggato */
     private Utente utenteloggato = LoginController.utenteLoggato;
 
-    /** Gestore dei ristoranti persistiti nel database. */
-    private final RistoranteDAO ristoranteDAO = new RistoranteDAO();
-
     /** Lista filtrata dei ristoranti di proprietà dell'utente */
     private List<Ristorante> listaFiltrata;
 
@@ -49,10 +46,12 @@ public class ProfiloRistoratoreController extends BasicController {
     public void caricaDati() {
         caricaDatiUtente();
         try {
-            listaFiltrata = ristoranteDAO.trovaPerProprietario(utenteloggato.getId());
+            listaFiltrata = clientContext.getRistorantiService().trovaPerProprietario(utenteloggato.getId());
             aggiornaContenitore(listaFiltrata);
         } catch (IllegalArgumentException | SQLException e) {
             GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
         }
     }
 
@@ -96,9 +95,11 @@ public class ProfiloRistoratoreController extends BasicController {
                 contenitoreTessere,
                 stage,
                 "card_ristorante.fxml",
+                clientContext,
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(false);
                     ((CardRistoranteController) controller).setStage(stage);
+                    ((CardRistoranteController) controller).setClientContext(clientContext);
                     ((CardRistoranteController) controller).setOnClick();
                     ((CardRistoranteController) controller).setIndiceTab(1);
                 });

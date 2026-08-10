@@ -5,6 +5,8 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.gui_elements;
 
+import com.gruppo10.ClientContext;
+
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -41,4 +43,6 @@ public interface Card<T> {
      * @param contenitore {@link VBox} in cui aggiungere la card
      */
     void setItem(T item, VBox contenitore);
+
+    void setClientContext(ClientContext clientContext);
 }

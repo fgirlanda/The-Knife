@@ -83,6 +83,15 @@ public class BasicController {
     }
 
     /**
+     * Imposta il contesto del client per questo controller.
+     *
+     * @param clientContext il contesto del client contenente le informazioni e i servizi condivisi
+     */
+    public void setClientContext(ClientContext clientContext) {
+        this.clientContext = clientContext;
+    }
+    
+    /**
      * Imposta se la pagina corrente è la pagina principale.
      *
      * @param paginaPrincipale {@code true} se è la pagina principale, {@code false} altrimenti

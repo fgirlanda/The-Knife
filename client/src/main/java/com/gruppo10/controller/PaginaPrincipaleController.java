@@ -5,21 +5,21 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.classi.Delivery;
 import com.gruppo10.classi.Distanza;
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.MediaRecensioni;
 import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,9 +46,6 @@ public class PaginaPrincipaleController extends BasicController {
 
     /** Utente attualmente loggato nell'applicazione. */
     private Utente utenteLoggato = LoginController.utenteLoggato;
-
-    /** Gestore dei ristoranti persistiti nel database. */
-    private final RistoranteDAO ristoranteDAO = new RistoranteDAO();
     
     /**
      * Pulsante per registrarsi o accedere al profilo, il cui testo cambia in base
@@ -133,8 +130,10 @@ public class PaginaPrincipaleController extends BasicController {
      */
     public void setRistoranti() {
         try {
-            ristoranti = ristoranteDAO.trovaTutti();
+            ristoranti = clientContext.getRistorantiService().getRistoranti();
             caricaTessere(ristoranti);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
         } catch (SQLException e) {
             GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         }
@@ -147,7 +146,7 @@ public class PaginaPrincipaleController extends BasicController {
     @FXML
     public void applicaFiltri() {
         try {
-            ristoranti = ristoranteDAO.cercaConFiltri(
+            ristoranti = clientContext.getRistorantiService().cercaConFiltri(
                     ricercaField.getText(),
                     comboFiltroCucina.getValue(),
                     comboFiltroPrezzo.getValue(),
@@ -158,7 +157,7 @@ public class PaginaPrincipaleController extends BasicController {
                     comboFiltroDistanza.getValue());
             contenitoreTessere.getChildren().clear();
             caricaTessere(ristoranti);
-        } catch (IllegalArgumentException | SQLException e) {
+        } catch (IllegalArgumentException | SQLException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante la ricerca dei ristoranti", e, false, null);
         }
     }
@@ -180,7 +179,7 @@ public class PaginaPrincipaleController extends BasicController {
         if (ruolo.equals(Ruolo.CLIENTE)) {
             SceneManager.apriProfilo(stage, 0);
         } else if (ruolo.equals(Ruolo.RISTORATORE)) {
-            SceneManager.apriProfiloRistoratore(stage, 0);
+            SceneManager.apriProfiloRistoratore(stage, 0, clientContext);
         } else {
             SceneManager.apriRegistrati(stage, true);
         }
@@ -197,9 +196,11 @@ public class PaginaPrincipaleController extends BasicController {
                 contenitoreTessere,
                 stage,
                 "card_ristorante.fxml",
+                clientContext,
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(true);
                     ((CardRistoranteController) controller).setStage(stage);
+                    ((CardRistoranteController) controller).setClientContext(clientContext);
                     ((CardRistoranteController) controller).setOnClick();
                 });
     }

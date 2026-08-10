@@ -3,6 +3,7 @@ package com.gruppo10.servizi_imp;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
@@ -25,6 +26,34 @@ public class RecensioniServiceImp extends UnicastRemoteObject implements Recensi
         managerDB.getRecensioneDAO().aggiungiRecensione(recensione);
         ristorante.aggiungiRecensione(recensione);
         managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
+    }
+
+    @Override
+    public void rimuoviRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException, SQLException {
+        managerDB.getRecensioneDAO().rimuoviRecensione(recensione);
+        ristorante.rimuoviRecensione(recensione);
+        managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
+    }
+
+    @Override
+    public boolean modificaRecensione(int idRec, String nuovoTesto, int nuovoVoto)
+            throws RemoteException, SQLException {
+        return managerDB.getRecensioneDAO().modificaRecensione(idRec, nuovoTesto, nuovoVoto);
+    }
+
+    @Override
+    public boolean esisteRecensione(int idUtente, int idRistorante) throws RemoteException, SQLException {
+        return managerDB.getRecensioneDAO().esisteRecensione(idUtente, idRistorante);
+    }
+
+    @Override
+    public List<Recensione> trovaPerUtenteConRistorante(int idUtente) throws SQLException {
+        return managerDB.getRecensioneDAO().trovaPerUtenteConRistorante(idUtente);
+    }
+
+    @Override
+    public boolean aggiungiRisposta(Recensione recensione, String risposta) throws RemoteException, SQLException {
+        return managerDB.getRecensioneDAO().aggiungiRisposta(recensione, risposta);
     }
     
 }

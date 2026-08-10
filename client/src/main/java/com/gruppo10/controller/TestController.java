@@ -5,9 +5,9 @@
  */
 package com.gruppo10.controller;
 
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Ruolo;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;

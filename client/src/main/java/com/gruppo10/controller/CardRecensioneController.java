@@ -5,14 +5,16 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RecensioneDAO;
-import com.gruppo10.database.RistoranteDAO;
+import com.gruppo10.gui_elements.Card;
+import com.gruppo10.gui_elements.GestioneEccezioni;
+import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -184,15 +186,12 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private void rimuovi() {
         try {
-            if (!new RecensioneDAO().rimuoviRecensione(recensione)) {
-                GestioneEccezioni.errore("Recensione non trovata",
-                        new SQLException("La recensione non esiste più nel database"), false, null);
-                return;
-            }
-            this.ristorante.rimuoviRecensione(this.recensione);
-            new RistoranteDAO().aggiornaMediaRecensioni(this.ristorante);
-        } catch (IllegalArgumentException | SQLException e) {
-            GestioneEccezioni.errore("Errore durante la rimozione della recensione", e, false, null);
+            clientContext.getRecensioniService().rimuoviRecensione(recensione, ristorante);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+            return;
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Errore nel database", e, false, null);
             return;
         }
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);

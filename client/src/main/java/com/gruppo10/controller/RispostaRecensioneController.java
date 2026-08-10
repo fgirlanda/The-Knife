@@ -5,11 +5,11 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
-import com.gruppo10.database.RecensioneDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -21,9 +21,6 @@ import javafx.scene.control.TextArea;
  * risposta stessa.
  */
 public class RispostaRecensioneController extends BasicController {
-
-    /** Gestore delle recensioni persistite nel database. */
-    private final RecensioneDAO recensioneDAO = new RecensioneDAO();
 
     /** La recensione a cui il ristoratore sta rispondendo */
     private Recensione recensione;
@@ -85,13 +82,16 @@ public class RispostaRecensioneController extends BasicController {
         String risposta = txtRisposta.getText();
 
         try {
-            if (!recensioneDAO.aggiungiRisposta(recensione, risposta)) {
+            if (!clientContext.getRecensioniService().aggiungiRisposta(recensione, risposta)) {
                 GestioneEccezioni.errore("Recensione non trovata",
                         new SQLException("La recensione non esiste più nel database"), false, null);
                 return;
             }
         } catch (IllegalArgumentException | SQLException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta della risposta", e, false, null);
+            return;
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;
         }
 

@@ -5,14 +5,13 @@
  */
 package com.gruppo10.controller;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.SceneManager;
-import com.gruppo10.database.RecensioneDAO;
-import com.gruppo10.database.RistoranteDAO;
+import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -166,7 +165,7 @@ public class ModificaRecensioneController extends BasicController {
 
         String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
         try {
-            boolean modificata = new RecensioneDAO().modificaRecensione(
+            boolean modificata = clientContext.getRecensioniService().modificaRecensione(
                     recensione.getIdRec(), nuovoTesto, nuovoVoto);
             if (!modificata) {
                 GestioneEccezioni.errore("Recensione non trovata",
@@ -183,10 +182,17 @@ public class ModificaRecensioneController extends BasicController {
             recensione.setRisposta(risposta);
             recensione.setRistorante(ristorante);
             ristorante.aggiungiRecensione(recensione);
-            new RistoranteDAO().aggiornaMediaRecensioni(ristorante);
-        } catch (IllegalArgumentException | SQLException e) {
+
+            clientContext.getRistorantiService().aggiornaMediaRecensioni(ristorante);
+        } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante la modifica della recensione", e, false, null);
             return;
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+            return;
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Errore nel database", e, false, null);
+            return; 
         }
 
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);

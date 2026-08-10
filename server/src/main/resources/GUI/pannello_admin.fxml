@@ -20,7 +20,7 @@
             <Label text="Nome db" />
             <TextField fx:id="dbField" />
             <Label text="Porta" />
-            <TextField fx:id="portField" />
+            <TextField fx:id="portaField" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="5.0">
