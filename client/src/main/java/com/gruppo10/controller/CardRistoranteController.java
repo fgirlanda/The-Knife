@@ -6,10 +6,11 @@
 package com.gruppo10.controller;
 
 import java.net.URL;
-import com.gruppo10.TheKnife;
-import com.gruppo10.classi.Card;
+
+import com.gruppo10.ClientTK;
+import com.gruppo10.gui_elements.Card;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -86,7 +87,7 @@ public class CardRistoranteController extends BasicController implements Card<Ri
     @Override
     public void setDati() {
         String cucina = this.ristorante.getTipoCucina().name();
-        URL imgURL = TheKnife.class.getResource("/images/"+cucina+".png");
+        URL imgURL = ClientTK.class.getResource("/images/"+cucina+".png");
         Image immagine = new Image(imgURL.toExternalForm());
         imgRistorante.setImage(immagine);
         txtNomeRistorante.setText(this.ristorante.getNomeRistorante());

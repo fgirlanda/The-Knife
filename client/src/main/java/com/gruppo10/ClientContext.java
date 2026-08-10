@@ -7,6 +7,10 @@ import java.rmi.registry.Registry;
 
 import com.gruppo10.servizi_int.AuthServiceInt;
 import com.gruppo10.servizi_int.GeoServiceInt;
+import com.gruppo10.servizi_int.PreferitiServiceInt;
+import com.gruppo10.servizi_int.ProfiloServiceInt;
+import com.gruppo10.servizi_int.RecensioniServiceInt;
+import com.gruppo10.servizi_int.RistorantiServiceInt;
 
 
 /**
@@ -27,12 +31,20 @@ public class ClientContext {
 
     private AuthServiceInt authService;
     private GeoServiceInt geoService;
+    private RistorantiServiceInt ristorantiService;
+    private RecensioniServiceInt recensioniService;
+    private PreferitiServiceInt preferitiService;
+    private ProfiloServiceInt profiloService;
 
     /** Corrisponde a "Client->>Reg: lookup(...)" ripetuto per i 6 servizi. */
     public void connetti() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry(HOST, PORTA);
         this.authService = (AuthServiceInt) registry.lookup("AuthService");
         this.geoService = (GeoServiceInt) registry.lookup("GeoService");
+        this.ristorantiService = (RistorantiServiceInt) registry.lookup("RistorantiService");
+        this.recensioniService = (RecensioniServiceInt) registry.lookup("RecensioniService");
+        this.preferitiService = (PreferitiServiceInt) registry.lookup("PreferitiService");
+        this.profiloService = (ProfiloServiceInt) registry.lookup("ProfiloService");
     }
 
     public AuthServiceInt getAuthService() {
@@ -41,5 +53,21 @@ public class ClientContext {
 
     public GeoServiceInt getGeoService() {
         return geoService;
+    }
+
+    public RistorantiServiceInt getRistorantiService() {
+        return ristorantiService;
+    }
+
+    public RecensioniServiceInt getRecensioniService() {
+        return recensioniService;
+    }
+
+    public PreferitiServiceInt getPreferitiService() {
+        return preferitiService;
+    }
+
+    public ProfiloServiceInt getProfiloService() {
+        return profiloService;
     }
 }

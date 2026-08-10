@@ -22,6 +22,8 @@ import com.gruppo10.database.ManagerDB;
  */
 public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceInt {
 
+    private static final long serialVersionUID = 1L;
+
     ManagerDB managerDB;
 
     public AuthServiceImp(ManagerDB managerDB) throws RemoteException {

@@ -8,16 +8,13 @@ package com.gruppo10.controller;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-
-import com.gruppo10.TheKnife;
-import com.gruppo10.classi.GestioneEccezioni;
+import com.gruppo10.gui_elements.GestioneEccezioni;
+import com.gruppo10.ClientTK;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.PreferitoDAO;
-import com.gruppo10.database.RecensioneDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,10 +51,10 @@ public class PaginaRistoranteController extends BasicController {
     private final PreferitoDAO preferitoDAO = new PreferitoDAO();
 
     /** Percorso dell'immagine del cuore pieno per i preferiti. */
-    private URL cuorePienoURL = TheKnife.class.getResource("/images/cuore_pieno.png");
+    private URL cuorePienoURL = ClientTK.class.getResource("/images/cuore_pieno.png");
 
     /** Percorso dell'immagine del cuore vuoto per i preferiti. */
-    private URL cuoreVuotoURL = TheKnife.class.getResource("/images/cuore_vuoto.png");
+    private URL cuoreVuotoURL = ClientTK.class.getResource("/images/cuore_vuoto.png");
 
     /** Label che mostra l'indirizzo del ristorante. */
     @FXML
@@ -123,7 +120,7 @@ public class PaginaRistoranteController extends BasicController {
         this.ristorante = ristorante;
 
         String cucina = this.ristorante.getTipoCucina().name();
-        URL imgURL = TheKnife.class.getResource("/images/"+cucina+".png");
+        URL imgURL = ClientTK.class.getResource("/images/"+cucina+".png");
         Image immagine = new Image(imgURL.toExternalForm());
         imgRistorante.setImage(immagine);
 

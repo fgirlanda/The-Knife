@@ -4,17 +4,14 @@
  Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.controller;
-
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import com.gruppo10.classi.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
-import com.gruppo10.classi.SceneManager;
+import com.gruppo10.gui_elements.GestioneEccezioni;
+import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
-import com.gruppo10.database.RecensioneDAO;
-import com.gruppo10.database.RecensioneDuplicataException;
-import com.gruppo10.database.RistoranteDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -133,14 +130,15 @@ public class AggiungiRecensioneController extends BasicController {
         recensione.setRistorante(ristorante);
 
         try {
-            new RecensioneDAO().aggiungiRecensione(recensione);
-            ristorante.aggiungiRecensione(recensione);
-            new RistoranteDAO().aggiornaMediaRecensioni(ristorante);
-        } catch (RecensioneDuplicataException e) {
-            GestioneEccezioni.errore("Hai già recensito questo ristorante", e, false, null);
+            clientContext.getRecensioniService().aggiungiRecensione(recensione, ristorante);
+        } catch (RemoteException e) {
+            GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;
-        } catch (IllegalArgumentException | SQLException e) {
-            GestioneEccezioni.errore("Errore durante l'aggiunta della recensione", e, false, null);
+        } catch (IllegalArgumentException e) {
+            GestioneEccezioni.errore("Dati della recensione non validi", e, false, null);
+            return;
+        } catch (SQLException e) {
+            GestioneEccezioni.errore("Errore nel database", e, false, null);
             return;
         }
 

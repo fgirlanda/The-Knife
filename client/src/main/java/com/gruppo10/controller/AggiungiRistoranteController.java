@@ -168,9 +168,14 @@ public class AggiungiRistoranteController extends BasicController {
     @FXML
     private void aggiungiRistorante() {
         String indirizzo = indirizzoField.getText();
-        Coordinate cords = new Coordinate(indirizzo);
-        if (cords.getLat() == null)
+
+        Coordinate cords = null;
+        try{
+            cords = clientContext.getGeoService().geocodifica(indirizzo);
+        } catch (Exception e) {
+            GestioneEccezioni.errore("Errore durante la geocodifica dell'indirizzo", e, false, null);
             return;
+        }
 
         Delivery selectedDelivery = (Delivery) deliveryGroup.getSelectedToggle().getUserData();
         Prenotazione selectedPrenotazione = (Prenotazione) prenotazioneGroup.getSelectedToggle().getUserData();
@@ -192,8 +197,8 @@ public class AggiungiRistoranteController extends BasicController {
         ristorante.setCords(cords);
 
         try {
-            clientContext.getRistoranteService().aggiungiRistorante(ristorante);
-        } catch (IllegalArgumentException | SQLException e) {
+            clientContext.getRistorantiService().aggiungiRistorante(ristorante);
+        } catch (IllegalArgumentException | SQLException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
             return;
         }
