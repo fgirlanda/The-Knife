@@ -13,14 +13,14 @@ public interface RecensioniServiceInt extends Remote{
     void aggiungiRecensione(Recensione recensione, Ristorante ristorante)
             throws RemoteException, IllegalArgumentException, SQLException;
 
-    void rimuoviRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException, SQLException;
+    void rimuoviRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException;
 
-    boolean modificaRecensione(int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException, SQLException;
+    boolean modificaRecensione(int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException;
 
-    boolean esisteRecensione(int idUtente, int idRistorante) throws RemoteException, SQLException;
+    boolean esisteRecensione(int idUtente, int idRistorante) throws RemoteException;
 
-    List<Recensione> trovaPerUtenteConRistorante(int id) throws RemoteException, SQLException;
+    List<Recensione> trovaPerUtenteConRistorante(int id) throws RemoteException;
 
-    boolean aggiungiRisposta(Recensione recensione, String risposta) throws RemoteException, SQLException;
+    boolean aggiungiRisposta(Recensione recensione, String risposta) throws RemoteException;
 
 }

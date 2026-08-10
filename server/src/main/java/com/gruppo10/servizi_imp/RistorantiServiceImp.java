@@ -28,35 +28,59 @@ public class RistorantiServiceImp extends UnicastRemoteObject implements Ristora
     }
 
     @Override
-    public void aggiungiRistorante(Ristorante ristorante) throws RemoteException, IllegalArgumentException, SQLException {
-        managerDB.getRistoranteDAO().aggiungiRistorante(ristorante);
+    public void aggiungiRistorante(Ristorante ristorante) throws RemoteException {
+        try {
+            managerDB.getRistoranteDAO().aggiungiRistorante(ristorante);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante l'aggiunta del ristorante\n" + e.getMessage());
+        }
     }
 
     @Override
-    public void aggiornaMediaRecensioni(Ristorante ristorante) throws RemoteException, SQLException {
-        managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
+    public void aggiornaMediaRecensioni(Ristorante ristorante) throws RemoteException {
+        try {
+            managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante l'aggiornamento della media delle recensioni\n" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Ristorante> getRistoranti() throws RemoteException, SQLException {
-        return managerDB.getRistoranteDAO().trovaTutti();
+    public List<Ristorante> getRistoranti() throws RemoteException{
+        try {
+            return managerDB.getRistoranteDAO().trovaTutti();
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la ricerca dei ristoranti\n" + e.getMessage());
+        }
     }
 
     @Override
     public List<Ristorante> cercaConFiltri(String text, TipoCucina cucina, Prezzo prezzo, MediaRecensioni media,
             Delivery delivery, Prenotazione prenotazione, Coordinate cords, Distanza distanza)
-            throws RemoteException, SQLException {
-        return managerDB.getRistoranteDAO().cercaConFiltri(text, cucina, prezzo, media, delivery, prenotazione, cords, distanza);
+            throws RemoteException{
+        try {
+            return managerDB.getRistoranteDAO().cercaConFiltri(text, cucina, prezzo, media, delivery, prenotazione, cords, distanza);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la ricerca dei ristoranti\n" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Ristorante> trovaPreferitiPerUtente(int idUtente) throws RemoteException, SQLException {
-        return managerDB.getRistoranteDAO().trovaPreferitiPerUtente(idUtente);
+    public List<Ristorante> trovaPreferitiPerUtente(int idUtente) throws RemoteException{
+        try {
+            return managerDB.getRistoranteDAO().trovaPreferitiPerUtente(idUtente);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la ricerca dei ristoranti preferiti\n" + e.getMessage());
+        }
     }
 
     @Override
-    public List<Ristorante> trovaPerProprietario(int idUtente) throws RemoteException, SQLException {
-        return managerDB.getRistoranteDAO().trovaPerProprietario(idUtente);
+    public List<Ristorante> trovaPerProprietario(int idUtente) throws RemoteException{
+        try {
+            return managerDB.getRistoranteDAO().trovaPerProprietario(idUtente);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la ricerca dei ristoranti del proprietario\n" + e.getMessage());
+        }
     }
     
 }

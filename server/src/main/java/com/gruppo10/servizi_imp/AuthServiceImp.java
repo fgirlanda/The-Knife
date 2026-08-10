@@ -40,7 +40,7 @@ public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceIn
             }
             return null;
         } catch (SQLException e) {
-            throw new RemoteException("Errore durante la verifica delle credenziali", e);
+            throw new RemoteException("Errore durante la verifica delle credenziali\n" + e.getMessage());
         }
     }
 
@@ -51,12 +51,16 @@ public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceIn
         } catch (UsernameGiaEsistenteException e) {
             throw e;
         } catch (SQLException e) {
-            throw new RemoteException("Errore durante la registrazione", e);
+            throw new RemoteException("Errore durante la registrazione\n" + e.getMessage());
         }
     }
 
     @Override
-    public void trovaTutti() throws RemoteException, SQLException {
-        managerDB.getUtenteDAO().trovaTutti();
+    public void trovaTutti() throws RemoteException {
+        try {
+            managerDB.getUtenteDAO().trovaTutti();
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la ricerca di tutti gli utenti\n" + e.getMessage());
+        }
     }
 }

@@ -19,18 +19,30 @@ public class PreferitiServiceImp extends UnicastRemoteObject implements Preferit
     }
 
     @Override
-    public boolean controlloPreferito(int idUt, int idRis) throws IllegalArgumentException, RemoteException, SQLException {
-        return managerDB.getPreferitoDAO().controlloPreferito(idUt, idRis);
+    public boolean controlloPreferito(int idUt, int idRis) throws RemoteException {
+        try {
+            return managerDB.getPreferitoDAO().controlloPreferito(idUt, idRis);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante il controllo del preferito\n" + e.getMessage());
+        }
     }
 
     @Override
-    public void aggiungiPreferito(int idUt, int idRis) throws IllegalArgumentException, RemoteException, SQLException {
-        managerDB.getPreferitoDAO().aggiungiPreferito(idUt, idRis);
+    public void aggiungiPreferito(int idUt, int idRis) throws RemoteException {
+        try {
+            managerDB.getPreferitoDAO().aggiungiPreferito(idUt, idRis);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante l'aggiunta del preferito\n" + e.getMessage());
+        }
     }
 
     @Override
-    public void rimuoviPreferito(int idUt, int idRis) throws IllegalArgumentException, RemoteException, SQLException {
-        managerDB.getPreferitoDAO().rimuoviPreferito(idUt, idRis);
+    public void rimuoviPreferito(int idUt, int idRis) throws RemoteException {
+        try {
+            managerDB.getPreferitoDAO().rimuoviPreferito(idUt, idRis);
+        } catch (SQLException e) {
+            throw new RemoteException("Errore durante la rimozione del preferito\n" + e.getMessage());
+        }
     }
     
 }

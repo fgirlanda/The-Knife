@@ -6,8 +6,6 @@ Mattia Lambertoni 762595 VA
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
-
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
 
@@ -49,9 +47,7 @@ public class MainController extends BasicController {
     private void theKnife() {
         try {
             clientContext.getAuthService().trovaTutti();
-            SceneManager.apriLogin(stage);
-        } catch (SQLException e) {
-            GestioneEccezioni.errore("Impossibile accedere al database", e, false, null);
+            SceneManager.apriLogin(stage, clientContext);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante l'accesso al database", e, false, null);
         }

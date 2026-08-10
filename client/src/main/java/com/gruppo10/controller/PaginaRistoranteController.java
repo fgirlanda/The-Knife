@@ -7,7 +7,6 @@ package com.gruppo10.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.ClientTK;
@@ -153,7 +152,7 @@ public class PaginaRistoranteController extends BasicController {
                 if (recPresente) {
                     btnAggiungiRecensione.setVisible(false);
                 }
-            } catch (IllegalArgumentException | SQLException | RemoteException e) {
+            } catch (IllegalArgumentException | RemoteException e) {
                 GestioneEccezioni.errore("Errore durante il caricamento dei dati del ristorante", e, false, null);
             }
         }
@@ -187,6 +186,7 @@ public class PaginaRistoranteController extends BasicController {
                 (AggiungiRecensioneController controller) -> {
                     controller.setRistorante(this.ristorante);
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.setPrincipale(paginaPrincipale);
                 });
     }
@@ -200,10 +200,10 @@ public class PaginaRistoranteController extends BasicController {
     @FXML
     private void tornaIndietro() {
         if (paginaPrincipale) {
-            SceneManager.apriPaginaPrincipale(stage);
+            SceneManager.apriPaginaPrincipale(stage, clientContext);
         } else {
             if (utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)) {
-                SceneManager.apriProfilo(stage, indiceTab);
+                SceneManager.apriProfilo(stage, indiceTab, clientContext);
             } else {
                 SceneManager.apriProfiloRistoratore(stage, indiceTab, clientContext);
             }
@@ -228,7 +228,7 @@ public class PaginaRistoranteController extends BasicController {
                 clientContext.getPreferitiService().rimuoviPreferito(idUt, idRis);
                 imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
             }
-        } catch (IllegalArgumentException | SQLException e) {
+        } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante l'aggiornamento dei preferiti", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);

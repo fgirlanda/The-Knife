@@ -7,7 +7,6 @@ package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.Scene;
@@ -109,18 +108,16 @@ public class LoginController extends BasicController {
      * Cripta la password e chiede ad {@code AuthService} di verificare le
      * credenziali sul server. In caso di successo, imposta l'utente come
      * utente loggato e apre la pagina principale.
+     * @throws NoSuchAlgorithmException 
      */
     @FXML
-    public void provaLogin() {
+    public void provaLogin() throws NoSuchAlgorithmException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String hashedPassword = "";
-        try {
-            hashedPassword = Criptatore.cripta(password);
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+        hashedPassword = Criptatore.cripta(password);
+
 
         try {
             Utente utente = clientContext.getAuthService().login(username, hashedPassword);
@@ -134,8 +131,6 @@ public class LoginController extends BasicController {
             apriPaginaPrincipale();
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante il login", e, false, null);
-        } catch (SQLException e) {
-            GestioneEccezioni.errore("Errore durante la verifica delle credenziali", e, false, null);
         }
     }
 
@@ -145,7 +140,7 @@ public class LoginController extends BasicController {
      */
     @FXML
     private void apriRegistrazione() {
-        SceneManager.apriRegistrati(stage, false);
+        SceneManager.apriRegistrati(stage, false, clientContext);
     }
 
     /**
@@ -189,7 +184,7 @@ public class LoginController extends BasicController {
         pause.setOnFinished(_ -> {
             Platform.runLater(() -> {
                 try {
-                    SceneManager.apriPaginaPrincipale(stage);
+                    SceneManager.apriPaginaPrincipale(stage, clientContext);
                 } catch (Exception e) {
                     GestioneEccezioni.errore("Errore caricamento pagina principale", e, false, null);
                 } finally {

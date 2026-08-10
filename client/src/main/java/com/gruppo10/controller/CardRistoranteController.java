@@ -63,7 +63,7 @@ public class CardRistoranteController extends BasicController implements Card<Ri
      */
     public void setOnClick() {
         card.setOnMouseClicked(_ -> { // _ = event
-            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
+            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
         });
     }
 

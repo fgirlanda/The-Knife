@@ -55,9 +55,12 @@ public class SceneManager {
      *
      * @param stage finestra principale
      */
-    public static void apriLogin(Stage stage) {
+    public static void apriLogin(Stage stage, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "login.fxml", "The Knife - Login",
-                (LoginController controller) -> controller.setStage(stage));
+                (LoginController controller) -> {
+                    controller.setStage(stage);
+                    controller.setClientContext(clientContext);
+                });
     }
 
     /**
@@ -65,10 +68,11 @@ public class SceneManager {
      *
      * @param stage finestra principale
      */
-    public static void apriPaginaPrincipale(Stage stage) {
+    public static void apriPaginaPrincipale(Stage stage, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "pagina_principale.fxml", "The Knife",
                 (PaginaPrincipaleController controller) -> {
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.setRistoranti();
                 });
     }
@@ -84,10 +88,11 @@ public class SceneManager {
      *                         profilo
      */
     public static void apriPaginaRistorante(Stage stage, Ristorante ristorante,
-            boolean paginaPrincipale, int indiceTab) {
+            boolean paginaPrincipale, int indiceTab, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "pagina_ristorante.fxml", "The Knife",
                 (PaginaRistoranteController controller) -> {
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setRistorante(ristorante);
                     controller.setDati();
@@ -102,11 +107,12 @@ public class SceneManager {
      * @param paginaPrincipale true se si proviene dalla pagina principale, false se
      *                         si proviene dal profilo
      */
-    public static void apriRegistrati(Stage stage, boolean paginaPrincipale) {
+    public static void apriRegistrati(Stage stage, boolean paginaPrincipale, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "registrazione.fxml", "The Knife - Registrazione",
                 (RegistrazioneController controller) -> {
                     controller.setStage(stage);
                     controller.setPrincipale(paginaPrincipale);
+                    controller.setClientContext(clientContext);
                 });
     }
 
@@ -115,11 +121,13 @@ public class SceneManager {
      *
      * @param stage finestra principale
      * @param tab   indice della tab da aprire
+     * @param clientContext 
      */
-    public static void apriProfilo(Stage stage, int tab) {
+    public static void apriProfilo(Stage stage, int tab, ClientContext clientContext) {
         SceneManager.cambioScena(stage, "profilo_cliente.fxml", "The Knife - Profilo",
                 (ProfiloClienteController controller) -> {
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.caricaDati();
                     controller.setTab(tab);
                 });

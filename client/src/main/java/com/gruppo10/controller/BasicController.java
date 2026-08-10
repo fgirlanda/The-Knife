@@ -160,7 +160,7 @@ public class BasicController {
     public void logOut() {
         LoginController.utenteLoggato = null;
         utenteLoggato = null;
-        SceneManager.apriLogin(stage);
+        SceneManager.apriLogin(stage, clientContext);
     }
 
     public void setContext(ClientContext context) {

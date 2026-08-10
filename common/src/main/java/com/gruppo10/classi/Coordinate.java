@@ -5,6 +5,8 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
  
+import java.io.Serializable;
+
 import lombok.Data;
  
 /**
@@ -30,7 +32,7 @@ import lombok.Data;
  * @version 2.0
  */
 @Data
-public class Coordinate {
+public class Coordinate implements Serializable {
     /** Raggio della Terra in km */
     private static final int R = 6371;
     /** Latitudine e Longitudine */

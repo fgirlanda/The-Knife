@@ -6,7 +6,6 @@
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.gui_elements.GestioneEccezioni;
@@ -78,7 +77,7 @@ public class ProfiloClienteController extends BasicController {
                         ((CardRecensioneController) controller).setIndiceTab(2);
                     });
 
-        } catch (IllegalArgumentException | SQLException e) {
+        } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante il caricamento del profilo", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
@@ -91,6 +90,6 @@ public class ProfiloClienteController extends BasicController {
      */
     @FXML
     private void tornaIndietro() {
-        SceneManager.apriPaginaPrincipale(stage);
+        SceneManager.apriPaginaPrincipale(stage, clientContext);
     }
 }

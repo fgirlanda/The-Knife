@@ -12,27 +12,27 @@
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Host" />
-            <TextField fx:id="hostField" />
+            <TextField fx:id="hostField" text="localhost" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Nome db" />
-            <TextField fx:id="dbField" />
+            <TextField fx:id="dbField" text="TheKnife" />
             <Label text="Porta" />
-            <TextField fx:id="portaField" />
+            <TextField fx:id="portaField" text="5432" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Username" />
-            <TextField fx:id="usernameField" />
+            <TextField fx:id="usernameField" text="postgres" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Password" />
-            <TextField fx:id="passwordField" />
+            <TextField fx:id="passwordField" text="Mattia2004" />
          </children>
       </HBox>
       <Button fx:id="btnConnetti" mnemonicParsing="false" onAction="#connettiDB" text="Connetti" />

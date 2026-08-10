@@ -190,12 +190,9 @@ public class ModificaRecensioneController extends BasicController {
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;
-        } catch (SQLException e) {
-            GestioneEccezioni.errore("Errore nel database", e, false, null);
-            return; 
         }
 
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
         chiudi();
     }
 }

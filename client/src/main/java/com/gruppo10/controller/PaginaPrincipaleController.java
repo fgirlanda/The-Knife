@@ -6,7 +6,6 @@
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.classi.Delivery;
@@ -134,8 +133,6 @@ public class PaginaPrincipaleController extends BasicController {
             caricaTessere(ristoranti);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
-        } catch (SQLException e) {
-            GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         }
     }
 
@@ -157,7 +154,7 @@ public class PaginaPrincipaleController extends BasicController {
                     comboFiltroDistanza.getValue());
             contenitoreTessere.getChildren().clear();
             caricaTessere(ristoranti);
-        } catch (IllegalArgumentException | SQLException | RemoteException e) {
+        } catch (IllegalArgumentException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante la ricerca dei ristoranti", e, false, null);
         }
     }
@@ -177,11 +174,11 @@ public class PaginaPrincipaleController extends BasicController {
     private void gestisciBottoneUtente() {
         Ruolo ruolo = utenteLoggato.getRuolo();
         if (ruolo.equals(Ruolo.CLIENTE)) {
-            SceneManager.apriProfilo(stage, 0);
+            SceneManager.apriProfilo(stage, 0, clientContext);
         } else if (ruolo.equals(Ruolo.RISTORATORE)) {
             SceneManager.apriProfiloRistoratore(stage, 0, clientContext);
         } else {
-            SceneManager.apriRegistrati(stage, true);
+            SceneManager.apriRegistrati(stage, true, clientContext);
         }
     }
 

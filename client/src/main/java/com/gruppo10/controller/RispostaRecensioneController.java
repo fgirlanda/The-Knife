@@ -87,7 +87,7 @@ public class RispostaRecensioneController extends BasicController {
                         new SQLException("La recensione non esiste più nel database"), false, null);
                 return;
             }
-        } catch (IllegalArgumentException | SQLException e) {
+        } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta della risposta", e, false, null);
             return;
         } catch (RemoteException e) {

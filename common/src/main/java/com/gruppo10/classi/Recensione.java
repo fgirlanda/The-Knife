@@ -5,6 +5,8 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
 
+import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,7 +25,7 @@ import lombok.EqualsAndHashCode;
  * @version 1.0
  */
 @Data
-public class Recensione implements Identificabile {
+public class Recensione implements Identificabile, Serializable {
     
 
     /** ID univoco della recensione. */

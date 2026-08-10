@@ -5,6 +5,7 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class Utente implements Identificabile {
+public class Utente implements Identificabile, Serializable {
 
     /** ID univoco dell'utente. */
     private int id;

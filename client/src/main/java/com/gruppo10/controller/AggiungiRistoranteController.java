@@ -6,7 +6,6 @@
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -198,7 +197,7 @@ public class AggiungiRistoranteController extends BasicController {
 
         try {
             clientContext.getRistorantiService().aggiungiRistorante(ristorante);
-        } catch (IllegalArgumentException | SQLException | RemoteException e) {
+        } catch (IllegalArgumentException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
             return;
         }

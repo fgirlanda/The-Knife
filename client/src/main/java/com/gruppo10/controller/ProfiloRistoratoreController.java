@@ -6,7 +6,6 @@
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.gruppo10.gui_elements.GestioneEccezioni;
@@ -48,7 +47,7 @@ public class ProfiloRistoratoreController extends BasicController {
         try {
             listaFiltrata = clientContext.getRistorantiService().trovaPerProprietario(utenteloggato.getId());
             aggiornaContenitore(listaFiltrata);
-        } catch (IllegalArgumentException | SQLException e) {
+        } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
@@ -80,7 +79,7 @@ public class ProfiloRistoratoreController extends BasicController {
      */
     @FXML
     public void tornaIndietro() {
-        SceneManager.apriPaginaPrincipale(stage);
+        SceneManager.apriPaginaPrincipale(stage, clientContext);
     }
 
     /**

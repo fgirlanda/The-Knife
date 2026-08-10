@@ -5,6 +5,7 @@ Mattia Lambertoni 762595 VA
  */
 package com.gruppo10.classi;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import lombok.EqualsAndHashCode;
  * @version 1.0
  */
 @Data
-public class Ristorante implements Identificabile {
+public class Ristorante implements Identificabile, Serializable {
 
     
     /** ID univoco del ristorante. */

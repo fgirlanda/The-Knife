@@ -6,8 +6,6 @@
 package com.gruppo10.controller;
 
 import java.rmi.RemoteException;
-import java.sql.SQLException;
-
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
@@ -126,7 +124,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
         if (profilo) {
             txtCliente.setText(ristorante.getNomeRistorante());
             txtCliente.setOnMouseClicked(
-                    _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab));
+                    _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext));
         } else
             txtCliente.setText(recensione.getUsername());
         txtTesto.setText(recensione.getTesto());
@@ -156,7 +154,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
                         String nuovaRisposta = controller.getRisposta();
                         if (nuovaRisposta != null) {
                             recensione.setRisposta(nuovaRisposta);
-                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
+                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
                         }
                     });
                 });
@@ -190,10 +188,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;
-        } catch (SQLException e) {
-            GestioneEccezioni.errore("Errore nel database", e, false, null);
-            return;
         }
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
     }
 }

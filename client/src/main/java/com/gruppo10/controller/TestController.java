@@ -48,7 +48,7 @@ public class TestController extends BasicController {
         Utente utente = creaUtenteTest();
         LoginController.utenteLoggato = utente;
         try {
-            SceneManager.apriPaginaPrincipale(stage);
+            SceneManager.apriPaginaPrincipale(stage, clientContext);
         } catch (Exception e) {
             GestioneEccezioni.errore("Errore caricamento pagina principale", e, false, null);
         }
