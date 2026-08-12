@@ -194,6 +194,7 @@ public class RegistrazioneController extends BasicController {
 
         try {
             clientContext.getAuthService().registrati(utente);
+            apriLogin();
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante la registrazione", e, false, null);
         } catch (UsernameGiaEsistenteException e) {

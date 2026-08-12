@@ -207,17 +207,33 @@ diagrammi:
 - er (FATTO)
 - class
 - implementare db (FATTO)
-- creare GUI pannello admin
+- creare GUI pannello admin:
+  - loading/status connessione database
+  - loading/status avvio server
+  - lista utenti registrati
+  - counter utenti connessi
+  - altro(?)
 
 ### fgirlanda
 - use-case
 - sequence
 - ottimizzare gestione db (FATTO)
 - organizzare cartelle client-server (FATTO)
-- fixare problemi dovuti a divisione in moduli separati
-- implementare avvio server
+- fixare problemi dovuti a divisione in moduli separati (FATTO)
+- implementare avvio server (FATTO)
+- gestione permessi
 
 ### ggallon
 - activity
-- aggiustare istruzioni readme
+- aggiustare istruzioni installazione
 - aggiungere istruzioni db
+- distibuzione client/server/database su macchine diverse
+
+### Generale
+
+- aggiornamento gui in risposta a eventi client
+
+- documentazione (vedere pdf di lab-b su elearning):
+  - manuale utente
+  - manuale tecnico
+  - javadoc

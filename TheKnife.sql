@@ -384,6 +384,9 @@ ALTER TABLE ONLY public.ristoranti
     ADD CONSTRAINT ristoranti_utenti_fk FOREIGN KEY (proprietario) REFERENCES public.utenti(id_utente) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
+SELECT setval('public.utenti_id_seq', (SELECT MAX(id_utente) FROM public.utenti));
+
+
 -- Completed on 2026-07-31 16:49:28
 
 --

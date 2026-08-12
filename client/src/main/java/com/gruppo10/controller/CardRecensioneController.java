@@ -170,6 +170,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
         SceneManager.finestraDialogo("modifica_recensione.fxml", "Modifica", stage,
                 (ModificaRecensioneController controller) -> {
                     controller.setStage(stage);
+                    controller.setClientContext(clientContext);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setRecensione(recensione, contenitore);
                     controller.setRistorante(ristorante);
