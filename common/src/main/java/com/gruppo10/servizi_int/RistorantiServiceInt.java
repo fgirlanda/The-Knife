@@ -12,10 +12,11 @@ import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 
 public interface RistorantiServiceInt extends Remote{
 
-    void aggiungiRistorante(String token, Ristorante ristorante) throws RemoteException;
+    void aggiungiRistorante(String token, Ristorante ristorante) throws RemoteException, PermessoNegatoException;
 
     void aggiornaMediaRecensioni(String token, Ristorante ristorante) throws RemoteException;
 
@@ -26,6 +27,6 @@ public interface RistorantiServiceInt extends Remote{
 
     List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException;
 
-    List<Ristorante> trovaPerProprietario(String token, int id) throws RemoteException;
+    List<Ristorante> trovaPerProprietario(String token, int id) throws RemoteException, PermessoNegatoException;
 
 }

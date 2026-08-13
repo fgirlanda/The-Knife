@@ -17,6 +17,8 @@ import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
+import com.gruppo10.eccezioni.PermessoNegatoException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -195,6 +197,9 @@ public class AggiungiRistoranteController extends BasicController {
             clientContext.getRistorantiService().aggiungiRistorante(sessioneCorrente.getToken(), ristorante);
         } catch (IllegalArgumentException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
+            return;
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non hai i permessi per aggiungere un ristorante", e, false, null);
             return;
         }
 

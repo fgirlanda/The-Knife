@@ -187,4 +187,9 @@ public class RecensioneDAO extends BasicDAO {
                     "Per modificare o rimuovere una recensione serve un ID valido");
         }
     }
+
+    public boolean isRecensioneOwner(int idRec, int id) throws SQLException {
+        return selezionaBooleano("SELECT EXISTS (SELECT 1 FROM recensioni WHERE id_recensione = ? AND id_cliente = ?)",
+                idRec, id);
+    }
 }

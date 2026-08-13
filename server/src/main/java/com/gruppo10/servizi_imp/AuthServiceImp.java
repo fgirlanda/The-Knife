@@ -1,7 +1,6 @@
 package com.gruppo10.servizi_imp;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -22,17 +21,11 @@ import com.gruppo10.database.ManagerDB;
  * {@code equals}.
  * </p>
  */
-public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceInt {
+public class AuthServiceImp extends BasicServiceImp implements AuthServiceInt {
 
-    private static final long serialVersionUID = 1L;
-
-    ManagerDB managerDB;
-    SessionManager sessionManager;
 
     public AuthServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
-        super();
-        this.managerDB = managerDB;
-        this.sessionManager = sessionManager;
+        super(managerDB, sessionManager);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.gruppo10.ClientTK;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -138,7 +139,7 @@ public class PaginaRistoranteController extends BasicController {
             btnPreferiti.setVisible(false);
         } else {
             try {
-                boolean preferito = clientContext.getPreferitiService().controlloPreferito(
+                boolean preferito = clientContext.getPreferitiService().controlloPreferito(sessioneCorrente.getToken(),
                         sessioneCorrente.getUtente().getId(), ristorante.getId());
                 imagePreferiti.setImage(new ImageView((preferito ? cuorePienoURL : cuoreVuotoURL)
                         .toExternalForm()).getImage());
@@ -149,6 +150,8 @@ public class PaginaRistoranteController extends BasicController {
                 }
             } catch (IllegalArgumentException | RemoteException e) {
                 GestioneEccezioni.errore("Errore durante il caricamento dei dati del ristorante", e, false, null);
+            } catch (PermessoNegatoException e) {
+                GestioneEccezioni.errore("Permesso negato: non hai i permessi per visualizzare i dati del ristorante", e, false, null);
             }
         }
     }
@@ -217,16 +220,18 @@ public class PaginaRistoranteController extends BasicController {
         boolean daAggiungere = imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png");
         try {
             if (daAggiungere) {
-                clientContext.getPreferitiService().aggiungiPreferito(idUt, idRis);
+                clientContext.getPreferitiService().aggiungiPreferito(sessioneCorrente.getToken(), idUt, idRis);
                 imagePreferiti.setImage(new ImageView(cuorePienoURL.toExternalForm()).getImage());
             } else {
-                clientContext.getPreferitiService().rimuoviPreferito(idUt, idRis);
+                clientContext.getPreferitiService().rimuoviPreferito(sessioneCorrente.getToken(), idUt, idRis);
                 imagePreferiti.setImage(new ImageView(cuoreVuotoURL.toExternalForm()).getImage());
             }
         } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante l'aggiornamento dei preferiti", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non hai i permessi per modificare i preferiti", e, false, null);
         }
     }
 }

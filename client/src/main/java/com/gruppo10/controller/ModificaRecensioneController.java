@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.collections.ObservableList;
@@ -189,6 +190,9 @@ public class ModificaRecensioneController extends BasicController {
             return;
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+            return;
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non hai i permessi per modificare questa recensione", e, false, null);
             return;
         }
 

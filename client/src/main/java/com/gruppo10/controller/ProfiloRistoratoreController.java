@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.fxml.FXML;
@@ -47,6 +48,8 @@ public class ProfiloRistoratoreController extends BasicController {
             GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non hai i permessi per visualizzare i ristoranti di questo profilo", e, false, null);
         }
     }
 

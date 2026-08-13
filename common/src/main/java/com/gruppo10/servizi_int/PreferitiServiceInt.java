@@ -3,12 +3,14 @@ package com.gruppo10.servizi_int;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import com.gruppo10.eccezioni.PermessoNegatoException;
+
 public interface PreferitiServiceInt extends Remote{
 
-    boolean controlloPreferito(int idUt, int idRis) throws RemoteException;
+    boolean controlloPreferito(String token,int idUt, int idRis) throws RemoteException, PermessoNegatoException;
 
-    void aggiungiPreferito(int idUt, int idRis) throws RemoteException;
+    void aggiungiPreferito(String token, int idUt, int idRis) throws RemoteException, PermessoNegatoException;
 
-    void rimuoviPreferito(int idUt, int idRis) throws RemoteException;
+    void rimuoviPreferito(String token, int idUt, int idRis) throws RemoteException, PermessoNegatoException;
 
 }

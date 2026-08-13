@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 
 public interface RecensioniServiceInt extends Remote{
 
@@ -15,7 +16,7 @@ public interface RecensioniServiceInt extends Remote{
 
     void rimuoviRecensione(String token,Recensione recensione, Ristorante ristorante) throws RemoteException;
 
-    boolean modificaRecensione(String token,int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException;
+    boolean modificaRecensione(String token,int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException, PermessoNegatoException;
 
     boolean esisteRecensione(int idUtente, int idRistorante) throws RemoteException;
 
