@@ -3,18 +3,17 @@
     "configurations": [
         {
             "type": "java",
-            "name": "TheKnife",
+            "name": "1 - Pannello Admin (Server)",
             "request": "launch",
-            "mainClass": "com.gruppo10.Main",
-            "projectName": "TheKnife",
-            "vmArgs": "--module-path \"C:\\Users\\Pippo\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib\" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics --add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED"
+            "mainClass": "com.gruppo10.ServerBoot",
+            "projectName": "server"
         },
         {
             "type": "java",
-            "name": "File corrente",
+            "name": "2 - Applicazione (Client)",
             "request": "launch",
-            "mainClass": "${file}",
-            "vmArgs": "--module-path \"C:\\Users\\Pippo\\Desktop\\Dev Projects\\Java\\JavaFX\\javafx-sdk-24.0.1\\lib\" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics --add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED"
+            "mainClass": "com.gruppo10.ClientBoot",
+            "projectName": "client"
         }
     ]
 }

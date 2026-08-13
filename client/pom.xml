@@ -43,7 +43,7 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.gruppo10.ClientTK</mainClass>
+                    <mainClass>com.gruppo10.ClientBoot</mainClass>
                 </configuration>
             </plugin>
             <!-- mvn -pl client package  ->  jar eseguibile per la consegna -->
@@ -59,7 +59,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.gruppo10.ClientTK</mainClass>
+                                    <mainClass>com.gruppo10.ClientBoot</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

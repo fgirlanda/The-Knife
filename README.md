@@ -4,12 +4,8 @@ Progetto di laboratorio per Università degli studi dell'Insubria, corso di Info
 
 ## CONFIGURAZIONE INIZIALE
 
-Per utilizzare il programma è necessario configurare javaFX. Passaggi:
-
-1) Scaricare javaFX
-2) Unzippare la cartella e copiare il percorso della cartella lib
-
-![Screenshot](Documentazione/img/istruzioni_avvio.png)
+JavaFX viene scaricato e configurato automaticamente da Maven: non è
+necessario installare manualmente l'SDK JavaFX.
 
 ## MAVEN
 
@@ -24,16 +20,19 @@ Per utilizzare il programma è necessario configurare javaFX. Passaggi:
 
 ### Avvio applicazione
 
-1) Tramite launch.json:
+1) Tramite `launch.json` in VS Code:
 
-- Andare su "Run" -> Add configuration
-- Modificare il file launch.json seguendo l'esempio launch_ex.json (sostituire il path a javafx con quello copiato al passaggio 2 della configurazione di javafx)
-- "File corrente" avvia il file attualmente aperto nell'editor, "The Knife" avvia il file TheKnife.java
+- selezionare `1 - Pannello Admin (Server)` e avviarlo;
+- configurare il database e premere `Avvia Server`;
+- selezionare `2 - Applicazione (Client)` e avviarlo.
 
 2) Tramite comando da terminale:
 
 - Assicurarsi di essere nella cartella principale (The-Knife) all'interno del terminale
-- lanciare il comando "mvn javafx:run -f pom.xml"
+- al primo avvio, preparare i moduli locali con `mvn install -DskipTests`;
+- avviare il pannello admin con `mvn -pl server javafx:run`;
+- configurare il database e avviare il server dal pannello;
+- in un secondo terminale avviare il client con `mvn -pl client javafx:run`.
 
 ### Compilazione e generazione jar+javadoc
 

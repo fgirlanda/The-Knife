@@ -13,7 +13,7 @@
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.gruppo10.ServerTK</mainClass>
+          <mainClass>com.gruppo10.ServerBoot</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.gruppo10.ServerTK</mainClass>
+                  <mainClass>com.gruppo10.ServerBoot</mainClass>
                 </transformer>
               </transformers>
             </configuration>

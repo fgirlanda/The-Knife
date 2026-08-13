@@ -5,7 +5,9 @@ import com.gruppo10.ServerPublisher;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class PannelloAdminController {
@@ -34,6 +36,27 @@ public class PannelloAdminController {
     @FXML
     private Button btnAvvia;
 
+    @FXML
+    private Label databaseStatusLabel;
+
+    @FXML
+    private Label databaseStatusDetail;
+
+    @FXML
+    private Label databaseStatusIcon;
+
+    @FXML
+    private Circle databaseStatusDot;
+
+    @FXML
+    private Label serverStatusLabel;
+
+    @FXML
+    private Circle serverStatusDot;
+
+    @FXML
+    private Label footerStatusLabel;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -48,13 +71,23 @@ public class PannelloAdminController {
 
     @FXML
     public void connettiDB() {
-        String host = hostField.getText();
-        int porta = Integer.parseInt(portaField.getText());
-        String database = dbField.getText();
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        try {
+            String host = hostField.getText();
+            int porta = Integer.parseInt(portaField.getText());
+            String database = dbField.getText();
+            String username = usernameField.getText();
+            String password = passwordField.getText();
 
-        serverContext.getManagerDB().connetti(host, porta, database, username, password);
+            serverContext.getManagerDB().connetti(host, porta, database, username, password);
+            aggiornaStatoDatabase(true, "Database configurato",
+                    "Parametri di connessione acquisiti con successo");
+            footerStatusLabel.setText("Database configurato. Ora puoi avviare il server.");
+        } catch (NumberFormatException e) {
+            aggiornaStatoDatabase(false, "Porta non valida",
+                    "Inserisci un numero valido nel campo Porta");
+        } catch (RuntimeException e) {
+            aggiornaStatoDatabase(false, "Configurazione non riuscita", e.getMessage());
+        }
     }
 
     @FXML
@@ -62,8 +95,43 @@ public class PannelloAdminController {
         ServerPublisher serverPublisher = new ServerPublisher(serverContext);
         try {
             serverPublisher.avvia();
+            aggiornaStatoServer(true, "Server avviato sulla porta RMI 1099");
+            btnAvvia.setDisable(true);
+            btnAvvia.setText("✓  Server Avviato");
+            footerStatusLabel.setText("Tutto pronto: database configurato e server in esecuzione.");
         } catch (Exception e) {
-            e.printStackTrace();
+            aggiornaStatoServer(false, "Avvio non riuscito: " + messaggioErrore(e));
         }
+    }
+
+    private void aggiornaStatoDatabase(boolean successo, String titolo, String dettaglio) {
+        databaseStatusLabel.setText(titolo);
+        databaseStatusDetail.setText(dettaglio == null ? "" : dettaglio);
+        databaseStatusIcon.setText(successo ? "✓" : "!");
+        applicaClasseStato(databaseStatusDot, successo);
+        applicaClasseTesto(databaseStatusLabel, successo);
+        databaseStatusIcon.getStyleClass().removeAll("status-icon-success", "status-icon-error");
+        databaseStatusIcon.getStyleClass().add(successo ? "status-icon-success" : "status-icon-error");
+    }
+
+    private void aggiornaStatoServer(boolean successo, String messaggio) {
+        serverStatusLabel.setText(messaggio);
+        applicaClasseStato(serverStatusDot, successo);
+        applicaClasseTesto(serverStatusLabel, successo);
+    }
+
+    private void applicaClasseStato(Circle indicatore, boolean successo) {
+        indicatore.getStyleClass().removeAll(
+                "status-dot-idle", "status-dot-success", "status-dot-error");
+        indicatore.getStyleClass().add(successo ? "status-dot-success" : "status-dot-error");
+    }
+
+    private void applicaClasseTesto(Label label, boolean successo) {
+        label.getStyleClass().removeAll("status-success", "status-error");
+        label.getStyleClass().add(successo ? "status-success" : "status-error");
+    }
+
+    private String messaggioErrore(Exception errore) {
+        return errore.getMessage() == null ? errore.getClass().getSimpleName() : errore.getMessage();
     }
 }
