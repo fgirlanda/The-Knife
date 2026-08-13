@@ -196,7 +196,7 @@ public class ModificaRecensioneController extends BasicController {
             return;
         }
 
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext, sessioneCorrente);
         chiudi();
     }
 }

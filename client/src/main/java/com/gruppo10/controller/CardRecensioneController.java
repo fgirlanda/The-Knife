@@ -121,7 +121,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
         if (profilo) {
             txtCliente.setText(ristorante.getNomeRistorante());
             txtCliente.setOnMouseClicked(
-                    _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext));
+                    _ -> SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext, sessioneCorrente));
         } else
             txtCliente.setText(recensione.getUsername());
         txtTesto.setText(recensione.getTesto());
@@ -151,7 +151,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
                         String nuovaRisposta = controller.getRisposta();
                         if (nuovaRisposta != null) {
                             recensione.setRisposta(nuovaRisposta);
-                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
+                            SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext, sessioneCorrente);
                         }
                     });
                 });
@@ -190,6 +190,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
             GestioneEccezioni.errore("Permesso negato: non sei autorizzato a eseguire questa azione", e, false, null);
             return;
         }
-        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
+        SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext, sessioneCorrente);
     }
 }

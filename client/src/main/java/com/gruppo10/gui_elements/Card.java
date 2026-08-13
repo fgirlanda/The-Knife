@@ -6,6 +6,7 @@ Mattia Lambertoni 762595 VA
 package com.gruppo10.gui_elements;
 
 import com.gruppo10.ClientContext;
+import com.gruppo10.classi.Sessione;
 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,4 +46,6 @@ public interface Card<T> {
     void setItem(T item, VBox contenitore);
 
     void setClientContext(ClientContext clientContext);
+
+    void setSessioneCorrente(Sessione sessioneCorrente);
 }

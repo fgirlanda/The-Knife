@@ -3,6 +3,7 @@ package com.gruppo10.servizi_imp;
 import java.rmi.RemoteException;
     import java.sql.SQLException;
 
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.database.ManagerDB;
 import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.permessi.SessionManager;
@@ -17,7 +18,7 @@ public class PreferitiServiceImp extends BasicServiceImp implements PreferitiSer
     @Override
     public boolean controlloPreferito(String token,int idUt, int idRis) throws RemoteException, PermessoNegatoException {
         
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
 
         try {
             return managerDB.getPreferitoDAO().controlloPreferito(idUt, idRis);
@@ -29,7 +30,7 @@ public class PreferitiServiceImp extends BasicServiceImp implements PreferitiSer
     @Override
     public void aggiungiPreferito(String token, int idUt, int idRis) throws RemoteException, PermessoNegatoException {
 
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
 
         try {
             managerDB.getPreferitoDAO().aggiungiPreferito(idUt, idRis);
@@ -41,7 +42,7 @@ public class PreferitiServiceImp extends BasicServiceImp implements PreferitiSer
     @Override
     public void rimuoviPreferito(String token, int idUt, int idRis) throws RemoteException, PermessoNegatoException {
         
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
 
         try {
             managerDB.getPreferitoDAO().rimuoviPreferito(idUt, idRis);

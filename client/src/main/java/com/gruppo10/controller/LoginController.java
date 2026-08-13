@@ -43,7 +43,7 @@ import javafx.util.Duration;
 public class LoginController extends BasicController {
 
     /** Oggetto {@link Sessione}, inizializzato a null, a cui assegnare la sessione ottenuta dopo il login. */
-    public static Sessione sessioneCorrente = null;
+    public Sessione sessioneCorrente = null;
 
     /** Campo di testo per l'inserimento dell'indirizzo, in caso di accesso senza registrazione. */
     @FXML
@@ -141,7 +141,7 @@ public class LoginController extends BasicController {
      */
     @FXML
     private void apriRegistrazione() {
-        SceneManager.apriRegistrati(stage, false, clientContext);
+        SceneManager.apriRegistrati(stage, false, clientContext, sessioneCorrente);
     }
 
     /**
@@ -186,7 +186,7 @@ public class LoginController extends BasicController {
         pause.setOnFinished(_ -> {
             Platform.runLater(() -> {
                 try {
-                    SceneManager.apriPaginaPrincipale(stage, clientContext);
+                    SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
                 } catch (Exception e) {
                     GestioneEccezioni.errore("Errore caricamento pagina principale", e, false, null);
                 } finally {

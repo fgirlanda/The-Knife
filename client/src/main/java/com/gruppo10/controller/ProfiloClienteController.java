@@ -55,10 +55,9 @@ public class ProfiloClienteController extends BasicController {
                     stage,
                     "card_ristorante.fxml",
                     clientContext,
+                    sessioneCorrente,
                     (controller, _) -> {
                         ((CardRistoranteController) controller).setPrincipale(false);
-                        ((CardRistoranteController) controller).setStage(stage);
-                        ((CardRistoranteController) controller).setClientContext(clientContext);
                         ((CardRistoranteController) controller).setOnClick();
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
@@ -69,9 +68,9 @@ public class ProfiloClienteController extends BasicController {
                     stage,
                     "card_recensione.fxml",
                     clientContext,
+                    sessioneCorrente,
                     (controller, _) -> {
                         ((CardRecensioneController) controller).setPrincipale(false);
-                        ((CardRecensioneController) controller).setClientContext(clientContext);
                         ((CardRecensioneController) controller).setIndiceTab(2);
                     });
 
@@ -90,6 +89,6 @@ public class ProfiloClienteController extends BasicController {
      */
     @FXML
     private void tornaIndietro() {
-        SceneManager.apriPaginaPrincipale(stage, clientContext);
+        SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
     }
 }

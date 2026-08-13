@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 public class BasicController {
 
     /** Riferimento all'utente attualmente loggato. */
-    protected Sessione sessioneCorrente = LoginController.sessioneCorrente;
+    protected Sessione sessioneCorrente;
     
     /** La finestra (stage) associata a questo controller. */
     protected Stage stage;
@@ -158,12 +158,19 @@ public class BasicController {
      */
     @FXML
     public void logOut() {
-        LoginController.sessioneCorrente = null;
         sessioneCorrente = null;
         SceneManager.apriLogin(stage, clientContext);
     }
 
     public void setContext(ClientContext context) {
         this.clientContext = context;
+    }
+
+    public Sessione getSessioneCorrente() {
+        return sessioneCorrente;
+    }
+
+    public void setSessioneCorrente(Sessione sessioneCorrente) {
+        this.sessioneCorrente = sessioneCorrente;
     }
 }

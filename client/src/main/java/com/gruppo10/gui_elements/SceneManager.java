@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import com.gruppo10.ClientContext;
 import com.gruppo10.ClientTK;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.controller.LoginController;
 import com.gruppo10.controller.PaginaPrincipaleController;
 import com.gruppo10.controller.PaginaRistoranteController;
@@ -68,11 +69,12 @@ public class SceneManager {
      *
      * @param stage finestra principale
      */
-    public static void apriPaginaPrincipale(Stage stage, ClientContext clientContext) {
+    public static void apriPaginaPrincipale(Stage stage, ClientContext clientContext, Sessione sessioneCorrente) {
         SceneManager.cambioScena(stage, "pagina_principale.fxml", "The Knife",
                 (PaginaPrincipaleController controller) -> {
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setRistoranti();
                 });
     }
@@ -88,11 +90,12 @@ public class SceneManager {
      *                         profilo
      */
     public static void apriPaginaRistorante(Stage stage, Ristorante ristorante,
-            boolean paginaPrincipale, int indiceTab, ClientContext clientContext) {
+            boolean paginaPrincipale, int indiceTab, ClientContext clientContext, Sessione sessioneCorrente) {
         SceneManager.cambioScena(stage, "pagina_ristorante.fxml", "The Knife",
                 (PaginaRistoranteController controller) -> {
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setRistorante(ristorante);
                     controller.setDati();
@@ -107,12 +110,13 @@ public class SceneManager {
      * @param paginaPrincipale true se si proviene dalla pagina principale, false se
      *                         si proviene dal profilo
      */
-    public static void apriRegistrati(Stage stage, boolean paginaPrincipale, ClientContext clientContext) {
+    public static void apriRegistrati(Stage stage, boolean paginaPrincipale, ClientContext clientContext, Sessione sessioneCorrente) {
         SceneManager.cambioScena(stage, "registrazione.fxml", "The Knife - Registrazione",
                 (RegistrazioneController controller) -> {
                     controller.setStage(stage);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                 });
     }
 
@@ -123,11 +127,12 @@ public class SceneManager {
      * @param tab   indice della tab da aprire
      * @param clientContext 
      */
-    public static void apriProfilo(Stage stage, int tab, ClientContext clientContext) {
+    public static void apriProfilo(Stage stage, int tab, ClientContext clientContext, Sessione sessioneCorrente) {
         SceneManager.cambioScena(stage, "profilo_cliente.fxml", "The Knife - Profilo",
                 (ProfiloClienteController controller) -> {
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.caricaDati();
                     controller.setTab(tab);
                 });
@@ -139,12 +144,14 @@ public class SceneManager {
      * @param stage finestra principale
      * @param tab   indice della tab da aprire
      * @param clientContext il contesto del client contenente le informazioni e i servizi condivisi
+     * @param sessioneCorrente la sessione corrente dell'utente
      */
-    public static void apriProfiloRistoratore(Stage stage, int tab, ClientContext clientContext) {
+    public static void apriProfiloRistoratore(Stage stage, int tab, ClientContext clientContext, Sessione sessioneCorrente) {
         SceneManager.cambioScena(stage, "profilo_ristoratore.fxml", "The Knife - Profilo",
                 (ProfiloRistoratoreController controller) -> {
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.caricaDati();
                     controller.setTab(tab);
                 });
@@ -172,7 +179,7 @@ public class SceneManager {
      * @param extraConfig        configurazione aggiuntiva, può essere null
      */
     public static <T> void caricaTessere(List<T> lista, VBox contenitoreTessere,
-            Stage stage, String fxmlFile, ClientContext clientContext,
+            Stage stage, String fxmlFile, ClientContext clientContext, Sessione sessioneCorrente,
             BiConsumer<Card<T>, T> extraConfig) {
         contenitoreTessere.getChildren().clear();
         for (T r : lista) {
@@ -183,6 +190,7 @@ public class SceneManager {
                 Card<T> controller = loader.getController();
                 controller.setStage(stage);
                 controller.setClientContext(clientContext);
+                controller.setSessioneCorrente(sessioneCorrente);
 
                 if (extraConfig != null) {
                     extraConfig.accept(controller, r);

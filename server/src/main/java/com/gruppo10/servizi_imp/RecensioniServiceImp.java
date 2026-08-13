@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.database.ManagerDB;
 import com.gruppo10.eccezioni.PermessoNegatoException;
@@ -21,7 +22,7 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
     @Override
     public void aggiungiRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException {
 
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
         
         try {
             managerDB.getRecensioneDAO().aggiungiRecensione(recensione);
@@ -34,7 +35,7 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
 
     @Override
     public void rimuoviRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException {
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
         try {
             managerDB.getRecensioneDAO().rimuoviRecensione(recensione);
             ristorante.rimuoviRecensione(recensione);

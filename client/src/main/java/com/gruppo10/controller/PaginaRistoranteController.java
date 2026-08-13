@@ -127,9 +127,9 @@ public class PaginaRistoranteController extends BasicController {
                     stage,
                     "card_recensione.fxml",
                     clientContext,
+                    sessioneCorrente,
                     (controller, _) -> {
                         ((CardRecensioneController) controller).setPrincipale(paginaPrincipale);
-                        ((CardRecensioneController) controller).setClientContext(clientContext);
                         ((CardRecensioneController) controller).setIndiceTab(indiceTab);
                     });
         }
@@ -198,12 +198,12 @@ public class PaginaRistoranteController extends BasicController {
     @FXML
     private void tornaIndietro() {
         if (paginaPrincipale) {
-            SceneManager.apriPaginaPrincipale(stage, clientContext);
+            SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
         } else {
             if (sessioneCorrente.getUtente().getRuolo().equals(Ruolo.CLIENTE)) {
-                SceneManager.apriProfilo(stage, indiceTab, clientContext);
+                SceneManager.apriProfilo(stage, indiceTab, clientContext, sessioneCorrente);
             } else {
-                SceneManager.apriProfiloRistoratore(stage, indiceTab, clientContext);
+                SceneManager.apriProfiloRistoratore(stage, indiceTab, clientContext, sessioneCorrente);
             }
         }
     }

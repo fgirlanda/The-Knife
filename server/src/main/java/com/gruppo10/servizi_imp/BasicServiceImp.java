@@ -3,6 +3,7 @@ package com.gruppo10.servizi_imp;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.database.ManagerDB;
 import com.gruppo10.eccezioni.PermessoNegatoException;
@@ -20,11 +21,11 @@ public abstract class BasicServiceImp extends UnicastRemoteObject {
         this.sessionManager = sessionManager;
     }
 
-    protected void verificaPermessi(String token, String ruoloRichiesto) throws RemoteException, PermessoNegatoException {
+    protected void verificaPermessi(String token, Ruolo ruoloRichiesto) throws RemoteException, PermessoNegatoException {
         Utente utenteLoggato = sessionManager.utenteDiSessione(token).orElseThrow(() -> new PermessoNegatoException("Sessione non valida"));
 
-        if (!utenteLoggato.getRuolo().equals(ruoloRichiesto)) {
-            throw new PermessoNegatoException("Permesso negato: ruolo richiesto - " + ruoloRichiesto);
+        if (utenteLoggato.getRuolo() != ruoloRichiesto) {
+            throw new PermessoNegatoException("Permesso negato: ruolo richiesto - " + ruoloRichiesto.name());
         }
     }
     

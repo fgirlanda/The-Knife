@@ -48,9 +48,8 @@ public class TestController extends BasicController {
     public void accedi() {
         Utente utente = creaUtenteTest();
         sessioneCorrente = new Sessione(utente, "tokenDiTest");
-        LoginController.sessioneCorrente = sessioneCorrente;
         try {
-            SceneManager.apriPaginaPrincipale(stage, clientContext);
+            SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
         } catch (Exception e) {
             GestioneEccezioni.errore("Errore caricamento pagina principale", e, false, null);
         }

@@ -78,7 +78,7 @@ public class ProfiloRistoratoreController extends BasicController {
      */
     @FXML
     public void tornaIndietro() {
-        SceneManager.apriPaginaPrincipale(stage, clientContext);
+        SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
     }
 
     /**
@@ -94,10 +94,9 @@ public class ProfiloRistoratoreController extends BasicController {
                 stage,
                 "card_ristorante.fxml",
                 clientContext,
+                sessioneCorrente,
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(false);
-                    ((CardRistoranteController) controller).setStage(stage);
-                    ((CardRistoranteController) controller).setClientContext(clientContext);
                     ((CardRistoranteController) controller).setOnClick();
                     ((CardRistoranteController) controller).setIndiceTab(1);
                 });

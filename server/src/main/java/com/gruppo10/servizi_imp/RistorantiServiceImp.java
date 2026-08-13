@@ -11,6 +11,7 @@ import com.gruppo10.classi.MediaRecensioni;
 import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.classi.Ruolo;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.database.ManagerDB;
 import com.gruppo10.eccezioni.PermessoNegatoException;
@@ -26,7 +27,7 @@ public class RistorantiServiceImp extends BasicServiceImp implements RistorantiS
     @Override
     public void aggiungiRistorante(String token, Ristorante ristorante) throws RemoteException, PermessoNegatoException {
 
-        verificaPermessi(token, "RISTORATORE");
+        verificaPermessi(token, Ruolo.RISTORATORE);
 
         try {
             managerDB.getRistoranteDAO().aggiungiRistorante(ristorante);
@@ -67,7 +68,7 @@ public class RistorantiServiceImp extends BasicServiceImp implements RistorantiS
     @Override
     public List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException, PermessoNegatoException{
 
-        verificaPermessi(token, "CLIENTE");
+        verificaPermessi(token, Ruolo.CLIENTE);
         
         try {
             return managerDB.getRistoranteDAO().trovaPreferitiPerUtente(idUtente);
@@ -79,7 +80,7 @@ public class RistorantiServiceImp extends BasicServiceImp implements RistorantiS
     @Override
     public List<Ristorante> trovaPerProprietario(String token, int idUtente) throws RemoteException, PermessoNegatoException{
 
-        verificaPermessi(token, "RISTORATORE");
+        verificaPermessi(token, Ruolo.RISTORATORE);
 
         try {
             return managerDB.getRistoranteDAO().trovaPerProprietario(idUtente);

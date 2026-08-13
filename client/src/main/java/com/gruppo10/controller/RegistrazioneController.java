@@ -210,7 +210,7 @@ public class RegistrazioneController extends BasicController {
     @FXML
     private void annulla() {
         if (paginaPrincipale) {
-            SceneManager.apriPaginaPrincipale(stage, clientContext);
+            SceneManager.apriPaginaPrincipale(stage, clientContext, sessioneCorrente);
         } else {
             apriLogin();
         }

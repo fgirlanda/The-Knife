@@ -16,6 +16,7 @@ import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.TipoCucina;
 import javafx.fxml.FXML;
@@ -96,11 +97,7 @@ public class PaginaPrincipaleController extends BasicController {
      * </p>
      */
     public void initialize() {
-        if (sessioneCorrente.getUtente().getRuolo() == Ruolo.NON_REGISTRATO) {
-            btnRegistratiProfilo.setText("Registrati");
-        } else {
-            btnRegistratiProfilo.setText("Profilo");
-        }
+        
 
         btnCerca.setDefaultButton(true);
 
@@ -169,11 +166,11 @@ public class PaginaPrincipaleController extends BasicController {
     private void gestisciBottoneUtente() {
         Ruolo ruolo = sessioneCorrente.getUtente().getRuolo();
         if (ruolo.equals(Ruolo.CLIENTE)) {
-            SceneManager.apriProfilo(stage, 0, clientContext);
+            SceneManager.apriProfilo(stage, 0, clientContext, sessioneCorrente);
         } else if (ruolo.equals(Ruolo.RISTORATORE)) {
-            SceneManager.apriProfiloRistoratore(stage, 0, clientContext);
+            SceneManager.apriProfiloRistoratore(stage, 0, clientContext, sessioneCorrente);
         } else {
-            SceneManager.apriRegistrati(stage, true, clientContext);
+            SceneManager.apriRegistrati(stage, true, clientContext, sessioneCorrente);
         }
     }
 
@@ -189,11 +186,20 @@ public class PaginaPrincipaleController extends BasicController {
                 stage,
                 "card_ristorante.fxml",
                 clientContext,
+                sessioneCorrente,
                 (controller, _) -> {
                     ((CardRistoranteController) controller).setPrincipale(true);
-                    ((CardRistoranteController) controller).setStage(stage);
-                    ((CardRistoranteController) controller).setClientContext(clientContext);
                     ((CardRistoranteController) controller).setOnClick();
                 });
+    }
+
+    @Override
+    public void setSessioneCorrente(Sessione sessione) {
+        super.setSessioneCorrente(sessione);
+        if (sessione.getUtente().getRuolo().equals(Ruolo.NON_REGISTRATO)) {
+            btnRegistratiProfilo.setText("Registrati");
+        } else {
+            btnRegistratiProfilo.setText("Profilo");
+        }
     }
 }
