@@ -221,7 +221,7 @@ diagrammi:
 - organizzare cartelle client-server (FATTO)
 - fixare problemi dovuti a divisione in moduli separati (FATTO)
 - implementare avvio server (FATTO)
-- gestione permessi
+- gestione permessi (FATTO)
 - standardizzare il codice
 
 ### ggallon

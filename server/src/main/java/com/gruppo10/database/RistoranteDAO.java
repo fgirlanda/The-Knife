@@ -343,4 +343,9 @@ public class RistoranteDAO extends BasicDAO {
                     "I valori di filtro TUTTO non possono essere salvati come dati del ristorante");
         }
     }
+
+    public boolean isRistoranteOwner(int id, int id2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isRistoranteOwner'");
+    }
 }

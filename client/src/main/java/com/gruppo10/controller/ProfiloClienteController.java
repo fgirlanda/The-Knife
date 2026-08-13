@@ -11,6 +11,7 @@ import java.util.List;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -78,6 +79,8 @@ public class ProfiloClienteController extends BasicController {
             GestioneEccezioni.errore("Errore durante il caricamento del profilo", e, false, null);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non sei autorizzato a eseguire questa azione", e, false, null);
         }
     }
 

@@ -12,9 +12,9 @@ import com.gruppo10.eccezioni.PermessoNegatoException;
 public interface RecensioniServiceInt extends Remote{
 
     void aggiungiRecensione(String token,Recensione recensione, Ristorante ristorante)
-            throws RemoteException, IllegalArgumentException, SQLException;
+            throws RemoteException, IllegalArgumentException, SQLException, PermessoNegatoException;
 
-    void rimuoviRecensione(String token,Recensione recensione, Ristorante ristorante) throws RemoteException;
+    void rimuoviRecensione(String token,Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException;
 
     boolean modificaRecensione(String token,int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException, PermessoNegatoException;
 
@@ -22,6 +22,6 @@ public interface RecensioniServiceInt extends Remote{
 
     List<Recensione> trovaPerUtenteConRistorante(int idUtente) throws RemoteException;
 
-    boolean aggiungiRisposta(String token, Recensione recensione, String risposta) throws RemoteException;
+    boolean aggiungiRisposta(String token, Recensione recensione, String risposta) throws RemoteException, PermessoNegatoException;
 
 }

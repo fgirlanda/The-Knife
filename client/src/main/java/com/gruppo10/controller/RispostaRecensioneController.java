@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
+import com.gruppo10.eccezioni.PermessoNegatoException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -92,6 +94,9 @@ public class RispostaRecensioneController extends BasicController {
             return;
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+            return;
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non sei autorizzato a eseguire questa azione", e, false, null);
             return;
         }
 

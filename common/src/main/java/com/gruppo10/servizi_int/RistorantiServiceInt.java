@@ -25,7 +25,7 @@ public interface RistorantiServiceInt extends Remote{
     List<Ristorante> cercaConFiltri(String text, TipoCucina cucina, Prezzo prezzo, MediaRecensioni media,
             Delivery delivery, Prenotazione prenotazione, Coordinate cords, Distanza distanza) throws RemoteException;
 
-    List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException;
+    List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException, PermessoNegatoException;
 
     List<Ristorante> trovaPerProprietario(String token, int id) throws RemoteException, PermessoNegatoException;
 

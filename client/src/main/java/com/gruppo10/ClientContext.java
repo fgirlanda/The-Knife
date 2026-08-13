@@ -44,7 +44,6 @@ public class ClientContext {
         this.ristorantiService = (RistorantiServiceInt) registry.lookup("RistorantiService");
         this.recensioniService = (RecensioniServiceInt) registry.lookup("RecensioniService");
         this.preferitiService = (PreferitiServiceInt) registry.lookup("PreferitiService");
-        this.profiloService = (ProfiloServiceInt) registry.lookup("ProfiloService");
     }
 
     public AuthServiceInt getAuthService() {

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
 import javafx.fxml.FXML;
@@ -134,6 +135,9 @@ public class AggiungiRecensioneController extends BasicController {
             return;
         } catch (SQLException e) {
             GestioneEccezioni.errore("Errore nel database", e, false, null);
+            return;
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non sei autorizzato a eseguire questa azione", e, false, null);
             return;
         }
 

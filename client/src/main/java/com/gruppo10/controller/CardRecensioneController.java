@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
+import com.gruppo10.eccezioni.PermessoNegatoException;
 import com.gruppo10.gui_elements.Card;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
@@ -184,6 +185,9 @@ public class CardRecensioneController extends BasicController implements Card<Re
             clientContext.getRecensioniService().rimuoviRecensione(sessioneCorrente.getToken(),recensione, ristorante);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
+            return;
+        } catch (PermessoNegatoException e) {
+            GestioneEccezioni.errore("Permesso negato: non sei autorizzato a eseguire questa azione", e, false, null);
             return;
         }
         SceneManager.apriPaginaRistorante(stage, ristorante, paginaPrincipale, indiceTab, clientContext);
