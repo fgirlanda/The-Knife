@@ -143,9 +143,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
      */
     @FXML
     private void rispondi() {
-        SceneManager.finestraDialogo("rispondi_recensione.fxml", "Rispondi", stage,
+        SceneManager.finestraDialogo("rispondi_recensione.fxml", "Rispondi", stage, clientContext, sessioneCorrente,
                 (RispostaRecensioneController controller) -> {
                     controller.setRecensione(recensione);
+                    controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setOnCloseCallBack(() -> {
 
                         String nuovaRisposta = controller.getRisposta();
@@ -164,10 +166,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
      */
     @FXML
     private void apriModifica() {
-        SceneManager.finestraDialogo("modifica_recensione.fxml", "Modifica", stage,
+        SceneManager.finestraDialogo("modifica_recensione.fxml", "Modifica", stage, clientContext, sessioneCorrente,
                 (ModificaRecensioneController controller) -> {
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setPrincipale(paginaPrincipale);
                     controller.setRecensione(recensione, contenitore);
                     controller.setRistorante(ristorante);

@@ -248,7 +248,7 @@ public class SceneManager {
      *                           null
      * @return stage della finestra di dialogo, o null se si verifica un errore
      */
-    public static <T> Stage finestraDialogo(String fxmlFile, String title, Stage owner,
+    public static <T> Stage finestraDialogo(String fxmlFile, String title, Stage owner, ClientContext clientContext, Sessione sessioneCorrente,
             Consumer<T> controllerConsumer) {
         Stage dialogStage = null;
         try {

@@ -180,11 +180,12 @@ public class PaginaRistoranteController extends BasicController {
      */
     @FXML
     private void aggiungiRecensione() {
-        SceneManager.finestraDialogo("aggiungi_recensione.fxml", "Aggiungi Recensione", stage,
+        SceneManager.finestraDialogo("aggiungi_recensione.fxml", "Aggiungi Recensione", stage, clientContext, sessioneCorrente,
                 (AggiungiRecensioneController controller) -> {
                     controller.setRistorante(this.ristorante);
                     controller.setStage(stage);
                     controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setPrincipale(paginaPrincipale);
                 });
     }

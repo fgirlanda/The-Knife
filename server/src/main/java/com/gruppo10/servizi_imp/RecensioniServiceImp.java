@@ -52,7 +52,7 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
         try {
             Utente utenteLoggato = sessionManager.utenteDiSessione(token).orElseThrow(() -> new PermessoNegatoException("Sessione non valida"));
 
-            if (!utenteLoggato.getRuolo().equals("CLIENTE") || !managerDB.getRecensioneDAO().isRecensioneOwner(idRec, utenteLoggato.getId())) {
+            if (!utenteLoggato.getRuolo().equals(Ruolo.CLIENTE) || !managerDB.getRecensioneDAO().isRecensioneOwner(idRec, utenteLoggato.getId())) {
                 throw new PermessoNegatoException("Permesso negato: non hai i permessi per modificare questa recensione");
             }
 
@@ -86,7 +86,7 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
         
         Utente utenteLoggato = sessionManager.utenteDiSessione(token).orElseThrow(() -> new PermessoNegatoException("Sessione non valida"));
 
-        if (!utenteLoggato.getRuolo().equals("RISTORATORE") ||
+        if (!utenteLoggato.getRuolo().equals(Ruolo.RISTORATORE) ||
             !managerDB.getRistoranteDAO().isRistoranteOwner(recensione.getRistorante().getId(), utenteLoggato.getId())) {
             throw new PermessoNegatoException("Permesso negato: non hai i permessi per rispondere a questa recensione");
         }

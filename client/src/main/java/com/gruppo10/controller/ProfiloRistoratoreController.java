@@ -60,8 +60,10 @@ public class ProfiloRistoratoreController extends BasicController {
      */
     @FXML
     private void apriAggiungiRistorante() {
-        SceneManager.finestraDialogo("aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage,
+        SceneManager.finestraDialogo("aggiungi_ristorante.fxml", "Aggiungi Ristorante", stage, clientContext, sessioneCorrente,
                 (AggiungiRistoranteController controller) -> {
+                    controller.setClientContext(clientContext);
+                    controller.setSessioneCorrente(sessioneCorrente);
                     controller.setOnCloseCallback(() -> {
                         Ristorante r = controller.getNuovoRistorante();
                         if (r != null) {
