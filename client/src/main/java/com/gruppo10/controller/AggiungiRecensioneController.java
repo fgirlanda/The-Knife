@@ -11,8 +11,6 @@ import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
-import com.gruppo10.classi.Utente;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -32,9 +30,6 @@ import javafx.scene.text.Text;
  * la gestione dell'utente loggato, dei pulsanti e delle finestre.</p>
  */
 public class AggiungiRecensioneController extends BasicController {
-
-    /** L'utente attualmente loggato nell'applicazione. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     /** Il ristorante a cui verrà aggiunta la recensione. */
     private Ristorante ristorante;
@@ -121,8 +116,8 @@ public class AggiungiRecensioneController extends BasicController {
         int stelle = selectedStella.getText().length();
 
         Recensione recensione = new Recensione();
-        recensione.setUsername(utenteLoggato.getUsername());
-        recensione.setIdUtente(utenteLoggato.getId());
+        recensione.setUsername(sessioneCorrente.getUtente().getUsername());
+        recensione.setIdUtente(sessioneCorrente.getUtente().getId());
         recensione.setIdRistorante(ristorante.getId());
         recensione.setStelle(stelle);
         recensione.setTesto(testo);
@@ -130,7 +125,7 @@ public class AggiungiRecensioneController extends BasicController {
         recensione.setRistorante(ristorante);
 
         try {
-            clientContext.getRecensioniService().aggiungiRecensione(recensione, ristorante);
+            clientContext.getRecensioniService().aggiungiRecensione(sessioneCorrente.getToken(), recensione, ristorante);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;

@@ -7,6 +7,7 @@ package com.gruppo10.controller;
 
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Ruolo;
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Utente;
 
@@ -46,7 +47,8 @@ public class TestController extends BasicController {
     @FXML
     public void accedi() {
         Utente utente = creaUtenteTest();
-        LoginController.utenteLoggato = utente;
+        sessioneCorrente = new Sessione(utente, "tokenDiTest");
+        LoginController.sessioneCorrente = sessioneCorrente;
         try {
             SceneManager.apriPaginaPrincipale(stage, clientContext);
         } catch (Exception e) {

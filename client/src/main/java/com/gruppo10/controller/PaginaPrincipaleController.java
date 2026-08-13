@@ -18,8 +18,6 @@ import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.TipoCucina;
-import com.gruppo10.classi.Utente;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -42,9 +40,6 @@ public class PaginaPrincipaleController extends BasicController {
 
     /** Lista di tutti i ristoranti caricati. */
     public List<Ristorante> ristoranti;
-
-    /** Utente attualmente loggato nell'applicazione. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
     
     /**
      * Pulsante per registrarsi o accedere al profilo, il cui testo cambia in base
@@ -101,7 +96,7 @@ public class PaginaPrincipaleController extends BasicController {
      * </p>
      */
     public void initialize() {
-        if (utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
+        if (sessioneCorrente.getUtente().getRuolo() == Ruolo.NON_REGISTRATO) {
             btnRegistratiProfilo.setText("Registrati");
         } else {
             btnRegistratiProfilo.setText("Profilo");
@@ -150,7 +145,7 @@ public class PaginaPrincipaleController extends BasicController {
                     comboFiltroRecensioni.getValue(),
                     comboFiltroDelivery.getValue(),
                     comboFiltroPrenotazione.getValue(),
-                    utenteLoggato.getCords(),
+                    sessioneCorrente.getUtente().getCords(),
                     comboFiltroDistanza.getValue());
             contenitoreTessere.getChildren().clear();
             caricaTessere(ristoranti);
@@ -172,7 +167,7 @@ public class PaginaPrincipaleController extends BasicController {
      */
     @FXML
     private void gestisciBottoneUtente() {
-        Ruolo ruolo = utenteLoggato.getRuolo();
+        Ruolo ruolo = sessioneCorrente.getUtente().getRuolo();
         if (ruolo.equals(Ruolo.CLIENTE)) {
             SceneManager.apriProfilo(stage, 0, clientContext);
         } else if (ruolo.equals(Ruolo.RISTORATORE)) {

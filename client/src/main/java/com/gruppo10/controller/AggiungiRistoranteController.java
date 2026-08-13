@@ -17,7 +17,6 @@ import com.gruppo10.classi.Prenotazione;
 import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
-import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -32,9 +31,6 @@ import javafx.scene.control.ComboBox;
  * la validazione degli input e il salvataggio dei dati nel database.
  */
 public class AggiungiRistoranteController extends BasicController {
-
-    /** L'utente attualmente loggato nell'applicazione. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     /** Callback da eseguire alla chiusura della finestra del controller. */
     private Runnable onCloseCallback;
@@ -182,7 +178,7 @@ public class AggiungiRistoranteController extends BasicController {
 
         String nomeRistorante = nomeRistoranteField.getText();
         
-        int idProprietario = utenteLoggato.getId();
+        int idProprietario = sessioneCorrente.getUtente().getId();
         Ristorante ristorante = new Ristorante();
         ristorante.setIdproprietario(idProprietario);
         ristorante.setNomeRistorante(nomeRistorante);
@@ -196,7 +192,7 @@ public class AggiungiRistoranteController extends BasicController {
         ristorante.setCords(cords);
 
         try {
-            clientContext.getRistorantiService().aggiungiRistorante(ristorante);
+            clientContext.getRistorantiService().aggiungiRistorante(sessioneCorrente.getToken(), ristorante);
         } catch (IllegalArgumentException | RemoteException e) {
             GestioneEccezioni.errore("Errore durante l'aggiunta del ristorante", e, false, null);
             return;

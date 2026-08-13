@@ -222,6 +222,7 @@ diagrammi:
 - fixare problemi dovuti a divisione in moduli separati (FATTO)
 - implementare avvio server (FATTO)
 - gestione permessi
+- standardizzare il codice
 
 ### ggallon
 - activity

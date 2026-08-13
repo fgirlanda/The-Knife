@@ -9,7 +9,6 @@ import java.rmi.RemoteException;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
-import com.gruppo10.classi.Utente;
 import com.gruppo10.gui_elements.Card;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
@@ -29,9 +28,6 @@ import javafx.scene.text.Text;
  * della recensione in base al ruolo dell'utente e al contesto.
  */
 public class CardRecensioneController extends BasicController implements Card<Recensione> {
-
-    /** L'utente attualmente loggato nell'applicazione. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     /** La recensione associata a questa card. */
     private Recensione recensione;
@@ -100,11 +96,11 @@ public class CardRecensioneController extends BasicController implements Card<Re
         this.contenitore = contenitore;
         titolo = stage.getTitle().toLowerCase();
         profilo = titolo.equals("the knife - profilo");
-        if (utenteLoggato.getRuolo() == Ruolo.CLIENTE || utenteLoggato.getId() != ristorante.getIdproprietario()
+        if (sessioneCorrente.getUtente().getRuolo() == Ruolo.CLIENTE || sessioneCorrente.getUtente().getId() != ristorante.getIdproprietario()
                 || !recensione.getRisposta().equals("")) {
             btnRispondi.setVisible(false);
         }
-        if (utenteLoggato.getId() != this.recensione.getIdUtente() || profilo) {
+        if (sessioneCorrente.getUtente().getId() != this.recensione.getIdUtente() || profilo) {
             btnRimuovi.setVisible(false);
             btnModifica.setVisible(false);
         }
@@ -185,7 +181,7 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private void rimuovi() {
         try {
-            clientContext.getRecensioniService().rimuoviRecensione(recensione, ristorante);
+            clientContext.getRecensioniService().rimuoviRecensione(sessioneCorrente.getToken(),recensione, ristorante);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;

@@ -8,6 +8,7 @@ import java.util.List;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.database.ManagerDB;
+import com.gruppo10.permessi.SessionManager;
 import com.gruppo10.servizi_int.RecensioniServiceInt;
 
 public class RecensioniServiceImp extends UnicastRemoteObject implements RecensioniServiceInt {
@@ -15,14 +16,16 @@ public class RecensioniServiceImp extends UnicastRemoteObject implements Recensi
     private static final long serialVersionUID = 1L;
 
     ManagerDB managerDB;
+    SessionManager sessionManager;
 
-    public RecensioniServiceImp(ManagerDB managerDB) throws RemoteException {
+    public RecensioniServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
         super();
         this.managerDB = managerDB;
+        this.sessionManager = sessionManager;
     }
 
     @Override
-    public void aggiungiRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException {
+    public void aggiungiRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException {
         try {
             managerDB.getRecensioneDAO().aggiungiRecensione(recensione);
             ristorante.aggiungiRecensione(recensione);
@@ -33,7 +36,7 @@ public class RecensioniServiceImp extends UnicastRemoteObject implements Recensi
     }
 
     @Override
-    public void rimuoviRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException {
+    public void rimuoviRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException {
         try {
             managerDB.getRecensioneDAO().rimuoviRecensione(recensione);
             ristorante.rimuoviRecensione(recensione);
@@ -44,7 +47,7 @@ public class RecensioniServiceImp extends UnicastRemoteObject implements Recensi
     }
 
     @Override
-    public boolean modificaRecensione(int idRec, String nuovoTesto, int nuovoVoto)
+    public boolean modificaRecensione(String token, int idRec, String nuovoTesto, int nuovoVoto)
             throws RemoteException{
         try {
             return managerDB.getRecensioneDAO().modificaRecensione(idRec, nuovoTesto, nuovoVoto);
@@ -72,7 +75,7 @@ public class RecensioniServiceImp extends UnicastRemoteObject implements Recensi
     }
 
     @Override
-    public boolean aggiungiRisposta(Recensione recensione, String risposta) throws RemoteException {
+    public boolean aggiungiRisposta(String token, Recensione recensione, String risposta) throws RemoteException {
         try {
             return managerDB.getRecensioneDAO().aggiungiRisposta(recensione, risposta);
         } catch (SQLException e) {

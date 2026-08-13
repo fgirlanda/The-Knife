@@ -15,17 +15,17 @@ import com.gruppo10.classi.TipoCucina;
 
 public interface RistorantiServiceInt extends Remote{
 
-    void aggiungiRistorante(Ristorante ristorante) throws RemoteException;
+    void aggiungiRistorante(String token, Ristorante ristorante) throws RemoteException;
 
-    void aggiornaMediaRecensioni(Ristorante ristorante) throws RemoteException;
+    void aggiornaMediaRecensioni(String token, Ristorante ristorante) throws RemoteException;
 
     List<Ristorante> getRistoranti() throws RemoteException;
 
     List<Ristorante> cercaConFiltri(String text, TipoCucina cucina, Prezzo prezzo, MediaRecensioni media,
             Delivery delivery, Prenotazione prenotazione, Coordinate cords, Distanza distanza) throws RemoteException;
 
-    List<Ristorante> trovaPreferitiPerUtente(int idUtente) throws RemoteException;
+    List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException;
 
-    List<Ristorante> trovaPerProprietario(int id) throws RemoteException;
+    List<Ristorante> trovaPerProprietario(String token, int id) throws RemoteException;
 
 }

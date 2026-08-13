@@ -19,6 +19,7 @@ import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.gui_elements.SceneManager;
 import com.gruppo10.classi.Coordinate;
 import com.gruppo10.classi.Criptatore;
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.eccezioni.GeocodingException;
 import javafx.animation.PauseTransition;
@@ -41,8 +42,8 @@ import javafx.util.Duration;
  */
 public class LoginController extends BasicController {
 
-    /** Oggetto {@link Utente}, inizializzato a null, a cui assegnare l'utente che effettua il login con successo. */
-    public static Utente utenteLoggato = null;
+    /** Oggetto {@link Sessione}, inizializzato a null, a cui assegnare la sessione ottenuta dopo il login. */
+    public static Sessione sessioneCorrente = null;
 
     /** Campo di testo per l'inserimento dell'indirizzo, in caso di accesso senza registrazione. */
     @FXML
@@ -120,14 +121,14 @@ public class LoginController extends BasicController {
 
 
         try {
-            Utente utente = clientContext.getAuthService().login(username, hashedPassword);
-            if (utente == null) {
+            Sessione sessione = clientContext.getAuthService().login(username, hashedPassword);
+            if (sessione == null) {
                 loginStatus.setVisible(true);
                 loginStatus.setText("CREDENZIALI NON VALIDE");
                 return;
             }
 
-            utenteLoggato = utente;
+            sessioneCorrente = sessione;
             apriPaginaPrincipale();
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore durante il login", e, false, null);
@@ -165,10 +166,11 @@ public class LoginController extends BasicController {
             return;
         }
 
-        utenteLoggato = new Utente();
-        utenteLoggato.setRuolo("NON_REGISTRATO");
-        utenteLoggato.setIndirizzo(indirizzo);
-        utenteLoggato.setCords(coordinate);
+        Utente ospite = new Utente();
+        ospite.setRuolo("NON_REGISTRATO");
+        ospite.setIndirizzo(indirizzo);
+        ospite.setCords(coordinate);
+        sessioneCorrente = new Sessione(ospite, null);
 
         apriPaginaPrincipale();
     }

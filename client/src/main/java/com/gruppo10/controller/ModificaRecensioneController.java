@@ -165,7 +165,7 @@ public class ModificaRecensioneController extends BasicController {
 
         String nuovoTesto = testoModificato.isBlank() ? testoOriginale : testoModificato;
         try {
-            boolean modificata = clientContext.getRecensioniService().modificaRecensione(
+            boolean modificata = clientContext.getRecensioniService().modificaRecensione(sessioneCorrente.getToken(),
                     recensione.getIdRec(), nuovoTesto, nuovoVoto);
             if (!modificata) {
                 GestioneEccezioni.errore("Recensione non trovata",
@@ -183,7 +183,7 @@ public class ModificaRecensioneController extends BasicController {
             recensione.setRistorante(ristorante);
             ristorante.aggiungiRecensione(recensione);
 
-            clientContext.getRistorantiService().aggiornaMediaRecensioni(ristorante);
+            clientContext.getRistorantiService().aggiornaMediaRecensioni(sessioneCorrente.getToken(),ristorante);
         } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante la modifica della recensione", e, false, null);
             return;

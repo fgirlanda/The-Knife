@@ -12,7 +12,6 @@ import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.gui_elements.SceneManager;
-import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
@@ -24,8 +23,6 @@ import javafx.scene.layout.VBox;
  */
 public class ProfiloClienteController extends BasicController {
 
-    /** Utente attualmente loggato */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     /** Lista dei ristoranti preferiti caricati dal database. */
     private List<Ristorante> ristoranti;
@@ -50,7 +47,7 @@ public class ProfiloClienteController extends BasicController {
         caricaDatiUtente();
 
         try {
-            ristoranti = clientContext.getRistorantiService().trovaPreferitiPerUtente(utenteLoggato.getId());
+            ristoranti = clientContext.getRistorantiService().trovaPreferitiPerUtente(sessioneCorrente.getToken(),sessioneCorrente.getUtente().getId());
             SceneManager.caricaTessere(
                     ristoranti,
                     contenitoreTessereRis,
@@ -64,7 +61,7 @@ public class ProfiloClienteController extends BasicController {
                         ((CardRistoranteController) controller).setOnClick();
                         ((CardRistoranteController) controller).setIndiceTab(1);
                     });
-            recensioni = clientContext.getRecensioniService().trovaPerUtenteConRistorante(utenteLoggato.getId());
+            recensioni = clientContext.getRecensioniService().trovaPerUtenteConRistorante(sessioneCorrente.getUtente().getId());
             SceneManager.caricaTessere(
                     recensioni,
                     contenitoreTessereRec,

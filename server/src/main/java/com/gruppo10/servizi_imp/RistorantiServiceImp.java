@@ -14,6 +14,7 @@ import com.gruppo10.classi.Prezzo;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.TipoCucina;
 import com.gruppo10.database.ManagerDB;
+import com.gruppo10.permessi.SessionManager;
 import com.gruppo10.servizi_int.RistorantiServiceInt;
 
 public class RistorantiServiceImp extends UnicastRemoteObject implements RistorantiServiceInt {
@@ -21,14 +22,16 @@ public class RistorantiServiceImp extends UnicastRemoteObject implements Ristora
     private static final long serialVersionUID = 1L;
 
     ManagerDB managerDB;
+    SessionManager sessionManager;
 
-    public RistorantiServiceImp(ManagerDB managerDB) throws RemoteException {
+    public RistorantiServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
         super();
         this.managerDB = managerDB;
+        this.sessionManager = sessionManager;
     }
 
     @Override
-    public void aggiungiRistorante(Ristorante ristorante) throws RemoteException {
+    public void aggiungiRistorante(String token, Ristorante ristorante) throws RemoteException {
         try {
             managerDB.getRistoranteDAO().aggiungiRistorante(ristorante);
         } catch (SQLException e) {
@@ -37,7 +40,7 @@ public class RistorantiServiceImp extends UnicastRemoteObject implements Ristora
     }
 
     @Override
-    public void aggiornaMediaRecensioni(Ristorante ristorante) throws RemoteException {
+    public void aggiornaMediaRecensioni(String token,Ristorante ristorante) throws RemoteException {
         try {
             managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
         } catch (SQLException e) {
@@ -66,7 +69,7 @@ public class RistorantiServiceImp extends UnicastRemoteObject implements Ristora
     }
 
     @Override
-    public List<Ristorante> trovaPreferitiPerUtente(int idUtente) throws RemoteException{
+    public List<Ristorante> trovaPreferitiPerUtente(String token, int idUtente) throws RemoteException{
         try {
             return managerDB.getRistoranteDAO().trovaPreferitiPerUtente(idUtente);
         } catch (SQLException e) {
@@ -75,7 +78,7 @@ public class RistorantiServiceImp extends UnicastRemoteObject implements Ristora
     }
 
     @Override
-    public List<Ristorante> trovaPerProprietario(int idUtente) throws RemoteException{
+    public List<Ristorante> trovaPerProprietario(String token, int idUtente) throws RemoteException{
         try {
             return managerDB.getRistoranteDAO().trovaPerProprietario(idUtente);
         } catch (SQLException e) {

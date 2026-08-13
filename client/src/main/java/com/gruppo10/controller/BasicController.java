@@ -6,7 +6,7 @@
 package com.gruppo10.controller;
 
 import com.gruppo10.ClientContext;
-import com.gruppo10.classi.Utente;
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.gui_elements.SceneManager;
 
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 public class BasicController {
 
     /** Riferimento all'utente attualmente loggato. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
+    protected Sessione sessioneCorrente = LoginController.sessioneCorrente;
     
     /** La finestra (stage) associata a questo controller. */
     protected Stage stage;
@@ -134,12 +134,12 @@ public class BasicController {
      */
     public void caricaDatiUtente() {
         String labelPasswordText = "********";
-        labelNome.setText(utenteLoggato.getNome());
-        labelCognome.setText(utenteLoggato.getCognome());
-        labelUsername.setText(utenteLoggato.getUsername());
-        labelIndirizzo.setText(utenteLoggato.getIndirizzo());
-        labelData.setText(utenteLoggato.getDataDiNascita().toString());
-        labelRuolo.setText(utenteLoggato.getRuolo().toString());
+        labelNome.setText(sessioneCorrente.getUtente().getNome());
+        labelCognome.setText(sessioneCorrente.getUtente().getCognome());
+        labelUsername.setText(sessioneCorrente.getUtente().getUsername());
+        labelIndirizzo.setText(sessioneCorrente.getUtente().getIndirizzo());
+        labelData.setText(sessioneCorrente.getUtente().getDataDiNascita().toString());
+        labelRuolo.setText(sessioneCorrente.getUtente().getRuolo().toString());
         labelPassword.setText(labelPasswordText);
     }
 
@@ -158,8 +158,8 @@ public class BasicController {
      */
     @FXML
     public void logOut() {
-        LoginController.utenteLoggato = null;
-        utenteLoggato = null;
+        LoginController.sessioneCorrente = null;
+        sessioneCorrente = null;
         SceneManager.apriLogin(stage, clientContext);
     }
 

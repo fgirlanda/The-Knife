@@ -5,8 +5,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import com.gruppo10.classi.Sessione;
 import com.gruppo10.classi.Utente;
 import com.gruppo10.eccezioni.UsernameGiaEsistenteException;
+import com.gruppo10.permessi.SessionManager;
 import com.gruppo10.servizi_int.AuthServiceInt;
 import com.gruppo10.database.ManagerDB;
 
@@ -25,18 +27,21 @@ public class AuthServiceImp extends UnicastRemoteObject implements AuthServiceIn
     private static final long serialVersionUID = 1L;
 
     ManagerDB managerDB;
+    SessionManager sessionManager;
 
-    public AuthServiceImp(ManagerDB managerDB) throws RemoteException {
+    public AuthServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
         super();
         this.managerDB = managerDB;
+        this.sessionManager = sessionManager;
     }
 
     @Override
-    public Utente login(String username, String password) throws RemoteException {
+    public Sessione login(String username, String password) throws RemoteException {
         try {
             Optional<Utente> utente = managerDB.getUtenteDAO().cercaUtente(username);
             if (utente.isPresent() && utente.get().getPassword().equals(password)) {
-                return utente.get();
+                String token = sessionManager.generaToken(utente.get());
+                return new Sessione(utente.get(), token);
             }
             return null;
         } catch (SQLException e) {

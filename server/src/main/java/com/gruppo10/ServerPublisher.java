@@ -18,7 +18,6 @@ public class ServerPublisher {
         registry.rebind("GeoService", serverContext.geoServiceImp);
         registry.rebind("RistorantiService", serverContext.ristorantiServiceImp);
         registry.rebind("RecensioniService", serverContext.recensioniServiceImp);
-        registry.rebind("ProfiloService", serverContext.profiloServiceImp);
         registry.rebind("PreferitiService", serverContext.preferitiServiceImp);
     }
 }

@@ -10,17 +10,17 @@ import com.gruppo10.classi.Ristorante;
 
 public interface RecensioniServiceInt extends Remote{
 
-    void aggiungiRecensione(Recensione recensione, Ristorante ristorante)
+    void aggiungiRecensione(String token,Recensione recensione, Ristorante ristorante)
             throws RemoteException, IllegalArgumentException, SQLException;
 
-    void rimuoviRecensione(Recensione recensione, Ristorante ristorante) throws RemoteException;
+    void rimuoviRecensione(String token,Recensione recensione, Ristorante ristorante) throws RemoteException;
 
-    boolean modificaRecensione(int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException;
+    boolean modificaRecensione(String token,int idRec, String nuovoTesto, int nuovoVoto) throws RemoteException;
 
     boolean esisteRecensione(int idUtente, int idRistorante) throws RemoteException;
 
-    List<Recensione> trovaPerUtenteConRistorante(int id) throws RemoteException;
+    List<Recensione> trovaPerUtenteConRistorante(int idUtente) throws RemoteException;
 
-    boolean aggiungiRisposta(Recensione recensione, String risposta) throws RemoteException;
+    boolean aggiungiRisposta(String token, Recensione recensione, String risposta) throws RemoteException;
 
 }

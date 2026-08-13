@@ -82,7 +82,7 @@ public class RispostaRecensioneController extends BasicController {
         String risposta = txtRisposta.getText();
 
         try {
-            if (!clientContext.getRecensioniService().aggiungiRisposta(recensione, risposta)) {
+            if (!clientContext.getRecensioniService().aggiungiRisposta(sessioneCorrente.getToken(), recensione, risposta)) {
                 GestioneEccezioni.errore("Recensione non trovata",
                         new SQLException("La recensione non esiste più nel database"), false, null);
                 return;

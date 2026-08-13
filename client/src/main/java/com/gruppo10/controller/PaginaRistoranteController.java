@@ -14,8 +14,6 @@ import com.gruppo10.classi.Recensione;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.classi.Ruolo;
 import com.gruppo10.gui_elements.SceneManager;
-import com.gruppo10.classi.Utente;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,9 +32,6 @@ public class PaginaRistoranteController extends BasicController {
 
     /** Ristorante corrente visualizzato nella pagina. */
     private Ristorante ristorante;
-
-    /** Utente attualmente loggato. */
-    private Utente utenteLoggato = LoginController.utenteLoggato;
 
     /** Lista di recensioni associate al ristorante corrente. */
     private List<Recensione> recensioni;
@@ -138,17 +133,17 @@ public class PaginaRistoranteController extends BasicController {
                     });
         }
 
-        if (utenteLoggato.getRuolo() == Ruolo.RISTORATORE || utenteLoggato.getRuolo() == Ruolo.NON_REGISTRATO) {
+        if (sessioneCorrente.getUtente().getRuolo() == Ruolo.RISTORATORE || sessioneCorrente.getUtente().getRuolo() == Ruolo.NON_REGISTRATO) {
             btnAggiungiRecensione.setVisible(false);
             btnPreferiti.setVisible(false);
         } else {
             try {
                 boolean preferito = clientContext.getPreferitiService().controlloPreferito(
-                        utenteLoggato.getId(), ristorante.getId());
+                        sessioneCorrente.getUtente().getId(), ristorante.getId());
                 imagePreferiti.setImage(new ImageView((preferito ? cuorePienoURL : cuoreVuotoURL)
                         .toExternalForm()).getImage());
                 recPresente = clientContext.getRecensioniService().esisteRecensione(
-                        utenteLoggato.getId(), ristorante.getId());
+                        sessioneCorrente.getUtente().getId(), ristorante.getId());
                 if (recPresente) {
                     btnAggiungiRecensione.setVisible(false);
                 }
@@ -202,7 +197,7 @@ public class PaginaRistoranteController extends BasicController {
         if (paginaPrincipale) {
             SceneManager.apriPaginaPrincipale(stage, clientContext);
         } else {
-            if (utenteLoggato.getRuolo().equals(Ruolo.CLIENTE)) {
+            if (sessioneCorrente.getUtente().getRuolo().equals(Ruolo.CLIENTE)) {
                 SceneManager.apriProfilo(stage, indiceTab, clientContext);
             } else {
                 SceneManager.apriProfiloRistoratore(stage, indiceTab, clientContext);
@@ -217,7 +212,7 @@ public class PaginaRistoranteController extends BasicController {
      */
     @FXML
     private void gestisciPreferiti() {
-        int idUt = utenteLoggato.getIdUtente();
+        int idUt = sessioneCorrente.getUtente().getId();
         int idRis = this.ristorante.getIdRistorante();
         boolean daAggiungere = imagePreferiti.getImage().getUrl().contains("cuore_vuoto.png");
         try {

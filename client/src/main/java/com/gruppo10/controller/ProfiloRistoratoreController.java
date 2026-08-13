@@ -11,7 +11,6 @@ import java.util.List;
 import com.gruppo10.gui_elements.GestioneEccezioni;
 import com.gruppo10.classi.Ristorante;
 import com.gruppo10.gui_elements.SceneManager;
-import com.gruppo10.classi.Utente;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -26,9 +25,6 @@ import javafx.scene.layout.VBox;
  * e di tornare alla pagina principale.
  */
 public class ProfiloRistoratoreController extends BasicController {
-
-    /** Utente ristoratore attualmente loggato */
-    private Utente utenteloggato = LoginController.utenteLoggato;
 
     /** Lista filtrata dei ristoranti di proprietà dell'utente */
     private List<Ristorante> listaFiltrata;
@@ -45,7 +41,7 @@ public class ProfiloRistoratoreController extends BasicController {
     public void caricaDati() {
         caricaDatiUtente();
         try {
-            listaFiltrata = clientContext.getRistorantiService().trovaPerProprietario(utenteloggato.getId());
+            listaFiltrata = clientContext.getRistorantiService().trovaPerProprietario(sessioneCorrente.getToken(), sessioneCorrente.getUtente().getId());
             aggiornaContenitore(listaFiltrata);
         } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante il caricamento dei ristoranti", e, false, null);

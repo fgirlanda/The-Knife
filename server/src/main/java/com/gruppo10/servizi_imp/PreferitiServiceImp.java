@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 import com.gruppo10.database.ManagerDB;
+import com.gruppo10.permessi.SessionManager;
 import com.gruppo10.servizi_int.PreferitiServiceInt;
 
 public class PreferitiServiceImp extends UnicastRemoteObject implements PreferitiServiceInt {
@@ -12,10 +13,12 @@ public class PreferitiServiceImp extends UnicastRemoteObject implements Preferit
     private static final long serialVersionUID = 1L;
 
     ManagerDB managerDB;
+    SessionManager sessionManager;
 
-    public PreferitiServiceImp(ManagerDB managerDB) throws RemoteException {
+    public PreferitiServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
         super();
         this.managerDB = managerDB;
+        this.sessionManager = sessionManager;
     }
 
     @Override
