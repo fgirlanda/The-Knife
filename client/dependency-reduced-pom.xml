@@ -3,7 +3,7 @@
   <parent>
     <artifactId>theknife-parent</artifactId>
     <groupId>com.gruppo10</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>client</artifactId>
@@ -13,7 +13,7 @@
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.gruppo10.ClientTK</mainClass>
+          <mainClass>com.gruppo10.ClientBoot</mainClass>
         </configuration>
       </plugin>
       <plugin>
@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.gruppo10.ClientTK</mainClass>
+                  <mainClass>com.gruppo10.ClientBoot</mainClass>
                 </transformer>
               </transformers>
             </configuration>

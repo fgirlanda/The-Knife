@@ -1,84 +1,351 @@
 # The Knife
 
-Progetto di laboratorio per Università degli studi dell'Insubria, corso di Informatica, a cura di Girlanda Francesco, Lambertoni Mattia e Gallon Gabriele.
+Progetto di laboratorio per il corso di **Informatica** presso l'**Università degli Studi dell'Insubria**.
 
-## CONFIGURAZIONE INIZIALE
+**Autori:** Girlanda Francesco, Lambertoni Mattia, Gallon Gabriele.
 
-Per utilizzare il programma è necessario configurare javaFX. Passaggi:
+---
 
-1) Scaricare javaFX
-2) Unzippare la cartella e copiare il percorso della cartella lib
+## Requisiti
 
-![Screenshot](Documentazione/img/istruzioni_avvio.png)
+Per compilare ed eseguire il progetto sono necessari:
 
-## MAVEN
+* **Java JDK** v24.0.2
+* **JavaFX** v24.0.1
+* **Apache Maven** v3.9.9
+* **PostgreSQL** v18.4
+* **Git** (necessario per contribuire al progetto)
 
-### Installazione
+---
 
-1) scaricare il file .zip (sotto la cartella Link) qui: https://maven.apache.org/download.cgi
-2) estrarre la cartella contenuta nel file zip
-3) modificare/verificare variabili di sistema: 
-- aggiungere alla variabile Path il percorso alla cartella bin, contenuta nella cartella estratta al passo 2 (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin)
-- creare una nuova variabile MAVEN_HOME e aggiungere il percorso alla cartella estratta, senza bin (ex: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9)
-- verificare che la variabile JAVA_HOME contenga un valore del tipo C:\Program Files\Java\jdk-24 (deve puntare alla cartella jdk, non alla cartella bin)
+## Installazione di Maven
 
-### Avvio applicazione
+### 1. Download
 
-1) Tramite launch.json:
+Scaricare la versione specificata di Apache Maven dalla pagina ufficiale:
 
-- Andare su "Run" -> Add configuration
-- Modificare il file launch.json seguendo l'esempio launch_ex.json (sostituire il path a javafx con quello copiato al passaggio 2 della configurazione di javafx)
-- "File corrente" avvia il file attualmente aperto nell'editor, "The Knife" avvia il file TheKnife.java
+https://maven.apache.org/download.cgi
 
-2) Tramite comando da terminale:
+Scaricare l'archivio `.zip` e decomprimerlo in una cartella a scelta.
 
-- Assicurarsi di essere nella cartella principale (The-Knife) all'interno del terminale
-- lanciare il comando "mvn javafx:run -f pom.xml"
+### 2. Configurazione delle variabili d'ambiente
 
-### Compilazione e generazione jar+javadoc
+Su Windows è necessario configurare le variabili d'ambiente.
 
-1) Eseguire il comando "mvn clean compile"
-2) Eseguire il comando "mvn package"
+#### `Path`
 
-## PASSAGGI PER CONTRIBUIRE:
+Aggiungere alla variabile `Path` il percorso della cartella `bin` contenuta nella directory di Maven.
 
-1) git fetch -> git status (verificare il branch attuale e se ci sono modifiche da pullare)
-2) git pull (se necessario)
-3) git checkout -b nome_branch (crea un nuovo branch, esempio: grafica/principale)
-...
-modifiche
-...
-4) git add -A (a fine modifiche, -A = aggiungi tutto, in alternativa aggiungere solo i file modificati)
-5) git commit -m "messaggio" (ex: "aggiunta schermata principale")
-6) git push origin nome_branch (aggiunge il branch creato a github)
+Esempio:
 
-Merge:
-6) git checkout main
-7) git merge nome_branch (se il branch è terminato)
+```text
+C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin
+```
 
-Se ci sono dei conflitti (indicati dal terminale):
+#### `MAVEN_HOME`
 
-8) Risolvere i conflitti (modificare i file in conflitto)
-9) git add .
-10) git commit -m "merge main-nome_branch"
+Creare una nuova variabile di sistema denominata `MAVEN_HOME` e impostarla sul percorso della cartella principale di Maven, **senza** la cartella `bin`.
 
-11) git branch -d nome_branch (se è stato eseguito il merge correttamente, il branch viene eliminato localmente)
-12) git push origin --delete nome_branch (elimina il branch anche da github)
+Esempio:
 
-nota 1: è meglio aprire e chiudere tanti branch uguali, facendo spesso merge, in modo da ridurre il rischio di conflitti
+```text
+C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9
+```
 
-nota 2: se si vuole testare il merge prima di effettuarlo seguire i seguenti passaggi: - creare un nuovo branch test-merge (questo "copia" il main attuale su un branch separato)
-                                                                                       - eseguire il merge del branch desiderato sul test-merge
-                                                                                       - risolvere eventuali conflitti
-                                                                                       - infine eseguire il merge tra main e test-merge
+#### `JAVA_HOME`
 
-Per lavorare su un branch specifico già esistente:
+Verificare che `JAVA_HOME` punti alla directory principale del JDK e **non** alla relativa cartella `bin`.
 
-1) git fetch origin (aggiorna i riferimenti)
-2) git branch -r (restituisce una lista dei branch attualmente presenti SU GITHUB, per vedere quelli in locale basta togliere "-r")
-3) git checkout nome_branch ("sposta" l'utente sul branch desiderato)
+Esempio:
 
-nota: nella lista di branch, "origin/HEAD -> origin/main" indica che il branch di default (origin/HEAD) è impostato sul branch main (origin/main)
+```text
+C:\Program Files\Java\jdk-24
+```
+
+È possibile verificare la corretta installazione di Java e Maven tramite:
+
+```bash
+java -version
+mvn -version
+```
+
+---
+
+## Creazione Database
+
+1. Installare un gestore di database a scelta, per esempio **DBeaver**
+2. Aprire una connessione con postgres
+3. Copiare il percorso del file `TheKnife.sql`
+4. Da terminale eseguire il comando:
+```bash
+psql -U postgres -f <percorso_file_punto3>
+```
+
+## Avvio dell'applicazione
+
+L'applicazione può essere avviata direttamente da un IDE oppure tramite Maven.
+
+### Tramite `launch.json`
+
+Se si utilizza Visual Studio Code:
+
+1. Aprire il progetto in Visual Studio Code.
+2. Andare nella sezione **Run and Debug**.
+3. Selezionare **Add Configuration**.
+4. Configurare `launch.json` seguendo l'esempio presente nel file `launch_ex.json`.
+5. Selezionare la configurazione **ServerBoot**
+6. Eseguire tramite il pannello admin la connessione al database e l'avvio del server
+7. Eseguire la configurazione **ClientBoot**
+
+
+### Tramite terminale
+
+Aprire un terminale nella cartella principale del progetto:
+
+```text
+The-Knife
+```
+
+ed eseguire:
+
+```bash
+mvn install
+```
+
+```bash
+mvn -f server/pom.xml javafx:run 
+```
+
+Connettersi al database e avviare il server tramite appositi bottoni nel pannella admin, poi in un altro terminale:
+
+```bash
+mvn -f client/pom.xml javafx:run
+```
+---
+
+# Contribuire al progetto
+
+Per contribuire allo sviluppo è consigliato lavorare sempre su un **branch separato**, evitando di effettuare direttamente modifiche sul branch `main`.
+
+## 1. Aggiornare il repository
+
+Prima di iniziare a lavorare, verificare lo stato del repository:
+
+```bash
+git fetch
+git status
+```
+
+Se sono presenti aggiornamenti sul repository remoto, sincronizzare il branch corrente:
+
+```bash
+git pull
+```
+
+## 2. Creare un nuovo branch
+
+Creare un branch dedicato alla modifica che si vuole sviluppare:
+
+```bash
+git checkout -b nome_branch
+```
+
+A questo punto è possibile effettuare le modifiche al progetto.
+
+## 3. Salvare le modifiche
+
+Al termine del lavoro, aggiungere le modifiche allo staging:
+
+```bash
+git add -A
+```
+
+In alternativa, è possibile aggiungere solamente determinati file:
+
+```bash
+git add nome_file
+```
+
+Creare quindi un commit:
+
+```bash
+git commit -m "messaggio del commit"
+```
+
+## 4. Pubblicare il branch
+
+Pubblicare il branch sul repository remoto:
+
+```bash
+git push origin nome_branch
+```
+
+---
+
+# Merge di un branch
+
+Quando il lavoro su un branch è terminato, è possibile integrarlo nel branch `main`.
+
+### 1. Passare a `main`
+
+```bash
+git checkout main
+```
+
+### 2. Eseguire il merge
+
+```bash
+git merge nome_branch
+```
+
+### 3. Risolvere eventuali conflitti
+
+Se Git segnala dei conflitti:
+
+1. aprire i file indicati da Git;
+2. risolvere manualmente i conflitti;
+3. aggiungere i file modificati:
+
+```bash
+git add .
+```
+
+4. creare il commit del merge:
+
+```bash
+git commit -m "merge main-nome_branch"
+```
+
+### 4. Eliminare il branch
+
+Se il merge è stato completato correttamente, è possibile eliminare il branch locale:
+
+```bash
+git branch -d nome_branch
+```
+
+Per eliminare anche il branch dal repository remoto:
+
+```bash
+git push origin --delete nome_branch
+```
+
+> **Consiglio:** è preferibile creare branch relativamente piccoli e fare merge frequenti. In questo modo si riduce il rischio di conflitti e diventa più semplice individuare eventuali problemi.
+
+---
+
+# Testare un merge prima di integrarlo in `main`
+
+Se si vuole verificare un merge senza modificare direttamente `main`, è possibile utilizzare un branch temporaneo.
+
+### 1. Creare il branch di test
+
+Partendo da `main`:
+
+```bash
+git checkout main
+git checkout -b test-merge
+```
+
+Il branch `test-merge` conterrà una copia dello stato attuale di `main`.
+
+### 2. Eseguire il merge sul branch di test
+
+```bash
+git merge nome_branch
+```
+
+### 3. Risolvere eventuali conflitti
+
+Se vengono rilevati conflitti, risolverli e completare il merge come descritto nella sezione precedente.
+
+### 4. Verificare il risultato
+
+A questo punto è possibile compilare ed eseguire il progetto sul branch `test-merge`, verificando che il merge non abbia introdotto problemi.
+
+### 5. Integrare il risultato in `main`
+
+Se il test ha avuto esito positivo:
+
+```bash
+git checkout main
+git merge test-merge
+```
+
+---
+
+# Lavorare su un branch già esistente
+
+Se il branch sul quale si vuole lavorare esiste già sul repository remoto, è possibile recuperarlo con:
+
+### 1. Aggiornare i riferimenti remoti
+
+```bash
+git fetch origin
+```
+
+### 2. Visualizzare i branch disponibili
+
+Per visualizzare i branch presenti sul repository remoto:
+
+```bash
+git branch -r
+```
+
+Per visualizzare i branch presenti localmente:
+
+```bash
+git branch
+```
+
+Per visualizzare entrambi:
+
+```bash
+git branch -a
+```
+
+### 3. Passare al branch desiderato
+
+```bash
+git checkout nome_branch
+```
+
+---
+
+## Branch remoto predefinito
+
+Nell'elenco dei branch potrebbe comparire una voce simile a:
+
+```text
+origin/HEAD -> origin/main
+```
+
+Questa indicazione significa che **`main` è il branch predefinito del repository remoto `origin`**.
+
+---
+
+## Workflow consigliato
+
+In generale, il flusso di lavoro consigliato è:
+
+```text
+main
+ │
+ ├── git checkout -b nuova-funzionalita
+ │
+ ├── sviluppo
+ │
+ ├── git add -A
+ │
+ ├── git commit
+ │
+ ├── git push origin nuova-funzionalita
+ │
+ └── merge → main
+```
+
+È consigliato mantenere i branch **specifici e di dimensioni contenute**, effettuando frequentemente il merge delle funzionalità completate. Questo permette di ridurre i conflitti e mantenere il progetto più semplice da gestire.
+
 
 ## TO DO:
 
@@ -226,9 +493,9 @@ diagrammi:
 
 ### ggallon
 - activity
-- aggiustare istruzioni installazione
-- aggiungere istruzioni db
-- distibuzione client/server/database su macchine diverse
+- aggiustare istruzioni installazione (FATTO)
+- aggiungere istruzioni db (FATTO)
+- distribuzione client/server/database su macchine diverse
 
 ### Generale
 
