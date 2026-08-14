@@ -1,372 +1,331 @@
 # The Knife
 
-Progetto di laboratorio per il corso di **Informatica** presso l'**Università degli Studi dell'Insubria**.
+The Knife è un progetto universitario sviluppato per il corso di Informatica presso l'Università degli Studi dell'Insubria. Il sistema combina JavaFX, Java, Maven e PostgreSQL per offrire un'applicazione completa per la ricerca, la gestione e la recensione di ristoranti.
 
-**Autori:** Girlanda Francesco, Lambertoni Mattia, Gallon Gabriele.
-
----
-
-## Requisiti
-
-Per compilare ed eseguire il progetto sono necessari:
-
-* **Java JDK** v24.0.2
-* **JavaFX** v24.0.1
-* **Apache Maven** v3.9.9
-* **PostgreSQL** v18.4
-* **Git** (necessario per contribuire al progetto)
+Autori:
+- Girlanda Francesco
+- Lambertoni Mattia
+- Gallon Gabriele
 
 ---
 
-## Installazione di Maven
+## Panoramica
 
-### 1. Download
+Il progetto è organizzato in tre moduli principali:
 
-Scaricare la versione specificata di Apache Maven dalla pagina ufficiale:
+- client: interfaccia grafica e logica di presentazione;
+- server: backend, gestione servizi remoti e coordinamento dell'applicazione;
+- common: classi condivise, DTO, modelli ed elementi comuni.
 
-https://maven.apache.org/download.cgi
+### Funzionalità principali
 
-Scaricare l'archivio `.zip` e decomprimerlo in una cartella a scelta.
+- registrazione e login utenti;
+- ricerca e filtri ristoranti;
+- gestione dei preferiti;
+- aggiunta, modifica e rimozione recensioni;
+- gestione del profilo personale;
+- pannello amministrativo per la connessione al database e l'avvio del server.
 
-### 2. Configurazione delle variabili d'ambiente
+### Stack tecnologico
 
-Su Windows è necessario configurare le variabili d'ambiente.
+- Java 24
+- JavaFX 24.0.1
+- Maven 3.9.9
+- PostgreSQL 18.4
+- Git
 
-#### `Path`
+---
 
-Aggiungere alla variabile `Path` il percorso della cartella `bin` contenuta nella directory di Maven.
+## Requisiti e prerequisiti
 
-Esempio:
+Prima di iniziare, verificare che nel sistema siano installati:
 
-```text
-C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin
-```
+- Java JDK 24.0.2
+- JavaFX 24.0.1
+- Apache Maven 3.9.9
+- PostgreSQL 18.4
+- Git
 
-#### `MAVEN_HOME`
-
-Creare una nuova variabile di sistema denominata `MAVEN_HOME` e impostarla sul percorso della cartella principale di Maven, **senza** la cartella `bin`.
-
-Esempio:
-
-```text
-C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9
-```
-
-#### `JAVA_HOME`
-
-Verificare che `JAVA_HOME` punti alla directory principale del JDK e **non** alla relativa cartella `bin`.
-
-Esempio:
-
-```text
-C:\Program Files\Java\jdk-24
-```
-
-È possibile verificare la corretta installazione di Java e Maven tramite:
+Controllare la corretta configurazione con:
 
 ```bash
 java -version
 mvn -version
+psql --version
 ```
 
 ---
 
-## Creazione Database
+## Guida all'installazione
 
-1. Installare un gestore di database a scelta, per esempio **DBeaver**
-2. Aprire una connessione con postgres
-3. Copiare il percorso del file `TheKnife.sql`
-4. Da terminale eseguire il comando:
+### 1. Clonare il repository
+
 ```bash
-psql -U postgres -f <percorso_file_punto3>
+git clone <url-del-repository>
+cd The-Knife
 ```
 
-## Compilazione
+### 2. Installare Maven
 
-Aprire un terminale nella cartella principale del progetto:
+Scaricare Maven dalla pagina ufficiale:
+
+https://maven.apache.org/download.cgi
+
+Configurazione tipica su Windows:
 
 ```text
-The-Knife
+Path: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9\bin
+MAVEN_HOME: C:\Users\Pippo\Desktop\Dev Projects\Java\Maven\apache-maven-3.9.9
+JAVA_HOME: C:\Program Files\Java\jdk-24
 ```
 
-ed eseguire:
+### 3. Preparare il database
+
+1. Installare PostgreSQL.
+2. Creare un database locale.
+3. Eseguire lo script SQL presente nella root del progetto:
+
+```bash
+psql -U postgres -f TheKnife.sql
+```
+
+### 4. Compilare il progetto
 
 ```bash
 mvn install
 ```
 
+Questo comando genera i jar dei moduli e compila l'intero progetto.
+
+---
+
 ## Avvio dell'applicazione
 
-L'applicazione può essere avviata direttamente da un IDE oppure tramite Maven.
+### Modalità 1: tramite VS Code
 
-### Tramite `launch.json`
+1. Aprire il progetto in VS Code.
+2. Usare la configurazione di esempio presente in `launch_ex.json`.
+3. Avviare prima il server e poi il client.
+4. Collegarsi al database tramite il pannello admin.
+5. Avviare il servizio server e successivamente la UI client.
 
-Se si utilizza Visual Studio Code:
+### Modalità 2: tramite terminale
 
-1. Aprire il progetto in Visual Studio Code.
-2. Andare nella sezione **Run and Debug**.
-3. Selezionare **Add Configuration**.
-4. Configurare `launch.json` seguendo l'esempio presente nel file `launch_ex.json`.
-5. Selezionare la configurazione **ServerBoot**
-6. Eseguire tramite il pannello admin la connessione al database e l'avvio del server
-7. Eseguire la configurazione **ClientBoot**
-
-
-### Tramite terminale
-
-Dalla root principale del progetto eseguire:
+Terminale server:
 
 ```bash
-mvn -f server/pom.xml javafx:run 
+mvn -f server/pom.xml javafx:run
 ```
 
-Connettersi al database e avviare il server tramite appositi bottoni nel pannella admin, poi in un altro terminale:
+Terminale client:
 
 ```bash
 mvn -f client/pom.xml javafx:run
 ```
 
-### Tramite file jar
+### Modalità 3: tramite JAR
 
-Il comando `mvn install` è configurato per generare anche i file jar corrispondenti ai moduli client, server e common (quest'ultimo è irrilevante)
+Dopo la build, i file eseguibili sono generati in:
 
-I file .jar eseguibili si trovano nelle rispettive cartelle target all'interno dei singoli moduli
+- server/target/server-2.0-SNAPSHOT.jar
+- client/target/client-2.0-SNAPSHOT.jar
 
-Per eseguire l'applicazione è necessario:
-1. Avviare il jar del server `server\target\server-2.0-SNAPSHOT.jar`
-2. Connettersi al database
-3. Avviare il server 
-4. Avviare il file jar del client `client\target\client-2.0-SNAPSHOT.jar`
-5. 
+Procedura consigliata:
+
+1. avviare il server;
+2. collegarsi al database;
+3. avviare il backend;
+4. avviare il client.
+
 ---
 
-# Contribuire al progetto
+## Struttura del progetto
 
-Per contribuire allo sviluppo è consigliato lavorare sempre su un **branch separato**, evitando di effettuare direttamente modifiche sul branch `main`.
+```text
+The-Knife/
+├── client/                  # interfaccia grafica JavaFX
+├── common/                  # modelli e classi condivise
+├── server/                  # backend e servizi remoti
+├── data/                    # file CSV e log
+├── Documentazione/          # manuali e UML
+├── README.md                # documentazione principale
+├── TheKnife.sql             # script database
+├── pom.xml                  # build del progetto
+├── launch_ex.json           # esempio configurazione avvio
+├── LICENSE
+└── .gitignore
+```
 
-## 1. Aggiornare il repository
+---
 
-Prima di iniziare a lavorare, verificare lo stato del repository:
+## Moduli del progetto
+
+- [client/README.md](client/README.md) — descrizione dell'applicazione client e delle sue funzionalità.
+- [server/README.md](server/README.md) — descrizione del backend, del database e del pannello admin.
+- [common/README.md](common/README.md) — descrizione delle classi e dei modelli condivisi.
+
+---
+
+## Contribuire al progetto
+
+Per contribuire, è consigliato lavorare sempre su un branch dedicato invece di modificare direttamente `main`.
+
+### Workflow consigliato
 
 ```bash
 git fetch
 git status
-```
-
-Se sono presenti aggiornamenti sul repository remoto, sincronizzare il branch corrente:
-
-```bash
-git pull
-```
-
-## 2. Creare un nuovo branch
-
-Creare un branch dedicato alla modifica che si vuole sviluppare:
-
-```bash
 git checkout -b nome_branch
 ```
 
-A questo punto è possibile effettuare le modifiche al progetto.
-
-## 3. Salvare le modifiche
-
-Al termine del lavoro, aggiungere le modifiche allo staging:
+Dopo aver completato la modifica:
 
 ```bash
 git add -A
-```
-
-In alternativa, è possibile aggiungere solamente determinati file:
-
-```bash
-git add nome_file
-```
-
-Creare quindi un commit:
-
-```bash
-git commit -m "messaggio del commit"
-```
-
-## 4. Pubblicare il branch
-
-Pubblicare il branch sul repository remoto:
-
-```bash
+git commit -m "Descrizione chiara del commit"
 git push origin nome_branch
 ```
 
----
-
-# Merge di un branch
-
-Quando il lavoro su un branch è terminato, è possibile integrarlo nel branch `main`.
-
-### 1. Passare a `main`
+### Merge di un branch
 
 ```bash
 git checkout main
-```
-
-### 2. Eseguire il merge
-
-```bash
 git merge nome_branch
 ```
 
-### 3. Risolvere eventuali conflitti
+Se compaiono conflitti:
 
-Se Git segnala dei conflitti:
-
-1. aprire i file indicati da Git;
+1. aprire i file coinvolti;
 2. risolvere manualmente i conflitti;
-3. aggiungere i file modificati:
+3. aggiungere i file corretti;
+4. completare il merge con un commit.
 
-```bash
-git add .
-```
-
-4. creare il commit del merge:
-
-```bash
-git commit -m "merge main-nome_branch"
-```
-
-### 4. Eliminare il branch
-
-Se il merge è stato completato correttamente, è possibile eliminare il branch locale:
-
-```bash
-git branch -d nome_branch
-```
-
-Per eliminare anche il branch dal repository remoto:
-
-```bash
-git push origin --delete nome_branch
-```
-
-> **Consiglio:** è preferibile creare branch relativamente piccoli e fare merge frequenti. In questo modo si riduce il rischio di conflitti e diventa più semplice individuare eventuali problemi.
-
----
-
-# Testare un merge prima di integrarlo in `main`
-
-Se si vuole verificare un merge senza modificare direttamente `main`, è possibile utilizzare un branch temporaneo.
-
-### 1. Creare il branch di test
-
-Partendo da `main`:
-
-```bash
-git checkout main
-git checkout -b test-merge
-```
-
-Il branch `test-merge` conterrà una copia dello stato attuale di `main`.
-
-### 2. Eseguire il merge sul branch di test
-
-```bash
-git merge nome_branch
-```
-
-### 3. Risolvere eventuali conflitti
-
-Se vengono rilevati conflitti, risolverli e completare il merge come descritto nella sezione precedente.
-
-### 4. Verificare il risultato
-
-A questo punto è possibile compilare ed eseguire il progetto sul branch `test-merge`, verificando che il merge non abbia introdotto problemi.
-
-### 5. Integrare il risultato in `main`
-
-Se il test ha avuto esito positivo:
-
-```bash
-git checkout main
-git merge test-merge
-```
-
----
-
-# Lavorare su un branch già esistente
-
-Se il branch sul quale si vuole lavorare esiste già sul repository remoto, è possibile recuperarlo con:
-
-### 1. Aggiornare i riferimenti remoti
+### Branch già esistenti
 
 ```bash
 git fetch origin
-```
-
-### 2. Visualizzare i branch disponibili
-
-Per visualizzare i branch presenti sul repository remoto:
-
-```bash
-git branch -r
-```
-
-Per visualizzare i branch presenti localmente:
-
-```bash
-git branch
-```
-
-Per visualizzare entrambi:
-
-```bash
-git branch -a
-```
-
-### 3. Passare al branch desiderato
-
-```bash
 git checkout nome_branch
 ```
 
----
-
-## Branch remoto predefinito
-
-Nell'elenco dei branch potrebbe comparire una voce simile a:
-
-```text
-origin/HEAD -> origin/main
-```
-
-Questa indicazione significa che **`main` è il branch predefinito del repository remoto `origin`**.
+> Consiglio: mantenere branch piccoli e tematici per ridurre i conflitti e semplificare il controllo delle modifiche.
 
 ---
 
-## Workflow consigliato
+## Documentazione e UML
 
-In generale, il flusso di lavoro consigliato è:
+La cartella [Documentazione](Documentazione) contiene i documenti e i diagrammi del progetto.
 
-```text
-main
- │
- ├── git checkout -b nuova-funzionalita
- │
- ├── sviluppo
- │
- ├── git add -A
- │
- ├── git commit
- │
- ├── git push origin nuova-funzionalita
- │
- └── merge → main
+In particolare, la cartella [Documentazione/UML](Documentazione/UML) raccoglie i file di analisi e i diagrammi di sequenza dedicati all'avvio del server e al login.
+
+### Diagrammi UML principali
+
+```mermaid
+sequenceDiagram
+    actor Admin
+    participant STK as ServerTK
+    participant DB as DatabaseTK
+
+    Admin->>+STK: avvia applicazione
+    create participant SA as ServerApp
+    STK->>+SA: launch
+
+    create participant SC as ServerContext
+    SA->>SC: create
+
+    create participant MDB as ManagerDB
+    SC->>MDB: create
+
+    create participant auth as AuthServiceImp
+    SC->>auth: create
+    create participant recensioni as RecensioniServiceImp
+    SC->>recensioni: create
+    create participant ristoranti as RistorantiServiceImp
+    SC->>ristoranti: create
+    create participant profilo as ProfiloServiceImp
+    SC->>profilo: create
+    create participant preferiti as PreferitiServiceImp
+    SC->>preferiti: create
+    create participant geo as GeoServiceImp
+    SC->>geo: create
+
+    create participant PA as PannelloAdmin
+    SA->>PA: mostra pannello
+    SA-->>-STK: caricamento completato
+    STK-->>-Admin: caricamento completato
+
+    Admin->>+PA: inserisce credenziali database
+    PA->>+MDB: connetti(credenziali)
+    MDB->>+DB: connetti
+    DB-->>-MDB: connessione OK
+    MDB-->>-PA: database connesso
+    PA-->>Admin: database connesso
+
+    Admin->>PA: avvia server
+    create participant SRMI as ServerPublisher
+    PA->>+SRMI: avvia(serverContext)
+
+    create participant Registry
+    SRMI->>Registry: crea registro
+    SRMI->>Registry: rebind(AuthServiceImp)
+    SRMI->>Registry: rebind(RecensioniServiceImp)
+    SRMI->>Registry: rebind(RistorantiServiceImp)
+    SRMI->>Registry: rebind(ProfiloServiceImp)
+    SRMI->>Registry: rebind(PreferitiServiceImp)
+    SRMI->>Registry: rebind(GeoServiceImp)
+
+    SRMI-->>-PA: server pronto
+    PA-->>-Admin: server pronto
 ```
 
-È consigliato mantenere i branch **specifici e di dimensioni contenute**, effettuando frequentemente il merge delle funzionalità completate. Questo permette di ridurre i conflitti e mantenere il progetto più semplice da gestire.
+```mermaid
+sequenceDiagram
+    actor Utente
+    participant PL as PannelloLogin
+    participant Client as ClientTK
+    participant Reg as Registry
+    participant Auth as AuthServiceImp
+    participant UDAO as UtenteDAO
+    participant DB as DatabaseTK
 
+    Utente->>+PL: avvia applicazione
+    PL->>+Client: avvia applicazione
+    Client-->>-PL: applicazione pronta
+    PL-->>Utente: applicazione pronta
 
-## TO DO:
+    Utente->>PL: inserisce username e password
+    PL->>+Client: login(username, password)
 
-### ilTacco:
+    Client->>+Reg: lookup("AuthService")
+    Reg-->>-Client: stub remoto AuthServiceImp
+
+    Client->>+Auth: login(username, password)
+    Auth->>+UDAO: verificaCredenziali(username, password)
+    UDAO->>+DB: esegui query
+    DB-->>-UDAO: risultato query
+    UDAO-->>-Auth: esito verifica
+
+    alt Credenziali valide
+        Auth-->>Client: esito positivo (Utente autenticato)
+        Client-->>PL: accesso effettuato
+        PL-->>Utente: accesso effettuato
+    else Credenziali non valide
+        Auth-->>-Client: esito negativo (credenziali errate)
+        Client-->>-PL: errore di login
+        PL-->>-Utente: mostra errore di login
+    end
+```
+
+Ulteriori riferimenti:
+
+- [Documentazione/UML/Sequence.md](Documentazione/UML/Sequence.md)
+- [Documentazione/UML/TK_Sequence_AvvioServer.mmd](Documentazione/UML/TK_Sequence_AvvioServer.mmd)
+- [Documentazione/UML/TK_Sequence_Login.mmd](Documentazione/UML/TK_Sequence_Login.mmd)
+
+---
+
+## TODO
+
+### ilTacco
 
 - Criptare password (FATTO)
 - Leggere file csv (FATTO)
@@ -381,7 +340,7 @@ main
 - Ottimizzazione (FATTO)
 - Immagini ristoranti (FATTO)
 
-### matlmbe:
+### matlmbe
 
 - File csv ristoranti (FATTO)
 - Dialog per aggiungere (FATTO)
@@ -396,7 +355,7 @@ main
 - Card recensione (FATTO)
 - Documentazione
 
-### fgirlanda:
+### fgirlanda
 
 - Trova ristoranti vicini (FATTO)
 - Gestire posizione utente/ristorante (FATTO)
@@ -405,25 +364,14 @@ main
 - Sistemare tipo cucina csv (FATTO)
 - Sfoltire ristoranti (50 - nomi corti - proprietario - id da 1) (FATTO)
 - Funzione filtro distanza (FATTO)
-- Fixare abilita/disabilita pulsanti  (FATTO)
+- Fixare abilita/disabilita pulsanti (FATTO)
 - Ultimi fix (FATTO)
 
 ### Generale
 
-Generale:
-
 - File csv con coppie id utente-ristorante_preferito/recensioni (FATTO)
 - ID a ristoranti e recensioni (FATTO)
-
 - CSV recensioni (FATTO)
-
-    - ID recensione
-    - ID cliente
-    - ID ristorante
-    - Voto
-    - Testo
-    - Risposta
-
 - Gestione ristorante aperto (FATTO)
 - Rimozione recensione (FATTO)
 - Modifica recensione (FATTO)
@@ -433,20 +381,17 @@ Generale:
 - Disabilitare bottone risposta recensione dopo aver risposto (FATTO)
 - Rendere visibile la risposta (FATTO)
 
-Grafica:
+### Grafica
 
 - Fix dimensione finestra profilo (FATTO)
-- Fix login status (popup al posto di label?) 
+- Fix login status (popup al posto di label?)
 - Modificare filtri ricerca ristoranti (FATTO)
 - Immagini ristoranti legate a tipo cucina (FATTO)
 - Nomi ristoranti in le mie recensioni (al posto di username) (FATTO)
 - Fix spazio vuoto in le mie recensioni (FATTO)
 - Fix bordo recensioni (FATTO)
 
-
-
-
-Pulizia codice:
+### Pulizia codice
 
 - Writer e Reader non sono coerenti tra di loro (alcuni hanno metodi static altri no) (FATTO)
 - Classe astratta Controller (FATTO)
@@ -454,25 +399,24 @@ Pulizia codice:
 - Gestione eccezioni (FATTO)
 - Generalizzazione dei percorsi file (FATTO)
 
-Issues:
+### Issues
 
-- L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (per esempio indirizzo: mario) (RISOLTO)
+- L'utente può non selezionare un indirizzo generato dalla ricerca con nominatim e il programma funziona ugualmente perchè lat non è null (RISOLTO)
 - Non aggiorna la recensione se si modifica solo il voto (RISOLTO)
-- Rotta la modifica/rimozioni di recensioni per il calcolo media - probabile causa: manca l'assegnazione del ristorante alla recensione in alcuni punti (RISOLTO)
-- Stesso problema di modifica recensioni, ma solo dopo la prima modifica, che funziona correttamente (RISOLTO)
+- Rotta la modifica/rimozioni di recensioni per il calcolo media (RISOLTO)
+- Stesso problema di modifica recensioni, ma solo dopo la prima modifica (RISOLTO)
 - Non funziona rispondere a una recensione, il tasto non si disabilita e la risposta non appare (RISOLTO)
 - Se aggiungo una recensione, non la posso modificare (RISOLTO)
 - Errore caricamento card recensioni in profilo cliente, perchè le recensioni caricate non hanno il ristorante settato (RISOLTO)
 
-
-Extra:
+### Extra
 
 - Whitelist caratteri (opzionale)
 - Soluzione per ripetizione metodo caricaTessere (FATTO)
 - Pulizia grafica (FATTO)
 - Aggiungere controllo indirizzo (FATTO)
 
-Ottimizzazioni:
+### Ottimizzazioni
 
 - Calcolo media per un ristorante quando viene rimossa una recensione prevede .remove da Lista, che ha complessità O(n), si potrebbe usare un contatore(?)
 
@@ -482,43 +426,33 @@ Ottimizzazioni:
 
 ### TODO
 
-diagrammi:
-
-- interaction(?)
-- package(?)
-
-### matlambe
-- er (FATTO)
-- class
-- implementare db (FATTO)
-- creare GUI pannello admin:
-  - loading/status connessione database
-  - loading/status avvio server
-  - lista utenti registrati
-  - counter utenti connessi
-  - altro(?)
-
-### fgirlanda
+- interaction diagram
+- package diagram
+- ER diagram (FATTO)
+- class diagram
+- implementare DB (FATTO)
+- creare GUI pannello admin
 - use-case
 - sequence
-- ottimizzare gestione db (FATTO)
+- ottimizzare gestione DB (FATTO)
 - organizzare cartelle client-server (FATTO)
 - fixare problemi dovuti a divisione in moduli separati (FATTO)
 - implementare avvio server (FATTO)
 - gestione permessi (FATTO)
 - standardizzare il codice (FATTO)
-
-### ggallon
-- activity
+- activity diagram
 - aggiustare istruzioni installazione (FATTO)
-- aggiungere istruzioni db (FATTO)
+- aggiungere istruzioni DB (FATTO)
 - distribuzione client/server/database su macchine diverse
+- aggiornamento GUI in risposta a eventi client
+- documentazione manuale utente e tecnico
+- javadoc (FATTO)
 
-### Generale
+---
 
-- aggiornamento gui in risposta a eventi client
+## Documentazione aggiuntiva
 
-- documentazione (vedere pdf di lab-b su elearning):
-  - manuale utente
-  - manuale tecnico
-  - javadoc (FATTO)
+- [Documentazione](Documentazione)
+- [Documentazione/UML](Documentazione/UML)
+- [TheKnife.sql](TheKnife.sql)
+- [launch_ex.json](launch_ex.json)
