@@ -6,190 +6,103 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloClienteController">
+<TabPane fx:id="tabPane" prefHeight="760.0" prefWidth="1100.0" styleClass="profile-shell"
+         tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/24.0.1"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.ProfiloClienteController">
    <tabs>
-      <Tab style="-fx-font-size: 14px;" text="Dati personali">
+      <Tab text="Dati personali">
          <content>
-            <AnchorPane prefHeight="531.0">
+            <VBox spacing="22.0" styleClass="profile-content">
                <children>
-                  <GridPane layoutX="14.0" layoutY="20.0" prefHeight="369.0" prefWidth="595.0" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="20.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.6666259765625" minWidth="10.0" prefWidth="144.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="457.0" minWidth="10.0" prefWidth="451.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label text="Nome:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Cognome:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Username:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Password:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Data di nascita:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Indirizzo:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label text="Ruolo:" textAlignment="RIGHT" GridPane.halignment="LEFT" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelNome" text="Nome" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelCognome" text="Cognome" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelUsername" text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelPassword" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelData" text="Data di nascita" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelIndirizzo" text="Indirizzo" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label fx:id="labelRuolo" text="Ruolo" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </Label>
+                        <VBox spacing="3.0">
+                           <children>
+                              <Label styleClass="page-title" text="Il tuo profilo" />
+                              <Label styleClass="muted" text="Le informazioni associate al tuo account" />
+                           </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logOut" text="Esci dall’account" />
                      </children>
-                  </GridPane>
-                  <Button fx:id="btnIndietro" layoutX="14.0" layoutY="416.0" mnemonicParsing="false" onAction="#tornaIndietro" text="Indietro">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnLogout" layoutX="669.0" layoutY="20.0" mnemonicParsing="false" onAction="#logOut" text="Logout" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Button>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab style="-fx-font-size: 14px;" text="Risotranti preferiti">
-         <content>
-            <AnchorPane>
-               <children>
-                  <VBox prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  </HBox>
+                  <VBox maxWidth="820.0" spacing="14.0" styleClass="personal-card">
                      <children>
-                        <ScrollPane prefHeight="670.6666666666666" prefWidth="1000.0">
-                           <content>
-                              <VBox fx:id="contenitoreTessereRis" prefHeight="0.0" prefWidth="1000.0" />
-                           </content>
-                        </ScrollPane>
+                        <Label styleClass="section-title" text="Informazioni personali" />
+                        <GridPane hgap="30.0" vgap="13.0">
+                           <columnConstraints>
+                              <ColumnConstraints minWidth="170.0" />
+                              <ColumnConstraints hgrow="ALWAYS" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints /><RowConstraints /><RowConstraints /><RowConstraints />
+                              <RowConstraints /><RowConstraints /><RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <Label styleClass="profile-label" text="NOME" />
+                              <Label styleClass="profile-label" text="COGNOME" GridPane.rowIndex="1" />
+                              <Label styleClass="profile-label" text="USERNAME" GridPane.rowIndex="2" />
+                              <Label styleClass="profile-label" text="PASSWORD" GridPane.rowIndex="3" />
+                              <Label styleClass="profile-label" text="DATA DI NASCITA" GridPane.rowIndex="4" />
+                              <Label styleClass="profile-label" text="INDIRIZZO" GridPane.rowIndex="5" />
+                              <Label styleClass="profile-label" text="RUOLO" GridPane.rowIndex="6" />
+                              <Label fx:id="labelNome" styleClass="profile-value" text="Nome" GridPane.columnIndex="1" />
+                              <Label fx:id="labelCognome" styleClass="profile-value" text="Cognome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="labelUsername" styleClass="profile-value" text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="labelPassword" styleClass="profile-value" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="labelData" styleClass="profile-value" text="Data di nascita" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="labelIndirizzo" styleClass="profile-value" text="Indirizzo" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="labelRuolo" styleClass="profile-value" text="Ruolo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                           </children>
+                        </GridPane>
                      </children>
                   </VBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <Button fx:id="btnIndietro" mnemonicParsing="false" onAction="#tornaIndietro" text="←  Torna ai ristoranti" />
                </children>
-            </AnchorPane>
+            </VBox>
          </content>
       </Tab>
-      <Tab style="-fx-font-size: 14px;" text="Le mie recensioni">
-        <content>
-          <AnchorPane>
-            <children>
-                    <ScrollPane hbarPolicy="NEVER" prefHeight="670.6666666666666" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                       <content>
-                          <VBox fx:id="contenitoreTessereRec" prefHeight="0.0" prefWidth="1000.0" />
-                       </content>
-                    </ScrollPane>
-                 </children>
-              </AnchorPane>
-        </content>
+      <Tab text="Ristoranti preferiti">
+         <content>
+            <VBox spacing="18.0" styleClass="profile-content">
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label styleClass="page-title" text="I tuoi preferiti" />
+                        <Label styleClass="muted" text="I ristoranti che hai salvato" />
+                     </children>
+                  </VBox>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                     <content><VBox fx:id="contenitoreTessereRis" styleClass="cards-list" /></content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </content>
+      </Tab>
+      <Tab text="Le mie recensioni">
+         <content>
+            <VBox spacing="18.0" styleClass="profile-content">
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label styleClass="page-title" text="Le tue recensioni" />
+                        <Label styleClass="muted" text="Gestisci le esperienze che hai condiviso" />
+                     </children>
+                  </VBox>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                     <content><VBox fx:id="contenitoreTessereRec" styleClass="cards-list" /></content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </content>
       </Tab>
    </tabs>
 </TabPane>

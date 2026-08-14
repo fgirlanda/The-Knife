@@ -25,6 +25,7 @@ public class ClientTK extends Application {
     private void mostraFinestra(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/main.fxml"));
         Parent root = loader.load();
+        root.getStylesheets().add(getClass().getResource("/GUI/theme.css").toExternalForm());
 
         MainController controller = loader.getController();
         controller.setStage(stage);

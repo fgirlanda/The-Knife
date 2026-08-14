@@ -73,6 +73,10 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private Text txtRisposta;
 
+    /** Contenitore mostrato soltanto quando il ristorante ha risposto. */
+    @FXML
+    private VBox boxRisposta;
+
     /** Pulsante per rispondere alla recensione. */
     @FXML
     private Button btnRispondi;
@@ -130,6 +134,10 @@ public class CardRecensioneController extends BasicController implements Card<Re
         txtTesto.setText(recensione.getTesto());
         txtStelle.setText("★".repeat(recensione.getStelle()));
         txtRisposta.setText(recensione.getRisposta());
+        boolean rispostaPresente = recensione.getRisposta() != null
+                && !recensione.getRisposta().isBlank();
+        boxRisposta.setVisible(rispostaPresente);
+        boxRisposta.setManaged(rispostaPresente);
     }
 
     /**
