@@ -13,6 +13,8 @@ public class PannelloAdminController {
 
     ServerContext serverContext;
 
+    ServerPublisher serverPublisher;
+
     @FXML
     private TextField hostField;
 
@@ -46,6 +48,10 @@ public class PannelloAdminController {
         this.serverContext = serverContext;
     }
 
+    public void setServerPublisher(ServerPublisher serverPublisher) {
+        this.serverPublisher = serverPublisher;
+    }
+
     @FXML
     public void connettiDB() {
         String host = hostField.getText();
@@ -59,7 +65,6 @@ public class PannelloAdminController {
 
     @FXML
     public void avviaServer(){
-        ServerPublisher serverPublisher = new ServerPublisher(serverContext);
         try {
             serverPublisher.avvia();
         } catch (Exception e) {

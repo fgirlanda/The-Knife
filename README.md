@@ -81,6 +81,20 @@ mvn -version
 psql -U postgres -f <percorso_file_punto3>
 ```
 
+## Compilazione
+
+Aprire un terminale nella cartella principale del progetto:
+
+```text
+The-Knife
+```
+
+ed eseguire:
+
+```bash
+mvn install
+```
+
 ## Avvio dell'applicazione
 
 L'applicazione può essere avviata direttamente da un IDE oppure tramite Maven.
@@ -100,17 +114,7 @@ Se si utilizza Visual Studio Code:
 
 ### Tramite terminale
 
-Aprire un terminale nella cartella principale del progetto:
-
-```text
-The-Knife
-```
-
-ed eseguire:
-
-```bash
-mvn install
-```
+Dalla root principale del progetto eseguire:
 
 ```bash
 mvn -f server/pom.xml javafx:run 
@@ -121,6 +125,19 @@ Connettersi al database e avviare il server tramite appositi bottoni nel pannell
 ```bash
 mvn -f client/pom.xml javafx:run
 ```
+
+### Tramite file jar
+
+Il comando `mvn install` è configurato per generare anche i file jar corrispondenti ai moduli client, server e common (quest'ultimo è irrilevante)
+
+I file .jar eseguibili si trovano nelle rispettive cartelle target all'interno dei singoli moduli
+
+Per eseguire l'applicazione è necessario:
+1. Avviare il jar del server `server\target\server-2.0-SNAPSHOT.jar`
+2. Connettersi al database
+3. Avviare il server 
+4. Avviare il file jar del client `client\target\client-2.0-SNAPSHOT.jar`
+5. 
 ---
 
 # Contribuire al progetto

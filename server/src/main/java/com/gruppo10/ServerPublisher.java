@@ -1,8 +1,10 @@
 package com.gruppo10;
 
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ServerPublisher {
     ServerContext serverContext;
@@ -19,5 +21,19 @@ public class ServerPublisher {
         registry.rebind("RistorantiService", serverContext.ristorantiServiceImp);
         registry.rebind("RecensioniService", serverContext.recensioniServiceImp);
         registry.rebind("PreferitiService", serverContext.preferitiServiceImp);
+    }
+
+    public void arresta() {
+        try {
+            UnicastRemoteObject.unexportObject(serverContext.geoServiceImp, true);
+            UnicastRemoteObject.unexportObject(serverContext.authServiceImp, true);
+            UnicastRemoteObject.unexportObject(serverContext.ristorantiServiceImp, true);
+            UnicastRemoteObject.unexportObject(serverContext.recensioniServiceImp, true);
+            UnicastRemoteObject.unexportObject(serverContext.preferitiServiceImp, true);
+            UnicastRemoteObject.unexportObject(registry, true);
+        } catch (NoSuchObjectException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

@@ -13,15 +13,23 @@ import javafx.stage.Stage;
 public class ServerTK extends Application{
 
     ServerContext serverContext;
+    ServerPublisher serverPublisher;
 
     @Override
     public void start(Stage stage) throws Exception {
 
         // Creare ServerContext
         serverContext = new ServerContext();
-
+        serverPublisher = new ServerPublisher(serverContext);
 
         mostraPannello(stage);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        if (serverPublisher != null) {
+            serverPublisher.arresta();
+        }
     }
 
     private void mostraPannello(Stage stage) throws IOException {
@@ -31,6 +39,7 @@ public class ServerTK extends Application{
         PannelloAdminController controller = loader.getController();
         controller.setStage(stage);
         controller.setServerContext(serverContext);
+        controller.setServerPublisher(serverPublisher);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
