@@ -506,7 +506,7 @@ diagrammi:
 - fixare problemi dovuti a divisione in moduli separati (FATTO)
 - implementare avvio server (FATTO)
 - gestione permessi (FATTO)
-- standardizzare il codice
+- standardizzare il codice (FATTO)
 
 ### ggallon
 - activity
@@ -521,4 +521,4 @@ diagrammi:
 - documentazione (vedere pdf di lab-b su elearning):
   - manuale utente
   - manuale tecnico
-  - javadoc
+  - javadoc (FATTO)
