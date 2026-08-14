@@ -162,14 +162,29 @@ public class BasicController {
         SceneManager.apriLogin(stage, clientContext);
     }
 
+    /**
+     * Imposta il contesto del client del controller.
+     *
+     * @param context contesto client da associare
+     */
     public void setContext(ClientContext context) {
         this.clientContext = context;
     }
 
+    /**
+     * Restituisce la sessione corrente dell'utente loggato.
+     *
+     * @return sessione attiva oppure {@code null} se l'utente non ha eseguito l'accesso
+     */
     public Sessione getSessioneCorrente() {
         return sessioneCorrente;
     }
 
+    /**
+     * Imposta la sessione corrente dell'utente.
+     *
+     * @param sessioneCorrente nuova sessione da associare al controller
+     */
     public void setSessioneCorrente(Sessione sessioneCorrente) {
         this.sessioneCorrente = sessioneCorrente;
     }

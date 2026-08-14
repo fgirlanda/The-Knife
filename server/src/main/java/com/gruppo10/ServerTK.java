@@ -10,11 +10,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ServerTK extends Application{
+/**
+ * Applicazione JavaFX del server di The Knife.
+ * Avvia l'interfaccia amministrativa per configurare la connessione al database
+ * e pubblicare i service RMI del sistema.
+ */
+public class ServerTK extends Application {
 
+    /** Contesto condiviso del server. */
     ServerContext serverContext;
+
+    /** Publisher dei service remoti esposti dal server. */
     ServerPublisher serverPublisher;
 
+    /**
+     * Inizializza il contesto del server e apre il pannello di amministrazione.
+     *
+     * @param stage finestra principale dell'applicazione
+     * @throws Exception se si verifica un errore durante l'avvio
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -25,6 +39,11 @@ public class ServerTK extends Application{
         mostraPannello(stage);
     }
 
+    /**
+     * Chiude correttamente il server e libera le risorse RMI al termine dell'applicazione.
+     *
+     * @throws Exception se si verifica un errore durante la chiusura
+     */
     @Override
     public void stop() throws Exception {
         if (serverPublisher != null) {
@@ -32,6 +51,12 @@ public class ServerTK extends Application{
         }
     }
 
+    /**
+     * Carica il pannello di amministrazione del server e collega il controller al contesto.
+     *
+     * @param stage finestra principale dell'applicazione
+     * @throws IOException se il file FXML non può essere caricato
+     */
     private void mostraPannello(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/pannello_admin.fxml"));
         Parent root = loader.load();

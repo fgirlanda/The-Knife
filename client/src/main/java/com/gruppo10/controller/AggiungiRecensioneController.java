@@ -28,7 +28,7 @@ import javafx.scene.text.Text;
  * salvarlo nel database e aggiornare la vista della pagina del ristorante.</p>
  * 
  * <p>Estende {@link BasicController} per ereditare funzionalità comuni come
- * la gestione dell'utente loggato, dei pulsanti e delle finestre.</p>
+ * la gestione dellaa sessione corrente, dei pulsanti e delle finestre.</p>
  */
 public class AggiungiRecensioneController extends BasicController {
 
