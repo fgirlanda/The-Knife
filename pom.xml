@@ -27,8 +27,6 @@
         <junit.version>5.10.0</junit.version>
     </properties>
 
-    <!-- Centralizza qui le versioni: i moduli figli dichiarano le
-         dipendenze senza ripetere il <version>. -->
     <dependencyManagement>
         <dependencies>
             <dependency>

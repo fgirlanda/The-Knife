@@ -11,7 +11,7 @@ import com.gruppo10.eccezioni.PermessoNegatoException;
 
 public interface RecensioniServiceInt extends Remote{
 
-    void aggiungiRecensione(String token,Recensione recensione, Ristorante ristorante)
+    Recensione aggiungiRecensione(String token,Recensione recensione, Ristorante ristorante)
             throws RemoteException, IllegalArgumentException, SQLException, PermessoNegatoException;
 
     void rimuoviRecensione(String token,Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException;

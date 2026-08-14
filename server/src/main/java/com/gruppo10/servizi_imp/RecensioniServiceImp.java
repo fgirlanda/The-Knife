@@ -20,14 +20,14 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
     }
 
     @Override
-    public void aggiungiRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException {
+    public Recensione aggiungiRecensione(String token, Recensione recensione, Ristorante ristorante) throws RemoteException, PermessoNegatoException {
 
         verificaPermessi(token, Ruolo.CLIENTE);
         
         try {
-            managerDB.getRecensioneDAO().aggiungiRecensione(recensione);
-            ristorante.aggiungiRecensione(recensione);
+            Recensione recensioneInserita = managerDB.getRecensioneDAO().aggiungiRecensione(recensione);
             managerDB.getRistoranteDAO().aggiornaMediaRecensioni(ristorante);
+            return recensioneInserita;
         } catch (SQLException e) {
             throw new RemoteException("Errore durante l'aggiunta della recensione\n" + e.getMessage());
         }

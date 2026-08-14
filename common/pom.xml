@@ -23,8 +23,4 @@
             <artifactId>gson</artifactId>
         </dependency>
     </dependencies>
-
-    <!-- Oltre a Lombok, deliberatamente senza altre dipendenze esterne:
-         qui vivono solo le classi di dominio (Serializable), le eccezioni
-         applicative e le interfacce Remote condivise da server e client. -->
 </project>

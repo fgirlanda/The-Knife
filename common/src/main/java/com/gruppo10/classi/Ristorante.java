@@ -104,21 +104,60 @@ public class Ristorante implements Identificabile, Serializable {
     }
 
     /**
-     * Aggiunge una recensione al ristorante.
+     * Aggiunge una recensione al ristorante e ricalcola immediatamente la media.
      *
-     * @param recensione recensione da aggiungere
+     * @param recensione recensione da aggiungere; se {@code null} non viene eseguita alcuna operazione
      */
     public void aggiungiRecensione(Recensione recensione) {
+        if (recensione == null) {
+            return;
+        }
         this.recensioni.add(recensione);
+        aggiornaMediaRecensioni();
     }
 
     /**
-     * Rimuove una recensione dal ristorante.
+     * Rimuove una recensione dal ristorante e ricalcola immediatamente la media.
      *
-     * @param recensione recensione da rimuovere
+     * @param recensione recensione da rimuovere; se {@code null} non viene eseguita alcuna operazione
      */
     public void rimuoviRecensione(Recensione recensione) {
+        if (recensione == null) {
+            return;
+        }
         this.recensioni.remove(recensione);
+        aggiornaMediaRecensioni();
+    }
+
+    /**
+     * Sostituisce una recensione esistente con una nuova versione e ricalcola la media.
+     *
+     * @param vecchiaRecensione recensione da sostituire; se {@code null} viene ignorata
+     * @param nuovaRecensione recensione aggiornata da inserire; se {@code null} viene ignorata
+     */
+    public void sostituisciRecensione(Recensione vecchiaRecensione, Recensione nuovaRecensione) {
+        if (vecchiaRecensione != null) {
+            this.recensioni.remove(vecchiaRecensione);
+        }
+        if (nuovaRecensione != null) {
+            this.recensioni.add(nuovaRecensione);
+        }
+        aggiornaMediaRecensioni();
+    }
+
+    /**
+     * Ricalcola la media delle recensioni in base allo stato attuale della lista.
+     */
+    public void aggiornaMediaRecensioni() {
+        if (this.recensioni == null || this.recensioni.isEmpty()) {
+            this.mediaRec = 0.0;
+            return;
+        }
+
+        double somma = this.recensioni.stream()
+                .mapToDouble(Recensione::getStelle)
+                .sum();
+        this.mediaRec = somma / this.recensioni.size();
     }
 
     /**

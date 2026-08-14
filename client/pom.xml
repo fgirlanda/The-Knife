@@ -13,10 +13,6 @@
     <artifactId>client</artifactId>
     <packaging>jar</packaging>
 
-    <!-- Nota: nessuna dipendenza su "server" ne' su "postgresql". Se un
-         controller qui provasse a usare ManagerDB o un DAO, il modulo
-         non compilerebbe nemmeno: e' questo che garantisce l'isolamento
-         di cui parlavamo. -->
     <dependencies>
         <dependency>
             <groupId>com.gruppo10</groupId>
@@ -38,7 +34,7 @@
 
     <build>
         <plugins>
-            <!-- mvn -pl client javafx:run  ->  per lo sviluppo/demo -->
+            
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -46,7 +42,7 @@
                     <mainClass>com.gruppo10.ClientBoot</mainClass>
                 </configuration>
             </plugin>
-            <!-- mvn -pl client package  ->  jar eseguibile per la consegna -->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

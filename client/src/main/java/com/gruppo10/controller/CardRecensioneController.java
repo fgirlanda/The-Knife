@@ -130,12 +130,6 @@ public class CardRecensioneController extends BasicController implements Card<Re
     }
 
     /**
-     * Imposta il ristorante associato a questa recensione.
-     *
-     * @param ristorante l'oggetto {@link Ristorante} della recensione.
-     */
-
-    /**
      * Gestisce l'evento di clic sul pulsante "Rispondi".
      * Apre una finestra di dialogo per permettere al proprietario di un ristorante
      * di scrivere una risposta alla recensione. Aggiorna la card una volta che la
@@ -185,7 +179,8 @@ public class CardRecensioneController extends BasicController implements Card<Re
     @FXML
     private void rimuovi() {
         try {
-            clientContext.getRecensioniService().rimuoviRecensione(sessioneCorrente.getToken(),recensione, ristorante);
+            ristorante.rimuoviRecensione(recensione);
+            clientContext.getRecensioniService().rimuoviRecensione(sessioneCorrente.getToken(), recensione, ristorante);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;

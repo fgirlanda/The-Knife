@@ -34,7 +34,6 @@
 
     <build>
         <plugins>
-            <!-- mvn -pl server javafx:run  ->  per lo sviluppo/demo -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -42,7 +41,6 @@
                     <mainClass>com.gruppo10.ServerBoot</mainClass>
                 </configuration>
             </plugin>
-            <!-- mvn -pl server package  ->  jar eseguibile per la consegna -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

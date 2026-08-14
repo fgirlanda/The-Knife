@@ -95,14 +95,18 @@ public class ModificaRecensioneController extends BasicController {
     @FXML
     private ToggleGroup stelleGroup;
 
+    /**
+     * Inizializza la finestra di modifica impostando il pulsante di invio come azione predefinita.
+     */
     @FXML
     private void initialize() {
         btnInvia.setDefaultButton(true);
     }
+
     /**
      * Imposta il ristorante a cui appartiene la recensione.
      *
-     * @param ristorante l'oggetto {@link Ristorante} della recensione.
+     * @param ristorante l'oggetto {@link Ristorante} della recensione
      */
     public void setRistorante(Ristorante ristorante) {
         this.ristorante = ristorante;
@@ -174,17 +178,17 @@ public class ModificaRecensioneController extends BasicController {
                 return;
             }
 
-            ristorante.rimuoviRecensione(recensione);
-            recensione.setTesto(nuovoTesto);
-            recensione.setStelle(nuovoVoto);
-            recensione.setIdRistorante(idRis);
-            recensione.setIdUtente(idUt);
-            recensione.setUsername(username);
-            recensione.setRisposta(risposta);
-            recensione.setRistorante(ristorante);
-            ristorante.aggiungiRecensione(recensione);
+            Recensione recensioneAggiornata = new Recensione();
+            recensioneAggiornata.setIdRec(recensione.getIdRec());
+            recensioneAggiornata.setIdUtente(idUt);
+            recensioneAggiornata.setIdRistorante(idRis);
+            recensioneAggiornata.setUsername(username);
+            recensioneAggiornata.setTesto(nuovoTesto);
+            recensioneAggiornata.setStelle(nuovoVoto);
+            recensioneAggiornata.setRisposta(risposta);
+            recensioneAggiornata.setRistorante(ristorante);
 
-            clientContext.getRistorantiService().aggiornaMediaRecensioni(sessioneCorrente.getToken(),ristorante);
+            ristorante.sostituisciRecensione(recensione, recensioneAggiornata);
         } catch (IllegalArgumentException e) {
             GestioneEccezioni.errore("Errore durante la modifica della recensione", e, false, null);
             return;

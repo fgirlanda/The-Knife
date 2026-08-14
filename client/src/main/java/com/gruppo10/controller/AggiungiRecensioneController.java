@@ -126,7 +126,10 @@ public class AggiungiRecensioneController extends BasicController {
         recensione.setRistorante(ristorante);
 
         try {
-            clientContext.getRecensioniService().aggiungiRecensione(sessioneCorrente.getToken(), recensione, ristorante);
+            Recensione recensioneInserita = clientContext.getRecensioniService()
+                    .aggiungiRecensione(sessioneCorrente.getToken(), recensione, ristorante);
+            recensione.setIdRec(recensioneInserita.getIdRec());
+            ristorante.aggiungiRecensione(recensione);
         } catch (RemoteException e) {
             GestioneEccezioni.errore("Errore di connessione al server", e, false, null);
             return;
