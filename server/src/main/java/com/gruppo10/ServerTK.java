@@ -68,7 +68,12 @@ public class ServerTK extends Application {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("The Knife - Login");
+        stage.setTitle("The Knife - Pannello Admin");
+        stage.setMinWidth(1040);
+        stage.setMinHeight(760);
+        stage.setWidth(1360);
+        stage.setHeight(880);
+        stage.centerOnScreen();
         stage.show();
     }
     

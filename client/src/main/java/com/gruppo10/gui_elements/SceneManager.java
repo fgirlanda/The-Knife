@@ -186,6 +186,7 @@ public class SceneManager {
             try {
                 FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
                 HBox card = loader.load();
+                applicaTema(card);
 
                 Card<T> controller = loader.getController();
                 controller.setStage(stage);
@@ -221,6 +222,7 @@ public class SceneManager {
         try {
             FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
             Parent root = loader.load();
+            applicaTema(root);
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
@@ -254,6 +256,7 @@ public class SceneManager {
         try {
             FXMLLoader loader = new FXMLLoader(ClientTK.class.getResource(guiPath + fxmlFile));
             Parent root = loader.load();
+            applicaTema(root);
 
             dialogStage = new Stage();
             dialogStage.setTitle(title);
@@ -274,5 +277,13 @@ public class SceneManager {
         }
 
         return dialogStage;
+    }
+
+    /** Applica il foglio di stile condiviso a una vista caricata da FXML. */
+    private static void applicaTema(Parent root) {
+        String tema = ClientTK.class.getResource("/GUI/theme.css").toExternalForm();
+        if (!root.getStylesheets().contains(tema)) {
+            root.getStylesheets().add(tema);
+        }
     }
 }

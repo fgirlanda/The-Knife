@@ -3,17 +3,17 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ClientBoot",
-            "request": "launch",
-            "mainClass": "com.gruppo10.ClientBoot",
-            "projectName": "client"
-        },
-        {
-            "type": "java",
-            "name": "ServerBoot",
+            "name": "1 - Pannello Admin (Server)",
             "request": "launch",
             "mainClass": "com.gruppo10.ServerBoot",
             "projectName": "server"
+        },
+        {
+            "type": "java",
+            "name": "2 - Applicazione (Client)",
+            "request": "launch",
+            "mainClass": "com.gruppo10.ClientBoot",
+            "projectName": "client"
         }
     ]
 }

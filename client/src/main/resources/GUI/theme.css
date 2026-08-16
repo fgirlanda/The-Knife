@@ -1,0 +1,481 @@
+/* Tema condiviso The Knife — ispirato al mockup Gusto. */
+.root {
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-font-size: 14px;
+    -fx-background-color: #f5f4ef;
+    -fx-text-fill: #172018;
+}
+
+.label {
+    -fx-text-fill: #172018;
+}
+
+.app-shell,
+.profile-shell,
+.detail-shell {
+    -fx-background-color: linear-gradient(to bottom right, #fbfaf7, #f1f4ec);
+}
+
+.app-header {
+    -fx-background-color: rgba(255, 255, 255, 0.96);
+    -fx-border-color: transparent transparent #e5e8e1 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 28 16 28;
+    -fx-spacing: 18;
+    -fx-alignment: center-left;
+}
+
+.brand-mark {
+    -fx-background-color: #315f38;
+    -fx-background-radius: 999;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-min-width: 42px;
+    -fx-min-height: 42px;
+    -fx-max-width: 42px;
+    -fx-max-height: 42px;
+}
+
+.brand-name {
+    -fx-text-fill: #315f38;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+.page-title {
+    -fx-font-size: 27px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #151a16;
+}
+
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2921;
+}
+
+.eyebrow {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #49734e;
+}
+
+.muted,
+.field-caption {
+    -fx-text-fill: #68716a;
+}
+
+.field-caption {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.text-field,
+.password-field,
+.text-area,
+.date-picker,
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #dfe4dc;
+    -fx-border-radius: 9;
+    -fx-background-radius: 9;
+    -fx-padding: 9 12 9 12;
+    -fx-prompt-text-fill: #929a93;
+    -fx-highlight-fill: #dce9dc;
+    -fx-highlight-text-fill: #172018;
+}
+
+.text-field:focused,
+.password-field:focused,
+.text-area:focused,
+.date-picker:focused,
+.combo-box:focused {
+    -fx-border-color: #47784e;
+    -fx-effect: dropshadow(gaussian, rgba(49, 95, 56, 0.13), 8, 0.1, 0, 0);
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 9;
+}
+
+.button {
+    -fx-background-color: #315f38;
+    -fx-background-radius: 9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 18 10 18;
+}
+
+.button:hover {
+    -fx-background-color: #254e2d;
+}
+
+.button:pressed {
+    -fx-background-color: #1f4326;
+}
+
+.button:disabled {
+    -fx-opacity: 0.48;
+}
+
+#btnAnnulla,
+#btnIndietro,
+#btnRegistrati,
+#btnRegistratiProfilo {
+    -fx-background-color: white;
+    -fx-border-color: #d9ded7;
+    -fx-border-radius: 9;
+    -fx-text-fill: #273129;
+}
+
+#btnAnnulla:hover,
+#btnIndietro:hover,
+#btnRegistrati:hover,
+#btnRegistratiProfilo:hover {
+    -fx-background-color: #f0f3ed;
+}
+
+#btnRimuovi,
+#btnLogout {
+    -fx-background-color: #fff4f2;
+    -fx-text-fill: #c43b32;
+    -fx-border-color: #f2d3cf;
+    -fx-border-radius: 8;
+}
+
+#btnRimuovi:hover,
+#btnLogout:hover {
+    -fx-background-color: #ffe7e3;
+}
+
+.search-box {
+    -fx-min-height: 42px;
+    -fx-pref-height: 42px;
+    -fx-max-height: 42px;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #47784e;
+    -fx-border-radius: 10;
+    -fx-padding: 1px 0 1px 1px;
+}
+
+.search-field {
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+    -fx-background-radius: 9 0 0 9;
+    -fx-border-color: transparent;
+    -fx-border-radius: 9 0 0 9;
+    -fx-effect: none;
+}
+
+.search-field:focused {
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+.search-button {
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-height: 40px;
+    -fx-min-width: 48px;
+    -fx-background-radius: 0 9 9 0;
+    -fx-padding: 8 14 8 14;
+}
+
+.hero-panel {
+    -fx-background-color: linear-gradient(to right, #edf3e8, #faf8f1);
+    -fx-background-radius: 18;
+    -fx-border-color: #e2e7df;
+    -fx-border-radius: 18;
+    -fx-padding: 24 26 24 26;
+}
+
+.filter-bar {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e2e6df;
+    -fx-border-radius: 14;
+    -fx-padding: 14;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(30, 45, 32, 0.06), 12, 0.1, 0, 3);
+}
+
+.filter-bar .combo-box {
+    -fx-pref-width: 142px;
+    -fx-padding: 5 8 5 8;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #cdd5cd;
+    -fx-background-radius: 10;
+}
+
+.cards-list {
+    -fx-spacing: 12;
+    -fx-padding: 4 10 22 4;
+    -fx-background-color: transparent;
+}
+
+.restaurant-card,
+.review-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-color: #e0e4dd;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(28, 40, 30, 0.07), 12, 0.08, 0, 3);
+    -fx-cursor: hand;
+}
+
+.restaurant-card:hover {
+    -fx-border-color: #9eb5a1;
+    -fx-effect: dropshadow(gaussian, rgba(28, 72, 35, 0.14), 18, 0.12, 0, 5);
+}
+
+.restaurant-card #txtNomeRistorante {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-fill: #172018;
+}
+
+.restaurant-card #txtRecensioni {
+    -fx-fill: #d99214;
+    -fx-font-weight: bold;
+}
+
+.restaurant-card #txtPrezzo,
+.restaurant-card #txtTipoCucina {
+    -fx-fill: #5f6961;
+}
+
+.info-chip {
+    -fx-background-color: #f2f6ef;
+    -fx-background-radius: 999;
+    -fx-border-color: #d9e4d6;
+    -fx-border-radius: 999;
+    -fx-text-fill: #315f38;
+    -fx-padding: 6 10 6 10;
+}
+
+.login-shell {
+    -fx-background-color: #eef0eb;
+    -fx-padding: 14;
+}
+
+.login-visual {
+    -fx-background-image: url("../images/INTERNAZIONALE.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-radius: 18 0 0 18;
+    -fx-min-width: 430px;
+}
+
+.login-overlay {
+    -fx-background-color: linear-gradient(to top, rgba(15, 31, 18, 0.72), rgba(15, 31, 18, 0.05));
+    -fx-background-radius: 18 0 0 18;
+    -fx-padding: 32;
+    -fx-alignment: bottom-left;
+}
+
+.login-overlay .label {
+    -fx-text-fill: white;
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 0 18 18 0;
+    -fx-padding: 38 48 38 48;
+    -fx-spacing: 14;
+    -fx-effect: dropshadow(gaussian, rgba(25, 35, 27, 0.12), 22, 0.1, 0, 7);
+}
+
+.divider-label {
+    -fx-text-fill: #879087;
+    -fx-font-size: 12px;
+}
+
+.dialog-shell {
+    -fx-background-color: #f4f5f1;
+    -fx-padding: 18;
+}
+
+.dialog-card,
+.personal-card,
+.restaurant-summary,
+.description-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-color: #e1e5df;
+    -fx-border-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(30, 42, 32, 0.08), 15, 0.08, 0, 4);
+}
+
+.rating-choice {
+    -fx-text-fill: #d89816;
+    -fx-font-size: 17px;
+}
+
+.radio-button {
+    -fx-text-fill: #39433b;
+}
+
+.radio-button > .radio {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+    -fx-border-color: #aeb8ae;
+    -fx-border-radius: 999;
+    -fx-padding: 4px;
+}
+
+.radio-button:selected > .radio > .dot {
+    -fx-background-color: #315f38;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+    -fx-padding: 4px;
+}
+
+.detail-photo-frame {
+    -fx-background-color: #e8ece5;
+    -fx-background-radius: 16;
+    -fx-padding: 8;
+}
+
+.detail-name {
+    -fx-font-size: 31px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111712;
+}
+
+.rating-text {
+    -fx-text-fill: #d99113;
+    -fx-font-weight: bold;
+}
+
+.review-card {
+    -fx-padding: 18 20 16 20;
+}
+
+.review-card #txtCliente {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: #1c231d;
+}
+
+.review-card #txtStelle {
+    -fx-fill: #e4a019;
+    -fx-stroke: transparent;
+    -fx-font-size: 16px;
+}
+
+.review-card #txtTesto {
+    -fx-fill: #333b34;
+}
+
+.review-response {
+    -fx-background-color: #f1f5ed;
+    -fx-background-radius: 10;
+    -fx-padding: 11 14 11 14;
+}
+
+.review-response-title {
+    -fx-fill: #315f38;
+    -fx-font-weight: bold;
+}
+
+.review-actions .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3c463e;
+    -fx-padding: 6 10 6 10;
+}
+
+.review-actions .button:hover {
+    -fx-background-color: #eef2eb;
+}
+
+.review-actions #btnRimuovi {
+    -fx-text-fill: #cf4037;
+}
+
+.tab-pane {
+    -fx-background-color: #f5f4ef;
+    -fx-tab-min-height: 44px;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #e0e4de transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 8 18 8 18;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #edf3ea;
+    -fx-background-radius: 9 9 0 0;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #315f38;
+    -fx-font-weight: bold;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.profile-content {
+    -fx-padding: 28;
+    -fx-background-color: #f5f4ef;
+}
+
+.profile-label {
+    -fx-text-fill: #707971;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.profile-value {
+    -fx-text-fill: #172018;
+    -fx-font-size: 16px;
+}
+
+.status-error {
+    -fx-text-fill: #bd332b;
+}
+
+.launcher-shell {
+    -fx-background-color: linear-gradient(to bottom right, #e7efe3, #faf7ef);
+    -fx-padding: 32;
+}
+
+.launcher-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-padding: 34;
+    -fx-effect: dropshadow(gaussian, rgba(29, 49, 32, 0.12), 20, 0.1, 0, 6);
+}
