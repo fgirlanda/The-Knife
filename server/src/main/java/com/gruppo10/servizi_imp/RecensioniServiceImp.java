@@ -152,7 +152,7 @@ public class RecensioniServiceImp extends BasicServiceImp implements RecensioniS
         Utente utenteLoggato = sessionManager.utenteDiSessione(token).orElseThrow(() -> new PermessoNegatoException("Sessione non valida"));
 
         if (!utenteLoggato.getRuolo().equals(Ruolo.RISTORATORE) ||
-            !managerDB.getRistoranteDAO().isRistoranteOwner(recensione.getRistorante().getId(), utenteLoggato.getId())) {
+            !managerDB.getRistoranteDAO().isRistoranteOwner(recensione.getRistorante().getIdUtente(), utenteLoggato.getId())) {
             throw new PermessoNegatoException("Permesso negato: non hai i permessi per rispondere a questa recensione");
         }
 

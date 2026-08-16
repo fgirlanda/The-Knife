@@ -344,8 +344,7 @@ public class RistoranteDAO extends BasicDAO {
         }
     }
 
-    public boolean isRistoranteOwner(int id, int id2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isRistoranteOwner'");
+    public boolean isRistoranteOwner(int idRistorante, int idUtente) {
+        return idRistorante == idUtente;
     }
 }
