@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="430.0" prefWidth="520.0" styleClass="launcher-shell"
@@ -13,7 +15,9 @@
       <VBox alignment="CENTER" maxWidth="390.0" spacing="18.0" styleClass="launcher-card">
          <fx:define><ToggleGroup fx:id="visualGroup" /></fx:define>
          <children>
-            <Label styleClass="brand-mark" text="TK" />
+            <ImageView fitHeight="82.0" fitWidth="82.0" preserveRatio="true">
+               <image><Image url="@../images/the-knife-logo.png" /></image>
+            </ImageView>
             <Label styleClass="brand-name" text="The Knife" />
             <Label styleClass="muted" text="Seleziona la modalità da avviare" />
             <RadioButton fx:id="radioTheKnife" selected="true" text="Applicazione The Knife" toggleGroup="$visualGroup" />

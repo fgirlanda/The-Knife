@@ -6,25 +6,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="780.0" prefWidth="1100.0" styleClass="app-shell"
-      xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
+<VBox prefHeight="780.0" prefWidth="1165.0" styleClass="app-shell" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PaginaPrincipaleController">
    <children>
       <HBox styleClass="app-header">
          <children>
-            <Label styleClass="brand-mark" text="TK" />
+            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+               <image><Image url="@../images/the-knife-logo.png" /></image>
+            </ImageView>
             <Label styleClass="brand-name" text="The Knife" />
             <Region prefWidth="14.0" />
-            <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" styleClass="search-box" HBox.hgrow="ALWAYS">
                <children>
-                  <TextField fx:id="ricercaField" maxWidth="520.0" prefWidth="460.0"
-                             promptText="Cerca ristorante, cucina o località…" styleClass="search-field" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnCerca" mnemonicParsing="false" onAction="#applicaFiltri"
-                          styleClass="search-button" text="⌕" />
+                  <TextField fx:id="ricercaField" maxWidth="1.7976931348623157E308" prefWidth="460.0" promptText="Cerca ristorante, cucina o località…" styleClass="search-field" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnCerca" mnemonicParsing="false" onAction="#applicaFiltri" styleClass="search-button" text="⌕" />
                </children>
             </HBox>
             <Region HBox.hgrow="ALWAYS" />
@@ -45,13 +45,12 @@
             </VBox>
             <HBox alignment="CENTER_LEFT" styleClass="filter-bar">
                <children>
-                  <ComboBox fx:id="comboFiltroRecensioni" promptText="★ Valutazione" />
-                  <ComboBox fx:id="comboFiltroCucina" promptText="Cucina" />
-                  <ComboBox fx:id="comboFiltroPrezzo" promptText="€ Prezzo" />
-                  <ComboBox fx:id="comboFiltroDelivery" promptText="Delivery" />
-                  <ComboBox fx:id="comboFiltroPrenotazione" promptText="Prenotazione" />
-                  <ComboBox fx:id="comboFiltroDistanza" promptText="Distanza" />
-                  <Region HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroRecensioni" maxWidth="1.7976931348623157E308" promptText="Valutazione" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroCucina" maxWidth="1.7976931348623157E308" promptText="Cucina" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroPrezzo" maxWidth="1.7976931348623157E308" promptText="€ Prezzo" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroDelivery" maxWidth="1.7976931348623157E308" promptText="Delivery" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroPrenotazione" maxWidth="1.7976931348623157E308" promptText="Prenotazione" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="comboFiltroDistanza" maxWidth="1.7976931348623157E308" promptText="Distanza" HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnApplicaFiltri" mnemonicParsing="false" onAction="#applicaFiltri" text="Applica filtri" />
                </children>
             </HBox>
@@ -59,7 +58,6 @@
                <children>
                   <Label styleClass="section-title" text="Ristoranti consigliati" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label styleClass="muted" text="Risultati ordinati per rilevanza" />
                </children>
             </HBox>
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">

@@ -23,6 +23,7 @@ import com.gruppo10.classi.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -116,12 +117,40 @@ public class PaginaPrincipaleController extends BasicController {
         comboFiltroDelivery.getItems().setAll(Delivery.values());
         comboFiltroPrenotazione.getItems().setAll(Prenotazione.values());
 
+        configuraEtichettaFiltro(comboFiltroCucina, "Cucina", TipoCucina.TUTTO);
+        configuraEtichettaFiltro(comboFiltroPrezzo, "Prezzo", Prezzo.TUTTO);
+        configuraEtichettaFiltro(comboFiltroRecensioni, "Valutazione", MediaRecensioni.TUTTO);
+        configuraEtichettaFiltro(comboFiltroDelivery, "Delivery", Delivery.TUTTO);
+        configuraEtichettaFiltro(comboFiltroPrenotazione, "Prenotazione", Prenotazione.TUTTO);
+        configuraEtichettaFiltro(comboFiltroDistanza, "Distanza", Distanza.OLTRE);
+
         comboFiltroCucina.getSelectionModel().select(TipoCucina.TUTTO);
         comboFiltroPrezzo.getSelectionModel().select(Prezzo.TUTTO);
         comboFiltroRecensioni.getSelectionModel().select(MediaRecensioni.TUTTO);
         comboFiltroDelivery.getSelectionModel().select(Delivery.TUTTO);
         comboFiltroPrenotazione.getSelectionModel().select(Prenotazione.TUTTO);
         comboFiltroDistanza.getSelectionModel().select(Distanza.OLTRE);
+    }
+
+    /**
+     * Mostra il nome della categoria quando il filtro è disattivato e il solo
+     * valore scelto quando è attivo, senza cambiare i dati inviati al server.
+     */
+    private <T> void configuraEtichettaFiltro(ComboBox<T> comboBox, String categoria,
+            T valoreNessunFiltro) {
+        comboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(T valore, boolean vuota) {
+                super.updateItem(valore, vuota);
+                if (vuota || valore == null) {
+                    setText(categoria);
+                } else if (valore.equals(valoreNessunFiltro)) {
+                    setText(categoria);
+                } else {
+                    setText(valore.toString());
+                }
+            }
+        });
     }
 
     /**

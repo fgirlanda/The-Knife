@@ -6,6 +6,8 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -29,7 +31,9 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label styleClass="brand-mark" text="TK" />
+                  <ImageView fitHeight="42.0" fitWidth="42.0" preserveRatio="true">
+                     <image><Image url="@../images/the-knife-logo.png" /></image>
+                  </ImageView>
                   <Label styleClass="brand-name" text="The Knife" />
                </children>
             </HBox>

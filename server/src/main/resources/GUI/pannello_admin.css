@@ -94,8 +94,7 @@
 .architecture-card,
 .security-card,
 .status-card,
-.server-status-strip,
-.footer-bar {
+.server-status-strip {
     -fx-background-color: rgba(255, 255, 255, 0.82);
     -fx-background-radius: 13px;
     -fx-border-color: #dce4da;
@@ -238,23 +237,3 @@
     -fx-padding: 14px;
 }
 
-.footer-bar {
-    -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-padding: 12px 16px;
-}
-
-.footer-icon {
-    -fx-text-fill: #315f38;
-    -fx-font-size: 18px;
-}
-
-.footer-badge {
-    -fx-text-fill: #315f38;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-background-color: #edf3ea;
-    -fx-border-color: #d4e1d1;
-    -fx-border-radius: 999px;
-    -fx-background-radius: 999px;
-    -fx-padding: 6px 11px;
-}

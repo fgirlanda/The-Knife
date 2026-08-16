@@ -6,20 +6,23 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefHeight="780.0" prefWidth="1160.0"
-      stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/24.0.1"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
+<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefHeight="780.0" prefWidth="1160.0" stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
    <children>
       <HBox styleClass="app-header">
          <children>
-            <Label styleClass="brand-mark" text="TK" />
+            <ImageView fitHeight="40.0" fitWidth="40.0" preserveRatio="true">
+               <image><Image url="@../images/the-knife-logo.png" /></image>
+            </ImageView>
             <Label styleClass="brand-name" text="The Knife" />
             <Label styleClass="header-section" text="/  Pannello server" />
             <Region HBox.hgrow="ALWAYS" />
@@ -39,58 +42,6 @@
                <children>
                   <HBox spacing="24.0">
                      <children>
-                        <VBox minWidth="330.0" prefWidth="350.0" spacing="18.0" styleClass="hero-panel">
-                           <children>
-                              <Label styleClass="brand-mark" text="DB" />
-                              <Label styleClass="hero-title" text="Database &amp;&#10;Server" wrapText="true" />
-                              <Label styleClass="subtitle" text="Configura PostgreSQL e pubblica i servizi RMI dell’applicazione." wrapText="true" />
-
-                              <VBox spacing="11.0" styleClass="architecture-card">
-                                 <padding><Insets bottom="16.0" left="16.0" right="16.0" top="16.0" /></padding>
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="architecture-node">
-                                       <children>
-                                          <Label styleClass="node-icon" text="PG" />
-                                          <VBox spacing="2.0">
-                                             <children><Label styleClass="node-title" text="PostgreSQL" /><Label styleClass="small-muted" text="Dati e persistenza" /></children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="flow-arrow" text="↓" />
-                                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="architecture-node">
-                                       <children>
-                                          <Label styleClass="node-icon" text="RMI" />
-                                          <VBox spacing="2.0">
-                                             <children><Label styleClass="node-title" text="Servizi remoti" /><Label styleClass="small-muted" text="Porta 1099" /></children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="flow-arrow" text="↓" />
-                                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="architecture-node">
-                                       <children>
-                                          <Label styleClass="node-icon" text="APP" />
-                                          <VBox spacing="2.0">
-                                             <children><Label styleClass="node-title" text="Client The Knife" /><Label styleClass="small-muted" text="Pronto a connettersi" /></children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-
-                              <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="security-card">
-                                 <padding><Insets bottom="14.0" left="14.0" right="14.0" top="14.0" /></padding>
-                                 <children>
-                                    <Label styleClass="node-icon" text="✓" />
-                                    <VBox spacing="2.0">
-                                       <children>
-                                          <Label styleClass="card-title" text="Configurazione locale" />
-                                          <Label styleClass="small-muted" text="Le credenziali restano sul server." wrapText="true" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
 
                         <VBox spacing="16.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -127,6 +78,11 @@
                                              <children><Label styleClass="field-label" text="PASSWORD" /><PasswordField fx:id="passwordField" promptText="Password PostgreSQL" styleClass="admin-field" text="Mattia2004" /></children>
                                           </VBox>
                                        </children>
+                                       <rowConstraints>
+                                          <RowConstraints />
+                                          <RowConstraints />
+                                          <RowConstraints />
+                                       </rowConstraints>
                                     </GridPane>
 
                                     <HBox alignment="CENTER_LEFT" spacing="13.0" styleClass="status-card">
@@ -141,8 +97,7 @@
                                           <Label fx:id="databaseStatusIcon" styleClass="status-icon" text="○" />
                                        </children>
                                     </HBox>
-                                    <Button fx:id="btnConnetti" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                            onAction="#connettiDB" styleClass="outline-button" text="Connetti al database" />
+                                    <Button fx:id="btnConnetti" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#connettiDB" styleClass="outline-button" text="Connetti al database" />
                                  </children>
                               </VBox>
 
@@ -164,28 +119,18 @@
                                           </VBox>
                                        </children>
                                     </HBox>
-                                    <Button fx:id="btnAvvia" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                                            onAction="#avviaServer" styleClass="primary-button" text="Avvia server" />
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="helper-text"
-                                           text="Prima configura il database, poi avvia i servizi." />
+                                    <Button fx:id="btnAvvia" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#avviaServer" styleClass="primary-button" text="Avvia server" />
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="helper-text" text="Prima configura il database, poi avvia i servizi." />
                                  </children>
                               </VBox>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="footer-bar">
-                     <children>
-                        <Label styleClass="footer-icon" text="✦" />
-                        <Label fx:id="footerStatusLabel" styleClass="small-muted" text="Configura il database e avvia il server per iniziare." wrapText="true" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label styleClass="footer-badge" text="THE KNIFE SERVER" />
-                     </children>
-                  </HBox>
                </children>
             </VBox>
          </content>
       </ScrollPane>
+
    </children>
 </VBox>

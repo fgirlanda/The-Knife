@@ -54,9 +54,6 @@ public class PannelloAdminController {
     @FXML
     private Circle serverStatusDot;
 
-    @FXML
-    private Label footerStatusLabel;
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -81,7 +78,6 @@ public class PannelloAdminController {
             serverContext.getManagerDB().connetti(host, porta, database, username, password);
             aggiornaStatoDatabase(true, "Database configurato",
                     "Parametri di connessione acquisiti con successo");
-            footerStatusLabel.setText("Database configurato. Ora puoi avviare il server.");
         } catch (NumberFormatException e) {
             aggiornaStatoDatabase(false, "Porta non valida",
                     "Inserisci un numero valido nel campo Porta");
@@ -98,7 +94,6 @@ public class PannelloAdminController {
             aggiornaStatoServer(true, "Server avviato sulla porta RMI 1099");
             btnAvvia.setDisable(true);
             btnAvvia.setText("✓  Server Avviato");
-            footerStatusLabel.setText("Tutto pronto: database configurato e server in esecuzione.");
         } catch (Exception e) {
             aggiornaStatoServer(false, "Avvio non riuscito: " + messaggioErrore(e));
         }

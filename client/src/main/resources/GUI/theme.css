@@ -152,17 +152,40 @@
     -fx-background-color: #ffe7e3;
 }
 
-.search-field {
+.search-box {
+    -fx-min-height: 42px;
     -fx-pref-height: 42px;
+    -fx-max-height: 42px;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #47784e;
+    -fx-border-radius: 10;
+    -fx-padding: 1px 0 1px 1px;
+}
+
+.search-field {
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-height: 40px;
     -fx-font-size: 14px;
-    -fx-background-radius: 10 0 0 10;
-    -fx-border-radius: 10 0 0 10;
+    -fx-background-color: transparent;
+    -fx-background-radius: 9 0 0 9;
+    -fx-border-color: transparent;
+    -fx-border-radius: 9 0 0 9;
+    -fx-effect: none;
+}
+
+.search-field:focused {
+    -fx-border-color: transparent;
+    -fx-effect: none;
 }
 
 .search-button {
-    -fx-pref-height: 42px;
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
+    -fx-max-height: 40px;
     -fx-min-width: 48px;
-    -fx-background-radius: 0 10 10 0;
+    -fx-background-radius: 0 9 9 0;
     -fx-padding: 8 14 8 14;
 }
 
@@ -318,14 +341,20 @@
     -fx-text-fill: #39433b;
 }
 
-.radio-button .radio {
+.radio-button > .radio {
     -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
     -fx-border-color: #aeb8ae;
     -fx-border-radius: 999;
+    -fx-padding: 4px;
 }
 
-.radio-button:selected .dot {
+.radio-button:selected > .radio > .dot {
     -fx-background-color: #315f38;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+    -fx-padding: 4px;
 }
 
 .detail-photo-frame {
