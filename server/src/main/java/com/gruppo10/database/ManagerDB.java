@@ -49,10 +49,23 @@ public class ManagerDB {
      * @param user username per l'accesso
      * @param password password per l'accesso
      */
-    public void connetti(String host, int porta, String database, String user, String password) {
+    /**
+     * Configura i parametri di connessione al database PostgreSQL e ne verifica la validità.
+     */
+    public void connetti(String host, int porta, String database, String user, String password) throws SQLException {
         ManagerDB.url = "jdbc:postgresql://" + host + ":" + porta + "/" + database;
         ManagerDB.user = user;
         ManagerDB.password = password;
+        
+        // TEST DI CONNESSIONE
+        // Usiamo il blocco try-with-resources così la connessione si chiude automaticamente 
+        // non appena ha verificato che le credenziali funzionano.
+        try (Connection testConn = apri()) {
+            // Se arriviamo qui, significa che host, porta, db e credenziali sono corretti!
+            testConn.isValid(2);
+        }
+        // Se la connessione fallisce, apri() lancia una SQLException che 
+        // risalirà fino alla tua interfaccia grafica.
     }
 
     /**

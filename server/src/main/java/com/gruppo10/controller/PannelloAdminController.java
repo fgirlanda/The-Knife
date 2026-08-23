@@ -3,6 +3,7 @@ package com.gruppo10.controller;
 import com.gruppo10.ServerContext;
 import com.gruppo10.ServerPublisher;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -113,22 +114,54 @@ public class PannelloAdminController {
      */
     @FXML
     public void connettiDB() {
-        try {
-            String host = hostField.getText();
-            int porta = Integer.parseInt(portaField.getText());
-            String database = dbField.getText();
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-
-            serverContext.getManagerDB().connetti(host, porta, database, username, password);
-            aggiornaStatoDatabase(true, "Database configurato",
-                    "Parametri di connessione acquisiti con successo");
-        } catch (NumberFormatException e) {
-            aggiornaStatoDatabase(false, "Porta non valida",
-                    "Inserisci un numero valido nel campo Porta");
-        } catch (RuntimeException e) {
-            aggiornaStatoDatabase(false, "Configurazione non riuscita", e.getMessage());
+        // 1. Controllo base: verifica che i campi non siano vuoti
+        if (hostField.getText().isBlank() || portaField.getText().isBlank() || 
+            dbField.getText().isBlank() || usernameField.getText().isBlank()) {
+            aggiornaStatoDatabase(false, "Dati mancanti", "Compila tutti i campi obbligatori.");
+            return;
         }
+
+        // Estrazione delle variabili (devono essere 'effectively final' per il Task)
+        final String host = hostField.getText();
+        final String database = dbField.getText();
+        final String username = usernameField.getText();
+        final String password = passwordField.getText();
+        final int porta;
+
+        try {
+            porta = Integer.parseInt(portaField.getText());
+        } catch (NumberFormatException e) {
+            aggiornaStatoDatabase(false, "Porta non valida", "Inserisci un numero valido nel campo Porta");
+            return;
+        }
+
+        // 2. Creazione del Task per l'operazione in background
+        Task<Void> taskConnessione = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // Questa riga viene eseguita in background e NON blocca la UI
+                serverContext.getManagerDB().connetti(host, porta, database, username, password);
+                return null;
+            }
+        };
+
+        // Cosa fare in caso di SUCCESSO (viene eseguito automaticamente sul thread della UI)
+        taskConnessione.setOnSucceeded(e -> {
+            aggiornaStatoDatabase(true, "Database configurato", "Parametri di connessione acquisiti con successo");
+        });
+
+        // Cosa fare in caso di FALLIMENTO (viene eseguito automaticamente sul thread della UI)
+        taskConnessione.setOnFailed(e -> {
+            Throwable eccezione = taskConnessione.getException();
+            // Qui potresti controllare se l'eccezione è di tipo SQLException
+            aggiornaStatoDatabase(false, "Configurazione non riuscita", eccezione.getMessage());
+        });
+
+        // Aggiornamento UI opzionale mentre carica (es. disabilitare il bottone "Connetti")
+        // bottoneConnetti.setDisable(true); // Se hai il riferimento al bottone
+
+        // 3. Avvio effettivo del thread
+        new Thread(taskConnessione).start();
     }
 
     /**

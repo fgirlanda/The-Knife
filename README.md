@@ -444,7 +444,7 @@ Ulteriori riferimenti:
 - aggiustare istruzioni installazione (FATTO)
 - aggiungere istruzioni DB (FATTO)
 - distribuzione client/server/database su macchine diverse
-- aggiornamento GUI in risposta a eventi client
+- aggiornamento GUI in risposta a eventi client - in corso 
 - documentazione manuale utente e tecnico
 - javadoc (FATTO)
 
