@@ -26,7 +26,7 @@ import com.gruppo10.servizi_int.RistorantiServiceInt;
  */
 public class ClientContext {
 
-    private final String HOST = "localhost";
+    private final String HOST = "192.168.1.109";
     private final int PORTA = 1099;
 
     private AuthServiceInt authService;

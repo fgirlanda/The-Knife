@@ -170,6 +170,7 @@ public class PannelloAdminController {
     @FXML
     public void avviaServer() {
         try {
+            
             serverPublisher.avvia();
             aggiornaStatoServer(true, "Server avviato sulla porta RMI 1099");
             btnAvvia.setDisable(true);
