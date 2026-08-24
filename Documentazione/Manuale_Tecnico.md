@@ -60,7 +60,7 @@ The Knife segue un'architettura **client-server multi-tier** divisa in tre compo
 
 ```
 ┌─────────────────┐         RMI         ┌──────────────────┐         SQL         ┌──────────────┐
-│   CLIENT        │◄─────────────────►  │     SERVER       │◄─────────────────► │   DATABASE   │
+│   CLIENT        │◄─────────────────►  │     SERVER       │◄─────────────────►  │   DATABASE   │
 │  (Presentazione)│                     │   (Business)     │                     │  (Dati)      │
 └─────────────────┘                     └──────────────────┘                     └──────────────┘
       JavaFX                                    Java                            PostgreSQL
