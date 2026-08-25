@@ -7,6 +7,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 
@@ -40,7 +41,7 @@ public class PannelloAdminController {
 
     /** Campo per la password di accesso al database. */
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
 
     /** Pulsante per avviare la connessione al database. */
     @FXML
