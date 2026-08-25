@@ -41,18 +41,23 @@ public class ManagerDB {
     }
 
     /**
-     * Configura i parametri di connessione al database PostgreSQL.
+     * Configura i parametri di connessione al database PostgreSQL e ne verifica la validità.
      *
      * @param host indirizzo del server PostgreSQL
      * @param porta porta del server PostgreSQL
      * @param database nome del database
      * @param user username per l'accesso
      * @param password password per l'accesso
+     * @throws SQLException se i parametri non consentono di aprire la connessione
      */
-    public void connetti(String host, int porta, String database, String user, String password) {
+    public void connetti(String host, int porta, String database, String user, String password) throws SQLException {
         ManagerDB.url = "jdbc:postgresql://" + host + ":" + porta + "/" + database;
         ManagerDB.user = user;
         ManagerDB.password = password;
+
+        try (Connection testConn = apri()) {
+            testConn.isValid(2);
+        }
     }
 
     /**

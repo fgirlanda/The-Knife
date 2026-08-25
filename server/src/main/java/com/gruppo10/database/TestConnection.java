@@ -11,6 +11,12 @@ import com.gruppo10.classi.TipoCucina;
 /** Semplice verifica in sola lettura della connessione e dei DAO. */
 public class TestConnection {
 
+        /**
+         * Esegue la verifica manuale della connessione e dei DAO disponibili.
+         *
+         * @param args argomenti della riga di comando, non utilizzati
+         * @throws Exception se la connessione o una lettura fallisce
+         */
     public static void main(String[] args) throws Exception {
         RistoranteDAO ristoranteDAO = new RistoranteDAO();
         System.out.println("Utenti: " + new UtenteDAO().trovaTutti().size());

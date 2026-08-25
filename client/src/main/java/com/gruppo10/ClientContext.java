@@ -26,17 +26,31 @@ import com.gruppo10.servizi_int.RistorantiServiceInt;
  */
 public class ClientContext {
 
-    private final String HOST = "localhost";
+    /** Nome host del server che pubblica i servizi RMI. */
+    private final String HOST = "theknife-server.local";
+
+    /** Porta del registro RMI utilizzato dal server. */
     private final int PORTA = 1099;
 
+    /** Servizio di autenticazione. */
     private AuthServiceInt authService;
+    /** Servizio di geolocalizzazione. */
     private GeoServiceInt geoService;
+    /** Servizio per ristoranti. */
     private RistorantiServiceInt ristorantiService;
+    /** Servizio per recensioni. */
     private RecensioniServiceInt recensioniService;
+    /** Servizio per preferiti. */
     private PreferitiServiceInt preferitiService;
+    /** Servizio per profilo. */
     private ProfiloServiceInt profiloService;
 
-    /** Corrisponde a "Client->>Reg: lookup(...)" ripetuto per i 6 servizi. */
+    /**
+     * Recupera dal registro RMI gli stub dei sei servizi remoti dell'applicazione.
+     *
+     * @throws RemoteException se il registro non è raggiungibile
+     * @throws NotBoundException se un servizio non è pubblicato con il nome atteso
+     */
     public void connetti() throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry(HOST, PORTA);
         this.authService = (AuthServiceInt) registry.lookup("AuthService");
@@ -46,26 +60,56 @@ public class ClientContext {
         this.preferitiService = (PreferitiServiceInt) registry.lookup("PreferitiService");
     }
 
+    /**
+     * Restituisce il servizio remoto per autenticazione e registrazione.
+     *
+     * @return stub del servizio di autenticazione
+     */
     public AuthServiceInt getAuthService() {
         return authService;
     }
 
+    /**
+     * Restituisce il servizio remoto di geocodifica.
+     *
+     * @return stub del servizio geografico
+     */
     public GeoServiceInt getGeoService() {
         return geoService;
     }
 
+    /**
+     * Restituisce il servizio remoto per la gestione dei ristoranti.
+     *
+     * @return stub del servizio ristoranti
+     */
     public RistorantiServiceInt getRistorantiService() {
         return ristorantiService;
     }
 
+    /**
+     * Restituisce il servizio remoto per la gestione delle recensioni.
+     *
+     * @return stub del servizio recensioni
+     */
     public RecensioniServiceInt getRecensioniService() {
         return recensioniService;
     }
 
+    /**
+     * Restituisce il servizio remoto per la gestione dei preferiti.
+     *
+     * @return stub del servizio preferiti
+     */
     public PreferitiServiceInt getPreferitiService() {
         return preferitiService;
     }
 
+    /**
+     * Restituisce il servizio remoto per la gestione del profilo.
+     *
+     * @return stub del servizio profilo
+     */
     public ProfiloServiceInt getProfiloService() {
         return profiloService;
     }

@@ -443,7 +443,7 @@ Ulteriori riferimenti:
 - activity diagram
 - aggiustare istruzioni installazione (FATTO)
 - aggiungere istruzioni DB (FATTO)
-- distribuzione client/server/database su macchine diverse
+- distribuzione client/server/database su macchine diverse (FATTO)
 - aggiornamento GUI in risposta a eventi client
 - documentazione manuale utente e tecnico
 - javadoc (FATTO)

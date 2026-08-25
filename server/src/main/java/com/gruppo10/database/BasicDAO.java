@@ -25,12 +25,25 @@ public abstract class BasicDAO {
      */
     @FunctionalInterface
     protected interface MappaRisultato<T> {
+        /**
+         * Traduce la riga corrente del result set nel tipo di dominio richiesto.
+         *
+         * @param result result set da leggere
+         * @return oggetto ottenuto dalla mappatura
+         * @throws SQLException se la lettura della riga fallisce
+         */
         T mappa(ResultSet result) throws SQLException;
     }
 
     /** Costruisce l'eccezione applicativa da lanciare quando un insert viola un vincolo UNIQUE. */
     @FunctionalInterface
     protected interface EccezioneVincolo {
+        /**
+         * Crea l'eccezione applicativa associata al vincolo violato.
+         *
+         * @param causa eccezione SQL originale
+         * @return eccezione da propagare al chiamante
+         */
         SQLException crea(SQLException causa);
     }
 
@@ -130,12 +143,25 @@ public abstract class BasicDAO {
         }
     }
 
+    /**
+     * Verifica se un'eccezione SQL segnala la violazione del vincolo specificato.
+     *
+     * @param e eccezione SQL da analizzare
+     * @param nomeVincolo nome del vincolo atteso
+     * @return {@code true} se l'errore corrisponde a una violazione UNIQUE del vincolo
+     */
     private boolean violaVincolo(SQLException e, String nomeVincolo) {
         String messaggio = e.getMessage();
         return "23505".equals(e.getSQLState()) && messaggio != null && messaggio.contains(nomeVincolo);
     }
 
-    /** Imposta i parametri di uno statement, inferendo il tipo SQL da quello Java. */
+    /**
+     * Imposta i parametri di uno statement, inferendo il tipo SQL da quello Java.
+     *
+     * @param statement statement da valorizzare
+     * @param parametri valori da assegnare ai parametri dello statement
+     * @throws SQLException se l'assegnazione di un parametro fallisce
+     */
     protected void impostaParametri(PreparedStatement statement, Object... parametri)
             throws SQLException {
         for (int i = 0; i < parametri.length; i++) {
@@ -155,7 +181,15 @@ public abstract class BasicDAO {
         }
     }
 
-    /** Validazione di comodo condivisa da tutti i DAO. */
+    /**
+     * Verifica che un valore non sia nullo e lo restituisce.
+     *
+     * @param valore valore da verificare
+     * @param messaggio messaggio dell'eccezione in caso di valore nullo
+     * @param <T> tipo del valore verificato
+     * @return il valore verificato
+     * @throws IllegalArgumentException se il valore è nullo
+     */
     protected <T> T richiediNonNull(T valore, String messaggio) {
         if (valore == null) {
             throw new IllegalArgumentException(messaggio);

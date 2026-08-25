@@ -163,15 +163,10 @@ public class RegistrazioneController extends BasicController {
         try {
             password = Criptatore.cripta(password);
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            GestioneEccezioni.errore("Errore durante la criptazione della password", e, false, null);
         }
         if (password == null)
             return;
-
-        // Coordinate coordinate = new Coordinate(indirizzo);
-        // if (coordinate.getLat() == null)
-        //     return;
 
         Coordinate coordinate;
 

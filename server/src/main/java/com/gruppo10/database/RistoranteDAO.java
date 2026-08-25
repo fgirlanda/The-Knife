@@ -28,6 +28,7 @@ import com.gruppo10.classi.TipoCucina;
  */
 public class RistoranteDAO extends BasicDAO {
 
+    /** Query completa per caricare ristoranti, media delle recensioni e recensioni associate. */
     private static final String SELECT_COMPLETA = """
             SELECT r.id_ristorante, r.nome, r.indirizzo, r.delivery,
                    r.prenotazione_online, r.tipo_cucina, r.prezzo,
@@ -261,6 +262,13 @@ public class RistoranteDAO extends BasicDAO {
         ristorante.setMediaRec(calcolaMediaRecensioni(ristorante.getId()));
     }
 
+    /**
+     * Aggrega le righe del result set in ristoranti e relative recensioni.
+     *
+     * @param result result set prodotto dalla query aggregata
+     * @return ristoranti ricostruiti dal result set
+     * @throws SQLException se la lettura di una colonna fallisce
+     */
     List<Ristorante> estraiRistoranti(ResultSet result) throws SQLException {
         Map<Integer, Ristorante> ristoranti = new LinkedHashMap<>();
 
@@ -282,6 +290,13 @@ public class RistoranteDAO extends BasicDAO {
         return new ArrayList<>(ristoranti.values());
     }
 
+    /**
+     * Crea un ristorante leggendo i dati della riga corrente del result set.
+     *
+     * @param result result set posizionato sulla riga del ristorante
+     * @return ristorante ricostruito
+     * @throws SQLException se la lettura fallisce
+     */
     private Ristorante creaRistorante(ResultSet result) throws SQLException {
         Ristorante ristorante = new Ristorante();
         ristorante.setId(result.getInt("id_ristorante"));
@@ -299,6 +314,15 @@ public class RistoranteDAO extends BasicDAO {
         return ristorante;
     }
 
+    /**
+     * Crea una recensione associandola al ristorante già ricostruito.
+     *
+     * @param result result set posizionato sulla recensione
+     * @param ristorante ristorante a cui associare la recensione
+     * @param idRecensione identificativo della recensione
+     * @return recensione ricostruita
+     * @throws SQLException se la lettura fallisce
+     */
     private Recensione creaRecensione(ResultSet result, Ristorante ristorante,
             int idRecensione) throws SQLException {
         Recensione recensione = new Recensione();
@@ -314,6 +338,11 @@ public class RistoranteDAO extends BasicDAO {
         return recensione;
     }
 
+    /**
+     * Verifica la presenza delle coordinate necessarie al filtro per distanza.
+     *
+     * @param posizioneUtente coordinate dell'utente da verificare
+     */
     private void validaPosizionePerDistanza(Coordinate posizioneUtente) {
         if (posizioneUtente == null || posizioneUtente.getLat() == null
                 || posizioneUtente.getLon() == null) {
@@ -322,6 +351,7 @@ public class RistoranteDAO extends BasicDAO {
         }
     }
 
+    /** Verifica i dati obbligatori e i valori ammessi per un nuovo ristorante. */
     private void validaPerInserimento(Ristorante ristorante) {
         richiediNonNull(ristorante, "Il ristorante non può essere null");
         richiediNonNull(ristorante.getNomeRistorante(), "Il nome è obbligatorio");
@@ -344,6 +374,13 @@ public class RistoranteDAO extends BasicDAO {
         }
     }
 
+    /**
+     * Verifica se un utente è proprietario del ristorante indicato.
+     *
+     * @param idRistorante identificativo del ristorante
+     * @param idUtente identificativo dell'utente
+     * @return {@code true} se l'utente è proprietario
+     */
     public boolean isRistoranteOwner(int idRistorante, int idUtente) {
         return idRistorante == idUtente;
     }

@@ -54,6 +54,7 @@ public enum Distanza {
     /** Oltre 30 km (valore interno {@code Double.MAX_VALUE}). */
     OLTRE(Double.MAX_VALUE);
 
+    /** Valore interno della distanza, espresso in chilometri. */
     private final Double km;
 
     /**

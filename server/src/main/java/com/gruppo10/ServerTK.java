@@ -32,7 +32,6 @@ public class ServerTK extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        // Creare ServerContext
         serverContext = new ServerContext();
         serverPublisher = new ServerPublisher(serverContext);
 
@@ -62,18 +61,11 @@ public class ServerTK extends Application {
         Parent root = loader.load();
 
         PannelloAdminController controller = loader.getController();
-        controller.setStage(stage);
         controller.setServerContext(serverContext);
         controller.setServerPublisher(serverPublisher);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("The Knife - Pannello Admin");
-        stage.setMinWidth(1040);
-        stage.setMinHeight(760);
-        stage.setWidth(1360);
-        stage.setHeight(880);
-        stage.centerOnScreen();
         stage.show();
     }
     

@@ -2,7 +2,7 @@ package com.gruppo10;
 
 import java.io.IOException;
 
-import com.gruppo10.controller.MainController;
+import com.gruppo10.controller.LoginController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,11 +40,11 @@ public class ClientTK extends Application {
      * @throws IOException se il file FXML della schermata iniziale non viene caricato correttamente
      */
     private void mostraFinestra(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/login.fxml"));
         Parent root = loader.load();
         root.getStylesheets().add(getClass().getResource("/GUI/theme.css").toExternalForm());
 
-        MainController controller = loader.getController();
+        LoginController controller = loader.getController();
         controller.setStage(stage);
         controller.setClientContext(clientContext);
 
