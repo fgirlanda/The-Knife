@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefHeight="780.0" prefWidth="1160.0" stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
+<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefHeight="800.0" prefWidth="1160.0" stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
    <children>
       <HBox styleClass="app-header">
          <children>
@@ -63,7 +63,7 @@
                                        <columnConstraints><ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" /><ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" /></columnConstraints>
                                        <children>
                                           <VBox spacing="6.0">
-                                             <children><Label styleClass="field-label" text="HOST" /><TextField fx:id="hostField" promptText="localhost" styleClass="admin-field" text="localhost" /></children>
+                                             <children><Label styleClass="field-label" text="HOST" /><TextField fx:id="hostField" promptText="theknife-server.local" styleClass="admin-field" text="theknife-server.local" /></children>
                                           </VBox>
                                           <VBox spacing="6.0" GridPane.columnIndex="1">
                                              <children><Label styleClass="field-label" text="PORTA" /><TextField fx:id="portaField" promptText="5432" styleClass="admin-field" text="5432" /></children>
@@ -108,14 +108,6 @@
                                           <Label styleClass="section-icon-box,section-icon" text="RMI" />
                                           <VBox spacing="3.0">
                                              <children><Label styleClass="section-title" text="Avvio server" /><Label styleClass="subtitle" text="Pubblica i servizi remoti per il client" /></children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="server-ready-card">
-                                       <children>
-                                          <Label styleClass="node-icon" text="1099" />
-                                          <VBox spacing="2.0">
-                                             <children><Label styleClass="card-title" text="Registro RMI locale" /><Label styleClass="small-muted" text="Il client userà localhost:1099" /></children>
                                           </VBox>
                                        </children>
                                     </HBox>
