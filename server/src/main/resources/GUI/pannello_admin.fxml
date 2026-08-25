@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefHeight="810.0" prefWidth="1160.0" stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
+<VBox fx:id="rootPane" minHeight="700.0" minWidth="1000.0" prefWidth="1160.0" stylesheets="@pannello_admin.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gruppo10.controller.PannelloAdminController">
    <children>
       <HBox styleClass="app-header">
          <children>
