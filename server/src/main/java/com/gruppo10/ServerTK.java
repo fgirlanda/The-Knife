@@ -66,6 +66,7 @@ public class ServerTK extends Application {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("The Knife - Pannello Server");
         stage.show();
     }
     
