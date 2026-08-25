@@ -8,6 +8,11 @@ import java.sql.SQLException;
  */
 public class RecensioneDuplicataException extends SQLException {
 
+    /**
+     * Crea l'eccezione mantenendo la causa SQL del vincolo violato.
+     *
+     * @param causa eccezione SQL originale
+     */
     public RecensioneDuplicataException(SQLException causa) {
         super("Hai già recensito questo ristorante.", causa.getSQLState(),
                 causa.getErrorCode(), causa);

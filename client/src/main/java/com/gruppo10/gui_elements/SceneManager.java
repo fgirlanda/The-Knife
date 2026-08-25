@@ -20,8 +20,6 @@ import com.gruppo10.controller.PaginaRistoranteController;
 import com.gruppo10.controller.ProfiloClienteController;
 import com.gruppo10.controller.ProfiloRistoratoreController;
 import com.gruppo10.controller.RegistrazioneController;
-import com.gruppo10.controller.TestController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,16 +38,6 @@ public class SceneManager {
 
     /** Percorso base delle risorse FXML. */
     private static String guiPath = "/GUI/";
-
-    /**
-     * Apre la finestra di test.
-     *
-     * @param stage finestra principale
-     */
-    public static void apriTest(Stage stage) {
-        SceneManager.cambioScena(stage, "test.fxml", "The Knife - Test",
-                (TestController controller) -> controller.setStage(stage));
-    }
 
     /**
      * Apre la finestra di login.

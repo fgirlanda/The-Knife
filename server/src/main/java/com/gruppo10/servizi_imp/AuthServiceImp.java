@@ -23,11 +23,25 @@ import com.gruppo10.database.ManagerDB;
  */
 public class AuthServiceImp extends BasicServiceImp implements AuthServiceInt {
 
-
+    /**
+     * Crea il servizio di autenticazione usando il database e il gestore sessioni.
+     *
+     * @param managerDB gestore dei DAO
+     * @param sessionManager gestore delle sessioni attive
+     * @throws RemoteException se l'esportazione RMI fallisce
+     */
     public AuthServiceImp(ManagerDB managerDB, SessionManager sessionManager) throws RemoteException {
         super(managerDB, sessionManager);
     }
 
+    /**
+     * Verifica le credenziali e crea una sessione per l'utente autenticato.
+     *
+     * @param username username dell'utente
+     * @param password password da verificare
+     * @return sessione creata o {@code null} se le credenziali non sono valide
+     * @throws RemoteException se il database non è raggiungibile
+     */
     @Override
     public Sessione login(String username, String password) throws RemoteException {
         try {
@@ -42,6 +56,14 @@ public class AuthServiceImp extends BasicServiceImp implements AuthServiceInt {
         }
     }
 
+    /**
+     * Registra un nuovo utente nel database.
+     *
+     * @param utente dati dell'utente da registrare
+     * @return utente salvato con l'ID assegnato
+     * @throws RemoteException se il salvataggio fallisce
+     * @throws UsernameGiaEsistenteException se lo username è già utilizzato
+     */
     @Override
     public Utente registrati(Utente utente) throws RemoteException, UsernameGiaEsistenteException {
         try {
@@ -53,6 +75,11 @@ public class AuthServiceImp extends BasicServiceImp implements AuthServiceInt {
         }
     }
 
+    /**
+     * Carica gli utenti presenti nel database per la verifica del servizio.
+     *
+     * @throws RemoteException se il caricamento degli utenti fallisce
+     */
     @Override
     public void trovaTutti() throws RemoteException {
         try {

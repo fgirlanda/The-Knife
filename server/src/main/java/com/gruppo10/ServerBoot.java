@@ -14,12 +14,10 @@ public class ServerBoot {
      * @param args argomenti della riga di comando
      */
     public static void main(String[] args) {
-        // 1. FORZIAMO L'IP COME PRIMISSIMA COSA ASSOLUTA!
         String mioIp = ottieniIpReale();
         System.setProperty("java.rmi.server.hostname", mioIp);
         System.out.println("IP RMI impostato correttamente all'avvio: " + mioIp);
-
-        // 2. Avviamo l'interfaccia grafica
+        
         Application.launch(ServerTK.class, args);
     }
 

@@ -28,10 +28,23 @@ import com.gruppo10.servizi_int.GeoServiceInt;
  */
 public class GeoServiceImp extends UnicastRemoteObject implements GeoServiceInt {
 
+    /**
+     * Crea il servizio remoto di geocodifica.
+     *
+     * @throws RemoteException se l'esportazione RMI fallisce
+     */
     public GeoServiceImp() throws RemoteException {
         super();
     }
 
+    /**
+     * Converte un indirizzo in coordinate tramite il servizio Nominatim.
+     *
+     * @param indirizzo indirizzo da convertire in coordinate
+     * @return coordinate trovate
+     * @throws RemoteException se la comunicazione remota fallisce
+     * @throws GeocodingException se la risposta non è risolvibile
+     */
     @Override
     public Coordinate geocodifica(String indirizzo) throws RemoteException, GeocodingException {
         String encodedIndirizzo = indirizzo.replace(" ", "+");
@@ -72,6 +85,13 @@ public class GeoServiceImp extends UnicastRemoteObject implements GeoServiceInt 
         }
     }
 
+    /**
+     * Richiede suggerimenti di completamento per un indirizzo.
+     *
+     * @param query testo dell'indirizzo da completare
+     * @return suggerimenti restituiti dal servizio cartografico
+     * @throws RemoteException se la richiesta o il parsing fallisce
+     */
     @Override
     public List<String> suggerimenti(String query) throws RemoteException {
         String url = "https://nominatim.openstreetmap.org/search?q="

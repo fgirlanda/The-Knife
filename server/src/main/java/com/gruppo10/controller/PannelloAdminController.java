@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 /**
  * Controller dell'interfaccia di amministrazione del server.
@@ -17,9 +16,6 @@ import javafx.stage.Stage;
  * pubblicazione dei service RMI.
  */
 public class PannelloAdminController {
-    /** Finestra principale associata all'interfaccia. */
-    private Stage stage;
-
     /** Contesto del server con i componenti condivisi. */
     ServerContext serverContext;
 
@@ -54,32 +50,29 @@ public class PannelloAdminController {
     @FXML
     private Button btnAvvia;
 
+    /** Etichetta che mostra lo stato della connessione al database. */
     @FXML
     private Label databaseStatusLabel;
 
+    /** Dettaglio testuale dell'ultimo tentativo di connessione al database. */
     @FXML
     private Label databaseStatusDetail;
 
+    /** Icona testuale associata allo stato del database. */
     @FXML
     private Label databaseStatusIcon;
 
+    /** Indicatore circolare dello stato del database. */
     @FXML
     private Circle databaseStatusDot;
 
+    /** Etichetta che mostra lo stato del server RMI. */
     @FXML
     private Label serverStatusLabel;
 
+    /** Indicatore circolare dello stato del server RMI. */
     @FXML
     private Circle serverStatusDot;
-
-    /**
-     * Imposta lo stage associato alla vista.
-     *
-     * @param stage finestra principale del pannello di amministrazione
-     */
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     /**
      * Disabilita o abilita un bottone della GUI.
@@ -114,14 +107,12 @@ public class PannelloAdminController {
      */
     @FXML
     public void connettiDB() {
-        // 1. Controllo base: verifica che i campi non siano vuoti
         if (hostField.getText().isBlank() || portaField.getText().isBlank() || 
             dbField.getText().isBlank() || usernameField.getText().isBlank()) {
             aggiornaStatoDatabase(false, "Dati mancanti", "Compila tutti i campi obbligatori.");
             return;
         }
 
-        // Estrazione delle variabili (devono essere 'effectively final' per il Task)
         final String host = hostField.getText();
         final String database = dbField.getText();
         final String username = usernameField.getText();
@@ -135,32 +126,24 @@ public class PannelloAdminController {
             return;
         }
 
-        // 2. Creazione del Task per l'operazione in background
         Task<Void> taskConnessione = new Task<>() {
+            /** Esegue la connessione al database fuori dal thread della GUI. */
             @Override
             protected Void call() throws Exception {
-                // Questa riga viene eseguita in background e NON blocca la UI
                 serverContext.getManagerDB().connetti(host, porta, database, username, password);
                 return null;
             }
         };
 
-        // Cosa fare in caso di SUCCESSO (viene eseguito automaticamente sul thread della UI)
         taskConnessione.setOnSucceeded(e -> {
             aggiornaStatoDatabase(true, "Database configurato", "Parametri di connessione acquisiti con successo");
         });
 
-        // Cosa fare in caso di FALLIMENTO (viene eseguito automaticamente sul thread della UI)
         taskConnessione.setOnFailed(e -> {
             Throwable eccezione = taskConnessione.getException();
-            // Qui potresti controllare se l'eccezione è di tipo SQLException
             aggiornaStatoDatabase(false, "Configurazione non riuscita", eccezione.getMessage());
         });
 
-        // Aggiornamento UI opzionale mentre carica (es. disabilitare il bottone "Connetti")
-        // bottoneConnetti.setDisable(true); // Se hai il riferimento al bottone
-
-        // 3. Avvio effettivo del thread
         new Thread(taskConnessione).start();
     }
 
@@ -180,6 +163,13 @@ public class PannelloAdminController {
         }
     }
 
+    /**
+     * Aggiorna le etichette e gli indicatori grafici dello stato del database.
+     *
+     * @param successo {@code true} se la configurazione del database è riuscita
+     * @param titolo titolo da visualizzare nello stato del database
+     * @param dettaglio dettaglio testuale dell'operazione eseguita
+     */
     private void aggiornaStatoDatabase(boolean successo, String titolo, String dettaglio) {
         databaseStatusLabel.setText(titolo);
         databaseStatusDetail.setText(dettaglio == null ? "" : dettaglio);
@@ -190,23 +180,48 @@ public class PannelloAdminController {
         databaseStatusIcon.getStyleClass().add(successo ? "status-icon-success" : "status-icon-error");
     }
 
+    /**
+     * Aggiorna l'etichetta e l'indicatore grafico dello stato del server RMI.
+     *
+     * @param successo {@code true} se l'avvio del server è riuscito
+     * @param messaggio messaggio da visualizzare nello stato del server
+     */
     private void aggiornaStatoServer(boolean successo, String messaggio) {
         serverStatusLabel.setText(messaggio);
         applicaClasseStato(serverStatusDot, successo);
         applicaClasseTesto(serverStatusLabel, successo);
     }
 
+    /**
+     * Applica all'indicatore circolare la classe CSS corrispondente all'esito
+     * dell'operazione.
+     *
+     * @param indicatore indicatore grafico da aggiornare
+     * @param successo {@code true} per lo stato positivo, {@code false} per quello di errore
+     */
     private void applicaClasseStato(Circle indicatore, boolean successo) {
         indicatore.getStyleClass().removeAll(
                 "status-dot-idle", "status-dot-success", "status-dot-error");
         indicatore.getStyleClass().add(successo ? "status-dot-success" : "status-dot-error");
     }
 
+    /**
+     * Applica all'etichetta la classe CSS corrispondente all'esito dell'operazione.
+     *
+     * @param label etichetta da aggiornare
+     * @param successo {@code true} per lo stato positivo, {@code false} per quello di errore
+     */
     private void applicaClasseTesto(Label label, boolean successo) {
         label.getStyleClass().removeAll("status-success", "status-error");
         label.getStyleClass().add(successo ? "status-success" : "status-error");
     }
 
+    /**
+     * Restituisce un messaggio utile per descrivere un'eccezione.
+     *
+     * @param errore eccezione da cui ricavare il messaggio
+     * @return messaggio dell'eccezione oppure il nome della sua classe se il messaggio è nullo
+     */
     private String messaggioErrore(Exception errore) {
         return errore.getMessage() == null ? errore.getClass().getSimpleName() : errore.getMessage();
     }

@@ -8,8 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.gruppo10.classi.Utente;
 
+/** Gestisce in memoria le sessioni degli utenti autenticati. */
 public class SessionManager {
 
+    /** Associa ogni token di sessione all'utente autenticato. */
     private final Map<String, Utente> sessioni = new ConcurrentHashMap<>();
     /** Crea una nuova sessione per l'utente autenticato e restituisce il token. */
     public String generaToken(Utente utente) {

@@ -222,6 +222,11 @@ public class PaginaPrincipaleController extends BasicController {
                 });
     }
 
+    /**
+     * Aggiorna la sessione corrente e il testo del pulsante del profilo.
+     *
+     * @param sessione sessione dell'utente da visualizzare
+     */
     @Override
     public void setSessioneCorrente(Sessione sessione) {
         super.setSessioneCorrente(sessione);
