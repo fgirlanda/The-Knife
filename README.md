@@ -431,7 +431,7 @@ Ulteriori riferimenti:
 - ER diagram (FATTO)
 - class diagram
 - implementare DB (FATTO)
-- creare GUI pannello admin
+- creare GUI pannello admin (FATTO)
 - use-case
 - sequence
 - ottimizzare gestione DB (FATTO)
