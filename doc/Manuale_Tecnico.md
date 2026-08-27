@@ -327,8 +327,6 @@ classDiagram
 
 ### Diagramma di Sequenza - Login
 
-### Diagramma di Sequenza - Login
-
 ```mermaid
 sequenceDiagram
     actor User as Utente
