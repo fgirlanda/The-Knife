@@ -327,6 +327,8 @@ classDiagram
 
 ### Diagramma di Sequenza - Login
 
+### Diagramma di Sequenza - Login
+
 ```mermaid
 sequenceDiagram
     actor User as Utente
@@ -335,13 +337,11 @@ sequenceDiagram
     participant Server as Server
     participant DB as Database
     
-    %% Rimossa attivazione su UI per evitare conflitti con l'alt finale
     User->>UI: Inserisce credenziali e clicca "Accedi"
     UI->>UI: Valida input localmente
     
     rect rgb(200, 150, 255)
     Note over UI,Server: Comunicazione RMI
-    %% Rimossa attivazione su RMI e Server
     UI->>RMI: login(username, password)
     RMI->>Server: Riceve richiesta di login
     
@@ -370,7 +370,7 @@ sequenceDiagram
     else Login fallito
         UI-->>User: Mostra messaggio di errore
     end
-'''
+```
 
 ### Diagramma di Sequenza - Aggiunta Recensione
 
@@ -438,17 +438,16 @@ sequenceDiagram
     Admin->>Panel: Inserisce credenziali DB
     Admin->>+Panel: Clicca "Connetti"
     
-    %% Rimossi i simboli di attivazione per evitare crash nei rami condizionali
-    Panel->>DAO: connetti(host, port, user, pass)
-    DAO->>DB: Connection.getConnection()
+    Panel->>+DAO: connetti(host, port, user, pass)
+    DAO->>+DB: Connection.getConnection()
     
     alt Connessione riuscita
-        DB-->>DAO: Connection stabilita
-        DAO-->>Panel: Status: Connesso
+        DB-->>-DAO: Connection stabilita
+        DAO-->>-Panel: Status: Connesso
         Panel-->>Admin: "Database connesso"
     else Connessione fallita
-        DB-->>DAO: Eccezione
-        DAO-->>Panel: Status: Errore
+        DB-->>-DAO: Eccezione
+        DAO-->>-Panel: Status: Errore
         Panel-->>Admin: Mostra errore
     end
     
@@ -460,6 +459,7 @@ sequenceDiagram
     RMI-->>-Panel: Server in ascolto
     
     Panel-->>-Admin: "Server avviato sulla porta X"
+```
 
 ### Design Patterns
 
