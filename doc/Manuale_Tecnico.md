@@ -335,13 +335,15 @@ sequenceDiagram
     participant Server as Server
     participant DB as Database
     
-    User->>+UI: Inserisce credenziali e clicca "Accedi"
+    %% Rimossa attivazione su UI per evitare conflitti con l'alt finale
+    User->>UI: Inserisce credenziali e clicca "Accedi"
     UI->>UI: Valida input localmente
     
     rect rgb(200, 150, 255)
     Note over UI,Server: Comunicazione RMI
-    UI->>+RMI: login(username, password)
-    RMI->>+Server: Riceve richiesta di login
+    %% Rimossa attivazione su RMI e Server
+    UI->>RMI: login(username, password)
+    RMI->>Server: Riceve richiesta di login
     
     Server->>Server: Crea SessionManager
     Server->>+DB: SELECT * FROM utenti WHERE username=?
@@ -351,11 +353,11 @@ sequenceDiagram
     
     alt Credenziali valide
         Server->>Server: Crea sessione utente
-        Server-->>-RMI: Ritorna AuthResult(success=true)
-        RMI-->>-UI: Ritorna AuthResult(success=true)
+        Server-->>RMI: Ritorna AuthResult(success=true)
+        RMI-->>UI: Ritorna AuthResult(success=true)
     else Credenziali invalide
-        Server-->>-RMI: Ritorna AuthResult(success=false)
-        RMI-->>-UI: Ritorna AuthResult(success=false)
+        Server-->>RMI: Ritorna AuthResult(success=false)
+        RMI-->>UI: Ritorna AuthResult(success=false)
     end
     end
     
@@ -364,11 +366,11 @@ sequenceDiagram
     alt Login riuscito
         UI->>UI: Salva token sessione
         UI->>UI: Carica pagina principale
-        UI-->>-User: Mostra pagina principale
+        UI-->>User: Mostra pagina principale
     else Login fallito
-        UI-->>-User: Mostra messaggio di errore
+        UI-->>User: Mostra messaggio di errore
     end
-```
+'''
 
 ### Diagramma di Sequenza - Aggiunta Recensione
 
