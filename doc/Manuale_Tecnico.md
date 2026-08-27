@@ -440,14 +440,18 @@ sequenceDiagram
     DAO->>+DB: Connection.getConnection()
     
     alt Connessione riuscita
-        DB-->>-DAO: Connection stabilita
-        DAO-->>-Panel: Status: Connesso
+        DB-->>DAO: Connection stabilita
+        DAO-->>Panel: Status: Connesso
         Panel-->>Admin: "Database connesso"
     else Connessione fallita
-        DB-->>-DAO: Eccezione
-        DAO-->>-Panel: Status: Errore
+        DB-->>DAO: Eccezione
+        DAO-->>Panel: Status: Errore
         Panel-->>Admin: Mostra errore
     end
+    
+    deactivate DB
+    deactivate DAO
+    deactivate Panel
     
     Admin->>+Panel: Clicca "Avvia Server"
     
