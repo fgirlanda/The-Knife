@@ -1,40 +1,3 @@
---
--- PostgreSQL database dump
---
-
-\restrict ds9ZDSCfxe1weSGgEsaqduoC1HhjiGVLZp5Vn98PfJxZxFWhSpg1ia3r1BelkuL
-
--- Dumped from database version 18.0
--- Dumped by pg_dump version 18.0
-
--- Started on 2026-07-31 16:49:28
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET transaction_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- TOC entry 5046 (class 1262 OID 16617)
--- Name: TheKnife; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE "TheKnife" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Italian_Italy.1252';
-
-
-ALTER DATABASE "TheKnife" OWNER TO postgres;
-
-\unrestrict ds9ZDSCfxe1weSGgEsaqduoC1HhjiGVLZp5Vn98PfJxZxFWhSpg1ia3r1BelkuL
-\connect "TheKnife"
-\restrict ds9ZDSCfxe1weSGgEsaqduoC1HhjiGVLZp5Vn98PfJxZxFWhSpg1ia3r1BelkuL
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -392,6 +355,3 @@ SELECT setval('public.utenti_id_seq', (SELECT MAX(id_utente) FROM public.utenti)
 --
 -- PostgreSQL database dump complete
 --
-
-\unrestrict ds9ZDSCfxe1weSGgEsaqduoC1HhjiGVLZp5Vn98PfJxZxFWhSpg1ia3r1BelkuL
-
