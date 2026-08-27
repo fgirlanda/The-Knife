@@ -436,16 +436,17 @@ sequenceDiagram
     Admin->>Panel: Inserisce credenziali DB
     Admin->>+Panel: Clicca "Connetti"
     
-    Panel->>+DAO: connetti(host, port, user, pass)
-    DAO->>+DB: Connection.getConnection()
+    %% Rimossi i simboli di attivazione per evitare crash nei rami condizionali
+    Panel->>DAO: connetti(host, port, user, pass)
+    DAO->>DB: Connection.getConnection()
     
     alt Connessione riuscita
-        DB-->>-DAO: Connection stabilita
-        DAO-->>-Panel: Status: Connesso
+        DB-->>DAO: Connection stabilita
+        DAO-->>Panel: Status: Connesso
         Panel-->>Admin: "Database connesso"
     else Connessione fallita
-        DB-->>-DAO: Eccezione
-        DAO-->>-Panel: Status: Errore
+        DB-->>DAO: Eccezione
+        DAO-->>Panel: Status: Errore
         Panel-->>Admin: Mostra errore
     end
     
@@ -457,7 +458,6 @@ sequenceDiagram
     RMI-->>-Panel: Server in ascolto
     
     Panel-->>-Admin: "Server avviato sulla porta X"
-```
 
 ### Design Patterns
 
