@@ -17,9 +17,8 @@ import com.gruppo10.servizi_int.ProfiloServiceInt;
 import com.gruppo10.servizi_int.RecensioniServiceInt;
 import com.gruppo10.servizi_int.RistorantiServiceInt;
 
-
 /**
- * Si connette al registro RMI del server e tiene pronti i 5 stub remoti da
+ * Si connette al registro RMI del server e tiene pronti gli stub remoti da
  * passare ai controller della GUI.
  *
  * <p>
@@ -32,10 +31,10 @@ import com.gruppo10.servizi_int.RistorantiServiceInt;
 public class ClientContext {
 
     /** Nome host del server che pubblica i servizi RMI. */
-    private final String HOST = "theknife-server.local";
+    private final String HOST;
 
     /** Porta del registro RMI utilizzato dal server. */
-    private final int PORTA = 1099;
+    private final int PORTA;
 
     /** Servizio di autenticazione. */
     private AuthServiceInt authService;
@@ -51,7 +50,16 @@ public class ClientContext {
     private ProfiloServiceInt profiloService;
 
     /**
-     * Recupera dal registro RMI gli stub dei sei servizi remoti dell'applicazione.
+     * Inizializza HOST e PORTA leggendo le variabili di sistema passate al lancio,
+     * mantenendo i valori originali come default in caso non vengano specificate.
+     */
+    public ClientContext() {
+        this.HOST = System.getProperty("server.host", "theknife-server.local");
+        this.PORTA = Integer.getInteger("server.port", 1099);
+    }
+
+    /**
+     * Recupera dal registro RMI gli stub dei servizi remoti dell'applicazione.
      *
      * @throws RemoteException se il registro non è raggiungibile
      * @throws NotBoundException se un servizio non è pubblicato con il nome atteso
@@ -63,6 +71,9 @@ public class ClientContext {
         this.ristorantiService = (RistorantiServiceInt) registry.lookup("RistorantiService");
         this.recensioniService = (RecensioniServiceInt) registry.lookup("RecensioniService");
         this.preferitiService = (PreferitiServiceInt) registry.lookup("PreferitiService");
+        
+        // COMMENTATO TEMPORANEAMENTE: il server non sta ancora esponendo questo servizio (NotBoundException)
+        // this.profiloService = (ProfiloServiceInt) registry.lookup("ProfiloService");
     }
 
     /**
