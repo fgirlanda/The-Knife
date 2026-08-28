@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.gruppo10"},{"l":"com.gruppo10.classi"},{"l":"com.gruppo10.controller"},{"l":"com.gruppo10.database"},{"l":"com.gruppo10.eccezioni"},{"l":"com.gruppo10.gui_elements"},{"l":"com.gruppo10.permessi"},{"l":"com.gruppo10.servizi_imp"},{"l":"com.gruppo10.servizi_int"}];updateSearchResults();
