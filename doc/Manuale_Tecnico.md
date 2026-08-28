@@ -126,6 +126,8 @@ The Knife segue un'architettura **client-server multi-tier** divisa in tre compo
 - Struttura:
   ```
   common/
+  ├── README.md                
+  ├── pom.xml
   ├── src/main/java/com/gruppo10/
   │   ├── classi/              # Modelli comuni
   │   ├── servizi_int/         # Interfacce remote
