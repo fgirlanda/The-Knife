@@ -78,12 +78,18 @@ The Knife segue un'architettura **client-server multi-tier** divisa in tre compo
 - Struttura:
   ```
   client/
+  ├── README.md                
+  ├── pom.xml
+  ├── dependency-reduced-pom.xml
   ├── src/main/java/com/gruppo10/
-  │   ├── controller/          # Controller JavaFX
-  │   ├── model/               # Modelli locali
-  │   └── App.java             # Entry point
+  │   ├── controller/               # Controller JavaFX
+  │   ├── gui_elements/             # Utility grafica
+  │   ├── ClientContext.java/       # Contesto client
+  │   ├── ClientTK.java/            # Applicazione
+  │   └── ClientBoot.java           # Entry point
   └── src/main/resources/
-      └── GUI/                 # FXML (interfacce)
+      ├── images                    # Immagini GUI
+      └── GUI/                      # FXML (interfacce)
   ```
 
 #### 2. **Server Module** (`server/`)
@@ -95,14 +101,21 @@ The Knife segue un'architettura **client-server multi-tier** divisa in tre compo
 - Struttura:
   ```
   server/
+  ├── README.md                
+  ├── pom.xml
+  ├── dependency-reduced-pom.xml
   ├── src/main/java/com/gruppo10/
-  │   ├── service/             # Servizi remoti
-  │   ├── dao/                 # Data Access Objects
-  │   ├── model/               # Modelli di dominio
-  │   ├── exception/           # Eccezioni personalizzate
-  │   └── ServerApp.java       # Entry point
+  │   ├── servizi_imp/              # Servizi remoti
+  │   ├── database/                 # Data Access Objects
+  │   ├── controller/               # Controller JavaFX
+  │   ├── permessi/                 # Gestione permessi
+  │   ├── ServerBoot.java           # Entry point
+  │   ├── ServerContext.java        # Contesto server
+  │   ├── ServerPublisher.java      # Pubblicazione dei servizi
+  │   └── ServerTK.java             # Applicazione
   └── src/main/resources/
-      └── GUI/                 # Pannello amministrativo
+      ├── images                    # Immagini GUI
+      └── GUI/                      # Pannello amministrativo
   ```
 
 #### 3. **Common Module** (`common/`)
@@ -114,10 +127,9 @@ The Knife segue un'architettura **client-server multi-tier** divisa in tre compo
   ```
   common/
   ├── src/main/java/com/gruppo10/
-  │   ├── dto/                 # Data Transfer Objects
-  │   ├── model/               # Modelli comuni
-  │   ├── service/             # Interfacce remote
-  │   └── exception/           # Eccezioni comuni
+  │   ├── classi/              # Modelli comuni
+  │   ├── servizi_int/         # Interfacce remote
+  │   └── eccezioni/           # Eccezioni comuni
   ```
 
 ---
