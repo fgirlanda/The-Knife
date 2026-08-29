@@ -146,12 +146,14 @@ The-Knife/
 ├── client/                  # interfaccia grafica JavaFX
 ├── common/                  # modelli e classi condivise
 ├── server/                  # backend e servizi remoti
-├── data/                    # file CSV e log
-├── Documentazione/          # manuali e UML
-├── README.md                # documentazione principale
-├── TheKnife.sql             # script database
-├── pom.xml                  # build del progetto
+├── doc/                     # manuali e UML
+├── README.md                # panoramica del progetto
+├── TheKnife-pg.sql          # script database pgAdmin
+├── TheKnife-terminale.sql   # script database da zero
+├── pom.xml                  # build padre del progetto
 ├── launch_ex.json           # esempio configurazione avvio
+├── autori.txt               # autori del progetto
+├── bin/                     # file jar
 ├── LICENSE
 └── .gitignore
 ```
@@ -211,11 +213,9 @@ git checkout nome_branch
 
 ---
 
-## Documentazione e UML
+## doc e UML
 
-La cartella [Documentazione](Documentazione) contiene i documenti e i diagrammi del progetto.
-
-In particolare, la cartella [Documentazione/UML](Documentazione/UML) raccoglie i file di analisi e i diagrammi di sequenza dedicati all'avvio del server e al login.
+La cartella [doc](doc) contiene i documenti e i diagrammi del progetto.
 
 ### Diagrammi UML principali
 
@@ -317,9 +317,9 @@ sequenceDiagram
 
 Ulteriori riferimenti:
 
-- [Documentazione/UML/Sequence.md](Documentazione/UML/Sequence.md)
-- [Documentazione/UML/TK_Sequence_AvvioServer.mmd](Documentazione/UML/TK_Sequence_AvvioServer.mmd)
-- [Documentazione/UML/TK_Sequence_Login.mmd](Documentazione/UML/TK_Sequence_Login.mmd)
+- [doc/UML/Sequence.md](doc/UML/Sequence.md)
+- [doc/UML/TK_Sequence_AvvioServer.mmd](doc/UML/TK_Sequence_AvvioServer.mmd)
+- [doc/UML/TK_Sequence_Login.mmd](doc/UML/TK_Sequence_Login.mmd)
 
 ---
 
@@ -353,7 +353,7 @@ Ulteriori riferimenti:
 - Tasto-pagina aggiungi recensione (FATTO)
 - Card apribile (FATTO)
 - Card recensione (FATTO)
-- Documentazione
+- doc (FATTO)
 
 ### fgirlanda
 
@@ -416,43 +416,35 @@ Ulteriori riferimenti:
 - Pulizia grafica (FATTO)
 - Aggiungere controllo indirizzo (FATTO)
 
-### Ottimizzazioni
-
-- Calcolo media per un ristorante quando viene rimossa una recensione prevede .remove da Lista, che ha complessità O(n), si potrebbe usare un contatore(?)
-
 ---
 
 ## LAB-B
 
 ### TODO
 
-- interaction diagram
-- package diagram
 - ER diagram (FATTO)
-- class diagram
+- class diagram (FATTO)
 - implementare DB (FATTO)
-- creare GUI pannello admin
-- use-case
-- sequence
+- creare GUI pannello admin (FATTO)
+- sequence (FATTO)
 - ottimizzare gestione DB (FATTO)
 - organizzare cartelle client-server (FATTO)
 - fixare problemi dovuti a divisione in moduli separati (FATTO)
 - implementare avvio server (FATTO)
 - gestione permessi (FATTO)
 - standardizzare il codice (FATTO)
-- activity diagram
 - aggiustare istruzioni installazione (FATTO)
 - aggiungere istruzioni DB (FATTO)
 - distribuzione client/server/database su macchine diverse (FATTO)
-- aggiornamento GUI in risposta a eventi client
-- documentazione manuale utente e tecnico
+- aggiornamento GUI in risposta a eventi client (FATTO)
+- doc manuale utente e tecnico (FATTO)
 - javadoc (FATTO)
 
 ---
 
 ## Documentazione aggiuntiva
 
-- [Documentazione](Documentazione)
-- [Documentazione/UML](Documentazione/UML)
+- [doc](doc)
+- [doc/UML](doc/UML)
 - [TheKnife.sql](TheKnife.sql)
 - [launch_ex.json](launch_ex.json)

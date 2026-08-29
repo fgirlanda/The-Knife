@@ -36,4 +36,4 @@ mvn -f client/pom.xml javafx:run
 ## Documentazione correlata
 
 - [../README.md](../README.md)
-- [../Documentazione/UML/Sequence.md](../Documentazione/UML/Sequence.md)
+- [../doc/UML/Sequence.md](../doc/UML/Sequence.md)
